@@ -1,0 +1,102 @@
+[
+	{
+		"Id": 1,
+		"Users": [
+			{
+				"$id": "1",
+				"Achievements": [],
+				"CustomData": [],
+				"FileActivities": [],
+				"Files": [],
+				"Friends": [],
+				"Groups": [],
+				"Inventories": [],
+				"Platforms": [],
+				"Sessions": [],
+				"Username": "jack",
+				"Password": "123456",
+				"Email": null,
+				"ActivationCode": "00000000-0000-0000-0000-000000000000",
+				"IsEnabled": false,
+				"Type": 0,
+				"LastLoginIp": null,
+				"Id": "1AA00000-0000-0000-0000-00000000001A",
+				"UpdatedDate": "2016-01-04T09:07:19",
+				"CreatedDate": "2016-01-04T09:07:19"
+			},
+			{
+				"$id": "2",
+				"Achievements": [],
+				"CustomData": [],
+				"FileActivities": [],
+				"Files": [],
+				"Friends": [],
+				"Groups": [],
+				"Inventories": [],
+				"Platforms": [],
+				"Sessions": [],
+				"Username": "matt",
+				"Password": "123456",
+				"Email": null,
+				"ActivationCode": "00000000-0000-0000-0000-000000000000",
+				"IsEnabled": false,
+				"Type": 0,
+				"LastLoginIp": null,
+				"Id": "1BB00000-0000-0000-0000-00000000001B",
+				"UpdatedDate": "2016-01-04T09:07:19",
+				"CreatedDate": "2016-01-04T09:07:19"
+			}
+		],
+		"Finished": true
+	},
+	{
+		"Id": 2,
+		"Users": [
+			{
+				"$id": "3",
+				"Achievements": [],
+				"CustomData": [],
+				"FileActivities": [],
+				"Files": [],
+				"Friends": [],
+				"Groups": [],
+				"Inventories": [],
+				"Platforms": [],
+				"Sessions": [],
+				"Username": "mayur",
+				"Password": "123456",
+				"Email": null,
+				"ActivationCode": "00000000-0000-0000-0000-000000000000",
+				"IsEnabled": false,
+				"Type": 0,
+				"LastLoginIp": null,
+				"Id": "1CC00000-0000-0000-0000-00000000001C",
+				"UpdatedDate": "2016-01-04T09:07:19",
+				"CreatedDate": "2016-01-04T09:07:19"
+			},
+			{
+				"$id": "1",
+				"Achievements": [],
+				"CustomData": [],
+				"FileActivities": [],
+				"Files": [],
+				"Friends": [],
+				"Groups": [],
+				"Inventories": [],
+				"Platforms": [],
+				"Sessions": [],
+				"Username": "jack",
+				"Password": "123456",
+				"Email": null,
+				"ActivationCode": "00000000-0000-0000-0000-000000000000",
+				"IsEnabled": false,
+				"Type": 0,
+				"LastLoginIp": null,
+				"Id": "1AA00000-0000-0000-0000-00000000001A",
+				"UpdatedDate": "2016-01-04T09:07:19",
+				"CreatedDate": "2016-01-04T09:07:19"
+			}
+		],
+		"Finished": false
+	}
+]
