@@ -26,7 +26,6 @@ angular.module 'sgaAdminApp'
 				.then (res) ->
 					if res?.status is 200 and res.data?
 						$scope.items = res.data
-
 						if $routeParams.itemid?
 							$scope.items.forEach (i) ->
 								a = '' + i[$scope.config.display.individualId]
@@ -46,9 +45,12 @@ angular.module 'sgaAdminApp'
 		$scope.create = () ->
 			modalManager.open 'create',
 				itemtype: $scope.itemtype
+				
+		$scope.$on 'savedItem', (event, args) ->
+			$scope.init()
 	]
 
-	.controller 'EditModalCtrl', ['$scope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', ($scope, $uibModalInstance, Api, modalManager, modaldata) ->
+	.controller 'EditModalCtrl', ['$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', ($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) ->
 
 		$scope.itemtype = modaldata.itemtype
 		$scope.config = modaldata.config
@@ -75,8 +77,10 @@ angular.module 'sgaAdminApp'
 				itemid: id
 
 		$scope.save = () ->
-			Api[$scope.itemtype].update $scope.item.Id, $scope.item
-				.then () -> $uibModalInstance.close()
+			Api[$scope.itemtype].update $scope.item.id, $scope.item
+				.then () ->
+					$uibModalInstance.close()
+					$rootScope.$broadcast 'savedItem'
 
 		$scope.close = () ->
 			$scope.editables.forEach (e) -> $scope.item[e.key] = e.original
@@ -84,7 +88,7 @@ angular.module 'sgaAdminApp'
 
 	]
 
-	.controller 'CreateModalCtrl', ['$scope', '$uibModalInstance', 'Api', 'modaldata', ($scope, $uibModalInstance, Api, modaldata) ->
+	.controller 'CreateModalCtrl', ['$scope', '$rootScope', '$uibModalInstance', 'Api', 'modaldata', ($scope, $rootScope, $uibModalInstance, Api, modaldata) ->
 
 		$scope.itemtype = modaldata.itemtype
 		$scope.config = modaldata.config
@@ -96,14 +100,16 @@ angular.module 'sgaAdminApp'
 
 		$scope.save = () ->
 			Api[$scope.itemtype].create $scope.item
-				.then () -> $uibModalInstance.close()
+				.then () ->
+					$uibModalInstance.close()
+					$rootScope.$broadcast 'savedItem'
 
 		$scope.close = () ->
 			$uibModalInstance.close()
 
 	]
 
-	.controller 'ConfirmDeleteModalCtrl', ['$scope', '$uibModalInstance', 'Api', 'modaldata', ($scope, $uibModalInstance, Api, modaldata) ->
+	.controller 'ConfirmDeleteModalCtrl', ['$scope', '$rootScope', '$uibModalInstance', 'Api', 'modaldata', ($scope, $rootScope, $uibModalInstance, Api, modaldata) ->
 
 		$scope.itemtype = modaldata.itemtype
 		$scope.config = modaldata.config
@@ -116,8 +122,10 @@ angular.module 'sgaAdminApp'
 				.then (data) -> console.log data
 
 		$scope.delete = () ->
-			Api[$scope.itemtype].delete $scope.item.Id
-				.then () -> $uibModalInstance.close()
+			Api[$scope.itemtype].delete $scope.item.id
+				.then () ->
+					$uibModalInstance.close()
+					$rootScope.$broadcast 'savedItem'
 
 		$scope.close = () ->
 			$uibModalInstance.close()

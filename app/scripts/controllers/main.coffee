@@ -11,7 +11,7 @@ angular.module 'sgaAdminApp'
 	.controller 'MainCtrl', ['config', 'Auth', (config, Auth) ->
 
 
-		console.log 'setting'
+		# console.log 'setting'
 		# Auth.set config.tokens.session, 'jacktest'
 
 	]

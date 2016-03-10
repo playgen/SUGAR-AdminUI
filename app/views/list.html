@@ -53,6 +53,11 @@
 				<input type="checkbox" ng-model="item[editable.key]" ng-disabled="!config.enabled.edit || editable.viewonly" ng-if="editable.type == 'checkbox'">
 				<input type="password" class="form-control" ng-model="item[editable.key]" ng-disabled="!config.enabled.edit || editable.viewonly" ng-if="editable.type == 'password'">
 				<input type="email" class="form-control" ng-model="item[editable.key]" ng-disabled="!config.enabled.edit || editable.viewonly" ng-if="editable.type == 'email'">
+				<span ng-if="editable.type == 'dropdown'">
+					<select class="form-control input-lg" ng-model="item[editable.key]" name="{{editable.key}}">
+						<option ng-repeat="option in editable.values" value="{{option.id}}">{{option.name}}</option>
+					</select>
+				</span>
 				<span ng-if="editable.type == 'link'"><span class="text-info clickable" ng-click="link(editable.itemtype, editable.id(item))"><i class="fa fa-search"></i></span> {{editable.val(item)}}</span>
 			</div>
 		</div>
@@ -75,6 +80,11 @@
 				<input type="checkbox" ng-model="item[editable.key]" ng-disabled="editable.viewonly" ng-if="editable.type == 'checkbox'">
 				<input type="password" class="form-control" ng-model="item[editable.key]" ng-disabled="editable.viewonly" ng-if="editable.type == 'password'">
 				<input type="email" class="form-control" ng-model="item[editable.key]" ng-disabled="editable.viewonly" ng-if="editable.type == 'email'">
+				<span ng-if="editable.type == 'dropdown'">
+					<select class="form-control input-lg" ng-model="item[editable.key]" name="{{editable.key}}">
+						<option ng-repeat="option in editable.values" value="{{option.id}}">{{option.name}}</option>
+					</select>
+				</span>
 			</div>
 		</div>
 	</div>

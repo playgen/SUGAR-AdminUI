@@ -48,7 +48,7 @@ angular
 	]
 	.constant 'config',
 		api:
-			baseurl: 'https://localhost:44363'
+			baseurl: if window.location.protocol is "https:" then 'https://localhost:44363/api' else 'http://localhost:8063/api' 
 		headers:
 			session: "X-Http-Session"
 		tokens:

@@ -18,8 +18,8 @@ angular.module 'sgaAdminApp'
 			User.login $scope.user
 				.then (res) ->
 
-					if res?.status is 200 and res.data?.token?
-						Auth.set config.tokens.session, res.data.token
+					if res?.status is 201 and res.data?.id?
+						Auth.set config.tokens.session, res.data.id
 
 						returnPath = $location.search().return
 						if returnPath?

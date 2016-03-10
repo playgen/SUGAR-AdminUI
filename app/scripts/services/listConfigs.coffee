@@ -42,19 +42,22 @@ angular.module 'sgaAdminApp'
 				title: 'Users'
 				single: 'user'
 				plural: 'users'
-				individualTitle: (item) -> item.Username
-				individualId: 'Id'
+				individualTitle: (item) -> item.username
+				individualId: 'id'
 				icon: 'fa-users'
-			columns: [ { key: 'Username' } ]
+			columns: [
+				{ title: 'Username', key: 'username' }
+				{ title: 'Email', key: 'email' }
+			]
 			editables:
 				view: [
-						{ display: 'ID', key: 'Id', type: 'text', viewonly: true }
-						{ key: 'Username', type: 'text' }
-						{ key: 'Email', type: 'email' }
-						{ key: 'IsEnabled', display: 'Is Enabled?', type: 'checkbox' }
-						{ key: 'Type', type: 'text', viewonly: true }
-						{ key: 'UpdatedDate', type: 'text', viewonly: true }
-						{ key: 'CreatedDate', type: 'text', viewonly: true }
+						{ display: 'ID', key: 'id', type: 'text', viewonly: true }
+						{ display: 'Username', key: 'username', type: 'text' }
+						{ display: 'Email', key: 'email', type: 'email' }
+						{ display: 'Is Enabled?', key: 'isEnabled', type: 'checkbox' }
+						{ display: 'Type', key: 'type', type: 'text', viewonly: true }
+						{ display: 'UpdatedDate', key: 'updatedDate', type: 'text', viewonly: true }
+						{ display: 'CreatedDate', key: 'createdDate', type: 'text', viewonly: true }
 					]
 				create: [
 					{ key: 'Username', type: 'text' }
@@ -79,7 +82,7 @@ angular.module 'sgaAdminApp'
 				single: 'match'
 				plural: 'matches'
 				individualTitle: (item) -> "#{item.Users[0].Username} vs. #{item.Users[1].Username}"
-				individualId: 'Id'
+				individualId: 'id'
 				icon: 'fa-futbol-o'
 			columns: [
 				{ title: 'User - Home', val: ((item) -> item.Users[0].Username) }
@@ -106,4 +109,77 @@ angular.module 'sgaAdminApp'
 					{ display: 'Is finished?', key: 'Finished', type: 'checkbox' }
 				]
 
+		'activities':
+			enabled:
+				create: true, edit: true, delete: true
+			display:
+				listed: true
+				title: 'Activities'
+				single: 'activity'
+				plural: 'activities'
+				individualTitle: (item) -> item.name
+				individualId: 'id'
+				icon: 'fa-star-o'
+			columns: [
+				{ title: 'Name', key: 'name' }
+				{ title: 'Description', key: 'description' }
+				{ title: 'Image', key: 'image' }
+			]
+			editables:
+				view: [
+					{ display: 'Name', key: 'name', type: 'text' }
+					{ display: 'Description', key: 'description', type: 'text' }
+					{ display: 'Image', key: 'image', type: 'text' }
+					{ display: 'UpdatedDate', key: 'updatedDate', type: 'text', viewonly: true }
+					{ display: 'CreatedDate', key: 'createdDate', type: 'text', viewonly: true }
+				]
+				create: [
+					{ key: 'Name', type: 'text' }
+					{ key: 'Description', type: 'text' }
+					{ key: 'Image', type: 'text' }
+				]
+			defaultNew:
+				'name': ''
+				'description': ''
+				'image': ''
+
+		'goals':
+			enabled:
+				create: true, edit: true, delete: true
+			display:
+				listed: true
+				title: 'Goals'
+				single: 'goal'
+				plural: 'goals'
+				individualTitle: (item) -> item.Name
+				individualId: 'Id'
+				icon: 'fa-check'
+			columns: [
+				{ title: 'Description', key: 'description' }
+				{ title: 'Image', key: 'image' }
+			]
+			editables:
+				view: [
+					{ display: 'Description', key: 'description', type: 'text' }
+					{
+						display: 'Activity',
+						type: 'link',
+						itemtype: 'activities',
+						val: (item) -> item.activities[0].name,
+						id: (item) -> item.activities[0].id
+					}
+				]
+				create: [
+					{ display: 'Description', key: 'description', type: 'text' }
+					{ display: 'Activity', key: 'activity', type: 'dropdown' }
+				]
+			defaultNew:
+				'description': ''
+				'activity': ''
+
+			# columns: [
+			# 	{ title: 'User - Home', val: ((item) -> item.Users[0].Username) }
+			# 	{ title: 'User - Away', val: ((item) -> item.Users[1].Username) }
+			# 	{ title: 'Finished?', type: 'boolean', key: 'Finished' }
+			# ]
 	]

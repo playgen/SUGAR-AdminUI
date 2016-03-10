@@ -18,7 +18,6 @@ angular.module 'sgaAdminApp'
 				Object.keys(config.headers).forEach (id) ->
 					cookie = Auth.get config.tokens[id]
 					if cookie? then reqConfig.headers[config.headers[id]] = cookie     
-					console.log reqConfig.headers
 			reqConfig || $q.when reqConfig
 		'responseError': (rejection) ->
 			if rejection.config.url.search(config.api.baseurl) isnt -1
