@@ -97,6 +97,13 @@ angular.module 'sgaAdminApp'
 		Object.keys($scope.config.defaultNew).forEach (k) -> $scope.item[k] = $scope.config.defaultNew[k]
 
 		$scope.editables = $scope.config.editables.create
+		
+		for editable in $scope.editables
+			if editable.type == 'dropdown'
+				Api[editable.itemtype]?.dropdown()
+					.then (res) ->
+						if res?.status is 200 and res.data?
+							editable.values = res.data
 
 		$scope.save = () ->
 			Api[$scope.itemtype].create $scope.item

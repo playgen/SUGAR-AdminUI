@@ -174,12 +174,8 @@ angular.module 'sgaAdminApp'
 					{
 						display: 'Activity',
 						key: 'activity',
-						type: 'dropdown',
-						# TODO: Make values dynamic on API call
-						values: [
-							{ id: '1', name: 'Activity 1' }
-							{ id: '2', name: 'Activity 2' }
-						]
+						itemtype: 'activities',
+						type: 'dropdown'
 					}
 				]
 			defaultNew:

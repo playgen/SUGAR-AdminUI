@@ -30,6 +30,7 @@ angular.module 'sgaAdminApp'
 			create: (item) ->     $http.post config.api.baseurl + '/activities', item
 			update: (id, item) -> $http.put config.api.baseurl + "/activities/#{id}", item
 			delete: (id) ->       $http.delete config.api.baseurl + "/activities/#{id}"
+			dropdown: () ->		  $http.get config.api.baseurl + '/activities/dropdown'
 
 		'goals':
 			list: () ->           $http.get config.api.baseurl + '/goals'
