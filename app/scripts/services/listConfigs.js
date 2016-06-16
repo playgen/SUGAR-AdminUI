@@ -30,6 +30,10 @@ angular.module('sgaAdminApp').service('listConfigs', [
         },
         columns: [
           {
+            title: 'ID',
+            key: 'id' 
+          },
+          {
             title: 'Username',
             key: 'username'
           }, {
@@ -116,7 +120,7 @@ angular.module('sgaAdminApp').service('listConfigs', [
             single: 'friend',
             plural: 'friends',
             individualTitle: function(item) {
-              return item.Name;
+              return item.username;
             },
             individualId: 'Id',
             icon: 'fa-users'
@@ -146,7 +150,7 @@ angular.module('sgaAdminApp').service('listConfigs', [
             single: 'friend',
             plural: 'friends',
             individualTitle: function(item) {
-              return item.Name;
+              return item.username;
             },
             individualId: 'Id',
             icon: 'fa-users'

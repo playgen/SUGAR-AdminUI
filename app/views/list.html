@@ -133,7 +133,7 @@
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
-        <button class="btn btn-success" type="button" ng-click="add()"></i>Add</button>
+        <button class="btn btn-success" type="button" ng-click="add(item)"></i>Add</button>
 	</div>
 </script>
 
@@ -146,6 +146,7 @@
 			<tr class="listitem">
 				<th ng-repeat="col in config.friends.columns">{{col.title}}</th>
 				<th></th>
+                <th></th>
 			</tr>
             <tr class="listitem" ng-repeat="item in items | orderBy: 'username' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
                 <td class="clickable" ng-repeat="col in config.friends.columns" ng-click="(item)">
@@ -155,12 +156,15 @@
                         <i class="fa fa-times fa-lg text-danger" ng-if="!(item[col.key])"></i>
                     </span>
                 </td>
+                <td>
+                	<button class="btn btn-danger btn-sm" title="Delete this entry" ng-click="delete(item)" ng-if="config.enabled.delete"><i class="fa fa-trash-o"></i></button>
+                </td>
 		    </tr>
 		</table>
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
-        <button class="btn btn-success" type="button" ng-click="add()"></i>Add</button>
+        <button class="btn btn-success" type="button" ng-click="add(item)"></i>Add</button>
 	</div>
 </script>
 
@@ -193,7 +197,7 @@
 
 <script type="text/ng-template" id="addFriendModal.html">
     <div class="modal-header">
-        <h3 class="modal-title"><span>Add a new friend</span></h3>
+        <h3 class="modal-title"><span>Add a new friend for </span>{{config.display.individualTitle(item)}}</h3>
     </div>
     <div class="modal-body">        
         <class>Enter Player Name</class>
@@ -208,7 +212,7 @@
 
 <script type="text/ng-template" id="addMemberModal.html">
     <div class="modal-header">
-        <h3 class="modal-title"><span>Add a new member</span></h3>
+        <h3 class="modal-title"><span>Add a new member to </span>{{config.display.individualTitle(item)}}</h3>
     </div>
     <div class="modal-body">
         <class>Enter Player Name</class>
@@ -223,7 +227,7 @@
 
 <script type="text/ng-template" id="addGroupModal.html">
     <div class="modal-header">
-        <h3 class="modal-title"><span>Add to a new Group</span></h3>
+        <h3 class="modal-title"><span>Add </span>{{config.display.individualTitle(item)}}<span> to a new Group </span></h3>
     </div>
     <div class="modal-body">
         <class>Enter Group Name</class>
