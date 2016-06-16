@@ -13,11 +13,11 @@ var design = {
 	'POST /users/:id': 'getUser',
 	'DELETE /users/:id': 'getUser',
 
-	'GET /matches': 'listMatches',
-	'GET /matches/:id': 'getMatch',
-	'PUT /matches/:id': 'getMatch',
-	'POST /matches/:id': 'getMatch',
-	'DELETE /matches/:id': 'getMatch'
+	'GET /groups': 'listGroups',
+	'GET /groups/:id': 'getGroup',
+	'PUT /groups/:id': 'getGroup',
+	'POST /groups/:id': 'getGroup',
+	'DELETE /groups/:id': 'getGroup'
 }
 
 var logins = {
