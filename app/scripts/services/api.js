@@ -47,21 +47,24 @@ angular.module('sgaAdminApp').service('Api', [
       },
       'friends': {
         list: function() {
-          return $http.get(config.api.baseurl + '/alliances/all');
+          return $http.get(config.api.baseurl + "/players");
         },
+        // list: function(item) {
+        //   return $http.get(config.api.baseurl + "/players/" + item.id);  
+        // },
         get: function(id) {
-          return $http.get(config.api.baseurl + ("/alliances/" + id));
+          return $http.get(config.api.baseurl + ("/players/" + id));
         },
         update: function(id, item) {
-          return $http.put(config.api.baseurl + ("/alliances/" + id), item);
+          return $http.put(config.api.baseurl + ("/players/" + id), item);
         },
         "delete": function(id) {
-          return $http["delete"](config.api.baseurl + ("/alliances/" + id));
+          return $http["delete"](config.api.baseurl + ("/players/" + id));
         }
       },
       'playerGroups': {
         list: function() {
-          return $http.get(config.api.baseurl + '/alliances/all');
+          return $http.get(config.api.baseurl + '/players');
         },
         get: function(id) {
           return $http.get(config.api.baseurl + ("/alliances/" + id));
@@ -75,7 +78,7 @@ angular.module('sgaAdminApp').service('Api', [
       },
       'members': {
         list: function() {
-          return $http.get(config.api.baseurl + '/alliances/all');
+          return $http.get(config.api.baseurl + '/players');
         },
         get: function(id) {
           return $http.get(config.api.baseurl + ("/alliances/" + id));

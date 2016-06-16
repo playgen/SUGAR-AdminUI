@@ -159,38 +159,21 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
       return $uibModalInstance.close();
     };
   }
-]).controller('showAllianceModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
-    $scope.itemtype = modaldata.itemtype;
-    $scope.config = modaldata.config;
-    if (modaldata.item != null) {
-      $scope.item = modaldata.item;
-    } else if (modaldata.itemid != null) {
-      $scope.item = {};
-      Api[$scope.itemtype].get(modaldata.itemid).then(function(data) {
-        if ((data != null ? data.data : void 0) != null) {
-          return $scope.item = data.data;
-        }
-      });
-    }
-    return $scope.close = function() {
-      return $uibModalInstance.close();
-    };
-  }
 ]).controller('showMembersModalCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
-    if (modaldata.item != null) {
-      $scope.item = modaldata.item;
-    } else if (modaldata.itemid != null) {
-      $scope.item = {};
-      Api[$scope.itemtype].get(modaldata.itemid).then(function(data) {
-        if ((data != null ? data.data : void 0) != null) {
-          return $scope.item = data.data;
+    $scope.item = modaldata.item;
+
+    {
+        Api[/*$scope.itemtype*/'members'].list().then(function(res) {
+        if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
+          $scope.items = res.data;
         }
-      });
+       });
     }
+    
+    //our buttons
     $scope.close = function() {
       return $uibModalInstance.close();
     };
@@ -205,20 +188,21 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
-    if (modaldata.item != null) {
-      $scope.item = modaldata.item;
-    } else if (modaldata.itemid != null) {
-      $scope.item = {};
-      Api[$scope.itemtype].get(modaldata.itemid).then(function(data) {
-        if ((data != null ? data.data : void 0) != null) {
-          return $scope.item = data.data;
+    $scope.item = modaldata.item;
+
+    {
+        Api[$scope.itemtype].list().then(function(res) {
+        if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
+          $scope.items = res.data;
         }
-      });
+       });
     }
+    
+    //our buttons
     $scope.close = function() {
       return $uibModalInstance.close();
     };
-    return $scope.add = function(item) {
+    $scope.add = function(item) {
       return modalManager.open('addFriend', {
         itemtype: $scope.itemtype,
         item: item
@@ -229,16 +213,17 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
-    if (modaldata.item != null) {
-      $scope.item = modaldata.item;
-    } else if (modaldata.itemid != null) {
-      $scope.item = {};
-      Api[$scope.itemtype].get(modaldata.itemid).then(function(data) {
-        if ((data != null ? data.data : void 0) != null) {
-          return $scope.item = data.data;
+    $scope.item = modaldata.item;
+
+    {
+        Api[$scope.itemtype].list().then(function(res) {
+        if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
+          $scope.items = res.data;
         }
-      });
+       });
     }
+    
+    //our buttons
     $scope.close = function() {
       return $uibModalInstance.close();
     };
@@ -263,6 +248,8 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
         }
       });
     }
+    
+    //our buttons
     $scope.close = function(item) {         
         $scope.config.friends.ExistingPlayer.exists = true;
         return $uibModalInstance.close();
@@ -285,6 +272,8 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
         }
       });
     }
+    
+    //our buttons
     $scope.close = function(item) {
         $scope.config.playerGroups.ExistingGroup.exists = true;
         return $uibModalInstance.close();
@@ -308,6 +297,8 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
         }
       });
     }
+    
+    //our buttons
     $scope.close = function(item) {
         $scope.config.members.ExistingPlayer.exists = true;
         return $uibModalInstance.close();

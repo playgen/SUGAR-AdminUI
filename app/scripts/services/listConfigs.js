@@ -126,8 +126,8 @@ angular.module('sgaAdminApp').service('listConfigs', [
           },
           columns: [
             {
-              title: 'Name',
-              key: 'name'
+              title: 'Username',
+              key: 'username'
             }, {
               title: 'Date Added',
               key: 'createdDate'
@@ -156,8 +156,8 @@ angular.module('sgaAdminApp').service('listConfigs', [
           },
           columns: [
             {
-              title: 'Name',
-              key: 'name'
+              title: 'Username',
+              key: 'username'
             }, {
               title: 'Date Joined',
               key: 'createdDate'
@@ -256,7 +256,7 @@ angular.module('sgaAdminApp').service('listConfigs', [
           columns: [
             {
               title: 'Name',
-              key: 'name'
+              key: 'name    '
             }, {
               title: 'Date Joined',
               key: 'createdDate'
