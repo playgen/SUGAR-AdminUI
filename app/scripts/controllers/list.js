@@ -204,6 +204,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
       return $uibModalInstance.close();
     };
     $scope.add = function(item) {
+        $uibModalInstance.close();
       return modalManager.open('addFriend', {
         itemtype: $scope.itemtype,
         item: item
@@ -229,6 +230,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
       return $uibModalInstance.close();
     };
     $scope.add = function(item) {
+        $uibModalInstance.close();
         return modalManager.open('addGroup', {
         itemtype: $scope.itemtype,
         item: item
@@ -256,7 +258,20 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
         return $uibModalInstance.close();
     };
     return $scope.add = function(item) {
-         $scope.config.friends.ExistingPlayer.exists = false;
+         Api['users'].get($scope.txtBox)
+        
+        .then(function(res)
+        {
+            if (res.data[0]!=null)
+            {
+                //put the data backwards for testing as groups cannot request users join
+                var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + res.data[0].Id + ", Accepted: true }"
+                Api['friends'].create(friendship);
+                return $uibModalInstance.close();
+            }
+            else
+                $scope.config.members.ExistingPlayer.exists = false;
+        });
     };
   }
 ]).controller('addGroupModalCtrl', [
@@ -281,7 +296,20 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
     };
     
     $scope.add = function(item) {
-        $scope.config.playerGroups.ExistingGroup.exists = false;
+        Api['groups'].get($scope.txtBox)
+        
+        .then(function(res)
+        {
+            if (res.data[0]!=null)
+            {
+                //put the data backwards for testing as groups cannot request users join
+                var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + res.data[0].Id + ", Accepted: true }"
+                Api['members'].create(friendship);
+                return $uibModalInstance.close();
+            }
+            else
+                $scope.config.members.ExistingPlayer.exists = false;
+        });
     };
   }
 ]).controller('addMemberModalCtrl', [
@@ -311,8 +339,8 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
             if (res.data[0]!=null)
             {
                 //put the data backwards for testing as groups cannot request users join
-                var acceptor = "{ RequestorId: " + res.data[0].Id + ", AcceptorId: " + item.Id + ", Accepted: true }"
-                Api['members'].create(acceptor);
+                var friendship = "{ RequestorId: " + res.data[0].Id + ", AcceptorId: " + item.Id + ", Accepted: true }"
+                Api['members'].create(friendship);
                 return $uibModalInstance.close();
             }
             else

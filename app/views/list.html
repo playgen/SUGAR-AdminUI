@@ -156,8 +156,9 @@
                         <i class="fa fa-times fa-lg text-danger" ng-if="!(item[col.key])"></i>
                     </span>
                 </td>
-                <td>
-                	<button class="btn btn-danger btn-sm" title="Delete this entry" ng-click="delete(item)" ng-if="config.enabled.delete"><i class="fa fa-trash-o"></i></button>
+                <td>                    
+                    <button class="btn btn-success btn-sm" title="Accept" ng-click="accept(item)" ng-if="config.enabled.delete"><i class="fa fa-plus"></i></button>
+                	<button class="btn btn-danger btn-sm" title="Reject" ng-click="reject(item)" ng-if="config.enabled.delete"><i class="fa fa-trash-o"></i></button>
                 </td>
 		    </tr>
 		</table>

@@ -108,7 +108,7 @@ angular.module('sgaAdminApp').service('listConfigs', [
             single: 'friend',
             plural: 'friends',
             individualTitle: function(item) {
-              return item.username;
+              return item.Name;
             },
             individualId: 'Id',
             icon: 'fa-users'
@@ -119,10 +119,7 @@ angular.module('sgaAdminApp').service('listConfigs', [
           columns: [
             {
               title: 'Username',
-              key: 'username'
-            }, {
-              title: 'Date Added',
-              key: 'createdDate'
+              key: 'Name'
             }
           ]
         },
