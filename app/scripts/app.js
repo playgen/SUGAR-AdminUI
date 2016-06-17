@@ -40,7 +40,7 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
   }
 ]).constant('config', {
   api: {
-    baseurl: window.location.protocol === "https:" ? 'https://sga.playgen.com/api' : 'http://sga.playgen.com/api'
+    baseurl: window.location.protocol === "https:" ? 'https://localhost:62312/api' : 'http://localhost:62312/api'
   },
   headers: {
     session: "X-Http-Session"

@@ -13,97 +13,97 @@ angular.module('sgaAdminApp').service('Api', [
     return {
       'users': {
         list: function() {
-          return $http.get(config.api.baseurl + '/players');
+          return $http.get(config.api.baseurl + '/user/all');
         },
-        get: function(id) {
-          return $http.get(config.api.baseurl + ("/players/" + id));
+        get: function(username){
+            return $http.get(config.api.baseurl + '/user?name=' + username);
         },
         create: function(item) {
-          return $http.post(config.api.baseurl + '/players', item);
+          return $http.post(config.api.baseurl + '/user', item);
         },
         update: function(id, item) {
-          return $http.put(config.api.baseurl + ("/players/" + id), item);
+          return $http.put(config.api.baseurl + ("/user/" + id), item);
         },
         "delete": function(id) {
-          return $http["delete"](config.api.baseurl + ("/players/" + id));
+          return $http["delete"](config.api.baseurl + ("/user?id=" + id));
         }
       },
       'groups': {
         list: function() {
-          return $http.get(config.api.baseurl + '/groups');
+          return $http.get(config.api.baseurl + '/group/all');
         },
         get: function(id) {
-          return $http.get(config.api.baseurl + ("/groups/actor/" + id));
+          return $http.get(config.api.baseurl + ("/group?id=" + id));
         },
         create: function(item) {
-          return $http.post(config.api.baseurl + '/groups', item);
+          return $http.post(config.api.baseurl + '/group', item);
         },
         update: function(id, item) {
-          return $http.put(config.api.baseurl + ("/groups/" + id), item);
+          return $http.put(config.api.baseurl + ("/groups?id=" + id), item);
         },
         "delete": function(id) {
-          return $http["delete"](config.api.baseurl + ("/groups/" + id));
+          return $http["delete"](config.api.baseurl + ("/group?id=" + id));
         }
       },
       'achievements': {
           list: function(){
-              return $http.get(config.api.baseurl + '/achievements');
+              return $http.get(config.api.baseurl + '/userachievement');
           },
           create: function(item) {
-            return $http.post(config.api.baseurl + '/achievements', item);  
+            return $http.post(config.api.baseurl + '/userachievement', item);  
           }
       },
       'games':{
           list: function(){
-              return $http.get(config.api.baseurl + '/games')
+              return $http.get(config.api.baseurl + '/game/all')
           },
           create: function(item) {
-            return $http.post(config.api.baseurl + '/games', item);  
+            return $http.post(config.api.baseurl + '/game', item);  
           }
       },
       'friends': {
-        list: function() {
-          return $http.get(config.api.baseurl + "/players");
+        list: function(id) {
+          return $http.get(config.api.baseurl + "/userfriend/friends?userID=" + id);
         },
-        // list: function(item) {
-        //   return $http.get(config.api.baseurl + "/players/" + item.id);  
-        // },
         get: function(id) {
-          return $http.get(config.api.baseurl + ("/players/" + id));
+          return $http.get(config.api.baseurl + ("/userfriend/" + id));
         },
         update: function(id, item) {
-          return $http.put(config.api.baseurl + ("/players/" + id), item);
+          return $http.put(config.api.baseurl + ("/userfriend/" + id), item);
         },
         "delete": function(id) {
-          return $http["delete"](config.api.baseurl + ("/players/" + id));
+          return $http["delete"](config.api.baseurl + ("/userfriend/" + id));
         }
       },
       'playerGroups': {
         list: function() {
-          return $http.get(config.api.baseurl + '/players');
+          return $http.get(config.api.baseurl + '/userGroup');
         },
         get: function(id) {
-          return $http.get(config.api.baseurl + ("/alliances/" + id));
+          return $http.get(config.api.baseurl + ("/userGroup/" + id));
         },
         update: function(id, item) {
-          return $http.put(config.api.baseurl + ("/alliances/" + id), item);
+          return $http.put(config.api.baseurl + ("/userGroup/" + id), item);
         },
         "delete": function(id) {
-          return $http["delete"](config.api.baseurl + ("/alliances/" + id));
+          return $http["delete"](config.api.baseurl + ("/userGroup/" + id));
         }
       },
       'members': {
-        list: function() {
-          return $http.get(config.api.baseurl + '/players');
+        list: function(id) {
+          return $http.get(config.api.baseurl + '/groupmember/members?groupId=' + id);
         },
         get: function(id) {
-          return $http.get(config.api.baseurl + ("/alliances/" + id));
+          return $http.get(config.api.baseurl + ("/groupmember/" + id));
+        },
+        create: function(item){
+            return $http.post(config.api.baseurl + '/groupmember', item)
         },
         update: function(id, item) {
-          return $http.put(config.api.baseurl + ("/alliances/" + id), item);
+          return $http.put(config.api.baseurl + ("/groupmember/" + id), item);
         },
         "delete": function(id) {
-          return $http["delete"](config.api.baseurl + ("/alliances/" + id));
+          return $http["delete"](config.api.baseurl + ("/groupmember/" + id));
         }
       }
     };

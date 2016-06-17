@@ -201,7 +201,7 @@
     </div>
     <div class="modal-body">        
         <class>Enter Player Name</class>
-        <input type="text" class="form-control"/>
+        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox"/>
         <class="form-control" ng-if="!config.friends.ExistingPlayer.exists">Error: Player Not Found</class>
     </div>
     <div class="modal-footer">
@@ -216,7 +216,7 @@
     </div>
     <div class="modal-body">
         <class>Enter Player Name</class>
-        <input type="text" class="form-control"/>
+        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox"/>
         <class="form-control" ng-if="!config.members.ExistingPlayer.exists">Error: Player Not Found</class>
     </div>
     <div class="modal-footer">
@@ -231,7 +231,7 @@
     </div>
     <div class="modal-body">
         <class>Enter Group Name</class>
-        <input type="text" class="form-control"/>
+        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox"/>
         <class="form-control" ng-if="!config.playerGroups.ExistingGroup.exists">Error: Group Not Found</class>
     </div>
     <div class="modal-footer">

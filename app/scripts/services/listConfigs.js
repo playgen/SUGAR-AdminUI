@@ -23,43 +23,31 @@ angular.module('sgaAdminApp').service('listConfigs', [
           single: 'user',
           plural: 'users',
           individualTitle: function(item) {
-            return item.username;
+            return item.Name;
           },
-          individualId: 'id',
+          individualId: 'Id',
           icon: 'fa-users'
         },
         columns: [
           {
             title: 'ID',
-            key: 'id' 
+            key: 'Id' 
           },
           {
-            title: 'Username',
-            key: 'username'
-          }, {
-            title: 'Email',
-            key: 'email'
-          }, {
-            key: 'Friends',
-            type: 'friends'
-          }, {
-            key: 'Groups',
-            type: 'groups'
-          }, {
-            title: 'Date Created',
-            key: 'createdDate'
+            title: 'Name',
+            key: 'Name'
           }
         ],
         editables: {
           view: [
             {
               display: 'ID',
-              key: 'id',
+              key: 'Id',
               type: 'text',
               viewonly: true
             }, {
-              display: 'Username',
-              key: 'username',
+              display: 'Name',
+              key: 'Name',
               type: 'text'
             }, {
               display: 'Email',
@@ -189,7 +177,7 @@ angular.module('sgaAdminApp').service('listConfigs', [
         columns: [
           {
             title: 'Name',
-            key: 'name'
+            key: 'Name'
           }, {
             title: 'Members',
             key: 'members'
@@ -211,8 +199,8 @@ angular.module('sgaAdminApp').service('listConfigs', [
               val: function(item) {
                 return item.groups[0].name;
               },
-              id: function(item) {
-                return item.groups[0].id;
+              Id: function(item) {
+                return item.groups[0].Id;
               }
             }
           ],
@@ -227,10 +215,10 @@ angular.module('sgaAdminApp').service('listConfigs', [
               type: 'dropdown',
               values: [
                 {
-                  id: '1',
+                  Id: '1',
                   name: 'Group 1'
                 }, {
-                  id: '2',
+                  Id: '2',
                   name: 'Group 2'
                 }
               ]
@@ -259,11 +247,14 @@ angular.module('sgaAdminApp').service('listConfigs', [
           },
           columns: [
             {
-              title: 'Name',
-              key: 'name    '
-            }, {
-              title: 'Date Joined',
-              key: 'createdDate'
+              title: 'Player Name',
+              key: 'Name'
+            // }, {
+            //   title: 'Acceptor ID',
+            //   key: 'AcceptorId'
+            // }, {
+            //     title: 'Accepted',
+            //     key: 'Accepted'
             }
           ]
         }
@@ -282,7 +273,7 @@ angular.module('sgaAdminApp').service('listConfigs', [
           individualTitle: function(item) {
             return item.Name;
           },
-          individualId: 'id',
+          individualId: 'Id',
           icon: 'fa-users'
         },
         columns: [
@@ -340,7 +331,7 @@ angular.module('sgaAdminApp').service('listConfigs', [
           individualTitle: function(item) {
             return item.Name;
           },
-          individualId: 'id',
+          individualId: 'Id',
           icon: 'fa-users'
         },
         columns: [

@@ -106,7 +106,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
       });
     };
     $scope.save = function() {
-      return Api[$scope.itemtype].update($scope.item.id, $scope.item).then(function() {
+      return Api[$scope.itemtype].update($scope.item.Id, $scope.item).then(function() {
         $uibModalInstance.close();
         return $rootScope.$broadcast('savedItem');
       });
@@ -166,7 +166,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
     $scope.item = modaldata.item;
 
     {
-        Api[$scope.itemtype].list().then(function(res) {
+        Api['members'].list($scope.item.Id).then(function(res) {
         if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
           $scope.items = res.data;
         }
@@ -178,6 +178,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
       return $uibModalInstance.close();
     };
     return $scope.add = function(item) {
+        $uibModalInstance.close();
       return modalManager.open('addMember', {
         itemtype: $scope.itemtype,
         item: item
@@ -191,7 +192,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
     $scope.item = modaldata.item;
 
     {
-        Api[$scope.itemtype].list().then(function(res) {
+        Api['friends'].list($scope.item.Id).then(function(res) {
         if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
           $scope.items = res.data;
         }
@@ -216,7 +217,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
     $scope.item = modaldata.item;
 
     {
-        Api[$scope.itemtype].list().then(function(res) {
+        Api['groups'].list().then(function(res) {
         if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
           $scope.items = res.data;
         }
@@ -297,14 +298,26 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
         }
       });
     }
-    
     //our buttons
     $scope.close = function(item) {
         $scope.config.members.ExistingPlayer.exists = true;
         return $uibModalInstance.close();
     };
     return $scope.add = function(item) {
-        $scope.config.members.ExistingPlayer.exists = false;
+        Api['users'].get($scope.txtBox)
+        
+        .then(function(res)
+        {
+            if (res.data[0]!=null)
+            {
+                //put the data backwards for testing as groups cannot request users join
+                var acceptor = "{ RequestorId: " + res.data[0].Id + ", AcceptorId: " + item.Id + ", Accepted: true }"
+                Api['members'].create(acceptor);
+                return $uibModalInstance.close();
+            }
+            else
+                $scope.config.members.ExistingPlayer.exists = false;
+        });
     };
   }
 ]);
