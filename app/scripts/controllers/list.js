@@ -308,7 +308,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
                 return $uibModalInstance.close();
             }
             else
-                $scope.config.members.ExistingPlayer.exists = false;
+                $scope.config.playerGroups.ExistingGroup.exists = false;
         });
     };
   }
