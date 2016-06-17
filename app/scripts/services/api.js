@@ -45,6 +45,22 @@ angular.module('sgaAdminApp').service('Api', [
           return $http["delete"](config.api.baseurl + ("/groups/" + id));
         }
       },
+      'achievements': {
+          list: function(){
+              return $http.get(config.api.baseurl + '/achievements');
+          },
+          create: function(item) {
+            return $http.post(config.api.baseurl + '/achievements', item);  
+          }
+      },
+      'games':{
+          list: function(){
+              return $http.get(config.api.baseurl + '/games')
+          },
+          create: function(item) {
+            return $http.post(config.api.baseurl + '/games', item);  
+          }
+      },
       'friends': {
         list: function() {
           return $http.get(config.api.baseurl + "/players");

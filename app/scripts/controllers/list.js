@@ -166,7 +166,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
     $scope.item = modaldata.item;
 
     {
-        Api[/*$scope.itemtype*/'members'].list().then(function(res) {
+        Api[$scope.itemtype].list().then(function(res) {
         if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
           $scope.items = res.data;
         }

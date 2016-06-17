@@ -267,6 +267,119 @@ angular.module('sgaAdminApp').service('listConfigs', [
             }
           ]
         }
+      },
+      'achievements': {
+        enabled: {
+          create: true,
+          edit: true,
+          "delete": true
+        },
+        display: {
+          listed: true,
+          title: 'Achievements',
+          single: 'achievement',
+          plural: 'achievements',
+          individualTitle: function(item) {
+            return item.Name;
+          },
+          individualId: 'id',
+          icon: 'fa-users'
+        },
+        columns: [
+          {
+            title: 'Name',
+            key: 'name'
+          }, {
+            key: 'Reward',
+            type: 'reward'
+          }, {
+            title: 'Date Created',
+            key: 'createdDate'
+          }
+        ],
+        editables: {
+          view: [
+            {
+              display: 'Name',
+              key: 'name',
+              type: 'text'
+            }, {
+              display: 'UpdatedDate',
+              key: 'updatedDate',
+              type: 'text',
+              viewonly: true
+            }, {
+              display: 'CreatedDate',
+              key: 'createdDate',
+              type: 'text',
+              viewonly: true
+            }
+          ],
+          create: [
+            {
+              key: 'Name',
+              type: 'name'
+            }
+          ]
+        },
+        defaultNew: {
+          'Name': '',
+        }
+      },
+       'games': {
+        enabled: {
+          create: true,
+          edit: true,
+          "delete": true
+        },
+        display: {
+          listed: true,
+          title: 'Games',
+          single: 'game',
+          plural: 'games',
+          individualTitle: function(item) {
+            return item.Name;
+          },
+          individualId: 'id',
+          icon: 'fa-users'
+        },
+        columns: [
+          {
+            title: 'Name',
+            key: 'name'
+          }, {
+            title: 'Date Created',
+            key: 'createdDate'
+          }
+        ],
+        editables: {
+          view: [
+            {
+              display: 'Name',
+              key: 'name',
+              type: 'text'
+            }, {
+              display: 'UpdatedDate',
+              key: 'updatedDate',
+              type: 'text',
+              viewonly: true
+            }, {
+              display: 'CreatedDate',
+              key: 'createdDate',
+              type: 'text',
+              viewonly: true
+            }
+          ],
+          create: [
+            {
+              key: 'Name',
+              type: 'name'
+            }
+          ]
+        },
+        defaultNew: {
+          'Name': '',
+        }
       }
     };
   }
