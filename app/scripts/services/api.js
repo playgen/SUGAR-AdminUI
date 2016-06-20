@@ -63,7 +63,7 @@ angular.module('sgaAdminApp').service('Api', [
       },
       'friends': {
         list: function(id) {
-          return $http.get(config.api.baseurl + "/userfriend/requests?userId=" + id);
+          return $http.get(config.api.baseurl + "/userfriend/friends?userId=" + id);
         },
         get: function(id) {
           return $http.get(config.api.baseurl + ("/userfriend/" + id));
@@ -77,6 +77,14 @@ angular.module('sgaAdminApp').service('Api', [
         "delete": function(id) {
           return $http["delete"](config.api.baseurl + ("/userfriend/" + id));
         }
+      },
+      'friendRequests':{
+          list: function(id){
+           return $http.get(config.api.baseurl + "/userfriend/requests?userId=" + id);   
+          },
+          update: function(item){
+              return $http.put(config.api.baseurl + '/userfriend/request', item);
+          }
       },
       'playerGroups': {
         list: function() {

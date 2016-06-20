@@ -67,6 +67,12 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
         item: item
       });
     };
+    $scope.showFriendRequests = function(item) {
+      return modalManager.open('showFriendRequests', {
+          itemtype: $scope.itemtype,
+          item: item
+      });
+    };
     $scope.showGroups = function(item) {
       return modalManager.open('showGroups', {
         itemtype: $scope.itemtype,
@@ -150,7 +156,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
       });
     }
     $scope["delete"] = function() {
-      return Api[$scope.itemtype]["delete"]($scope.item.id).then(function() {
+      return Api[$scope.itemtype]["delete"]($scope.item.Id).then(function() {
         $uibModalInstance.close();
         return $rootScope.$broadcast('savedItem');
       });
@@ -211,6 +217,35 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
       });
     };
   }
+]).controller('showFriendRequestsModalCtrl', [
+  '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
+    $scope.itemtype = modaldata.itemtype;
+    $scope.config = modaldata.config;
+    $scope.item = modaldata.item;
+    
+    Api['friendRequests'].list($scope.item.Id).then(function(res) {
+        if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
+          $scope.items = res.data;
+        }
+    });
+    
+    //our buttons
+    $scope.close = function() {
+      return $uibModalInstance.close();
+    };
+    $scope.accept = function(item){
+        var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + $scope.item.Id + ", Accepted: true }"
+        Api["friendRequests"].update(friendship);
+        $uibModalInstance.close();
+    };
+    $scope.reject = function(item){
+        var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + $scope.item.Id + ", Accepted: false }"
+        Api["friendRequests"].update(friendship);
+        $uibModalInstance.close();
+    };
+    
+        
+  }
 ]).controller('showGroupsModalCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
     $scope.itemtype = modaldata.itemtype;
@@ -265,7 +300,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
             if (res.data[0]!=null)
             {
                 //put the data backwards for testing as groups cannot request users join
-                var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + res.data[0].Id + ", Accepted: true }"
+                var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + res.data[0].Id + " }"
                 Api['friends'].create(friendship);
                 return $uibModalInstance.close();
             }

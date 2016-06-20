@@ -36,6 +36,10 @@ angular.module('sgaAdminApp').service('modalManager', [
         temp: 'showFriendsModal.html',
         cont: 'showFriendsModalCtrl'
       },
+      'showFriendRequests': {
+          temp: 'showFriendRequestsModal.html',
+          cont: 'showFriendRequestsModalCtrl'
+      },
       'showGroups': {
         temp: 'showGroupsModal.html',
         cont: 'showGroupsModalCtrl'
