@@ -67,12 +67,6 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
         item: item
       });
     };
-    $scope.showFriendRequests = function(item) {
-      return modalManager.open('showFriendRequests', {
-          itemtype: $scope.itemtype,
-          item: item
-      });
-    };
     $scope.showGroups = function(item) {
       return modalManager.open('showGroups', {
         itemtype: $scope.itemtype,
@@ -203,23 +197,36 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
     $scope.config = modaldata.config;
     $scope.item = modaldata.item;
 
-    {
         Api['friends'].list($scope.item.Id).then(function(res) {
         if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
           $scope.items = res.data;
         }
        });
-    }
-    
+       Api['friendRequests'].list($scope.item.Id).then(function(res){
+       if (res != null && res.data[0] != null)
+       {
+           $scope.config.friends.requests.hasRequests = true;
+       } 
+       else
+       {
+           $scope.config.friends.requests.hasRequests = false;
+       }
+    });
     //our buttons
     $scope.close = function() {
       return $uibModalInstance.close();
     };
     $scope.add = function(item) {
-        $uibModalInstance.close();
       return modalManager.open('addFriend', {
         itemtype: $scope.itemtype,
         item: item
+      });
+    };
+        $scope.showFriendRequests = function(item) {
+            $uibModalInstance.close();
+      return modalManager.open('showFriendRequests', {
+          itemtype: $scope.itemtype,
+          item: item
       });
     };
   }
@@ -237,20 +244,32 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
     
     //our buttons
     $scope.close = function() {
-      return $uibModalInstance.close();
+      $uibModalInstance.close();
+      return modalManager.open('showFriends', {
+        itemtype: $scope.itemtype,
+        item: $scope.item
+      });
     };
     $scope.accept = function(item){
         var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + $scope.item.Id + ", Accepted: true }"
-        Api["friendRequests"].update(friendship);
-        $uibModalInstance.close();
+        Api["friendRequests"].update(friendship).then(function(res) {
+            $uibModalInstance.close();
+            return modalManager.open('showFriends', {
+            itemtype: $scope.itemtype,
+            item: $scope.item
+        });
+      });
     };
     $scope.reject = function(item){
         var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + $scope.item.Id + ", Accepted: false }"
-        Api["friendRequests"].update(friendship);
-        $uibModalInstance.close();
-    };
-    
-        
+        Api["friendRequests"].update(friendship).then(function(res) {
+            $uibModalInstance.close();
+            return modalManager.open('showFriends', {
+            itemtype: $scope.itemtype,
+            item: $scope.item
+        });
+      });
+    };   
   }
 ]).controller('showGroupsModalCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {

@@ -113,6 +113,9 @@ angular.module('sgaAdminApp').service('listConfigs', [
           ExistingPlayer: {
             exists: true
           },
+          requests:{
+              hasRequests: false
+          },
           columns: [
             {
               title: 'Username',
