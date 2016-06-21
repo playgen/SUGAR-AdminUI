@@ -22,7 +22,7 @@ angular.module('sgaAdminApp').service('Api', [
           return $http.post(config.api.baseurl + '/account', item);
         },
         update: function(id, item) {
-          return $http.put(config.api.baseurl + ("/user/" + id), item);
+          return $http.put(config.api.baseurl + ("/account/" + id), item);
         },
         "delete": function(id) {
           return $http["delete"](config.api.baseurl + ("/user?id=" + id));
