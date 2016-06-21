@@ -135,19 +135,10 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
     });
     $scope.editables = $scope.config.editables.create;
     $scope.save = function() {
-        //ensure that the user has filled all of the entries required
-        var isComplete = true;
-        angular.forEach($scope.item, function(item){
-            if (item == "")
-                isComplete = false;
+        return Api[$scope.itemtype].create($scope.item).then(function() {
+            $uibModalInstance.close();
+            return $rootScope.$broadcast('savedItem');
         });
-        if (isComplete)
-        {
-            return Api[$scope.itemtype].create($scope.item).then(function() {
-                $uibModalInstance.close();
-                return $rootScope.$broadcast('savedItem');
-            });
-        }
     };
     return $scope.close = function() {
       return $uibModalInstance.close();

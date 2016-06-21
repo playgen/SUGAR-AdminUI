@@ -18,7 +18,7 @@
 			<th ng-repeat="col in config.columns">{{col.title || col.key}}</th>
 			<th></th>
 		</tr>
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'username' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
 			<td>{{$index + ((pagination.currentPage - 1) * pagination.perPage) + 1}})</td>
 			<td class="clickable" ng-repeat="col in config.columns" ng-click="(item)">
 				<span ng-if="!col.type || col.type == 'text'">{{item[col.key] || col.val(item)}}</span>
@@ -49,16 +49,17 @@
 	<div class="modal-header">
 		<h3 class="modal-title"><span ng-if="config.enabled.edit">Edit</span><span  ng-if="!config.enabled.edit">View</span> {{config.display.individualTitle(item)}}</h3>
 	</div>
+    <form name="myForm">
 	<div class="modal-body">
 		<div class="row" ng-repeat="editable in editables">
 			<div class="col-xs-3"><label>{{editable.display || editable.key}}</label></div>
 			<div class="col-xs-9">
-				<input type="text" class="form-control" ng-model="item[editable.key]" ng-disabled="!config.enabled.edit || editable.viewonly" ng-if="editable.type == 'text'"/>
-				<input type="checkbox" ng-model="item[editable.key]" ng-disabled="!config.enabled.edit || editable.viewonly" ng-if="editable.type == 'checkbox'">
-				<input type="password" class="form-control" ng-model="item[editable.key]" ng-disabled="!config.enabled.edit || editable.viewonly" ng-if="editable.type == 'password'">
-				<input type="email" class="form-control" ng-model="item[editable.key]" ng-disabled="!config.enabled.edit || editable.viewonly" ng-if="editable.type == 'email'">
+				<input type="text" class="form-control" ng-model="item[editable.key]" ng-disabled="!config.enabled.edit || editable.viewonly" ng-if="editable.type == 'text'" required/>
+				<input type="checkbox" ng-model="item[editable.key]" ng-disabled="!config.enabled.edit || editable.viewonly" ng-if="editable.type == 'checkbox'" required>
+				<input type="password" class="form-control" ng-model="item[editable.key]" ng-disabled="!config.enabled.edit || editable.viewonly" ng-if="editable.type == 'password'" required>
+				<input type="email" class="form-control" ng-model="item[editable.key]" ng-disabled="!config.enabled.edit || editable.viewonly" ng-if="editable.type == 'email'" required>
 				<span ng-if="editable.type == 'dropdown'">
-					<select class="form-control input-lg" ng-model="item[editable.key]" name="{{editable.key}}">
+					<select class="form-control input-lg" ng-model="item[editable.key]" name="{{editable.key}}" required>
 						<option ng-repeat="option in editable.values" value="{{option.id}}">{{option.name}}</option>
 					</select>
 				</span>
@@ -66,13 +67,15 @@
 			</div>
 		</div>
 	</div>
+    </form>
 	<div class="modal-footer">
 		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
-		<button class="btn btn-success" type="button" ng-click="save()" ng-if="config.enabled.edit"><i class="fa fa-save"></i> Save</button>
+		<button class="btn btn-success" type="button" ng-click="save()" ng-if="config.enabled.edit"ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Save</button>
 	</div>
 </script>
 
 <script type="text/ng-template" id="createModal.html">
+  <form name="myForm">
 	<div class="modal-header">
 		<h3 class="modal-title">Create new {{config.display.single}}</h3>
 	</div>
@@ -80,12 +83,12 @@
 		<div class="row" ng-repeat="editable in editables">
 			<div class="col-xs-3"><label>{{editable.display || editable.key}}</label></div>
 			<div class="col-xs-9">
-				<input type="text" class="form-control" ng-model="item[editable.key]" ng-disabled="editable.viewonly" ng-if="editable.type == 'text'"/>
-				<input type="checkbox" ng-model="item[editable.key]" ng-disabled="editable.viewonly" ng-if="editable.type == 'checkbox'">
-				<input type="password" class="form-control" ng-model="item[editable.key]" ng-disabled="editable.viewonly" ng-if="editable.type == 'password'">
-				<input type="email" class="form-control" ng-model="item[editable.key]" ng-disabled="editable.viewonly" ng-if="editable.type == 'email'">
+				<input type="text" class="form-control" ng-model="item[editable.key]" ng-disabled="editable.viewonly" ng-if="editable.type == 'text'" required/>
+                <input type="checkbox" ng-model="item[editable.key]" ng-disabled="editable.viewonly" ng-if="editable.type == 'checkbox'" required>
+				<input type="password" class="form-control" ng-model="item[editable.key]" ng-disabled="editable.viewonly" ng-if="editable.type == 'password'" required>
+				<input type="email" class="form-control" ng-model="item[editable.key]" ng-disabled="editable.viewonly" ng-if="editable.type == 'email'" required>
 				<span ng-if="editable.type == 'dropdown'">
-					<select class="form-control input-lg" ng-model="item[editable.key]" name="{{editable.key}}">
+					<select class="form-control input-lg" ng-model="item[editable.key]" name="{{editable.key}}" required>
 						<option ng-repeat="option in editable.values" value="{{option.id}}">{{option.name}}</option>
 					</select>
 				</span>
@@ -94,8 +97,9 @@
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
-		<button class="btn btn-success" type="button" ng-click="save()"><i class="fa fa-save"></i> Save</button>
+		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Save</button>
 	</div>
+  </form>
 </script>
 
 <script type="text/ng-template" id="confirmDeleteModal.html">
@@ -121,7 +125,7 @@
 				<th ng-repeat="col in config.members.columns">{{col.title || col.key}}</th>
 				<th></th>
 			</tr>
-            <tr class="listitem" ng-repeat="item in items | orderBy: 'username' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+            <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
                 <td class="clickable" ng-repeat="col in config.members.columns" ng-click="(item)">
                     <span ng-if="!col.type || col.type == 'text'">{{item[col.key]}}</span>
                     <span ng-if="col.type == 'boolean'">
@@ -149,7 +153,7 @@
 				<th></th>
                 <th></th>
 			</tr>
-            <tr class="listitem" ng-repeat="item in items | orderBy: 'username' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+            <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
                 <td class="clickable" ng-repeat="col in config.friends.columns" ng-click="(item)">
                     <span ng-if="!col.type || col.type == 'text'">{{item[col.key]}}</span>
                     <span ng-if="col.type == 'boolean'">
@@ -179,7 +183,7 @@
 				<th></th>
                 <th></th>
 			</tr>
-            <tr class="listitem" ng-repeat="item in items | orderBy: 'username' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+            <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
                 <td class="clickable" ng-repeat="col in config.friends.columns" ng-click="(item)">
                     <span ng-if="!col.type || col.type == 'text'">{{item[col.key]}}</span>
                     <span ng-if="col.type == 'boolean'">
@@ -208,7 +212,7 @@
 				<th ng-repeat="col in config.playerGroups.columns">{{col.title || col.key}}</th>
 				<th></th>
 			</tr>
-            <tr class="listitem" ng-repeat="item in items | orderBy: 'username' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+            <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
                 <td class="clickable" ng-repeat="col in config.playerGroups.columns" ng-click="(item)">
                     <span ng-if="!col.type || col.type == 'text'">{{item[col.key]}}</span>
                     <span ng-if="col.type == 'boolean'">
@@ -258,12 +262,14 @@
     </div>
     <div class="modal-body">        
         <class>Enter Player Name</class>
-        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox"/>
+        <form name="myForm">
+        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" required/>
+        </form>
         <class="form-control" ng-if="!config.friends.ExistingPlayer.exists">Error: Player Not Found</class>
     </div>
     <div class="modal-footer">
         		<button class="btn btn-danger pull-left" type="button" ng-click="close(item)"><i class="fa fa-times"></i> Cancel</button> 
-                <button class="btn btn-success" type="button" ng-click="add(item)"></i> Add</button>        
+                <button class="btn btn-success" type="button" ng-click="add(item)"ng-disabled="myForm.$invalid"></i> Add</button>        
     </div>>
 </script>
 
@@ -273,12 +279,14 @@
     </div>
     <div class="modal-body">
         <class>Enter Player Name</class>
-        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox"/>
+        <form name="myForm">
+        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" required/>
+        </form>
         <class="form-control" ng-if="!config.members.ExistingPlayer.exists">Error: Player Not Found</class>
     </div>
     <div class="modal-footer">
         		<button class="btn btn-danger pull-left" type="button" ng-click="close(item)"><i class="fa fa-times"></i> Cancel</button>  
-                <button class="btn btn-success" type="button" ng-click="add(item)">Add</button>      
+                <button class="btn btn-success" type="button" ng-click="add(item)"ng-disabled="myForm.$invalid">Add</button>      
     </div>>
 </script>
 
@@ -286,14 +294,16 @@
     <div class="modal-header">
         <h3 class="modal-title"><span>Add </span>{{config.display.individualTitle(item)}}<span> to a new Group </span></h3>
     </div>
-    <div class="modal-body">
-        <class>Enter Group Name</class>
-        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox"/>
-        <class="form-control" ng-if="!config.playerGroups.ExistingGroup.exists">Error: Group Not Found</class>
-    </div>
+    <form name="myForm">
+        <div class="modal-body">
+            <class>Enter Group Name</class>
+            <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" required/>
+            <class="form-control" ng-if="!config.playerGroups.ExistingGroup.exists">Error: Group Not Found</class>
+        </div>
+    </form>
     <div class="modal-footer">
         		<button class="btn btn-danger pull-left" type="button" ng-click="close(item)"><i class="fa fa-times"></i> Cancel</button>   
-                <button class="btn btn-success" type="button" ng-click="add(item)">Add</button>           
+                <button class="btn btn-success" type="button" ng-click="add(item)" ng-disabled="myForm.$invalid">Add</button>           
     </div>>
 </script>
 
@@ -301,6 +311,7 @@
     <div class="modal-header">
         <h3 class="modal-title"><span>Add Achievement to </span>{{config.display.individualTitle(item)}}<span>:</span></h3>
     </div>
+    <form name="myForm">
     <div class="modal-body">    
         <h4>Achievement Name</h4>
         <input type="text" class="form-control" ng-model="achievementName"/>
@@ -308,12 +319,12 @@
         <div class="row" ng-repeat="editable in config.achievements.editables.create" ng-if="!$first">
 			<div class="col-xs-3"><label>{{editable.Description}}</label></div>
 			<div class="col-xs-9">
-				<input type="text" class="form-control" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'text'"/>
-				<input type="checkbox" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'checkbox'">
-				<input type="password" class="form-control" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'password'">
-				<input type="email" class="form-control" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'email'">
+				<input type="text" class="form-control" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'text'"  required/>
+				<input type="checkbox" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'checkbox'" required>
+				<input type="password" class="form-control" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'password'" required>
+				<input type="email" class="form-control" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'email'" required>
 				<span ng-if="editable.type == 'dropdown'">
-					<select class="form-control input-lg" ng-model="item[editable.Description]" name="{{editable.Description}}">
+					<select class="form-control input-lg" ng-model="item[editable.Description]" name="{{editable.Description}}" required>
 						<option ng-repeat="option in editable.values" value="{{option.id}}">{{option.Name}}</option>
 					</select>
 				</span>
@@ -321,8 +332,9 @@
 		</div>
             
     </div>
+    </form>
     <div class="modal-footer">
         		<button class="btn btn-danger pull-left" type="button" ng-click="close(item)"><i class="fa fa-times"></i> Cancel</button>   
-                <button class="btn btn-success" type="button" ng-click="add(item)">Add</button>           
+                <button class="btn btn-success" type="button" ng-click="add(item)" ng-disabled="myForm.$invalid">Add</button>           
     </div>>
 </script>
