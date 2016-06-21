@@ -30,10 +30,11 @@
 			<td>
 				<button class="btn btn-primary btn-sm" title="Edit this item" ng-click="select(item)" ng-if="config.enabled.edit"><i class="fa fa-pencil"></i></button>
 				<button class="btn btn-primary btn-sm" title="View this item" ng-click="select(item)" ng-if="!config.enabled.edit"><i class="fa fa-eye"></i></button>
-				<button class="btn btn-primary btn-sm" title="Show Members For Group" ng-click="showMembers(item)" ng-if="config.display.title=='Groups'"><i class="fa fa-eye"></i></button>
-				<button class="btn btn-primary btn-sm" title="Show Friends For User" ng-click="showFriends(item)" ng-if="config.display.title=='Users'"><i class="fa fa-eye"></i></button>
-                <button class="btn btn-primary btn-sm" title="Show Friend Requests For User" ng-click="showFriendRequests(item)" ng-if="config.display.title=='Users'"><i class="fa fa-eye"></i></button>
-				<button class="btn btn-primary btn-sm" title="Show Groups For User" ng-click="showGroups(item)" ng-if="config.display.title=='Users'"><i class="fa fa-eye"></i></button>
+				<button class="btn btn-primary btn-sm" title="Show Members For Group" ng-click="showMembers(item)" ng-if="config.display.title=='Groups'"><i class="fa fa-eye"> Members</i></button>
+				<button class="btn btn-primary btn-sm" title="Show Friends For User" ng-click="showFriends(item)" ng-if="config.display.title=='Accounts'"><i class="fa fa-eye"> Friends</i></button>
+                <button class="btn btn-primary btn-sm" title="Show Friend Requests For User" ng-click="showFriendRequests(item)" ng-if="config.display.title=='Accounts'"><i class="fa fa-eye"> Friend Requests</i></button>
+				<button class="btn btn-primary btn-sm" title="Show Groups For User" ng-click="showGroups(item)" ng-if="config.display.title=='Accounts'"><i class="fa fa-eye"> Groups</i></button>
+                <button class="btn btn-primary btn-sm" title="Show Achievements For Gamer" ng-click="showAchievements(item)" ng-if="config.display.title=='Games'"><i class="fa fa-eye"> Achievements</i></button>
 				<button class="btn btn-danger btn-sm" title="Delete this entry" ng-click="delete(item)" ng-if="config.enabled.delete"><i class="fa fa-trash-o"></i></button>
             </td>
 		</tr>
@@ -187,8 +188,8 @@
                     </span>
                 </td>
                 <td>                    
-                    <button class="btn btn-success btn-sm" title="Accept" ng-click="accept(item)" ng-if="config.enabled.delete"><i class="fa fa-plus"></i></button>
-                	<button class="btn btn-danger btn-sm" title="Reject" ng-click="reject(item)" ng-if="config.enabled.delete"><i class="fa fa-trash-o"></i></button>      
+                    <button class="btn btn-success btn-sm" title="Accept" ng-click="accept(item)" ng-if="config.enabled.delete"><i class="fa fa-plus"> Accept</i></button>
+                	<button class="btn btn-danger btn-sm" title="Reject" ng-click="reject(item)" ng-if="config.enabled.delete"><i class="fa fa-trash-o"> Reject</i></button>      
 		    </tr>
 		</table>
 	</div>
@@ -209,6 +210,33 @@
 			</tr>
             <tr class="listitem" ng-repeat="item in items | orderBy: 'username' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
                 <td class="clickable" ng-repeat="col in config.playerGroups.columns" ng-click="(item)">
+                    <span ng-if="!col.type || col.type == 'text'">{{item[col.key]}}</span>
+                    <span ng-if="col.type == 'boolean'">
+                        <i class="fa fa-check fa-lg text-success" ng-if="(item[col.key])"></i>
+                        <i class="fa fa-times fa-lg text-danger" ng-if="!(item[col.key])"></i>
+                    </span>
+                </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>        
+        <button class="btn btn-success" type="button" ng-click="add(item)"></i>Add</button>
+	</div>
+</script>
+
+<script type="text/ng-template" id="showAchievementsModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title"><span>Achievements in </span>{{config.display.individualTitle(item)}}<span>:</span></h3>
+	</div>
+	<div class="modal-body">
+		<table class="table table-bordered">
+			<tr class="listitem">
+				<th ng-repeat="col in config.achievements.columns">{{col.title || col.key}}</th>
+				<th></th>
+			</tr>
+            <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+                <td class="clickable" ng-repeat="col in config.achievements.columns" ng-click="(item)">
                     <span ng-if="!col.type || col.type == 'text'">{{item[col.key]}}</span>
                     <span ng-if="col.type == 'boolean'">
                         <i class="fa fa-check fa-lg text-success" ng-if="(item[col.key])"></i>
@@ -262,6 +290,36 @@
         <class>Enter Group Name</class>
         <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox"/>
         <class="form-control" ng-if="!config.playerGroups.ExistingGroup.exists">Error: Group Not Found</class>
+    </div>
+    <div class="modal-footer">
+        		<button class="btn btn-danger pull-left" type="button" ng-click="close(item)"><i class="fa fa-times"></i> Cancel</button>   
+                <button class="btn btn-success" type="button" ng-click="add(item)">Add</button>           
+    </div>>
+</script>
+
+<script type="text/ng-template" id="addAchievementModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title"><span>Add Achievement to </span>{{config.display.individualTitle(item)}}<span>:</span></h3>
+    </div>
+    <div class="modal-body">    
+        <h4>Achievement Name</h4>
+        <input type="text" class="form-control" ng-model="achievementName"/>
+        <h4>Add Criteria</h4> 
+        <div class="row" ng-repeat="editable in config.achievements.editables.create" ng-if="!$first">
+			<div class="col-xs-3"><label>{{editable.Description}}</label></div>
+			<div class="col-xs-9">
+				<input type="text" class="form-control" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'text'"/>
+				<input type="checkbox" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'checkbox'">
+				<input type="password" class="form-control" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'password'">
+				<input type="email" class="form-control" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'email'">
+				<span ng-if="editable.type == 'dropdown'">
+					<select class="form-control input-lg" ng-model="item[editable.Description]" name="{{editable.Description}}">
+						<option ng-repeat="option in editable.values" value="{{option.id}}">{{option.Name}}</option>
+					</select>
+				</span>
+			</div>
+		</div>
+            
     </div>
     <div class="modal-footer">
         		<button class="btn btn-danger pull-left" type="button" ng-click="close(item)"><i class="fa fa-times"></i> Cancel</button>   

@@ -44,6 +44,10 @@ angular.module('sgaAdminApp').service('modalManager', [
         temp: 'showGroupsModal.html',
         cont: 'showGroupsModalCtrl'
       },
+      'showAchievements': {
+        temp: 'showAchievementsModal.html',
+        cont: 'showAchievementsModalCtrl'
+      },
       'addFriend': {
         temp: 'addFriendModal.html',
         cont: 'addFriendModalCtrl'
@@ -55,6 +59,10 @@ angular.module('sgaAdminApp').service('modalManager', [
       'addGroup': {
         temp: 'addGroupModal.html',
         cont: 'addGroupModalCtrl'
+      },
+      'addAchievement': {
+          temp: 'addAchievementModal.html',
+          cont: 'addAchievementModalCtrl'
       }
     };
     modalManager = {

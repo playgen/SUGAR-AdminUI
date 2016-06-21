@@ -11,7 +11,7 @@
 angular.module('sgaAdminApp').service('listConfigs', [
   '$http', 'config', function($http, config) {
     return {
-      'users': {
+      'accounts': {
         enabled: {
           create: true,
           edit: true,
@@ -19,9 +19,9 @@ angular.module('sgaAdminApp').service('listConfigs', [
         },
         display: {
           listed: true,
-          title: 'Users',
-          single: 'user',
-          plural: 'users',
+          title: 'Accounts',
+          single: 'account',
+          plural: 'accounts',
           individualTitle: function(item) {
             return item.Name;
           },
@@ -76,14 +76,11 @@ angular.module('sgaAdminApp').service('listConfigs', [
           ],
           create: [
             {
-              key: 'Username',
+              key: 'Name',
               type: 'text'
             }, {
               key: 'Password',
               type: 'password'
-            }, {
-              key: 'Email',
-              type: 'email'
             }
           ]
         },
@@ -178,9 +175,6 @@ angular.module('sgaAdminApp').service('listConfigs', [
           }, {
             title: 'Members',
             key: 'members'
-          }, {
-            title: 'Date Created',
-            key: 'createdDate'
           }
         ],
         editables: {
@@ -189,38 +183,18 @@ angular.module('sgaAdminApp').service('listConfigs', [
               display: 'Description',
               key: 'description',
               type: 'text'
-            }, {
-              display: 'Groups',
-              type: 'link',
-              itemtype: 'groups',
-              val: function(item) {
-                return item.groups[0].name;
-              },
-              Id: function(item) {
-                return item.groups[0].Id;
-              }
             }
           ],
           create: [
             {
-              display: 'Description',
-              key: 'description',
+              display: 'Name',
+              key: 'Name',
               type: 'text'
-            }, {
-              display: 'Group',
-              key: 'group',
-              type: 'dropdown',
-              values: [
-                {
-                  Id: '1',
-                  name: 'Group 1'
-                }, {
-                  Id: '2',
-                  name: 'Group 2'
-                }
-              ]
             }
           ]
+        },
+         defaultNew: {
+          'Name': ''
         },
         members: {
           enabled: {
@@ -256,64 +230,6 @@ angular.module('sgaAdminApp').service('listConfigs', [
           ]
         }
       },
-      'achievements': {
-        enabled: {
-          create: true,
-          edit: true,
-          "delete": true
-        },
-        display: {
-          listed: true,
-          title: 'Achievements',
-          single: 'achievement',
-          plural: 'achievements',
-          individualTitle: function(item) {
-            return item.Name;
-          },
-          individualId: 'Id',
-          icon: 'fa-users'
-        },
-        columns: [
-          {
-            title: 'Name',
-            key: 'name'
-          }, {
-            key: 'Reward',
-            type: 'reward'
-          }, {
-            title: 'Date Created',
-            key: 'createdDate'
-          }
-        ],
-        editables: {
-          view: [
-            {
-              display: 'Name',
-              key: 'name',
-              type: 'text'
-            }, {
-              display: 'UpdatedDate',
-              key: 'updatedDate',
-              type: 'text',
-              viewonly: true
-            }, {
-              display: 'CreatedDate',
-              key: 'createdDate',
-              type: 'text',
-              viewonly: true
-            }
-          ],
-          create: [
-            {
-              key: 'Name',
-              type: 'name'
-            }
-          ]
-        },
-        defaultNew: {
-          'Name': '',
-        }
-      },
        'games': {
         enabled: {
           create: true,
@@ -334,39 +250,155 @@ angular.module('sgaAdminApp').service('listConfigs', [
         columns: [
           {
             title: 'Name',
-            key: 'name'
-          }, {
-            title: 'Date Created',
-            key: 'createdDate'
+            key: 'Name'
           }
         ],
         editables: {
           view: [
             {
               display: 'Name',
-              key: 'name',
+              key: 'Name',
               type: 'text'
-            }, {
-              display: 'UpdatedDate',
-              key: 'updatedDate',
-              type: 'text',
-              viewonly: true
-            }, {
-              display: 'CreatedDate',
-              key: 'createdDate',
-              type: 'text',
-              viewonly: true
             }
           ],
           create: [
             {
               key: 'Name',
-              type: 'name'
+              type: 'text'
             }
           ]
         },
         defaultNew: {
           'Name': '',
+        },
+          achievements: {
+          enabled: {
+            create: true,
+            edit: true,
+            "delete": true
+          },
+            display: {
+              listed: true,
+              title: 'Achievements',
+              single: 'achievement',
+              plural: 'achievements',
+              individualTitle: function(item) {
+                return item.Name;
+              },
+              individualId: 'Id',
+              icon: 'fa-users'
+           },
+           columns: [
+           {
+              title: 'Achievement Name',
+              key: 'Name'
+           }, {
+               title: 'Key',
+              key: 'Key'
+            }, {
+                title: 'Data Type',
+              key: 'DataType'
+            }, {
+                title: 'Comparison Type',
+              key: 'ComparisonType'
+            }, {
+                title: 'Value',
+              key: 'Value'
+           }
+           ],
+           editables: {
+           view: [
+           {
+                display: 'Name',
+                key: 'Name',
+                type: 'text'
+           }, {
+                display: 'UpdatedDate',
+                key: 'updatedDate',
+                type: 'text',
+                viewonly: true
+           }, {
+                display: 'CreatedDate',
+                key: 'createdDate',
+                type: 'text',
+                viewonly: true
+                }
+            ],
+            create: [
+              {
+                Description: 'Achievement Name',
+                key: 'Name',
+                type: 'text'
+              }, {
+                  Description: 'Key',
+                  key: 'Key',
+                  type: 'text'
+              }, {
+                  Description: 'DataType',
+                  key: 'DataType',
+                  type: 'dropdown',
+                  values: [
+                      {
+                          id: '1',
+                          Name: 'String'
+                      },
+                      {
+                          id: '2',
+                          Name: 'Long'
+                      },
+                      {
+                          id: '3',
+                          Name: 'Float'
+                      },
+                      {
+                          id: '4',
+                          Name: 'Boolean'
+                      }
+                  ]
+                }, {
+                    Description: 'ComparisonType',
+                  key: 'ComparisonType',
+                  type: 'dropdown',
+                  values: [
+                      {
+                          id: '1',
+                          Name: 'Equals'
+                      },
+                      {
+                          id: '2',
+                          Name: 'NotEqual'
+                      },
+                      {
+                          id: '3',
+                          Name: 'Greater'
+                      },
+                      {
+                          id: '4',
+                          Name: 'GreaterOrEqual'
+                      },
+                      {
+                          id: '5',
+                          Name: 'Less'
+                      },
+                      {
+                          id: '6',
+                          Name: 'LessOrEqual'
+                      }
+                  ]
+                }, {
+                    Description: 'Value',
+                  key: 'Value',
+                  type: 'text'
+                }
+            ]
+            },
+            defaultNew: {
+              'Name': '',
+              'Key': '',
+              'DataType': 'float',
+              'ComparisonType': 'GreaterOrEqual',
+              'Value': '10'
+            }
         }
       }
     };

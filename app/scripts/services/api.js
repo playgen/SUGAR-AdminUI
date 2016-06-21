@@ -11,7 +11,7 @@
 angular.module('sgaAdminApp').service('Api', [
   '$http', 'config', function($http, config) {
     return {
-      'users': {
+      'accounts': {
         list: function() {
           return $http.get(config.api.baseurl + '/user/all');
         },
@@ -19,7 +19,7 @@ angular.module('sgaAdminApp').service('Api', [
             return $http.get(config.api.baseurl + '/user?name=' + username);
         },
         create: function(item) {
-          return $http.post(config.api.baseurl + '/user', item);
+          return $http.post(config.api.baseurl + '/account', item);
         },
         update: function(id, item) {
           return $http.put(config.api.baseurl + ("/user/" + id), item);
@@ -46,11 +46,11 @@ angular.module('sgaAdminApp').service('Api', [
         }
       },
       'achievements': {
-          list: function(){
-              return $http.get(config.api.baseurl + '/userachievement');
+          list: function(id){
+              return $http.get(config.api.baseurl + '/groupachievement?gameId=' + id);
           },
           create: function(item) {
-            return $http.post(config.api.baseurl + '/userachievement', item);  
+            return $http.post(config.api.baseurl + '/groupachievement', item);  
           }
       },
       'games':{
