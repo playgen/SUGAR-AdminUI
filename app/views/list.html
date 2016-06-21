@@ -31,8 +31,8 @@
 				<button class="btn btn-primary btn-sm" title="Edit this item" ng-click="select(item)" ng-if="config.enabled.edit"><i class="fa fa-pencil"></i></button>
 				<button class="btn btn-primary btn-sm" title="View this item" ng-click="select(item)" ng-if="!config.enabled.edit"><i class="fa fa-eye"></i></button>
 				<button class="btn btn-primary btn-sm" title="Show Members For Group" ng-click="showMembers(item)" ng-if="config.display.title=='Groups'"><i class="fa fa-eye"> Members</i></button>
-				<button class="btn btn-primary btn-sm" title="Show Friends For User" ng-click="showFriends(item)" ng-if="config.display.title=='Accounts'"><i class="fa fa-eye"> Friends</i></button>
-				<button class="btn btn-primary btn-sm" title="Show Groups For User" ng-click="showGroups(item)" ng-if="config.display.title=='Accounts'"><i class="fa fa-eye"> Groups</i></button>
+				<button class="btn btn-primary btn-sm" title="Show Friends For User" ng-click="showFriends(item)" ng-if="config.display.title=='Users'"><i class="fa fa-eye"> Friends</i></button>
+				<button class="btn btn-primary btn-sm" title="Show Groups For User" ng-click="showGroups(item)" ng-if="config.display.title=='Users'"><i class="fa fa-eye"> Groups</i></button>
                 <button class="btn btn-primary btn-sm" title="Show Achievements For Gamer" ng-click="showAchievements(item)" ng-if="config.display.title=='Games'"><i class="fa fa-eye"> Achievements</i></button>
 				<button class="btn btn-danger btn-sm" title="Delete this entry" ng-click="delete(item)" ng-if="config.enabled.delete"><i class="fa fa-trash-o"></i></button>
             </td>

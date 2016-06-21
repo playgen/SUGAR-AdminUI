@@ -129,15 +129,25 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     $scope.item = {};
+    
     Object.keys($scope.config.defaultNew).forEach(function(k) {
       return $scope.item[k] = $scope.config.defaultNew[k];
     });
     $scope.editables = $scope.config.editables.create;
     $scope.save = function() {
-      return Api[$scope.itemtype].create($scope.item).then(function() {
-        $uibModalInstance.close();
-        return $rootScope.$broadcast('savedItem');
-      });
+        //ensure that the user has filled all of the entries required
+        var isComplete = true;
+        angular.forEach($scope.item, function(item){
+            if (item == "")
+                isComplete = false;
+        });
+        if (isComplete)
+        {
+            return Api[$scope.itemtype].create($scope.item).then(function() {
+                $uibModalInstance.close();
+                return $rootScope.$broadcast('savedItem');
+            });
+        }
     };
     return $scope.close = function() {
       return $uibModalInstance.close();
@@ -364,7 +374,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
         return $uibModalInstance.close();
     };
     return $scope.add = function(item) {
-         Api['accounts'].get($scope.txtBox)
+         Api['users'].get($scope.txtBox)
         
         .then(function(res)
         {
@@ -438,7 +448,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
         return $uibModalInstance.close();
     };
     return $scope.add = function(item) {
-        Api['accounts'].get($scope.txtBox)
+        Api['users'].get($scope.txtBox)
         
         .then(function(res)
         {

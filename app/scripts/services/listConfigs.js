@@ -11,7 +11,7 @@
 angular.module('sgaAdminApp').service('listConfigs', [
   '$http', 'config', function($http, config) {
     return {
-      'accounts': {
+      'users': {
         enabled: {
           create: true,
           edit: true,
@@ -19,9 +19,9 @@ angular.module('sgaAdminApp').service('listConfigs', [
         },
         display: {
           listed: true,
-          title: 'Accounts',
-          single: 'account',
-          plural: 'accounts',
+          title: 'Users',
+          single: 'user',
+          plural: 'users',
           individualTitle: function(item) {
             return item.Name;
           },
@@ -50,28 +50,9 @@ angular.module('sgaAdminApp').service('listConfigs', [
               key: 'Name',
               type: 'text'
             }, {
-              display: 'Email',
-              key: 'email',
-              type: 'email'
-            }, {
-              display: 'Is Enabled?',
-              key: 'isEnabled',
-              type: 'checkbox'
-            }, {
-              display: 'Type',
-              key: 'type',
-              type: 'text',
-              viewonly: true
-            }, {
-              display: 'UpdatedDate',
-              key: 'updatedDate',
-              type: 'text',
-              viewonly: true
-            }, {
-              display: 'CreatedDate',
-              key: 'createdDate',
-              type: 'text',
-              viewonly: true
+              display: 'Password',
+              key: 'password',
+              type: 'password'
             }
           ],
           create: [
@@ -85,13 +66,8 @@ angular.module('sgaAdminApp').service('listConfigs', [
           ]
         },
         defaultNew: {
-          'Username': '',
-          'Password': '',
-          'Email': '',
-          'ActivationCode': '00000000-0000-0000-0000-000000000000',
-          'IsEnabled': false,
-          'Type': 0,
-          'LastLoginIp': null
+          'Name': '',
+          'Password': ''
         },
         friends: {
           enabled: {
