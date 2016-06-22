@@ -12,7 +12,7 @@ angular.module('sgaAdminApp').factory('User', [
   '$http', 'config', function($http, config) {
     return {
       login: function(item) {
-        return $http.get(config.api.baseurl + "/account", item);
+        return $http.put(config.api.baseurl + "/account", item);
       },
       register: function(item){
           return $http.post(config.api.baseurl + '/account', item);

@@ -22,7 +22,7 @@ angular.module('sgaAdminApp').service('Api', [
           return $http.post(config.api.baseurl + '/user', item);
         },
         update: function(id, item) {
-          return $http.put(config.api.baseurl + ("/user/" + id), item);
+          return $http.put(config.api.baseurl + "/user", item);
         },
         "delete": function(id) {
           return $http["delete"](config.api.baseurl + ("/user?Id=" + id));
@@ -39,7 +39,7 @@ angular.module('sgaAdminApp').service('Api', [
           return $http.post(config.api.baseurl + '/group', item);
         },
         update: function(id, item) {
-          return $http.put(config.api.baseurl + ("/groups?Id=" + id), item);
+          return $http.put(config.api.baseurl + "/group", item);
         },
         "delete": function(id) {
           return $http["delete"](config.api.baseurl + ("/group?Id=" + id));
@@ -51,6 +51,9 @@ angular.module('sgaAdminApp').service('Api', [
           },
           create: function(item) {
             return $http.post(config.api.baseurl + '/groupachievement', item);  
+          },
+          "delete": function(id){
+              return $http["delete"](config.api.baseurl + '/groupachievement?Id=' + id);
           }
       },
       'games':{
@@ -74,8 +77,8 @@ angular.module('sgaAdminApp').service('Api', [
         create: function(item){
             return $http.post(config.api.baseurl + '/userfriend', item)
         },
-        update: function(id, item) {
-          return $http.put(config.api.baseurl + ("/userfriend/" + id), item);
+        update: function(item) {
+          return $http.put(config.api.baseurl + "/userfriend", item);
         },
         "delete": function(id) {
           return $http["delete"](config.api.baseurl + ("/userfriend/" + id));
@@ -90,17 +93,17 @@ angular.module('sgaAdminApp').service('Api', [
           }
       },
       'playerGroups': {
-        list: function() {
-          return $http.get(config.api.baseurl + '/userGroup');
+        list: function(id) {
+          return $http.get(config.api.baseurl + '/groupmember/usergroups?userId=' + id);
         },
         get: function(id) {
-          return $http.get(config.api.baseurl + ("/userGroup/" + id));
+          return $http.get(config.api.baseurl + ("/groupmember/usergroups" + id));
         },
-        update: function(id, item) {
-          return $http.put(config.api.baseurl + ("/userGroup/" + id), item);
+        update: function(item) {
+          return $http.put(config.api.baseurl + "/groupmember", item);
         },
-        "delete": function(id) {
-          return $http["delete"](config.api.baseurl + ("/userGroup/" + id));
+        "delete": function(item) {
+          return $http["delete"](config.api.baseurl + "/groupmember", item );
         }
       },
       'members': {
@@ -113,8 +116,8 @@ angular.module('sgaAdminApp').service('Api', [
         create: function(item){
             return $http.post(config.api.baseurl + '/groupmember', item)
         },
-        update: function(id, item) {
-          return $http.put(config.api.baseurl + ("/groupmember/" + id), item);
+        update: function(item) {
+          return $http.put(config.api.baseurl + "/groupmember", item);
         },
         "delete": function(id) {
           return $http["delete"](config.api.baseurl + ("/groupmember/" + id));
