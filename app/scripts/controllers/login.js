@@ -11,9 +11,14 @@
 angular.module('sgaAdminApp').controller('LoginCtrl', [
   '$scope', '$location', 'config', 'Auth', 'User', function($scope, $location, config, Auth, User) {
     $scope.user = {
-      username: '',
-      password: ''
+      Name: '',
+      Password: ''
     };
+    $scope.register = function () {
+        User.register($scope.user).then(function(res){
+            $scope.submit();
+        });
+    }
     return $scope.submit = function() {
       return User.login($scope.user).then(function(res) {
         var ref, returnPath;
