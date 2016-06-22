@@ -299,7 +299,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
     $scope.config = modaldata.config;
     $scope.item = modaldata.item;
 
-    Api['playerGroups'].list($scope.item.Id).then(function(res) {
+    Api['userGroups'].list($scope.item.Id).then(function(res) {
     if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
         $scope.items = res.data;
     }
@@ -319,7 +319,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
     };
     $scope.remove = function(item){
         var friendship = "{ RequestorId: " + $scope.item.Id + ", AcceptorId: " + item.Id + ", Accepted: false }"
-        Api['playerGroups'].update(friendship).then(function(res) {
+        Api['userGroups'].update(friendship).then(function(res) {
             $uibModalInstance.close();
             return modalManager.open('showGroups', {
             itemtype: $scope.itemtype,
@@ -437,7 +437,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
     
     //our buttons
     $scope.close = function(item) {
-        $scope.config.playerGroups.ExistingGroup.exists = true;
+        $scope.config.userGroups.ExistingGroup.exists = true;
         return $uibModalInstance.close();
     };
     
@@ -454,7 +454,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
                 return $uibModalInstance.close();
             }
             else
-                $scope.config.playerGroups.ExistingGroup.exists = false;
+                $scope.config.userGroups.ExistingGroup.exists = false;
         });
     };
   }

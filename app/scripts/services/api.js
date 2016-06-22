@@ -92,7 +92,7 @@ angular.module('sgaAdminApp').service('Api', [
               return $http.put(config.api.baseurl + '/userfriend/request', item);
           }
       },
-      'playerGroups': {
+      'userGroups': {
         list: function(id) {
           return $http.get(config.api.baseurl + '/groupmember/usergroups?userId=' + id);
         },

@@ -215,11 +215,11 @@
 	<div class="modal-body">
 		<table class="table table-bordered">
 			<tr class="listitem">
-				<th ng-repeat="col in config.playerGroups.columns">{{col.title || col.key}}</th>
+				<th ng-repeat="col in config.userGroups.columns">{{col.title || col.key}}</th>
 				<th></th>
 			</tr>
             <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
-                <td class="clickable" ng-repeat="col in config.playerGroups.columns" ng-click="(item)">
+                <td class="clickable" ng-repeat="col in config.userGroups.columns" ng-click="(item)">
                     <span ng-if="!col.type || col.type == 'text'">{{item[col.key]}}</span>
                     <span ng-if="col.type == 'boolean'">
                         <i class="fa fa-check fa-lg text-success" ng-if="(item[col.key])"></i>
@@ -310,7 +310,7 @@
         <div class="modal-body">
             <class>Enter Group Name</class>
             <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" required/>
-            <class="form-control" ng-if="!config.playerGroups.ExistingGroup.exists">Error: Group Not Found</class>
+            <class="form-control" ng-if="!config.userGroups.ExistingGroup.exists">Error: Group Not Found</class>
         </div>
     </form>
     <div class="modal-footer">

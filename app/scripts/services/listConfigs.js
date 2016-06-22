@@ -99,7 +99,7 @@ angular.module('sgaAdminApp').service('listConfigs', [
             }
           ]
         },
-        playerGroups: {
+        userGroups: {
           enabled: {
             create: true,
             edit: true,
