@@ -18,6 +18,8 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
         User.register($scope.user).then(function(res){
             //automatically log in
             $scope.submit();
+            // $scope.user.Name = '';
+            // $scope.user.Password = '';
         });
     }
     return $scope.submit = function() {

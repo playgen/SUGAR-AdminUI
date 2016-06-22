@@ -151,9 +151,9 @@ angular.module('sgaAdminApp').service('listConfigs', [
           {
             title: 'Name',
             key: 'Name'
-          }, {
-            title: 'Members',
-            key: 'members'
+        //   }, {
+        //     title: 'Members',
+        //     key: 'members'
           }
         ],
         editables: {

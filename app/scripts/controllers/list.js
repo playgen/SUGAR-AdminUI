@@ -304,7 +304,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
         $scope.items = res.data;
     }
     });
-
+    
     
     //our buttons
     $scope.close = function() {
