@@ -16,6 +16,7 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
     };
     $scope.register = function () {
         User.register($scope.user).then(function(res){
+            //automatically log in
             $scope.submit();
         });
     }
