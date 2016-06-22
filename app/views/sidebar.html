@@ -3,6 +3,8 @@
 		<ul class="sidebar-menu">
 			<li class="header">Pages</li>
 			<li ng-repeat="(id, page) in pages" ng-class="['', 'active'][!!(isActive(id))*1]" ng-if="page.display.listed"><a ng-href="#/list/{{id}}"><i class="fa" ng-class="page.display.icon"></i> <span>{{page.display.title}}</span></a></li>
+            <li><br /><br /><br /></li>
+            <li class="header"ng-click="Logout()">Log Out</li>
 		</ul>
 	</section>
 </aside>

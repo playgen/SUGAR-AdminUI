@@ -9,9 +9,21 @@
   * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('SidebarCtrl', [
-  '$scope', '$location', 'listConfigs', function($scope, $location, listConfigs) {
+  '$scope', '$location','config', 'Auth', 'listConfigs', function($scope, $location, config, Auth, listConfigs) {
     $scope.isActive = function(page) {
       return $location.path().indexOf("/list/" + page) !== -1;
+    };
+    $scope.Logout = function () {
+      Auth.set(config.tokens.session, null);
+      Auth.preApproved = false;
+      var returnPath;
+      returnPath = $location.search()["return"];
+          if (returnPath != null) {
+            $location.search('return', null);
+            return $location.path(returnPath);
+          } else {
+            return $location.path('/');
+          }
     };
     return $scope.pages = listConfigs;
   }
