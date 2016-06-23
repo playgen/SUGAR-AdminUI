@@ -18,17 +18,21 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/main.html',
     controller: 'MainCtrl',
     login: true
-  }).when('/list/groups', {
+  }).when('/groups', {
     templateUrl: 'views/groups.html',
     controller: 'GroupsCtrl',
     login: true
-  }).when('/list/users', {
+  }).when('/users', {
     templateUrl: 'views/users.html',
     controller: 'UsersCtrl',
     login: true
-  }).when('/list/games', {
+  }).when('/games', {
     templateUrl: 'views/games.html',
     controller: 'GamesCtrl',
+    login: true
+  }).when('/newAchievement/:itemId', {
+    templateUrl: 'views/achievement.html',
+    controller: 'AchievementCtrl',
     login: true
   }).when('/list/:itemtype', {
     templateUrl: 'views/list.html',

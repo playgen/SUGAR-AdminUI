@@ -142,7 +142,7 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
     };
   }
 ]).controller('showAchievementsModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
+  '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', '$location', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata, $location) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     $scope.item = modaldata.item;
@@ -180,10 +180,13 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
     };
     $scope.add = function(item) {
         $uibModalInstance.close();
-        return modalManager.open('addAchievement', {
-          itemtype: $scope.itemtype,
-          item: item
-        });
+        
+        $location.path('newAchievement/'+ $scope.item.Id);
+
+        // return modalManager.open('addAchievement', {
+        //   itemtype: $scope.itemtype,
+        //   item: item
+        // });
     };
     $scope.remove = function(item){
         Api['achievements'].delete($scope.item.Id).then(function(res) {
