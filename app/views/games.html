@@ -88,7 +88,7 @@
             <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
                 <td>{{item.Name}}</td>
 				<td>{{item.Key}}</td>
-				<td>{{item.DataType}} is {{item.ComparisonType}} {{item.Value}}</td>
+				<td>{{item.DataType}} {{item.ComparisonType}} {{item.Value}}</td>
                 <td>
                     <button class="btn btn-danger pull-right" type="button" ng-click="remove(item)"><i class="fa fa-times"></i></button>
                 </td>
