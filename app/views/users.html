@@ -2,7 +2,7 @@
 
 	<div class="row">
 		<div class="col-xs-12 text-center button-container">
-			<button class="btn btn-success" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new group</button>
+			<button class="btn btn-success" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new user</button>
 		</div>
 	</div>
 
@@ -16,16 +16,15 @@
 		<tr class="listitem">
 			<th style="width: 10px"></th>
 			<th>Name</th>
-            <th>Members</th>
 			<th></th>
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td></td>
             <td>{{item.Name}}</td>
-            <td>{{item.members}}</td>
 			<td>
 				<button class="btn btn-primary btn-sm" title="Edit this item" ng-click="select(item)" ng-if="false"><i class="fa fa-pencil"></i></button>
-				<button class="btn btn-primary btn-sm" title="Show Members For Group" ng-click="showMembers(item)"><i class="fa fa-eye"> Members</i></button>
+				<button class="btn btn-primary btn-sm" title="Show Friends For User" ng-click="showFriends(item)"><i class="fa fa-eye"> Friends</i></button>
+				<button class="btn btn-primary btn-sm" title="Show Groups For User" ng-click="showGroups(item)"><i class="fa fa-eye"> Groups</i></button>
 				<button class="btn btn-danger btn-sm" title="Delete this entry" ng-click="delete(item)"><i class="fa fa-trash-o"></i></button>
             </td>
 		</tr>
@@ -44,7 +43,7 @@
 		<h3 class="modal-title">You are deleting {{config.display.individualTitle(item)}}</h3>
 	</div>
 	<div class="modal-body">
-		Are you sure you want to delete the group {{config.display.individualTitle(item)}}?
+		Are you sure you want to delete the user {{config.display.individualTitle(item)}}?
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> No, cancel</button>
@@ -57,13 +56,17 @@
 <script type="text/ng-template" id="createModal.html">
   <form name="myForm">
 	<div class="modal-header">
-		<h3 class="modal-title">Create new group</h3>
+		<h3 class="modal-title">Create new user</h3>
 	</div>
 	<div class="modal-body">
 		<div class="row">
 			<div class="col-xs-3"><label>Name</label></div>
 			<div class="col-xs-9">
 				<input type="text" class="form-control" ng-model="item.Name" required/>
+			</div>
+			<div class="col-xs-3"><label>Password</label></div>
+			<div class="col-xs-9">
+				<input type="text" class="form-control" ng-model="item.Password" required/>
 			</div>
 		</div>
 	</div>
@@ -72,4 +75,121 @@
 		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Save</button>
 	</div>
   </form>
+</script>
+
+<!-- Show the groups that the player is a member of -->
+
+<script type="text/ng-template" id="showGroupsModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title"><span>Groups </span>{{config.display.individualTitle(item)}}<span> is a member of:</span></h3>
+	</div>
+	<div class="modal-body">
+		<table class="table table-bordered">
+			<tr class="listitem">
+				<th>Name</th>
+				<th></th>
+			</tr>
+            <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+                <td>{{item.Name}}</td>
+                <td>
+					<button class="btn btn-danger pull-right" type="button" ng-click="remove(item)"><i class="fa fa-times"> Leave</i></button>
+                </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>        
+        <button class="btn btn-success" type="button" ng-click="add(item)"></i>Add</button>
+	</div>
+</script>
+
+<!-- Add player to a group -->
+
+<script type="text/ng-template" id="addGroupModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title"><span>Add </span>{{config.display.individualTitle(item)}}<span> to a new Group </span></h3>
+    </div>
+    <form name="myForm">
+        <div class="modal-body">
+            <class>Enter Group Name</class>
+            <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" required/>
+            <class="form-control" ng-if="!config.userGroups.ExistingGroup.exists">Error: Group Not Found</class>
+        </div>
+    </form>
+    <div class="modal-footer">
+        		<button class="btn btn-danger pull-left" type="button" ng-click="close(item)"><i class="fa fa-times"></i> Cancel</button>   
+                <button class="btn btn-success" type="button" ng-click="add(item)" ng-disabled="myForm.$invalid">Add</button>           
+    </div>>
+</script>
+
+<!-- Show a users friends -->
+
+<script type="text/ng-template" id="showFriendsModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title"><span>Friends of </span>{{config.display.individualTitle(item)}}<span>:</span></h3>
+	</div>
+	<div class="modal-body">
+		<table class="table table-bordered">
+			<tr class="listitem">
+				<th>Name</th>
+				<th></th>
+			</tr>
+            <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+                <td>{{item.Name}}</td>
+                <td>
+                    <button class="btn btn-danger pull-right" type="button" ng-click="remove(item)"><i class="fa fa-times"> Remove</i></button>
+                </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
+        <button class="btn btn-primary btn-sm" title="Show Friend Requests For User" ng-click="showFriendRequests(item)" ng-if="config.friends.requests.hasRequests"><i class="fa fa-eye"> Friend Requests</i></button>
+        <button class="btn btn-success" type="button" ng-click="add(item)"></i>Add</button>
+	</div>
+</script>
+
+<!-- request to add a new friend -->
+
+<script type="text/ng-template" id="addFriendModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title"><span>Add a new friend for </span>{{config.display.individualTitle(item)}}</h3>
+    </div>
+    <div class="modal-body">        
+        <class>Enter Player Name</class>
+        <form name="myForm">
+        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" required/>
+        </form>
+        <class="form-control" ng-if="!config.friends.ExistingPlayer.exists">Error: Player Not Found</class>
+    </div>
+    <div class="modal-footer">
+        		<button class="btn btn-danger pull-left" type="button" ng-click="close(item)"><i class="fa fa-times"></i> Cancel</button> 
+                <button class="btn btn-success" type="button" ng-click="add(item)"ng-disabled="myForm.$invalid"></i> Add</button>        
+    </div>>
+</script>
+
+<!-- Show friend requests for a user -->
+
+<script type="text/ng-template" id="showFriendRequestsModal.html">
+
+	<div class="modal-header">
+		<h3 class="modal-title"><span>Current Friend Requests for </span>{{config.display.individualTitle(item)}}<span>:</span></h3>
+	</div>
+	<div class="modal-body">
+		<table class="table table-bordered">
+			<tr class="listitem">
+				<th>Name</th>
+				<th></th>
+			</tr>
+            <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+                <td>{{item.Name}}</td>
+                <td>                    
+                    <button class="btn btn-success btn-sm" title="Accept" ng-click="accept(item)" ng-if="config.enabled.delete"><i class="fa fa-plus"> Accept</i></button>
+                	<button class="btn btn-danger btn-sm" title="Reject" ng-click="reject(item)" ng-if="config.enabled.delete"><i class="fa fa-trash-o"> Reject</i></button>      
+		    </tr>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
+    </div>
 </script>
