@@ -13,6 +13,7 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemid = $routeParams.itemid;
     $scope.config = listConfigs[$scope.itemtype];
+    
     if (!$scope.config) {
       return $location.path('/');
     }

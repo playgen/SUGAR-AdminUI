@@ -18,6 +18,10 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/main.html',
     controller: 'MainCtrl',
     login: true
+  }).when('/list/groups', {
+    templateUrl: 'views/groups.html',
+    controller: 'GroupsCtrl',
+    login: true
   }).when('/list/:itemtype', {
     templateUrl: 'views/list.html',
     controller: 'ListCtrl',
