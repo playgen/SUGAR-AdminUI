@@ -25,6 +25,21 @@ angular.module('sgaAdminApp').controller('ListCtrl', [
       return Api[$scope.itemtype].list().then(function(res) {
         if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
           $scope.items = res.data;
+          if ($routeParams.itemtype == "groups")
+          {
+              //get the number of members for each groups
+              $scope.allData = [];
+              for (var i=0; i<$scope.items.length; i++)
+              {
+                  var group = $scope.items[i];
+                  group.members = null;
+                  Api['members'].list(group.Id).then(function(res)
+                  {
+                     group.members = res.data;
+                  });
+              }
+              
+          }
           if ($routeParams.itemid != null) {
             return $scope.items.forEach(function(i) {
               var a, b;

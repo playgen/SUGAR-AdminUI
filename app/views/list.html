@@ -21,7 +21,7 @@
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
 			<td>{{$index + ((pagination.currentPage - 1) * pagination.perPage) + 1}})</td>
 			<td class="clickable" ng-repeat="col in config.columns" ng-click="(item)">
-				<span ng-if="!col.type || col.type == 'text'">{{item[col.key] || col.val(item)}}</span>
+				<span ng-if="!col.type || col.type == 'text'">{{item[col.key]}}</span>
 				<span ng-if="col.type == 'boolean'">
 					<i class="fa fa-check fa-lg text-success" ng-if="(item[col.key] || col.val(item))"></i>
 					<i class="fa fa-times fa-lg text-danger" ng-if="!(item[col.key] || col.val(item))"></i>

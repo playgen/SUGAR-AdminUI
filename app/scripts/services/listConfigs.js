@@ -153,7 +153,7 @@ angular.module('sgaAdminApp').service('listConfigs', [
             key: 'Name'
         //   }, {
         //     title: 'Members',
-        //     key: 'members'
+        //     key: 'members.length'
           }
         ],
         editables: {
