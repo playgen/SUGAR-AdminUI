@@ -51,30 +51,24 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
     };
     $scope.select = function(item) {
       return modalManager.open('edit', {
-        itemtype: $scope.itemtype,
+        itemtype: 'groups',
         item: item
       });
     };
     $scope["delete"] = function(item) {
       return modalManager.open('delete', {
-        itemtype: $scope.itemtype,
+        itemtype: 'groups',
         item: item
       });
     };
     $scope.create = function() {
       return modalManager.open('create', {
-        itemtype: $scope.itemtype
+        itemtype: 'groups'
       });
     };
     $scope.showMembers = function(item) {
       return modalManager.open('showMembers', {
-        itemtype: $scope.itemtype,
-        item: item
-      });
-    };
-    $scope.showGroups = function(item) {
-      return modalManager.open('showGroups', {
-        itemtype: $scope.itemtype,
+        itemtype: 'groups',
         item: item
       });
     };
@@ -129,10 +123,6 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
     $scope.config = modaldata.config;
     $scope.item = {};
     
-    Object.keys($scope.config.defaultNew).forEach(function(k) {
-      return $scope.item[k] = $scope.config.defaultNew[k];
-    });
-    $scope.editables = $scope.config.editables.create;
     $scope.save = function() {
         return Api[$scope.itemtype].create($scope.item).then(function() {
             $uibModalInstance.close();
@@ -231,10 +221,11 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
                 //put the data backwards for testing as groups cannot request users join
                 var friendship = "{ RequestorId: " + res.data[0].Id + ", AcceptorId: " + item.Id + ", AutoAccept: true }"
                 Api['members'].create(friendship).then(function(res){
-                $uibModalInstance.close();
-                return modalManager.open('showMembers', {
-                    itemtype: $scope.itemtype,
-                    item: item
+                  $uibModalInstance.close();
+                  $rootScope.$broadcast('savedItem');
+                  return modalManager.open('showMembers', {
+                      itemtype: $scope.itemtype,
+                      item: item  
                 });
             });
             }
