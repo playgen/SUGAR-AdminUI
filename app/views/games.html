@@ -1,0 +1,149 @@
+<div ng-init="init()">
+
+	<div class="row">
+		<div class="col-xs-12 text-center button-container">
+			<button class="btn btn-success" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new game</button>
+		</div>
+	</div>
+
+	<div class="row"  ng-if="items.length > pagination.perPage">
+		<div class="col-xs-12 text-center">
+			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+		</div>
+	</div>
+
+	<table class="table table-bordered">
+		<tr class="listitem">
+			<th style="width: 10px"></th>
+			<th>Name</th>
+			<th></th>
+		</tr>
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+			<td></td>
+            <td>{{item.Name}}</td>
+			<td>
+				<button class="btn btn-primary btn-sm" title="Edit this item" ng-click="select(item)" ng-if="false"><i class="fa fa-pencil"></i></button>
+                <button class="btn btn-primary btn-sm" title="Show Achievements For Game" ng-click="showAchievements(item)"><i class="fa fa-eye"> Achievements</i></button>
+				<button class="btn btn-danger btn-sm" title="Delete this entry" ng-click="delete(item)"><i class="fa fa-trash-o"></i></button>
+            </td>
+		</tr>
+	</table>
+	<div class="row"  ng-if="items.length > pagination.perPage">
+		<div class="col-xs-12 text-center">
+			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+		</div>
+	</div>
+</div>
+
+<!-- Confirm that we want to delete the game  -->
+
+<script type="text/ng-template" id="confirmDeleteModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title">You are deleting {{config.display.individualTitle(item)}}</h3>
+	</div>
+	<div class="modal-body">
+		Are you sure you want to delete the game {{config.display.individualTitle(item)}}?
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> No, cancel</button>
+		<button class="btn btn-success" type="button" ng-click="delete()"><i class="fa fa-trash-o"></i> Yes, delete {{config.display.individualTitle(item)}}</button>
+	</div>
+</script>
+
+<!-- Create a new game  -->
+
+<script type="text/ng-template" id="createModal.html">
+  <form name="myForm">
+	<div class="modal-header">
+		<h3 class="modal-title">Create new game</h3>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xs-3"><label>Name</label></div>
+			<div class="col-xs-9">
+				<input type="text" class="form-control" ng-model="item.Name" required/>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
+		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Save</button>
+	</div>
+  </form>
+</script>
+
+<!-- Show achievements for the game -->
+
+<script type="text/ng-template" id="showAchievementsModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title"><span>Achievements in </span>{{config.display.individualTitle(item)}}<span>:</span></h3>
+	</div>
+	<div class="modal-body">
+		<table class="table table-bordered">
+			<tr class="listitem">
+				<th>Name</th>
+				<th>Key</th>
+				<th>Completion Criteria</th>
+			</tr>
+            <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+                <td>{{item.Name}}</td>
+				<td>{{item.Key}}</td>
+				<td>{{item.DataType}} is {{item.ComparisonType}} {{item.Value}}</td>
+                <td>
+                    <button class="btn btn-danger pull-right" type="button" ng-click="remove(item)"><i class="fa fa-times"></i></button>
+                </td>
+		    </tr>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>        
+        <button class="btn btn-success" type="button" ng-click="add(item)"></i>Add</button>
+	</div>
+</script>
+
+<!-- Add achievements to the game -->
+
+<script type="text/ng-template" id="addAchievementModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title"><span>Add Achievement to </span>{{config.display.individualTitle(item)}}<span>:</span></h3>
+    </div>
+    <form name="myForm">
+    <div class="modal-body">    
+        <h4>Achievement Name</h4>
+        <input type="text" class="form-control" ng-model="achievementName"/>
+        <h4>Add Criteria</h4> 
+		<div class="col-xs-3"><label>Key</label></div>
+		<div class="col-xs-9">
+			<input type="text" class="form-control" ng-model="item.Key" required/>
+		</div>
+		<div class="col-xs-3"><label>Data Type</label></div>
+		<div class="col-xs-9">
+			<select class="form-control input-lg" ng-model="item.DataType" required>
+				<option value="0">String</option>
+				<option value="1">Long</option>
+				<option value="2">Float</option>
+				<option value="3">Boolean</option>
+			</select>
+		</div>
+		<div class="col-xs-3"><label>Comparison Type</label></div>
+		<div class="col-xs-9">
+			<select class="form-control input-lg" ng-model="item.ComparisonType" required>
+				<option value="0">Equal</option>
+				<option value="1">Not Equal</option>
+				<option value="2">Greater</option>
+				<option value="3">Greater or Equal</option>
+				<option value="4">Less</option>
+				<option value="5">Less or Equal</option>
+			</select>
+		</div>
+		<div class="col-xs-3"><label>Value</label></div>
+		<div class="col-xs-9">
+			<input type="text" class="form-control" ng-model="item.Value" required/>
+		</div>
+    </div>
+    </form>
+    <div class="modal-footer">
+        		<button class="btn btn-danger pull-left" type="button" ng-click="close(item)"><i class="fa fa-times"></i> Cancel</button>   
+                <button class="btn btn-success" type="button" ng-click="add(item)" ng-disabled="myForm.$invalid">Add</button>           
+    </div>>
+</script>

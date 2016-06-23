@@ -208,36 +208,6 @@
 	</div>
 </script>
 
-<script type="text/ng-template" id="showAchievementsModal.html">
-	<div class="modal-header">
-		<h3 class="modal-title"><span>Achievements in </span>{{config.display.individualTitle(item)}}<span>:</span></h3>
-	</div>
-	<div class="modal-body">
-		<table class="table table-bordered">
-			<tr class="listitem">
-				<th ng-repeat="col in config.achievements.columns">{{col.title || col.key}}</th>
-				<th></th>
-			</tr>
-            <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
-                <td class="clickable" ng-repeat="col in config.achievements.columns" ng-click="(item)">
-                    <span ng-if="!col.type || col.type == 'text'">{{item[col.key]}}</span>
-                    <span ng-if="col.type == 'boolean'">
-                        <i class="fa fa-check fa-lg text-success" ng-if="(item[col.key])"></i>
-                        <i class="fa fa-times fa-lg text-danger" ng-if="!(item[col.key])"></i>
-                    </span>
-                </td>
-                <td>
-                    <button class="btn btn-danger pull-right" type="button" ng-click="remove(item)"><i class="fa fa-times"></i></button>
-                </td>
-		    </tr>
-		</table>
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>        
-        <button class="btn btn-success" type="button" ng-click="add(item)"></i>Add</button>
-	</div>
-</script>
-
 <script type="text/ng-template" id="addFriendModal.html">
     <div class="modal-header">
         <h3 class="modal-title"><span>Add a new friend for </span>{{config.display.individualTitle(item)}}</h3>
@@ -265,38 +235,6 @@
             <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" required/>
             <class="form-control" ng-if="!config.userGroups.ExistingGroup.exists">Error: Group Not Found</class>
         </div>
-    </form>
-    <div class="modal-footer">
-        		<button class="btn btn-danger pull-left" type="button" ng-click="close(item)"><i class="fa fa-times"></i> Cancel</button>   
-                <button class="btn btn-success" type="button" ng-click="add(item)" ng-disabled="myForm.$invalid">Add</button>           
-    </div>>
-</script>
-
-<script type="text/ng-template" id="addAchievementModal.html">
-    <div class="modal-header">
-        <h3 class="modal-title"><span>Add Achievement to </span>{{config.display.individualTitle(item)}}<span>:</span></h3>
-    </div>
-    <form name="myForm">
-    <div class="modal-body">    
-        <h4>Achievement Name</h4>
-        <input type="text" class="form-control" ng-model="achievementName"/>
-        <h4>Add Criteria</h4> 
-        <div class="row" ng-repeat="editable in config.achievements.editables.create" ng-if="!$first">
-			<div class="col-xs-3"><label>{{editable.Description}}</label></div>
-			<div class="col-xs-9">
-				<input type="text" class="form-control" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'text'"  required/>
-				<input type="checkbox" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'checkbox'" required>
-				<input type="password" class="form-control" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'password'" required>
-				<input type="email" class="form-control" ng-model="item[editable.Description]" ng-disabled="editable.viewonly" ng-if="editable.type == 'email'" required>
-				<span ng-if="editable.type == 'dropdown'">
-					<select class="form-control input-lg" ng-model="item[editable.Description]" name="{{editable.Description}}" required>
-						<option ng-repeat="option in editable.values" value="{{option.id}}">{{option.Name}}</option>
-					</select>
-				</span>
-			</div>
-		</div>
-            
-    </div>
     </form>
     <div class="modal-footer">
         		<button class="btn btn-danger pull-left" type="button" ng-click="close(item)"><i class="fa fa-times"></i> Cancel</button>   

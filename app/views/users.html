@@ -1,0 +1,75 @@
+<div ng-init="init()">
+
+	<div class="row">
+		<div class="col-xs-12 text-center button-container">
+			<button class="btn btn-success" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new group</button>
+		</div>
+	</div>
+
+	<div class="row"  ng-if="items.length > pagination.perPage">
+		<div class="col-xs-12 text-center">
+			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+		</div>
+	</div>
+
+	<table class="table table-bordered">
+		<tr class="listitem">
+			<th style="width: 10px"></th>
+			<th>Name</th>
+            <th>Members</th>
+			<th></th>
+		</tr>
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+			<td></td>
+            <td>{{item.Name}}</td>
+            <td>{{item.members}}</td>
+			<td>
+				<button class="btn btn-primary btn-sm" title="Edit this item" ng-click="select(item)" ng-if="false"><i class="fa fa-pencil"></i></button>
+				<button class="btn btn-primary btn-sm" title="Show Members For Group" ng-click="showMembers(item)"><i class="fa fa-eye"> Members</i></button>
+				<button class="btn btn-danger btn-sm" title="Delete this entry" ng-click="delete(item)"><i class="fa fa-trash-o"></i></button>
+            </td>
+		</tr>
+	</table>
+	<div class="row"  ng-if="items.length > pagination.perPage">
+		<div class="col-xs-12 text-center">
+			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+		</div>
+	</div>
+</div>
+
+<!-- Confirm that we want to delete the group  -->
+
+<script type="text/ng-template" id="confirmDeleteModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title">You are deleting {{config.display.individualTitle(item)}}</h3>
+	</div>
+	<div class="modal-body">
+		Are you sure you want to delete the group {{config.display.individualTitle(item)}}?
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> No, cancel</button>
+		<button class="btn btn-success" type="button" ng-click="delete()"><i class="fa fa-trash-o"></i> Yes, delete {{config.display.individualTitle(item)}}</button>
+	</div>
+</script>
+
+<!-- Create a new group  -->
+
+<script type="text/ng-template" id="createModal.html">
+  <form name="myForm">
+	<div class="modal-header">
+		<h3 class="modal-title">Create new group</h3>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xs-3"><label>Name</label></div>
+			<div class="col-xs-9">
+				<input type="text" class="form-control" ng-model="item.Name" required/>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
+		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Save</button>
+	</div>
+  </form>
+</script>

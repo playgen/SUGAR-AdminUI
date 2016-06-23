@@ -8,7 +8,7 @@
   * # GroupsCtrl
   * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('GroupsCtrl', [
+angular.module('sgaAdminApp').controller('GamesCtrl', [
   '$scope', '$routeParams', '$location', 'modalManager', 'Api', function($scope, $routeParams, $location, modalManager, Api) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemid = $routeParams.itemid;
@@ -19,23 +19,9 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      return Api['groups'].list().then(function(res) {
+      return Api['games'].list().then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
-            //get the number of members for each groups
-            $scope.allData = [];
-
-              for (var i in $scope.items)
-              {
-                //loop through our items and pass through the index for us to ensure we set the number of members correctly
-                (function(i){
-                  Api['members'].list($scope.items[i].Id).then(function(res)
-                  {
-                    $scope.items[i].members = null;
-                      $scope.items[i].members = res.data.length;
-                  });
-                })(i);
-              }
           // if ($routeParams.itemid != null) {
           //   return $scope.items.forEach(function(i) {
           //     var a, b;
@@ -51,26 +37,26 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
     };
     $scope.select = function(item) {
       return modalManager.open('edit', {
-        itemtype: 'groups',
+        itemtype: 'games',
         item: item
       });
     };
     $scope["delete"] = function(item) {
       return modalManager.open('delete', {
-        itemtype: 'groups',
+        itemtype: 'games',
         item: item
       });
     };
     $scope.create = function() {
       return modalManager.open('create', {
-        itemtype: 'groups'
+        itemtype: 'games'
       });
     };
-    $scope.showMembers = function(item) {
-      return modalManager.open('showMembers', {
-        itemtype: 'groups',
-        item: item
-      });
+    $scope.showAchievements = function(item) {
+        return modalManager.open('showAchievements', {
+           itemtype: 'games',
+           item: item 
+        });
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
@@ -88,13 +74,11 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
         if ((data != null ? data.data : void 0) != null) {
           return $scope.item = data.data;
         } else {
-          $rootScope.$broadcast('savedItem')
           return $uibModalInstance.close();
         }
       });
     } else {
       $uibModalInstance.close();
-      return $rootScope.$broadcast('savedItem');
     }
     $scope.editables = $scope.config.editables.view;
     $scope.editables.forEach(function(e) {
@@ -116,7 +100,6 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
       $scope.editables.forEach(function(e) {
         return $scope.item[e.key] = e.original;
       });
-      $rootScope.$broadcast('savedItem');
       return $uibModalInstance.close();
     };
   }
@@ -133,7 +116,6 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
         });
     };
     return $scope.close = function() {
-      $rootScope.$broadcast('savedItem');
       return $uibModalInstance.close();
     };
   }
@@ -156,51 +138,64 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
       });
     };
     return $scope.close = function() {
-      $rootScope.$broadcast('savedItem')
       return $uibModalInstance.close();
     };
   }
-]).controller('showMembersModalCtrl', [
+]).controller('showAchievementsModalCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     $scope.item = modaldata.item;
 
     {
-        Api['members'].list($scope.item.Id).then(function(res) {
+        Api['achievements'].list($scope.item.Id).then(function(res) {
         if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
           $scope.items = res.data;
+          var num = res.data.length;
+          $scope.allData = [];
+          for (var i= 0; i<num; i++)
+          {
+            $scope.Data = []
+            if ($scope.items[i].CompletionCriteria != null)
+            {
+                $scope.allData.push({Name: $scope.items[i].Name, 
+                    Key: $scope.items[i].CompletionCriteria[0].Key, 
+                    DataType: $scope.items[i].CompletionCriteria[0].DataType, 
+                    ComparisonType: $scope.items[i].CompletionCriteria[0].ComparisonType, 
+                    Value: $scope.items[i].CompletionCriteria[0].Value});
+            }
+            else
+            {
+                $scope.allData.push({Name: $scope.items[i].Name, Key: null, DataType: null, ComparisonType: null, Value: null});
+            }
+          }
+          $scope.items = $scope.allData;
         }
        });
     }
     
     //our buttons
+    $scope.close = function() {
+      return $uibModalInstance.close();
+    };
+    $scope.add = function(item) {
+        $uibModalInstance.close();
+        return modalManager.open('addAchievement', {
+          itemtype: $scope.itemtype,
+          item: item
+        });
+    };
     $scope.remove = function(item){
-        var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + $scope.item.Id + ", Accepted: false }"
-        Api['members'].update(friendship).then(function(res) {
-            $rootScope.$broadcast('savedItem');
+        Api['achievements'].delete($scope.item.Id).then(function(res) {
             $uibModalInstance.close();
-            return modalManager.open('showMembers', {
+            return modalManager.open('showAchievements', {
             itemtype: $scope.itemtype,
             item: $scope.item
             });
         });
-    }; 
-    $scope.close = function() {
-      $rootScope.$broadcast('savedItem');
-      return $uibModalInstance.close();
     };
-    return $scope.add = function(item) {
-        $rootScope.$broadcast('savedItem')
-        $uibModalInstance.close();
-      return modalManager.open('addMember', {
-        itemtype: $scope.itemtype,
-        item: item
-      });
-    };
-    
   }
-]).controller('addMemberModalCtrl', [
+]).controller('addAchievementModalCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
@@ -217,30 +212,14 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
     //our buttons
     $scope.close = function(item) {
         $scope.config.members.ExistingPlayer.exists = true;
-        $rootScope.$broadcast('savedItem')
         return $uibModalInstance.close();
     };
-    return $scope.add = function(item) {
-        Api['users'].get($scope.txtBox)
-        
-        .then(function(res)
-        {
-            if (res.data[0]!=null)
-            {
-                //put the data backwards for testing as groups cannot request users join
-                var friendship = "{ RequestorId: " + res.data[0].Id + ", AcceptorId: " + item.Id + ", AutoAccept: true }"
-                Api['members'].create(friendship).then(function(res){
-                  $uibModalInstance.close();
-                  $rootScope.$broadcast('savedItem');
-                  return modalManager.open('showMembers', {
-                      itemtype: $scope.itemtype,
-                      item: item  
-                });
-            });
-            }
-            else
-                $scope.config.members.ExistingPlayer.exists = false;
-        });
+    return $scope.add = function(item) {        
+        //send the achievement data along with the game Id we are currently looking at
+        var completeCriteria = "[{ " + "\"Key\": \"" + $scope.item.Key + "\", \"DataType\": " + $scope.item.DataType + ", \"ComparisonType\": " + $scope.item.ComparisonType + ", \"Value\": \"" + $scope.item.Value +  "\" }]";
+        var achievement = "{ \"GameId\": " + item.Id + ", \"Name\": \"" + $scope.achievementName + "\", \"CompletionCriteria\": " + completeCriteria + " }";
+        Api['achievements'].create(achievement);
+        return $uibModalInstance.close();
     };
   }
 ]);
