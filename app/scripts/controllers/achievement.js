@@ -47,11 +47,14 @@ angular.module('sgaAdminApp').controller('AchievementCtrl', [
       return $scope.$broadcast("savedItem");
     }
     $scope.create = function() {
-      var completeCriteria = "";
+      var completeCriteria = "[";
       for (var i=0; i<$scope.criterias; i++)
-      {
-          completeCriteria += "[{ " + "\"Key\": \"" + $scope.item[i+1].Key + "\", \"DataType\": " + $scope.item[i+1].DataType + ", \"ComparisonType\": " + $scope.item[i+1].ComparisonType + ", \"Value\": \"" + $scope.item[i+1].Value +  "\" }]"; 
+      { 
+          if (i != 0)
+            completeCriteria += ", "
+          completeCriteria += "{ " + "\"Key\": \"" + $scope.item[i+1].Key + "\", \"DataType\": " + $scope.item[i+1].DataType + ", \"ComparisonType\": " + $scope.item[i+1].ComparisonType + ", \"Value\": \"" + $scope.item[i+1].Value +  "\" }"; 
       }
+      completeCriteria += "]";
         var achievement = "{ \"GameId\": " + $scope.itemId + ", \"Name\": \"" + $scope.item.Name + "\", \"CompletionCriteria\": " + completeCriteria + " }";
         Api['achievements'].create(achievement);
 

@@ -80,25 +80,43 @@
 	</div>
 	<div class="modal-body">
 		<table class="table table-bordered">
+			<thead>
 			<tr class="listitem">
 				<th>Name</th>
 				<th>Key</th>
 				<th>Completion Criteria</th>
+				
 			</tr>
-            <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
-                <td>{{item.Name}}</td>
-				<td>{{item.Key}}</td>
-				<td>{{item.DataType}} {{item.ComparisonType}} {{item.Value}}</td>
-                <td>
-                    <button class="btn btn-danger pull-right" type="button" ng-click="remove(item)"><i class="fa fa-times"></i></button>
-                </td>
-		    </tr>
+			</thead>
+			<tbody ng-repeat="n in range()">
+				<tr>
+					<td>{{items[n].Name}}</td>
+					<td>{{items[n].CompletionCriteria[0].Key}}</td>
+					<td>{{items[n].CompletionCriteria[0].DataType}} {{items[n].CompletionCriteria[0].ComparisonType}} {{items[n].CompletionCriteria[0].Value}}</td>
+					<td>
+					<button class="btn btn-danger pull-right" type="button" ng-click="remove(items[n])"><i class="fa fa-times"></i></button>
+				</td>
+				</tr>
+				<tr ng-repeat="i in criteriaRange(n)">
+					<td></td>
+					<td>{{items[n].CompletionCriteria[i].Key}}</td>
+					<td>{{items[n].CompletionCriteria[i].DataType}} {{items[n].CompletionCriteria[i].ComparisonType}} {{items[n].CompletionCriteria[i].Value}}</td>
+				</tr>
+			</tbody>
+            <!--<tr class="listitem" ng-repeat="n in range()" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+				<td>{{items[n].Name}}</td>
+				<td>{{criteria.Key}}</td>
+				<td>{{items[n].CompletionCriteria[0].Key}}</td>
+				<td>{{items[n].CompletionCriteria[0].DataType}} {{items[n].CompletionCriteria[0].ComparisonType}} {{items[n].CompletionCriteria[0].Value}}</td>
+				<td>
+					<button class="btn btn-danger pull-right" type="button" ng-click="remove(item)"><i class="fa fa-times"></i></button>
+				</td>
+		    </tr>-->
 		</table>
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-success" type="button" ng-click="add(item)" ng-href="#/newAchievement"><i class="fa" ng-class="page.display.icon"></i>Add Achievement</button>
 		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>        
-        <button class="btn btn-success" type="button" ng-click="add(item)"></i>Add</button>
 	</div>
 </script>
 

@@ -146,34 +146,57 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     $scope.item = modaldata.item;
-
+    $scope.items = [];
     {
         Api['achievements'].list($scope.item.Id).then(function(res) {
         if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
           $scope.items = res.data;
-          var num = res.data.length;
-          $scope.allData = [];
-          for (var i= 0; i<num; i++)
-          {
-            $scope.Data = []
-            if ($scope.items[i].CompletionCriteria != null)
-            {
-                $scope.allData.push({Name: $scope.items[i].Name, 
-                    Key: $scope.items[i].CompletionCriteria[0].Key, 
-                    DataType: $scope.items[i].CompletionCriteria[0].DataType, 
-                    ComparisonType: $scope.items[i].CompletionCriteria[0].ComparisonType, 
-                    Value: $scope.items[i].CompletionCriteria[0].Value});
-            }
-            else
-            {
-                $scope.allData.push({Name: $scope.items[i].Name, Key: null, DataType: null, ComparisonType: null, Value: null});
-            }
-          }
-          $scope.items = $scope.allData;
+          // var num = res.data.length;
+          // for (var i= 0; i<num; i++)
+          // {
+          //   $scope.Data = []
+          //   if ($scope.items[i].CompletionCriteria != null)
+          //   {
+          //       $scope.item[i].criterias = [];
+          //       for (var j=0; $scope.items[i].CompletionCriteria[j]!= null; j++)
+          //       {
+          //         $scope.items[i].criterias.push({
+          //           Key: $scope.items[i].CompletionCriteria[j].Key, 
+          //           DataType: $scope.items[i].CompletionCriteria[j].DataType, 
+          //           ComparisonType: $scope.items[i].CompletionCriteria[j].ComparisonType, 
+          //           Value: $scope.items[i].CompletionCriteria[j].Value
+          //         });
+          //       }
+          //   }
+          //   else
+          //   {
+          //       $scope.allData.push({Name: $scope.items[i].Name, Key: null, DataType: null, ComparisonType: null, Value: null});
+          //   }
+          // }
+          // $scope.items = $scope.allData;
         }
        });
     }
-    
+    $scope.range = function(min, max, step) {
+        step = step || 1;
+        min = 0;
+        max = $scope.items.length-1;
+        var input = [];
+        for (var i = min; i <= max; i += step) {
+            input.push(i);
+        }
+        return input;
+    };
+    $scope.criteriaRange = function(index) {
+        var step = 1;
+        var min = 1;
+        var max = $scope.items[index].CompletionCriteria.length;
+        var input = [];
+        for (var i = min; i <= max; i += step) {
+            input.push(i);
+        }
+        return input;
+    };
     //our buttons
     $scope.close = function() {
       return $uibModalInstance.close();
@@ -189,7 +212,7 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
         // });
     };
     $scope.remove = function(item){
-        Api['achievements'].delete($scope.item.Id).then(function(res) {
+        Api['achievements'].delete(item.Id).then(function(res) {
             $uibModalInstance.close();
             return modalManager.open('showAchievements', {
             itemtype: $scope.itemtype,
