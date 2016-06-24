@@ -274,8 +274,18 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
             itemtype: $scope.itemtype,
             item: $scope.item
             });
-        });
-    }; 
+          });
+        }; 
+        $scope.removePending = function(item){
+            var friendship = "{ RequestorId: " + $scope.item.Id + ", AcceptorId: " + item.Id + ", Accepted: false }"
+            Api['friendRequests'].update(friendship).then(function(res) {
+            $uibModalInstance.close();
+            return modalManager.open('showGroups', {
+            itemtype: $scope.itemtype,
+            item: $scope.item
+            });
+          });
+        };
   }
 ]).controller('addFriendModalCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
