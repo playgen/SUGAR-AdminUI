@@ -225,12 +225,19 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     $scope.item = modaldata.item;
+    $scope.pendings = [];
 
         Api['friends'].list($scope.item.Id).then(function(res) {
         if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
           $scope.items = res.data;
         }
-       });
+        });
+        Api['friends'].listPending($scope.item.Id).then(function(res){
+          if (res.status === 200 && res.data != null)
+          {
+            $scope.pendings = res.data;
+          }
+        });
        Api['friendRequests'].list($scope.item.Id).then(function(res){
        if (res != null && res.data[0] != null)
        {
@@ -246,6 +253,7 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
       return $uibModalInstance.close();
     };
     $scope.add = function(item) {
+      $uibModalInstance.close();
       return modalManager.open('addFriend', {
         itemtype: $scope.itemtype,
         item: item
@@ -288,9 +296,13 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
     //our buttons
     $scope.close = function(item) {         
         $scope.config.friends.ExistingPlayer.exists = true;
-        return $uibModalInstance.close();
+        $uibModalInstance.close();
+        return modalManager.open('showFriends', {
+          itemtype: 'users',
+          item: item
+        });
     };
-    return $scope.add = function(item) {
+    $scope.add = function(item) {
          Api['users'].get($scope.txtBox)
         
         .then(function(res)
@@ -299,8 +311,16 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
             {
                 //put the data backwards for testing as groups cannot request users join
                 var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + res.data[0].Id + " }"
-                Api['friends'].create(friendship);
-                return $uibModalInstance.close();
+                Api['friends'].create(friendship)
+
+                .then(function(res)
+                {
+                  $uibModalInstance.close();
+                  return modalManager.open('showFriends', {
+                    itemtype: 'users',
+                    item: item
+                  });
+                });
             }
             else
                 $scope.config.friends.ExistingPlayer.exists = false;

@@ -71,11 +71,14 @@ angular.module('sgaAdminApp').service('Api', [
         list: function(id) {
           return $http.get(config.api.baseurl + "/userfriend/friends?userId=" + id);
         },
+        listPending: function(id){
+          return $http.get(config.api.baseurl + ("/userfriend/sentrequests?userId=" + id));
+        },
         get: function(id) {
           return $http.get(config.api.baseurl + ("/userfriend/" + id));
         },
         create: function(item){
-            return $http.post(config.api.baseurl + '/userfriend', item)
+          return $http.post(config.api.baseurl + '/userfriend', item)
         },
         update: function(item) {
           return $http.put(config.api.baseurl + "/userfriend", item);
