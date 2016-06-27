@@ -34,6 +34,10 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/userFriends.html',
     controller: 'UsersFriendsCtrl',
     login: true
+  }).when('/users/groups/:itemtype/:itemId', {
+    templateUrl: 'views/userGroups.html',
+    controller: 'UsersGroupsCtrl',
+    login: true
   }).when('/games', {
     templateUrl: 'views/games.html',
     controller: 'GamesCtrl',
