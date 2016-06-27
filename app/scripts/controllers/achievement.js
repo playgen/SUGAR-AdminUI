@@ -56,9 +56,9 @@ angular.module('sgaAdminApp').controller('AchievementCtrl', [
       }
       completeCriteria += "]";
         var achievement = "{ \"GameId\": " + $scope.itemId + ", \"Name\": \"" + $scope.item.Name + "\", \"CompletionCriteria\": " + completeCriteria + " }";
-        Api['achievements'].create(achievement);
-
-        $location.path('games');
+        Api['achievements'].create(achievement).then(function(res){
+          $location.path('/games/achievements/' + $scope.itemtype + "/" + $scope.itemId);
+        });
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();

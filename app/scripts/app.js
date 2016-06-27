@@ -30,9 +30,13 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/games.html',
     controller: 'GamesCtrl',
     login: true
-  }).when('/newAchievement/:itemId', {
+  }).when('/games/achievements/:itemtype/:itemId/new', {
     templateUrl: 'views/achievement.html',
     controller: 'AchievementCtrl',
+    login: true
+  }).when('/games/achievements/:itemtype/:itemId', {
+    templateUrl: 'views/showAchievements.html',
+    controller: 'showAchievementsCtrl',
     login: true
   }).when('/list/:itemtype', {
     templateUrl: 'views/list.html',
