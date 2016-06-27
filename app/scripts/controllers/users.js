@@ -109,7 +109,7 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
       return $uibModalInstance.close();
     };
   }
-]).controller('ConfirmDeleteModalCtrl', [
+]).controller('ConfirmDeleteUserModalCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'UsersApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, UsersApi, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;

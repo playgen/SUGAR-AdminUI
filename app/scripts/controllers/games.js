@@ -107,7 +107,7 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
       return $uibModalInstance.close();
     };
   }
-]).controller('ConfirmDeleteModalCtrl', [
+]).controller('ConfirmDeleteGameModalCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'GamesApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, GamesApi, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;

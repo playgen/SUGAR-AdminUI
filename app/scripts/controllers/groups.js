@@ -124,7 +124,7 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
       return $uibModalInstance.close();
     };
   }
-]).controller('ConfirmDeleteModalCtrl', [
+]).controller('ConfirmDeleteGroupModalCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'GroupsApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, GroupsApi, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
