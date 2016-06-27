@@ -28,10 +28,6 @@ angular.module('sgaAdminApp').service('modalManager', [
         temp: 'showAllianceModal.html',
         cont: 'showAllianceModalCtrl'
       },
-      'showMembers': {
-        temp: 'showMembersModal.html',
-        cont: 'showMembersModalCtrl'
-      },
       'showFriends': {
         temp: 'showFriendsModal.html',
         cont: 'showFriendsModalCtrl'

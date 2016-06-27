@@ -37,53 +37,6 @@
 	</div>
 </div>
 
-<!-- Show the members of a group  -->
-
-<script type="text/ng-template" id="showMembersModal.html">
-	<div class="modal-header">
-		<h3 class="modal-title"><span>Members of </span>{{config.display.individualTitle(item)}}<span>:</span></h3>
-	</div>
-	<div class="modal-body">
-		<table class="table table-bordered">
-			<tr class="listitem">
-				<th>Player Name</th>
-				<th></th>
-			</tr>
-            <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
-				<td>
-					<span>{{item.Name}}</span>
-				</td>
-                <td>
-                    <button class="btn btn-danger pull-right" type="button" ng-click="remove(item)"><i class="fa fa-times"> Remove</i></button>
-                </td>
-		    </tr>
-		</table>
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
-        <button class="btn btn-success" type="button" ng-click="add(item)"></i>Add</button>
-	</div>
-</script>
-
-<!-- Add a member to the group -->
-
-<script type="text/ng-template" id="addMemberModal.html">
-    <div class="modal-header">
-        <h3 class="modal-title"><span>Add a new member to </span>{{config.display.individualTitle(item)}}</h3>
-    </div>
-    <div class="modal-body">
-        <class>Enter Player Name</class>
-        <form name="myForm">
-        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" required/>
-        </form>
-        <class="form-control" ng-if="!config.members.ExistingPlayer.exists">Error: Player Not Found</class>
-    </div>
-    <div class="modal-footer">
-        		<button class="btn btn-danger pull-left" type="button" ng-click="close(item)"><i class="fa fa-times"></i> Cancel</button>  
-                <button class="btn btn-success" type="button" ng-click="add(item)"ng-disabled="myForm.$invalid">Add</button>      
-    </div>>
-</script>
-
 <!-- Confirm that we want to delete the group  -->
 
 <script type="text/ng-template" id="confirmDeleteModal.html">
