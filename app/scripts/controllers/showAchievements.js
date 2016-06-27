@@ -16,6 +16,8 @@ angular.module('sgaAdminApp').controller('showAchievementsCtrl', [
     $scope.items = [];
     $scope.criterias = 1;
 
+    $scope.gameName = '';
+
     $scope.pagination = {
       perPage: 10,
       currentPage: 1
@@ -25,6 +27,12 @@ angular.module('sgaAdminApp').controller('showAchievementsCtrl', [
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
           $scope.range(); 
+        }
+      });
+            Api['games'].get($scope.itemId).then(function(res){
+        if (res.status === 200 && res.data != null)
+        {
+          $scope.gameName = res.data.Name;
         }
       });
     };
@@ -58,7 +66,7 @@ angular.module('sgaAdminApp').controller('showAchievementsCtrl', [
         });
     };
     $scope.add = function(item) {
-        $location.path('/games/achievements/' + $scope.itemtype + "/" + $scope.itemId + '/new');
+        $location.path('/games/' + $scope.itemId + '/achievements/new');
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();

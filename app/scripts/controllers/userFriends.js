@@ -13,6 +13,8 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
     
+    $scope.userName = '';
+
     $scope.items = [];
     $scope.pendings = [];
     $scope.requests = [];
@@ -42,6 +44,12 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
            $scope.requests = res.data;
        }
     });
+       Api['users'].get($scope.itemId).then(function(res){
+        if (res.status === 200 && res.data != null)
+        {
+          $scope.userName = res.data.Name;
+        }
+      });
     };
     $scope.add = function(item) {
       return modalManager.open('addFriend', {

@@ -22,7 +22,7 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/groups.html',
     controller: 'GroupsCtrl',
     login: true
-  }).when('/groups/members/:itemtype/:itemId', {
+  }).when('/groups/:itemId/members', {
     templateUrl: 'views/groupMembers.html',
     controller: 'GroupMembersCtrl',
     login: true
@@ -30,11 +30,11 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/users.html',
     controller: 'UsersCtrl',
     login: true
-  }).when('/users/friends/:itemtype/:itemId', {
+  }).when('/users/:itemId/friends', {
     templateUrl: 'views/userFriends.html',
     controller: 'UsersFriendsCtrl',
     login: true
-  }).when('/users/groups/:itemtype/:itemId', {
+  }).when('/users/:itemId/groups', {
     templateUrl: 'views/userGroups.html',
     controller: 'UsersGroupsCtrl',
     login: true
@@ -42,11 +42,11 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/games.html',
     controller: 'GamesCtrl',
     login: true
-  }).when('/games/achievements/:itemtype/:itemId/new', {
+  }).when('/games/:itemId/achievements/new', {
     templateUrl: 'views/achievement.html',
     controller: 'AchievementCtrl',
     login: true
-  }).when('/games/achievements/:itemtype/:itemId', {
+  }).when('/games/:itemId/achievements', {
     templateUrl: 'views/showAchievements.html',
     controller: 'showAchievementsCtrl',
     login: true

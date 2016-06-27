@@ -53,10 +53,10 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
       });
     };
     $scope.showFriends = function(item) {
-      $location.path('/users/friends/' + item.Name + "/" + item.Id);
+      $location.path('/users/'+ item.Id + '/friends');
     };
     $scope.showGroups = function(item) {
-      $location.path('/users/groups/' + item.Name + "/" + item.Id);
+      $location.path('/users/'+ item.Id + '/groups');
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();

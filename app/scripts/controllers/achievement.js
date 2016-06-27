@@ -13,6 +13,7 @@ angular.module('sgaAdminApp').controller('AchievementCtrl', [
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
     
+
     $scope.items = [];
     $scope.criterias = 1;
 
@@ -21,7 +22,7 @@ angular.module('sgaAdminApp').controller('AchievementCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      return Api['games'].list().then(function(res) {
+      Api['games'].list().then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
           $scope.range();
@@ -57,7 +58,7 @@ angular.module('sgaAdminApp').controller('AchievementCtrl', [
       completeCriteria += "]";
         var achievement = "{ \"GameId\": " + $scope.itemId + ", \"Name\": \"" + $scope.item.Name + "\", \"CompletionCriteria\": " + completeCriteria + " }";
         Api['achievements'].create(achievement).then(function(res){
-          $location.path('/games/achievements/' + $scope.itemtype + "/" + $scope.itemId);
+          $location.path('/games/'+ $scope.itemId + '/achievements' );
         });
     };
     return $scope.$on('savedItem', function(event, args) {

@@ -13,6 +13,8 @@ angular.module('sgaAdminApp').controller('GroupMembersCtrl', [
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
 
+    $scope.groupName = '';
+
     $scope.items = [];
     $scope.pagination = {
       perPage: 10,
@@ -24,6 +26,12 @@ angular.module('sgaAdminApp').controller('GroupMembersCtrl', [
           $scope.items = res.data;
         }
        });
+           Api['groups'].get($scope.itemId).then(function(res){
+        if (res.status === 200 && res.data != null)
+        {
+          $scope.groupName = res.data.Name;
+        }
+      });
     };
     //our buttons
     $scope.remove = function(item){

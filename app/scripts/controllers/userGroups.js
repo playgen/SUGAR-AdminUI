@@ -13,6 +13,8 @@ angular.module('sgaAdminApp').controller('UsersGroupsCtrl', [
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
     
+    $scope.userName = '';
+
     $scope.items = [];
     $scope.pagination = {
       perPage: 10,
@@ -24,8 +26,14 @@ angular.module('sgaAdminApp').controller('UsersGroupsCtrl', [
             $scope.items = res.data;
         }
       });
+      Api['users'].get($scope.itemId).then(function(res){
+        if (res.status === 200 && res.data != null)
+        {
+          $scope.userName = res.data.Name;
+        }
+      });
     };
-
+    
     $scope.add = function(item) {
         return modalManager.open('addGroup', {
           itemtype: $scope.itemtype,

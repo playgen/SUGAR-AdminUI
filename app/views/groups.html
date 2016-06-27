@@ -1,11 +1,5 @@
 <div ng-init="init()">
 
-	<div class="row">
-		<div class="col-xs-12 text-center button-container">
-			<button class="btn btn-success" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new group</button>
-		</div>
-	</div>
-
 	<div class="row"  ng-if="items.length > pagination.perPage">
 		<div class="col-xs-12 text-center">
 			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
@@ -24,15 +18,20 @@
             <td>{{item.Name}}</td>
             <td>{{item.members}}</td>
 			<td>
-				<button class="btn btn-primary btn-sm" title="Edit this item" ng-click="select(item)" ng-if="false"><i class="fa fa-pencil"></i></button>
+				<button class="btn btn-primary btn-sm" title="Edit this Group" ng-click="select(item)" ng-if="false"><i class="fa fa-pencil"></i></button>
 				<button class="btn btn-primary btn-sm" title="Show Members For Group" ng-click="showMembers(item)"><i class="fa fa-eye"> Members</i></button>
-				<button class="btn btn-danger btn-sm" title="Delete this entry" ng-click="delete(item)"><i class="fa fa-trash-o"></i></button>
+				<button class="btn btn-danger btn-sm" title="Delete this Group" ng-click="delete(item)"><i class="fa fa-trash-o"></i></button>
             </td>
 		</tr>
 	</table>
 	<div class="row"  ng-if="items.length > pagination.perPage">
 		<div class="col-xs-12 text-center">
 			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+		</div>
+	</div>
+	<div>
+		<div class="col-xs-12 text-center button-container">
+			<button class="btn btn-success pull-right" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new group</button>
 		</div>
 	</div>
 </div>

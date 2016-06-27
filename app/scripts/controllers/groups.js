@@ -67,7 +67,7 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
       });
     };
     $scope.showMembers = function(item) {
-      $location.path('/groups/members/' + item.Name + "/" + item.Id)
+      $location.path('/groups/' + item.Id + '/members')
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();

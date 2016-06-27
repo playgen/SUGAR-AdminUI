@@ -44,7 +44,7 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
     };
     $scope.showAchievements = function(item) {
       var gameName = item.Name;
-      $location.path('/games/achievements/' + gameName + "/" + item.Id);
+      $location.path('/games/' + item.Id + '/achievements');
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
