@@ -9,7 +9,7 @@
   * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('UsersGroupsCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'Api', function($scope, $routeParams, $location, modalManager, Api) {
+  '$scope', '$routeParams', '$location', 'modalManager', 'UsersApi', function($scope, $routeParams, $location, modalManager, UsersApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
     
@@ -21,12 +21,12 @@ angular.module('sgaAdminApp').controller('UsersGroupsCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      Api['userGroups'].list($scope.itemId).then(function(res) {
+      UsersApi['userGroups'].list($scope.itemId).then(function(res) {
         if (res.status === 200 && res.data != null) {
             $scope.items = res.data;
         }
       });
-      Api['users'].get($scope.itemId).then(function(res){
+      UsersApi['users'].get($scope.itemId).then(function(res){
         if (res.status === 200 && res.data != null)
         {
           $scope.userName = res.data.Name;
@@ -43,7 +43,7 @@ angular.module('sgaAdminApp').controller('UsersGroupsCtrl', [
     };
     $scope.remove = function(item){
         var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + item.Id + ", Accepted: false }"
-        Api['userGroups'].update(friendship).then(function(res) {
+        UsersApi['userGroups'].update(friendship).then(function(res) {
             $scope.init();
         });
     }
@@ -52,12 +52,12 @@ angular.module('sgaAdminApp').controller('UsersGroupsCtrl', [
     });
   }
 ]).controller('showGroupsModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
+  '$scope', '$rootScope', '$uibModalInstance', 'UsersApi', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, UsersApi, modalManager, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     $scope.item = modaldata.item;
 
-    Api['userGroups'].list($scope.item.Id).then(function(res) {
+    UsersApi['userGroups'].list($scope.item.Id).then(function(res) {
     if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
         $scope.items = res.data;
     }
@@ -70,7 +70,7 @@ angular.module('sgaAdminApp').controller('UsersGroupsCtrl', [
     
   }
 ]).controller('addGroupModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
+  '$scope', '$rootScope', '$uibModalInstance', 'UsersApi', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, UsersApi, modalManager, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     $scope.itemId = modaldata.itemId;
@@ -79,7 +79,7 @@ angular.module('sgaAdminApp').controller('UsersGroupsCtrl', [
     if (modaldata.item != null) {
       $scope.item = modaldata.item;
     } else if (modaldata.itemid != null) {
-      Api[$scope.itemtype].get(modaldata.itemid).then(function(data) {
+      UsersApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
         if ((data != null ? data.data : void 0) != null) {
           return $scope.item = data.data;
         }
@@ -93,7 +93,7 @@ angular.module('sgaAdminApp').controller('UsersGroupsCtrl', [
     };
     
     $scope.add = function(item) {
-        Api['groups'].get($scope.txtBox)
+        UsersApi['userGroups'].getGroup($scope.txtBox)
         
         .then(function(res)
         {
@@ -101,7 +101,7 @@ angular.module('sgaAdminApp').controller('UsersGroupsCtrl', [
             {
                 //put the data backwards for testing as groups cannot request users join
                 var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + res.data[0].Id + ", AutoAccept: true }"
-                Api['members'].create(friendship).then(function(res){
+                UsersApi['userGroups'].createMember(friendship).then(function(res){
                   $uibModalInstance.close();
                   $rootScope.$broadcast('savedItem');
                 });

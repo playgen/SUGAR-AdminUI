@@ -9,7 +9,7 @@
   * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('GamesCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'Api', function($scope, $routeParams, $location, modalManager, Api) {
+  '$scope', '$routeParams', '$location', 'modalManager', 'GamesApi', function($scope, $routeParams, $location, modalManager, GamesApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemid = $routeParams.itemid;
     
@@ -19,26 +19,26 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      return Api['games'].list().then(function(res) {
+      return GamesApi['games'].list().then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
         }
       });
     };
     $scope.select = function(item) {
-      return modalManager.open('edit', {
+      return modalManager.open('editGame', {
         itemtype: 'games',
         item: item
       });
     };
     $scope["delete"] = function(item) {
-      return modalManager.open('delete', {
+      return modalManager.open('deleteGame', {
         itemtype: 'games',
         item: item
       });
     };
     $scope.create = function() {
-      return modalManager.open('create', {
+      return modalManager.open('createGame', {
         itemtype: 'games'
       });
     };
@@ -50,15 +50,15 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
       return $scope.init();
     });
   }
-]).controller('EditModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
+]).controller('EditGameModalCtrl', [
+  '$scope', '$rootScope', '$uibModalInstance', 'GamesApi', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, GamesApi, modalManager, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     if (modaldata.item != null) {
       $scope.item = modaldata.item;
     } else if (modaldata.itemid != null) {
       $scope.item = {};
-      Api[$scope.itemtype].get(modaldata.itemid).then(function(data) {
+      GamesApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
         if ((data != null ? data.data : void 0) != null) {
           return $scope.item = data.data;
         } else {
@@ -73,13 +73,13 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
       return e.original = $scope.item[e.key];
     });
     $scope.link = function(itemtype, id) {
-      return modalManager.open('edit', {
+      return modalManager.open('editGame', {
         itemtype: itemtype,
         itemid: id
       });
     };
     $scope.save = function() {
-      return Api[$scope.itemtype].update($scope.item.Id, $scope.item).then(function() {
+      return GamesApi[$scope.itemtype].update($scope.item.Id, $scope.item).then(function() {
         $uibModalInstance.close();
         return $rootScope.$broadcast('savedItem');
       });
@@ -91,14 +91,14 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
       return $uibModalInstance.close();
     };
   }
-]).controller('CreateModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modaldata) {
+]).controller('CreateGameModalCtrl', [
+  '$scope', '$rootScope', '$uibModalInstance', 'GamesApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, GamesApi, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     $scope.item = {};
     
     $scope.save = function() {
-        return Api[$scope.itemtype].create($scope.item).then(function() {
+        return GamesApi[$scope.itemtype].create($scope.item).then(function() {
             $uibModalInstance.close();
             return $rootScope.$broadcast('savedItem');
         });
@@ -108,19 +108,19 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
     };
   }
 ]).controller('ConfirmDeleteModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modaldata) {
+  '$scope', '$rootScope', '$uibModalInstance', 'GamesApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, GamesApi, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     if (modaldata.item != null) {
       $scope.item = modaldata.item;
     } else if (modaldata.itemid != null) {
       $scope.item = {};
-      Api[$scope.itemtype].get(modaldata.itemid).then(function(data) {
+      GamesApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
         return console.log(data);
       });
     }
     $scope["delete"] = function() {
-      return Api[$scope.itemtype]["delete"]($scope.item.Id).then(function() {
+      return GamesApi[$scope.itemtype]["delete"]($scope.item.Id).then(function() {
         $uibModalInstance.close();
         return $rootScope.$broadcast('savedItem');
       });

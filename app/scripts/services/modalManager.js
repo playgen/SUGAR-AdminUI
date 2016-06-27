@@ -12,17 +12,41 @@ angular.module('sgaAdminApp').service('modalManager', [
   '$uibModal', 'listConfigs', function($uibModal, listConfigs) {
     var configs, modalManager;
     configs = {
-      'edit': {
+      'editUser': {
         temp: 'editModal.html',
-        cont: 'EditModalCtrl'
+        cont: 'EditUserModalCtrl'
       },
-      'create': {
+      'editGroup': {
+        temp: 'editModal.html',
+        cont: 'EditGroupModalCtrl'
+      },
+      'editGame': {
+        temp: 'editModal.html',
+        cont: 'EditGameModalCtrl'
+      },
+      'createUser': {
         temp: 'createModal.html',
-        cont: 'CreateModalCtrl'
+        cont: 'CreateUserModalCtrl'
       },
-      'delete': {
+      'createGroup': {
+        temp: 'createModal.html',
+        cont: 'CreateGroupModalCtrl'
+      },
+      'createGame': {
+        temp: 'createModal.html',
+        cont: 'CreateGameModalCtrl'
+      },
+      'deleteUser': {
         temp: 'confirmDeleteModal.html',
-        cont: 'ConfirmDeleteModalCtrl'
+        cont: 'ConfirmDeleteUserModalCtrl'
+      },
+      'deleteGroup': {
+        temp: 'confirmDeleteModal.html',
+        cont: 'ConfirmDeleteGroupModalCtrl'
+      },
+      'deleteGame': {
+        temp: 'confirmDeleteModal.html',
+        cont: 'ConfirmDeleteGameModalCtrl'
       },
       'showAlliances': {
         temp: 'showAllianceModal.html',

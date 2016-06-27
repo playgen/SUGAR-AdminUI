@@ -9,7 +9,7 @@
   * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'Api', function($scope, $routeParams, $location, modalManager, Api) {
+  '$scope', '$routeParams', '$location', 'modalManager', 'UsersApi', function($scope, $routeParams, $location, modalManager, UsersApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
     
@@ -27,24 +27,24 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
       $scope.items = [];
       $scope.pendings = [];
       $scope.requests = [];
-        Api['friends'].list($scope.itemId).then(function(res) {
+        UsersApi['friends'].list($scope.itemId).then(function(res) {
         if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
           $scope.items = res.data;
         }
         });
-        Api['friends'].listPending($scope.itemId).then(function(res){
+        UsersApi['friends'].listPending($scope.itemId).then(function(res){
           if (res.status === 200 && res.data != null)
           {
             $scope.pendings = res.data;
           }
         });
-       Api['friendRequests'].list($scope.itemId).then(function(res){
+       UsersApi['friendRequests'].list($scope.itemId).then(function(res){
        if (res != null && res.data[0] != null)
        {
            $scope.requests = res.data;
        }
     });
-       Api['users'].get($scope.itemId).then(function(res){
+       UsersApi['users'].get($scope.itemId).then(function(res){
         if (res.status === 200 && res.data != null)
         {
           $scope.userName = res.data.Name;
@@ -60,25 +60,25 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
     };
     $scope.remove = function(item){
         var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + $scope.itemId + ", Accepted: false }"
-        Api['friends'].update(friendship).then(function(res) {
+        UsersApi['friends'].update(friendship).then(function(res) {
           $scope.init();
       });
     }; 
     $scope.removePending = function(item){
         var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + item.Id + ", Accepted: false }"
-        Api['friendRequests'].update(friendship).then(function(res) {
+        UsersApi['friendRequests'].update(friendship).then(function(res) {
           $scope.init();
       });
     };
     $scope.accept = function(item){
         var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + $scope.itemId + ", Accepted: true }"
-        Api["friendRequests"].update(friendship).then(function(res) {
+        UsersApi["friendRequests"].update(friendship).then(function(res) {
              $scope.init();
         });
     };
     $scope.reject = function(item){
         var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + $scope.itemId + ", Accepted: false }"
-        Api["friendRequests"].update(friendship).then(function(res) {
+        UsersApi["friendRequests"].update(friendship).then(function(res) {
              $scope.init();
         });
     }; 
@@ -88,7 +88,7 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
     
   }
 ]).controller('addFriendModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
+  '$scope', '$rootScope', '$uibModalInstance', 'UsersApi', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, UsersApi, modalManager, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     $scope.itemId = modaldata.itemId;
@@ -97,7 +97,7 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
     if (modaldata.item != null) {
       $scope.item = modaldata.item;
     } else if (modaldata.itemid != null) {
-      Api[$scope.itemtype].get(modaldata.itemid).then(function(data) {
+      UsersApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
         if ((data != null ? data.data : void 0) != null) {
           return $scope.item = data.data;
         }
@@ -114,7 +114,7 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
         });
     };
     $scope.add = function(item) {
-         Api['users'].get($scope.txtBox)
+         UsersApi['users'].get($scope.txtBox)
         
         .then(function(res)
         {
@@ -122,7 +122,7 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
             {
                 //put the data backwards for testing as groups cannot request users join
                 var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + res.data[0].Id + " }"
-                Api['friends'].create(friendship)
+                UsersApi['friends'].create(friendship)
 
                 .then(function(res)
                 {

@@ -9,7 +9,7 @@
   * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('AchievementCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'Api', function($scope, $routeParams, $location, modalManager, Api) {
+  '$scope', '$routeParams', '$location', 'modalManager', 'GamesApi', function($scope, $routeParams, $location, modalManager, GamesApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
     
@@ -22,7 +22,7 @@ angular.module('sgaAdminApp').controller('AchievementCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      Api['games'].list().then(function(res) {
+      GamesApi['games'].list().then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
           $scope.range();
@@ -57,7 +57,7 @@ angular.module('sgaAdminApp').controller('AchievementCtrl', [
       }
       completeCriteria += "]";
         var achievement = "{ \"GameId\": " + $scope.itemId + ", \"Name\": \"" + $scope.item.Name + "\", \"CompletionCriteria\": " + completeCriteria + " }";
-        Api['achievements'].create(achievement).then(function(res){
+        GamesApi['achievements'].create(achievement).then(function(res){
           $location.path('/games/'+ $scope.itemId + '/achievements' );
         });
     };

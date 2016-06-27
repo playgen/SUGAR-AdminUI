@@ -9,7 +9,7 @@
   * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('UsersCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'Api', function($scope, $routeParams, $location, modalManager, Api) {
+  '$scope', '$routeParams', '$location', 'modalManager', 'UsersApi', function($scope, $routeParams, $location, modalManager, UsersApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemid = $routeParams.itemid;
     
@@ -19,36 +19,26 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      return Api['users'].list().then(function(res) {
+      return UsersApi['users'].list().then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
-          // if ($routeParams.itemid != null) {
-          //   return $scope.items.forEach(function(i) {
-          //     var a, b;
-          //     a = '' + i[$scope.config.display.individualId];
-          //     b = '' + $scope.itemid;
-          //     if (a === b) {
-          //       return $scope.select(i);
-          //     }
-          //   });
-          // }
         }
       });
     };
     $scope.select = function(item) {
-      return modalManager.open('edit', {
+      return modalManager.open('editUser', {
         itemtype: 'users',
         item: item
       });
     };
     $scope["delete"] = function(item) {
-      return modalManager.open('delete', {
+      return modalManager.open('deleteUser', {
         itemtype: 'users',
         item: item
       });
     };
     $scope.create = function() {
-      return modalManager.open('create', {
+      return modalManager.open('createUser', {
         itemtype: 'users'
       });
     };
@@ -62,7 +52,7 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
       return $scope.init();
     });
   }
-]).controller('EditModalCtrl', [
+]).controller('EditUserModalCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modalManager, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
@@ -70,7 +60,7 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
       $scope.item = modaldata.item;
     } else if (modaldata.itemid != null) {
       $scope.item = {};
-      Api[$scope.itemtype].get(modaldata.itemid).then(function(data) {
+      UsersApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
         if ((data != null ? data.data : void 0) != null) {
           return $scope.item = data.data;
         } else {
@@ -85,13 +75,13 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
       return e.original = $scope.item[e.key];
     });
     $scope.link = function(itemtype, id) {
-      return modalManager.open('edit', {
+      return modalManager.open('editUser', {
         itemtype: itemtype,
         itemid: id
       });
     };
     $scope.save = function() {
-      return Api[$scope.itemtype].update($scope.item.Id, $scope.item).then(function() {
+      return UsersApi[$scope.itemtype].update($scope.item.Id, $scope.item).then(function() {
         $uibModalInstance.close();
         return $rootScope.$broadcast('savedItem');
       });
@@ -103,14 +93,14 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
       return $uibModalInstance.close();
     };
   }
-]).controller('CreateModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modaldata) {
+]).controller('CreateUserModalCtrl', [
+  '$scope', '$rootScope', '$uibModalInstance', 'UsersApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, UsersApi, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     $scope.item = {};
     
     $scope.save = function() {
-        return Api[$scope.itemtype].create($scope.item).then(function() {
+        return UsersApi[$scope.itemtype].create($scope.item).then(function() {
             $uibModalInstance.close();
             return $rootScope.$broadcast('savedItem');
         });
@@ -120,19 +110,19 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
     };
   }
 ]).controller('ConfirmDeleteModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'Api', 'modaldata', function($scope, $rootScope, $uibModalInstance, Api, modaldata) {
+  '$scope', '$rootScope', '$uibModalInstance', 'UsersApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, UsersApi, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     if (modaldata.item != null) {
       $scope.item = modaldata.item;
     } else if (modaldata.itemid != null) {
       $scope.item = {};
-      Api[$scope.itemtype].get(modaldata.itemid).then(function(data) {
+      usersApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
         return console.log(data);
       });
     }
     $scope["delete"] = function() {
-      return Api[$scope.itemtype]["delete"]($scope.item.Id).then(function() {
+      return UsersApi[$scope.itemtype]["delete"]($scope.item.Id).then(function() {
         $uibModalInstance.close();
         return $rootScope.$broadcast('savedItem');
       });
