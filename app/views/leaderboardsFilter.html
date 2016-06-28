@@ -1,29 +1,59 @@
 <div ng-init="init()" ng-if="gameFound">
 
-	<div class="row"  ng-if="items.length > pagination.perPage">
-		<div class="col-xs-12 text-center">
-			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
-		</div>
-	</div>
-
 	<table class="table table-bordered">
+		<form name="Filters">
 		<tr class="listitem">
-			<th style="width: 10px"></th>
-			<th>Select a Filter</th>
+			<th class="col-xs-2">Group or User<select class="form-control input-lg" ng-model="item.actor" required>
+					<option value="0">Group</option>
+					<option value="1">User</option>
+				</select>
+			</th>
+			<th class="col-xs-3">Select a Filter<select class="form-control input-lg" ng-model="item.Filter" required>
+					<option value="0">*GOLD*</option>
+					<option value="1">*TIME PLAYED*</option>
+					<option value="2">*MEMBERS*</option>
+					<option value="3">*ACHIEVEMENTS*</option>
+				</select>
+			</th>
+			<th class="col-xs-3">Sort By<select class="form-control input-lg" ng-model="item.Sort" required>
+					<option value="0">Highest</option>
+					<option value="1">Lowest</option>
+					<option value="1">Cumulative</option>
+					<option value="1">Count</option>
+				</select>
+			</th>
+			<th class="col-xs-2">Range Start<input type="text" class="form-control" ng-model="item.RangeStart" required/>
+			</th>
+			</th>
+			<th class="col-xs-2">Range End<input type="text" class="form-control" ng-model="item.RangeEnd" required/>
+			</th>
+			<th></th>
+		</tr>
+		</form>
+		<tr>
+			<td/><td/><td/><td/>
+			<td>
+			<button class="btn btn-success pull-right" type="button" ng-click="apply(item)" ng-disabled="Filters.$invalid">Apply Filter</button>
+			</td>
+		</tr>
+	</table>
+	<table class="table table-bordered">
+		<tr>
+			<th>Rank</th>
+			<th>Name</th>
+			<th>Value</th>
 			<th></th>
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-			<td></td>
-            <td ng-click="showLeaderboards(item)">{{item.Name}}</td>
+			<td>{{item.Rank}}</td>
+            <td>{{item.Name}}</td>
+			<td>{{item.Value}}</td>
 		</tr>
 	</table>
-	<div class="row"  ng-if="items.length > pagination.perPage">
+	<div class="row">
 		<div class="col-xs-12 text-center">
 			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 		</div>
-	</div>
-	<div class="modal-footer">
-        <button class="btn btn-success" type="button" ng-click="addFilter(item)"></i>Add New Filter</button>
 	</div>
 </div>
 <div>
