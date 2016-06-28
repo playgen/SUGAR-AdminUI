@@ -8,7 +8,7 @@
   * # GroupsCtrl
   * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('GroupMembersCtrl', [
+angular.module('sgaAdminApp').controller('GroupsMembersCtrl', [
   '$scope', '$routeParams', '$location', 'modalManager', 'GroupsApi', function($scope, $routeParams, $location, modalManager, GroupsApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;

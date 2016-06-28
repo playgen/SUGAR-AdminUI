@@ -19,7 +19,7 @@
 	</head>
 	<body class="skin-black fixed" ng-app="sgaAdminApp">
 
-		<div ng-controller="LayoutCtrl" ng-include="'views/layout.html'"></div>
+		<div ng-controller="LayoutCtrl" ng-include="'views/_layout.html'"></div>
 
 		<!-- build:js(.) scripts/vendor.js -->
 		<!-- bower:js -->
@@ -43,25 +43,33 @@
 
 				<!-- build:js({.tmp,app}) scripts/scripts.js -->
 				<script src="scripts/app.js"></script>
-				<script src="scripts/controllers/groups.js"></script>
-				<script src="scripts/controllers/groupMembers.js"></script>
-				<script src="scripts/controllers/users.js"></script>
-				<script src="scripts/controllers/userFriends.js"></script>
-				<script src="scripts/controllers/userGroups.js"></script>
-				<script src="scripts/controllers/games.js"></script>
-				<script src="scripts/controllers/showAchievements.js"></script>
+				<!-- main controllers -->
+				<script src="scripts/controllers/_layout.js"></script>
+				<script src="scripts/controllers/_login.js"></script>
+				<script src="scripts/controllers/_main.js"></script>
+				<script src="scripts/controllers/_header.js"></script>
+				<script src="scripts/controllers/_sidebar.js"></script>
+				<!-- achievements -->
 				<script src="scripts/controllers/achievement.js"></script>
-				<script src="scripts/controllers/layout.js"></script>
-				<script src="scripts/controllers/login.js"></script>
-				<script src="scripts/controllers/main.js"></script>
-				<script src="scripts/controllers/header.js"></script>
-				<script src="scripts/controllers/sidebar.js"></script>
+				<script src="scripts/controllers/achievementShow.js"></script>
+				<script src="scripts/controllers/games.js"></script>
+				<!-- groups -->
+				<script src="scripts/controllers/groups.js"></script>
+				<script src="scripts/controllers/groupsMembers.js"></script>
+				<!-- users -->
+				<script src="scripts/controllers/users.js"></script>
+				<script src="scripts/controllers/usersFriends.js"></script>
+				<script src="scripts/controllers/usersGroups.js"></script>
+				<!-- resources -->
+				<script src="scripts/controllers/resources.js"></script>
+				<script src="scripts/controllers/resourcesAll.js"></script>
+				<!-- services -->
 				<script src="scripts/services/requestInterceptor.js"></script>
 				<script src="scripts/services/auth.js"></script>
 				<script src="scripts/services/user.js"></script>
-				<script src="scripts/services/usersServices.js"></script>
-				<script src="scripts/services/groupsServices.js"></script>
-				<script src="scripts/services/gamesServices.js"></script>
+				<script src="scripts/services/serviceUsers.js"></script>
+				<script src="scripts/services/serviceGroups.js"></script>
+				<script src="scripts/services/serviceGames.js"></script>
 				<script src="scripts/services/listConfigs.js"></script>
 				<script src="scripts/services/modalManager.js"></script>
 				<!-- endbuild -->

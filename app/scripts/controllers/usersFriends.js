@@ -13,6 +13,9 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
     
+    $scope.userFound = true;
+    $scope.friendsFound = true;
+
     $scope.userName = '';
 
     $scope.items = [];
@@ -28,8 +31,13 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
       $scope.pendings = [];
       $scope.requests = [];
         UsersApi['friends'].list($scope.itemId).then(function(res) {
-        if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
+        if ((res != null ? res.status : void 0) === 200 && (res.data.length > 0)) {
           $scope.items = res.data;
+          $scope.friendsFound = true;
+        }
+        else
+        {
+          $scope.friendsFound = false;
         }
         });
         UsersApi['friends'].listPending($scope.itemId).then(function(res){
@@ -44,10 +52,15 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
            $scope.requests = res.data;
        }
     });
-       UsersApi['users'].get($scope.itemId).then(function(res){
-        if (res.status === 200 && res.data != null)
+       UsersApi['users'].getById($scope.itemId).then(function(res){
+        if (res.status === 200 && res.data.Name != null)
         {
           $scope.userName = res.data.Name;
+          $scope.userFound = true;
+        }
+        else 
+        {
+          $scope.userFound = false;
         }
       });
     };

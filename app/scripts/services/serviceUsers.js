@@ -16,7 +16,10 @@ angular.module('sgaAdminApp').service('UsersApi', [
           return $http.get(config.api.baseurl + '/user/all');
         },
         get: function(username){
-            return $http.get(config.api.baseurl + '/user?name=' + username);
+            return $http.get(config.api.baseurl + '/user/find/' + username);
+        },
+        getById: function (id) {
+          return $http.get(config.api.baseurl + '/user/findbyid/' + id)
         },
         create: function(item) {
           return $http.post(config.api.baseurl + '/user', item);
@@ -64,7 +67,7 @@ angular.module('sgaAdminApp').service('UsersApi', [
           return $http.get(config.api.baseurl + ("/groupmember/usergroups" + id));
         },
         getGroup: function(username) {
-          return $http.get(config.api.baseurl + ("/group?name=" + username));
+          return $http.get(config.api.baseurl + ("/group/name/" + username));
         },
         createMember: function(item){
             return $http.post(config.api.baseurl + '/groupmember', item)

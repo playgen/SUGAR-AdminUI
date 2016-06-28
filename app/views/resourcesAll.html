@@ -1,0 +1,25 @@
+<div ng-init="init()">
+
+	<div class="row"  ng-if="items.length > pagination.perPage">
+		<div class="col-xs-12 text-center">
+			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+		</div>
+	</div>
+
+	<table class="table table-bordered">
+		<tr class="listitem">
+			<th style="width: 10px"></th>
+			<th>Select a game to view resources</th>
+			<th></th>
+		</tr>
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+			<td></td>
+            <td ng-click="showResources(item)">{{item.Name}}</td>
+		</tr>
+	</table>
+	<div class="row"  ng-if="items.length > pagination.perPage">
+		<div class="col-xs-12 text-center">
+			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+		</div>
+	</div>
+</div>

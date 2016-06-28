@@ -11,11 +11,11 @@
  */
 angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ipCookie', 'ui.bootstrap']).config(function($routeProvider) {
   return $routeProvider.when('/login', {
-    templateUrl: 'views/login.html',
+    templateUrl: 'views/_login.html',
     controller: 'LoginCtrl',
     login: false
   }).when('/', {
-    templateUrl: 'views/main.html',
+    templateUrl: 'views/_main.html',
     controller: 'MainCtrl',
     login: true
   }).when('/groups', {
@@ -23,19 +23,19 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     controller: 'GroupsCtrl',
     login: true
   }).when('/groups/:itemId/members', {
-    templateUrl: 'views/groupMembers.html',
-    controller: 'GroupMembersCtrl',
+    templateUrl: 'views/groupsMembers.html',
+    controller: 'GroupsMembersCtrl',
     login: true
   }).when('/users', {
     templateUrl: 'views/users.html',
     controller: 'UsersCtrl',
     login: true
   }).when('/users/:itemId/friends', {
-    templateUrl: 'views/userFriends.html',
+    templateUrl: 'views/usersFriends.html',
     controller: 'UsersFriendsCtrl',
     login: true
   }).when('/users/:itemId/groups', {
-    templateUrl: 'views/userGroups.html',
+    templateUrl: 'views/usersGroups.html',
     controller: 'UsersGroupsCtrl',
     login: true
   }).when('/games', {
@@ -47,8 +47,20 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     controller: 'AchievementCtrl',
     login: true
   }).when('/games/:itemId/achievements', {
-    templateUrl: 'views/showAchievements.html',
-    controller: 'showAchievementsCtrl',
+    templateUrl: 'views/achievementShow.html',
+    controller: 'AchievementShowCtrl',
+    login: true
+  }).when('/resources', {
+    templateUrl: 'views/resources.html',
+    controller: 'ResourcesCtrl',
+    login: true
+  }).when('/resources/:itemId/all', {
+    templateUrl: 'views/resourcesAll.html',
+    controller: 'ResourcesAllCtrl',
+    login: true
+  }).when('/leaderboards', {
+    templateUrl: 'views/leaderboards.html',
+    controller: 'LeaderboardsCtrl',
     login: true
   }).when('/list/:itemtype', {
     templateUrl: 'views/list.html',

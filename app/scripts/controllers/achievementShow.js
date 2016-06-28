@@ -8,7 +8,7 @@
   * # showAchievementsCtrl
   * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('showAchievementsCtrl', [
+angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
   '$scope', '$routeParams', '$location', 'modalManager', 'GamesApi', function($scope, $routeParams, $location, modalManager, GamesApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;

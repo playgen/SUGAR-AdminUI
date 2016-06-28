@@ -16,7 +16,7 @@ angular.module('sgaAdminApp').service('GroupsApi', [
           return $http.get(config.api.baseurl + '/group/all');
         },
         get: function(username) {
-          return $http.get(config.api.baseurl + ("/group?name=" + username));
+          return $http.get(config.api.baseurl + ("/group/find/" + username));
         },
         create: function(item) {
           return $http.post(config.api.baseurl + '/group', item);
@@ -47,7 +47,7 @@ angular.module('sgaAdminApp').service('GroupsApi', [
       },
       'user': {
         get: function(username){
-            return $http.get(config.api.baseurl + '/user?name=' + username);
+            return $http.get(config.api.baseurl + '/user/find/' + username);
         }
       }
     };
