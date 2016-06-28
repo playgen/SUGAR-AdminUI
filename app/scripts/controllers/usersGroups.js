@@ -14,6 +14,7 @@ angular.module('sgaAdminApp').controller('UsersGroupsCtrl', [
     $scope.itemId = $routeParams.itemId;
     
     $scope.userName = '';
+    $scope.userFound = true;
 
     $scope.items = [];
     $scope.pagination = {
@@ -26,11 +27,17 @@ angular.module('sgaAdminApp').controller('UsersGroupsCtrl', [
             $scope.items = res.data;
         }
       });
-      UsersApi['users'].get($scope.itemId).then(function(res){
+      UsersApi['users'].getById($scope.itemId).then(function(res){
         if (res.status === 200 && res.data != null)
         {
           $scope.userName = res.data.Name;
         }
+        else 
+        {
+          $scope.userFound = false;
+        }
+      }).catch(function () {
+        $scope.userFound = false;
       });
     };
     

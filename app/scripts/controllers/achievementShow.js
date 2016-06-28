@@ -17,6 +17,7 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
     $scope.criterias = 1;
 
     $scope.gameName = '';
+    $scope.gameFound = true;
 
     $scope.pagination = {
       perPage: 10,
@@ -34,6 +35,12 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
         {
           $scope.gameName = res.data.Name;
         }
+        else 
+        {
+          $scope.gameFound = false;
+        }
+      }).catch(function () {
+        $scope.gameFound = false;
       });
     };
     $scope.range = function(min, max, step) {

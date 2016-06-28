@@ -10,6 +10,7 @@
  */
 angular.module('sgaAdminApp').controller('SidebarCtrl', [
   '$scope', '$location','config', 'Auth', 'listConfigs', function($scope, $location, config, Auth, listConfigs) {
+    var path = $location.path();
     $scope.isActive = function(page) {
       return $location.path().indexOf("/list/" + page) !== -1;
     };

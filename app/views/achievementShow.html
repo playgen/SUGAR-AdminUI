@@ -1,4 +1,4 @@
-<div ng-init="init()">
+<div ng-init="init()" ng-if="gameFound">
 
 	<div class="row"  ng-if="items.length > pagination.perPage">
 		<div class="col-xs-12 text-center">
@@ -45,6 +45,9 @@
 		</div>
 	</div>
 
+</div>
+<div>
+	<h3 ng-if="!gameFound" ><span>Cannot display achievements, no game found with ID:- </span>{{itemId}}<span></span></h3>
 </div>
 
 <!-- Confirm that we want to delete the game  -->

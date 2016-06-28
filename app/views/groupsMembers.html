@@ -1,4 +1,4 @@
-<div ng-init="init()">
+<div ng-init="init()" ng-if="groupFound">
 
 	<div class="modal-header">
 		<h3 class="modal-title"><span>Members of </span>{{groupName}}<span>:</span></h3>
@@ -25,7 +25,9 @@
         </div>
 	</div>
 </div>
-
+<div>
+	<h3 ng-if="!groupFound" ><span>Cannot display group members, no group found with ID:- </span>{{itemId}}<span></span></h3>
+</div>
 <!-- Add a member to the group -->
 
 <script type="text/ng-template" id="addMemberModal.html">

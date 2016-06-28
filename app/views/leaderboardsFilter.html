@@ -1,4 +1,4 @@
-<div ng-init="init()">
+<div ng-init="init()" ng-if="gameFound">
 
 	<div class="row"  ng-if="items.length > pagination.perPage">
 		<div class="col-xs-12 text-center">
@@ -26,7 +26,9 @@
         <button class="btn btn-success" type="button" ng-click="addFilter(item)"></i>Add New Filter</button>
 	</div>
 </div>
-
+<div>
+	<h3 ng-if="!gameFound" ><span>Cannot display leaderboards, no game found with ID:- </span>{{itemId}}<span></span></h3>
+</div>
 <!-- Create a new Filter  -->
 
 <script type="text/ng-template" id="createFilterModal.html">

@@ -1,4 +1,4 @@
-<div ng-init="init()">
+<div ng-init="init()" ng-if="gameFound">
 
 	<div class="row"  ng-if="items.length > pagination.perPage">
 		<div class="col-xs-12 text-center">
@@ -25,6 +25,9 @@
 	<div class="modal-footer">
         <button class="btn btn-success" type="button" ng-click="addResource(item)"></i>Add New Resource</button>
 	</div>
+</div>
+<div>
+	<h3 ng-if="!gameFound" ><span>Cannot display resources, no game found with ID:- </span>{{itemId}}<span></span></h3>
 </div>
 
 <!-- Create a new Resource  -->

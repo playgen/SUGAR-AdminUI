@@ -14,7 +14,6 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
     $scope.itemId = $routeParams.itemId;
     
     $scope.userFound = true;
-    $scope.friendsFound = true;
 
     $scope.userName = '';
 
@@ -33,11 +32,6 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
         UsersApi['friends'].list($scope.itemId).then(function(res) {
         if ((res != null ? res.status : void 0) === 200 && (res.data.length > 0)) {
           $scope.items = res.data;
-          $scope.friendsFound = true;
-        }
-        else
-        {
-          $scope.friendsFound = false;
         }
         });
         UsersApi['friends'].listPending($scope.itemId).then(function(res){
@@ -62,6 +56,8 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
         {
           $scope.userFound = false;
         }
+      }).catch(function () {
+        $scope.userFound = false;
       });
     };
     $scope.add = function(item) {

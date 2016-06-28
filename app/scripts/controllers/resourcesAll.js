@@ -13,6 +13,8 @@ angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
     
+    $scope.gameFound = true;
+
     $scope.items = [];
     $scope.pagination = {
       perPage: 10,
@@ -25,6 +27,18 @@ angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
         }
       });
     };
+       ResourcesApi['games'].get($scope.itemId).then(function(res){
+        if (res.status === 200 && res.data != null)
+        {
+          $scope.gameFound = true;
+        }
+        else 
+        {
+          $scope.gameFound = false;
+        }
+      }).catch(function () {
+        $scope.gameFound = false;
+      });
     $scope.addResource = function (item) {
       return modalManager.open('newResource', {} );
     }

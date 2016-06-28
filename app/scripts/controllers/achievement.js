@@ -12,7 +12,8 @@ angular.module('sgaAdminApp').controller('AchievementCtrl', [
   '$scope', '$routeParams', '$location', 'modalManager', 'GamesApi', function($scope, $routeParams, $location, modalManager, GamesApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
-    
+
+    $scope.gameFound = true;
 
     $scope.items = [];
     $scope.criterias = 1;
@@ -21,6 +22,20 @@ angular.module('sgaAdminApp').controller('AchievementCtrl', [
       perPage: 10,
       currentPage: 1
     };
+
+    //make sure that the id is valid to prevent bad data being sent, if not push back to achievemnt screen
+    GamesApi['games'].get($scope.itemId).then(function(res){
+    if (res.status === 200 && res.data != null)
+    {
+      
+    }
+    else 
+    {
+      $location.path("/games/" + $scope.itemId + "/achievements");
+    }
+    }).catch(function () {
+      $location.path("/games/" + $scope.itemId + "/achievements");
+    });
     $scope.init = function() {
       GamesApi['games'].list().then(function(res) {
         if (res.status === 200 && res.data != null) {

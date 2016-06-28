@@ -1,7 +1,7 @@
-<div ng-init="init()">
+<div ng-init="init()" ng-if="userFound" >
 
 	<div class="modal-header">
-		<h3 class="modal-title"><span>Friends of </span>{{userName}}<span>:</span></h3>
+		<h3 class="modal-title" ><span>Friends of </span>{{userName}}<span>:</span></h3>
 	</div>
 	<div class="modal-body">
 		<table class="table table-bordered">
@@ -42,6 +42,9 @@
         	<button class="btn btn-success pull-right" type="button" ng-click="add(item)"></i>Add New Friend</button>
         </div>
 	</div>
+</div>
+<div>
+	<h3 ng-if="!userFound" ><span>Cannot display friends, no user found with ID:- </span>{{itemId}}<span></span></h3>
 </div>
 
 <!-- request to add a new friend -->
