@@ -8,8 +8,8 @@
   * # GroupsCtrl
   * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'ResourcesApi', function($scope, $routeParams, $location, modalManager, ResourcesApi) {
+angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
+  '$scope', '$routeParams', '$location', 'modalManager', 'LeaderboardsApi', function($scope, $routeParams, $location, modalManager, LeaderboardsApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
     
@@ -19,27 +19,27 @@ angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      return ResourcesApi['games'].listResources($scope.itemId).then(function(res) {
+      return LeaderboardsApi['games'].listFilters($scope.itemId).then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
         }
       });
     };
-    $scope.addResource = function (item) {
-      return modalManager.open('newResource', {} );
-    }
+    $scope.addFilter = function(item) {
+      return modalManager.open('newFilter', {} );
+    };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });
   }
-]).controller('CreateResourceModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'ResourcesApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, ResourcesApi, modaldata) {
+]).controller('CreateFilterModalCtrl', [
+  '$scope', '$rootScope', '$uibModalInstance', 'LeaderboardsApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, LeaderboardsApi, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     $scope.item = {};
     
     $scope.save = function() {
-        return ResourcesApi['games'].createResource($scope.item).then(function() {
+        return LeaderboardsApi['games'].createFilter($scope.item).then(function() {
             $uibModalInstance.close();
             return $rootScope.$broadcast('savedItem');
         });

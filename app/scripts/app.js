@@ -62,6 +62,10 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/leaderboards.html',
     controller: 'LeaderboardsCtrl',
     login: true
+  }).when('/leaderboards/:itemId/all', {
+    templateUrl: 'views/leaderboardsFilter.html',
+    controller: 'LeaderboardsFilterCtrl',
+    login: true
   }).when('/list/:itemtype', {
     templateUrl: 'views/list.html',
     controller: 'ListCtrl',

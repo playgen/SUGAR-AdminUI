@@ -79,6 +79,14 @@ angular.module('sgaAdminApp').service('modalManager', [
       'addAchievement': {
           temp: 'addAchievementModal.html',
           cont: 'addAchievementModalCtrl'
+      },
+      'newResource': {
+        temp: 'createResourceModal.html',
+        cont: 'CreateResourceModalCtrl'
+      },
+      'newFilter': {
+        temp: 'createFilterModal.html',
+        cont: 'CreateFilterModalCtrl'
       }
     };
     modalManager = {

@@ -9,7 +9,7 @@
   * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('LeaderboardsCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'GamesApi', function($scope, $routeParams, $location, modalManager, GamesApi) {
+  '$scope', '$routeParams', '$location', 'modalManager', 'LeaderboardsApi', function($scope, $routeParams, $location, modalManager, LeaderboardsApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemid = $routeParams.itemid;
     
@@ -19,14 +19,14 @@ angular.module('sgaAdminApp').controller('LeaderboardsCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      return GamesApi['games'].list().then(function(res) {
+      return LeaderboardsApi['games'].list().then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
         }
       });
     };
     $scope.showLeaderboards = function(item) {
-      // $location.path('/resources/' + item.Id + '/all');
+      $location.path('/leaderboards/' + item.Id + '/all');
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();

@@ -9,7 +9,7 @@
   * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('ResourcesCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'GamesApi', function($scope, $routeParams, $location, modalManager, GamesApi) {
+  '$scope', '$routeParams', '$location', 'modalManager', 'ResourcesApi', function($scope, $routeParams, $location, modalManager, ResourcesApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemid = $routeParams.itemid;
     
@@ -19,7 +19,7 @@ angular.module('sgaAdminApp').controller('ResourcesCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      return GamesApi['games'].list().then(function(res) {
+      return ResourcesApi['games'].list().then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
         }
