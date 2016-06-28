@@ -13,18 +13,18 @@ angular.module('sgaAdminApp').service('GamesApi', [
     return {
       'achievements': {
           list: function(id){
-              return $http.get(config.api.baseurl + '/groupachievement?gameId=' + id);
+              return $http.get(config.api.baseurl + '/groupachievement/' + id);
           },
           create: function(item) {
             return $http.post(config.api.baseurl + '/groupachievement', item);  
           },
           "delete": function(id){
-              return $http["delete"](config.api.baseurl + '/groupachievement?Id=' + id);
+              return $http["delete"](config.api.baseurl + '/groupachievement/' + id);
           }
       },
       'games':{
           list: function(){
-              return $http.get(config.api.baseurl + '/game/all')
+              return $http.get(config.api.baseurl + '/game/list')
           },
           get: function(id) {
             return $http.get(config.api.baseurl + '/game/findbyid/' + id);  
@@ -33,7 +33,7 @@ angular.module('sgaAdminApp').service('GamesApi', [
             return $http.post(config.api.baseurl + '/game', item);  
           },
           "delete": function(id){
-              return $http["delete"](config.api.baseurl + '/game?Id=' + id);
+              return $http["delete"](config.api.baseurl + '/game/' + id);
           }
       }
     };

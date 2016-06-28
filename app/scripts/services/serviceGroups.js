@@ -13,7 +13,7 @@ angular.module('sgaAdminApp').service('GroupsApi', [
     return {
       'groups': {
         list: function() {
-          return $http.get(config.api.baseurl + '/group/all');
+          return $http.get(config.api.baseurl + '/group/list');
         },
         get: function(username) {
           return $http.get(config.api.baseurl + ("/group/find/" + username));
@@ -25,12 +25,12 @@ angular.module('sgaAdminApp').service('GroupsApi', [
           return $http.put(config.api.baseurl + "/group", item);
         },
         "delete": function(id) {
-          return $http["delete"](config.api.baseurl + ("/group?Id=" + id));
+          return $http["delete"](config.api.baseurl + ("/group/" + id));
         }
       },
       'members': {
         list: function(id) {
-          return $http.get(config.api.baseurl + '/groupmember/members?groupId=' + id);
+          return $http.get(config.api.baseurl + '/groupmember/members/' + id);
         },
         get: function(id) {
           return $http.get(config.api.baseurl + ("/groupmember/" + id));

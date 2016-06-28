@@ -13,7 +13,7 @@ angular.module('sgaAdminApp').service('LeaderboardsApi', [
     return {
       'games':{
           list: function(){
-              return $http.get(config.api.baseurl + '/game/all')
+              return $http.get(config.api.baseurl + '/game/list')
           },
           listFilters: function(id){
               return $http.get(config.api.baseurl + '/game/filters/find/' + id)
@@ -28,7 +28,7 @@ angular.module('sgaAdminApp').service('LeaderboardsApi', [
             return $http.post(config.api.baseurl + '/game/filter', item);  
           },
           "delete": function(id){
-              return $http["delete"](config.api.baseurl + '/game?Id=' + id);
+              return $http["delete"](config.api.baseurl + '/game/' + id);
           }
       },
       'user': {

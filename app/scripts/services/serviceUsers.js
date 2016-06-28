@@ -13,7 +13,7 @@ angular.module('sgaAdminApp').service('UsersApi', [
     return {
       'users': {
         list: function() {
-          return $http.get(config.api.baseurl + '/user/all');
+          return $http.get(config.api.baseurl + '/user/list');
         },
         get: function(username){
             return $http.get(config.api.baseurl + '/user/find/' + username);
@@ -28,15 +28,15 @@ angular.module('sgaAdminApp').service('UsersApi', [
           return $http.put(config.api.baseurl + "/user", item);
         },
         "delete": function(id) {
-          return $http["delete"](config.api.baseurl + ("/user?Id=" + id));
+          return $http["delete"](config.api.baseurl + ("/user/" + id));
         }
       },
       'friends': {
         list: function(id) {
-          return $http.get(config.api.baseurl + "/userfriend/friends?userId=" + id);
+          return $http.get(config.api.baseurl + "/userfriend/friends/" + id);
         },
         listPending: function(id){
-          return $http.get(config.api.baseurl + ("/userfriend/sentrequests?userId=" + id));
+          return $http.get(config.api.baseurl + ("/userfriend/sentrequests/" + id));
         },
         get: function(id) {
           return $http.get(config.api.baseurl + ("/userfriend/" + id));
@@ -53,7 +53,7 @@ angular.module('sgaAdminApp').service('UsersApi', [
       },
       'friendRequests':{
           list: function(id){
-           return $http.get(config.api.baseurl + "/userfriend/requests?userId=" + id);   
+           return $http.get(config.api.baseurl + "/userfriend/requests/" + id);   
           },
           update: function(item){
               return $http.put(config.api.baseurl + '/userfriend/request', item);
@@ -61,10 +61,10 @@ angular.module('sgaAdminApp').service('UsersApi', [
       },
       'userGroups': {
         list: function(id) {
-          return $http.get(config.api.baseurl + '/groupmember/usergroups?userId=' + id);
+          return $http.get(config.api.baseurl + '/groupmember/usergroups/' + id);
         },
         get: function(id) {
-          return $http.get(config.api.baseurl + ("/groupmember/usergroups" + id));
+          return $http.get(config.api.baseurl + ("/groupmember/usergroup/s" + id));
         },
         getGroup: function(username) {
           return $http.get(config.api.baseurl + ("/group/name/" + username));
