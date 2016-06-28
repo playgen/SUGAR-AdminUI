@@ -22,7 +22,7 @@ angular.module('sgaAdminApp').controller('SidebarCtrl', [
             $location.search('return', null);
             return $location.path(returnPath);
           } else {
-            return $location.path('/');
+            return $location.path('/login');
           }
     };
     return $scope.pages = listConfigs;
