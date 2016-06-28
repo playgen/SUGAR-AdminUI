@@ -1,15 +1,9 @@
 <div ng-init="init()">
 
-	<div class="row"  ng-if="items.length > pagination.perPage">
-		<div class="col-xs-12 text-center">
-			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
-		</div>
-	</div>
-
 	<table class="table table-bordered">
 		<tr class="listitem">
 			<th style="width: 10px"></th>
-			<th>Name</th>
+			<th>Group Name</th>
             <th>Members</th>
 			<th></th>
 		</tr>
@@ -24,7 +18,7 @@
             </td>
 		</tr>
 	</table>
-	<div class="row"  ng-if="items.length > pagination.perPage">
+	<div class="row">
 		<div class="col-xs-12 text-center">
 			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 		</div>
