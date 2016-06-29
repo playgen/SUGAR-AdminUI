@@ -14,6 +14,7 @@ angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
     $scope.itemId = $routeParams.itemId;
     
     $scope.gameFound = true;
+    $scope.gameName = '';
 
     $scope.items = [];
     $scope.pagination = {
@@ -31,6 +32,7 @@ angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
         if (res.status === 200 && res.data != null)
         {
           $scope.gameFound = true;
+          $scope.gameName = res.data.Name;
         }
         else 
         {

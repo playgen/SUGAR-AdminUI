@@ -1,15 +1,10 @@
 <div ng-init="init()" ng-if="gameFound">
-
-	<div class="row"  ng-if="items.length > pagination.perPage">
-		<div class="col-xs-12 text-center">
-			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
-		</div>
-	</div>
+	<h3>Skills in <span>{{gameName}}</span></h3>
 
 	<table class="table table-bordered">
 		<tr class="listitem">
 			<th style="width: 10px"></th>
-			<th>Skills</th>
+
 			<th></th>
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
@@ -17,13 +12,13 @@
             <td>{{item.Name}}</td>
 		</tr>
 	</table>
-	<div class="row"  ng-if="items.length > pagination.perPage">
+	<div class="row">
 		<div class="col-xs-12 text-center">
 			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 		</div>
 	</div>
-	<div class="modal-footer">
-        <button class="btn btn-success" type="button" ng-click="addSkill(item)"></i>Add New Skill</button>
+	<div class="col-xs-12 text-center button-container">
+        <button class="btn btn-success pull-right" type="button" ng-click="addSkill(item)"></i>Add New Skill</button>
 	</div>
 </div>
 <div>

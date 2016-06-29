@@ -71,7 +71,7 @@ angular.module('sgaAdminApp').controller('AchievementNewCtrl', [
           completeCriteria += "{ " + "\"Key\": \"" + $scope.item[i+1].Key + "\", \"DataType\": " + $scope.item[i+1].DataType + ", \"ComparisonType\": " + $scope.item[i+1].ComparisonType + ", \"Value\": \"" + $scope.item[i+1].Value +  "\" }"; 
       }
       completeCriteria += "]";
-        var achievement = "{ \"GameId\": " + $scope.itemId + ", \"Name\": \"" + $scope.item.Name + "\", \"CompletionCriteria\": " + completeCriteria + ", \"Reward\": \"\" }";
+        var achievement = "{ \"GameId\": " + $scope.itemId + ", \"Name\": \"" + $scope.item.Name + "\", \"ActorType\": 0, \"CompletionCriteria\": " + completeCriteria + ", \"Reward\": \"\" }";
         AchievementsApi['achievements'].create(achievement).then(function(res){
           $location.path('/games/'+ $scope.itemId + '/achievements' );
         });

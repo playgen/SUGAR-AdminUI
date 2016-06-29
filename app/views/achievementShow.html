@@ -1,14 +1,6 @@
 <div ng-init="init()" ng-if="gameFound">
 
-	<div class="row"  ng-if="items.length > pagination.perPage">
-		<div class="col-xs-12 text-center">
-			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
-		</div>
-	</div>
-
-	<div class="modal-header">
-		<h3 class="modal-title"><span>Achievements in </span>{{gameName}}<span>:</span></h3>
-	</div>
+	<h3><span>Achievements in </span>{{gameName}}<span>:</span></h3>
 	<div class="modal-body">
 		<table class="table table-bordered">
 			<thead>
@@ -36,15 +28,14 @@
 			</tbody>
 		</table>
 	</div>
-	<div>
-		<button class="btn btn-success pull-right" type="button" ng-click="add(item)"><i class="fa" ng-class="page.display.icon"></i>Add New Achievement</button>
-	</div>
-	<div class="row"  ng-if="items.length > pagination.perPage">
+	<div class="row">
 		<div class="col-xs-12 text-center">
 			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 		</div>
 	</div>
-
+	<div class="col-xs-12 text-center button-container">
+			<button class="btn btn-success pull-right" type="button" ng-click="add()"><i class="fa" ng-class="page.display.icon"></i>Add New Achievement</button>
+		</div>
 </div>
 <div>
 	<h3 ng-if="!gameFound" ><span>Cannot display achievements, no game found with ID:- </span>{{itemId}}<span></span></h3>

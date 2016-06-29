@@ -1,5 +1,5 @@
 <div ng-init="init()" ng-if="gameFound">
-
+<h3><span>{{gameName}}</span> Leaderboards</h3>
 	<table class="table table-bordered">
 		<form name="Filters">
 		<tr class="listitem">
@@ -55,6 +55,7 @@
 			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 		</div>
 	</div>
+	<div class="col-xs-12 text-center button-container"/>
 </div>
 <div>
 	<h3 ng-if="!gameFound" ><span>Cannot display leaderboards, no game found with ID:- </span>{{itemId}}<span></span></h3>

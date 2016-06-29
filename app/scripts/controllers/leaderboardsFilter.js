@@ -14,7 +14,8 @@ angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
     $scope.itemId = $routeParams.itemId;
     
     $scope.gameFound = true;
-
+    $scope.gameName = '';
+    
     $scope.items = [];
     $scope.pagination = {
       perPage: 10,
@@ -31,6 +32,7 @@ angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
         if (res.status === 200 && res.data != null)
         {
           $scope.gameFound = true;
+          $scope.gameName = res.data.Name;
         }
         else 
         {

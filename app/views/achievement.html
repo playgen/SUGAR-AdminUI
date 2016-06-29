@@ -1,19 +1,8 @@
 <div ng-init="init()">
-
-	<div class="row"  ng-if="items.length > pagination.perPage">
-		<div class="col-xs-12 text-center">
-			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
-		</div>
-	</div>
-
+	<h3>Select to view Achievements</h3>
 	<table class="table table-bordered">
-		<tr class="listitem">
-			<th style="width: 10px"></th>
-			<th>Select to view Achievements</th>
-			<th></th>
-		</tr>
 		<tr>
-			<td></td>
+			<td style="width: 10px"></td>
 			<td ng-click="showGlobal()"><h4>GLOBAL ACHIEVEMENTS</h4></td>
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
@@ -21,9 +10,10 @@
             <td ng-click="showAchievements(item)">{{item.Name}}</td>
 		</tr>
 	</table>
-	<div class="row"  ng-if="items.length > pagination.perPage">
+	<div class="row">
 		<div class="col-xs-12 text-center">
 			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 		</div>
 	</div>
+	<div class="col-xs-12 text-center button-container"/>
 </div>
