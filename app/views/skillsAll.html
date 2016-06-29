@@ -3,10 +3,29 @@
 
 	<table class="table table-bordered">
 		<tr class="listitem">
-			<th style="width: 10px"></th>
-
-			<th></th>
+			<thead>
+			<tr class="listitem">
+				<th>Name</th>
+				<th>Key</th>
+				<th>Completion Criteria</th>
+			</tr>
+			</thead>
 		</tr>
+		<tbody ng-repeat="n in range()">
+			<tr>
+				<td>{{items[n].Name}}</td>
+				<td>{{items[n].CompletionCriteria[0].Key}}</td>
+				<td>{{items[n].CompletionCriteria[0].DataType}} {{items[n].CompletionCriteria[0].ComparisonType}} {{items[n].CompletionCriteria[0].Value}}</td>
+				<td>
+				<button class="btn btn-danger pull-right" type="button" ng-click="remove(items[n])"><i class="fa fa-times"></i></button>
+			</td>
+			</tr>
+			<tr ng-repeat="i in criteriaRange(n)">
+				<td></td>
+				<td>{{items[n].CompletionCriteria[i].Key}}</td>
+				<td>{{items[n].CompletionCriteria[i].DataType}} {{items[n].CompletionCriteria[i].ComparisonType}} {{items[n].CompletionCriteria[i].Value}}</td>
+			</tr>
+		</tbody>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td></td>
             <td>{{item.Name}}</td>

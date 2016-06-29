@@ -41,6 +41,30 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
       }).catch(function () {
         $scope.gameFound = false;
       });
+      $scope.range = function(min, max, step) {
+        if ($scope.items == null)
+          return 0;
+        step = step || 1;
+        min = 0;
+        max = $scope.items.length-1;
+        var input = [];
+        for (var i = min; i <= max; i += step) {
+            input.push(i);
+        }
+        return input;
+    };
+    $scope.criteriaRange = function(index) {
+        if ($scope.items == null)
+          return 0;
+        var step = 1;
+        var min = 1;
+        var max = $scope.items[index].CompletionCriteria.length;
+        var input = [];
+        for (var i = min; i <= max; i += step) {
+            input.push(i);
+        }
+        return input;
+    };
     $scope.addSkill = function (item) {
       return modalManager.open('newSkill', {} );
     }
