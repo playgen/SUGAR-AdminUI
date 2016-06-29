@@ -13,7 +13,7 @@ angular.module('sgaAdminApp').service('AchievementsApi', [
     return {
       'achievements': {
           list: function(id){
-              return $http.get(config.api.baseurl + '/achievements/list/' + id);
+              return $http.get(config.api.baseurl + '/achievements/game/' + id + '/list');
           },
           create: function(item) {
             return $http.post(config.api.baseurl + '/achievements/create', item);  

@@ -1,28 +1,60 @@
 <div ng-init="init()">
 	<form name="myForm">
 	<table class="table table-bordered">
-		<div class="col-xs-3"><label>Achievement Name</label></div>
+		<div class="col-xs-3"><label>Achievement Name*</label></div>
 		<div class="col-xs-9">
 			<input type="text" class="form-control" ng-model="item.Name" required/>
 		</div>
-		<div class="col-xs-3"><label>Achievement Type</label></div>
-		<div class="col-xs-3">
-			<select class="form-control input-lg" ng-model="item.AchievmentType" required>
+
+		<div class="col-xs-3"><label>Description</label></div>
+		<div class="col-xs-9">
+			<input type="text" class="form-control" ng-model="item.Description"/>
+		</div>
+
+		<div class="col-xs-3"><label>Token*</label></div>
+		<div class="col-xs-9">
+			<input type="text" class="form-control" ng-model="item.Token" required/>
+		</div>
+
+		<div class="col-xs-3"><label>Actor Type*</label></div>
+		<div class="col-xs-9">
+			<select class="form-control input-lg" ng-model="item.ActorType" required>
 				<option value="0">User Achievement</option>
 				<option value="1">Group Achievemnet</option>
 			</select>
 		</div>
+		
+		<tr>
+			<div class="col-xs-12"><label>Reward</label></div>
+			<div class="col-xs-3"><label>Key</label></div>
+			<div class="col-xs-9">
+				<input type="text" class="form-control" ng-model="item.Reward.Key"/>
+			</div>
+			<div class="col-xs-3"><label>DataType</label></div>
+			<div class="col-xs-9">
+				<select class="form-control input-lg" ng-model="item.Reward.DataType">
+					<option value="0">String</option>
+					<option value="1">Long</option>
+					<option value="2">Float</option>
+					<option value="3">Boolean</option>
+				</select>
+			</div>
+			<div class="col-xs-3"><label>Value</label></div>
+			<div class="col-xs-9">
+				<input type="text" class="form-control" ng-model="item.Reward.Value"/>
+			</div>
+		</tr>
 		<tr class="listitem" ng-repeat="n in range()">
-			<td>Criteria {{n}}</td>
-            <td>Key<input type="text" class="form-control" ng-model="item[n].Key" required/></td>
-			<td>Data Type<select class="form-control input-lg" ng-model="item[n].DataType" required>
+			<td><label>Criteria {{n}}</label></td>
+            <td>Key*<input type="text" class="form-control" ng-model="item[n].Key" required/></td>
+			<td>Data Type*<select class="form-control input-lg" ng-model="item[n].DataType" required>
 					<option value="0">String</option>
 					<option value="1">Long</option>
 					<option value="2">Float</option>
 					<option value="3">Boolean</option>
 				</select>
 			</td>
-			<td>Comparison Type<select class="form-control input-lg" ng-model="item[n].ComparisonType" required>
+			<td>Comparison Type*<select class="form-control input-lg" ng-model="item[n].ComparisonType" required>
 					<option value="0">==</option>
 					<option value="1">!=</option>
 					<option value="2">></option>
@@ -31,7 +63,7 @@
 					<option value="5"><=</option>
 				</select>
 			</td>
-			<td>Value<input type="text" class="form-control" ng-model="item[n].Value" required/></td>
+			<td>Value*<input type="text" class="form-control" ng-model="item[n].Value" required/></td>
 		</tr>
 	</table>
 	</form>

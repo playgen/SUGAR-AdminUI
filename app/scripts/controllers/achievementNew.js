@@ -63,6 +63,7 @@ angular.module('sgaAdminApp').controller('AchievementNewCtrl', [
       return $scope.$broadcast("savedItem");
     }
     $scope.create = function() {
+
       var completeCriteria = "[";
       for (var i=0; i<$scope.criterias; i++)
       { 
@@ -71,10 +72,22 @@ angular.module('sgaAdminApp').controller('AchievementNewCtrl', [
           completeCriteria += "{ " + "\"Key\": \"" + $scope.item[i+1].Key + "\", \"DataType\": " + $scope.item[i+1].DataType + ", \"ComparisonType\": " + $scope.item[i+1].ComparisonType + ", \"Value\": \"" + $scope.item[i+1].Value +  "\" }"; 
       }
       completeCriteria += "]";
-        var achievement = "{ \"GameId\": " + $scope.itemId + ", \"Name\": \"" + $scope.item.Name + "\", \"ActorType\": 0, \"CompletionCriteria\": " + completeCriteria + ", \"Reward\": \"\" }";
-        AchievementsApi['achievements'].create(achievement).then(function(res){
-          $location.path('/games/'+ $scope.itemId + '/achievements' );
-        });
+
+      $scope.achievement = [];
+      $scope.achievement.GameId = $scope.itemId;
+      $scope.achievement.Name = $scope.item.Name;
+      $scope.achievement.Description = $scope.item.Description;
+      $scope.achievement.ActorType = $scope.item.ActorType;
+      $scope.achievement.Token = $scope.item.Token;
+      $scope.achievement.CompletionCriteria = completeCriteria;
+      $scope.achievement.Reward = [];
+      $scope.achievement.Reward.Key = $scope.item.Reward.Key;
+      $scope.achievement.Reward.DataType = $scope.item.Reward.DataType;
+      $scope.achievement.Reward.Value = $scope.item.Reward.Value;   
+
+      AchievementsApi['achievements'].create($scope.achievement).then(function(res){
+        $location.path('/achievements/'+ $scope.itemId + '/all' );
+      });
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();

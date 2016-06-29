@@ -11,17 +11,6 @@
 angular.module('sgaAdminApp').service('GamesApi', [
   '$http', 'config', function($http, config) {
     return {
-      'achievements': {
-          list: function(id){
-              return $http.get(config.api.baseurl + '/achievements/list/' + id);
-          },
-          create: function(item) {
-            return $http.post(config.api.baseurl + '/achievements/create', item);  
-          },
-          "delete": function(id){
-              return $http["delete"](config.api.baseurl + '/achievements/' + id);
-          }
-      },
       'games':{
           list: function(){
               return $http.get(config.api.baseurl + '/game/list')
