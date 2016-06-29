@@ -9,8 +9,12 @@
 	<table class="table table-bordered">
 		<tr class="listitem">
 			<th style="width: 10px"></th>
-			<th>Select a game to view Leaderboards</th>
+			<th>Select to view Leaderboards</th>
 			<th></th>
+		</tr>
+		<tr>
+			<td></td>
+			<td ng-click="showGlobal()"><h4>GLOBAL LEADERBOARDS</h4></td>
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td></td>

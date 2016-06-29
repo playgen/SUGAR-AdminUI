@@ -8,7 +8,7 @@
   * # Api
   * Service in the sgaAdminApp.
  */
-angular.module('sgaAdminApp').service('GamesApi', [
+angular.module('sgaAdminApp').service('AchievementsApi', [
   '$http', 'config', function($http, config) {
     return {
       'achievements': {

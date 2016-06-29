@@ -9,16 +9,16 @@
 	<table class="table table-bordered">
 		<tr class="listitem">
 			<th style="width: 10px"></th>
-			<th>Select to view Resources</th>
+			<th>Select to view Skills</th>
 			<th></th>
 		</tr>
 		<tr>
 			<td></td>
-			<td ng-click="showGlobal()"><h4>GLOBAL RESOURCES</h4></td>
+			<td ng-click="showGlobal()"><h4>GLOBAL SKILLS</h4></td>
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td></td>
-            <td ng-click="showResources(item)">{{item.Name}}</td>
+            <td ng-click="showSkills(item)">{{item.Name}}</td>
 		</tr>
 	</table>
 	<div class="row"  ng-if="items.length > pagination.perPage">

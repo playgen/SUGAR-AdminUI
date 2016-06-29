@@ -9,7 +9,7 @@
   * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'GamesApi', function($scope, $routeParams, $location, modalManager, GamesApi) {
+  '$scope', '$routeParams', '$location', 'modalManager', 'AchievementsApi', function($scope, $routeParams, $location, modalManager, AchievementsApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
     
@@ -24,13 +24,13 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      GamesApi['achievements'].list($scope.itemId).then(function(res) {
+      AchievementsApi['achievements'].list($scope.itemId).then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
           $scope.range(); 
         }
       });
-            GamesApi['games'].get($scope.itemId).then(function(res){
+            AchievementsApi['games'].get($scope.itemId).then(function(res){
         if (res.status === 200 && res.data != null)
         {
           $scope.gameName = res.data.Name;
@@ -68,12 +68,12 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
         return input;
     };
     $scope.remove = function(item){
-        GamesApi['achievements'].delete(item.Id).then(function(res) {
+        AchievementsApi['achievements'].delete(item.Id).then(function(res) {
             $scope.init();
         });
     };
     $scope.add = function(item) {
-        $location.path('/games/' + $scope.itemId + '/achievements/new');
+        $location.path('/achievements/' + $scope.itemId + '/new');
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();

@@ -8,15 +8,15 @@
   * # Api
   * Service in the sgaAdminApp.
  */
-angular.module('sgaAdminApp').service('LeaderboardsApi', [
+angular.module('sgaAdminApp').service('SkillsApi', [
   '$http', 'config', function($http, config) {
     return {
       'games':{
           list: function(){
-              return $http.get(config.api.baseurl + '/game/list')
+            return $http.get(config.api.baseurl + '/game/list')
           },
-          listFilters: function(id){
-              return $http.get(config.api.baseurl + '/game/filters/find/' + id)
+          listSkills: function(id) {
+            return $http.get(config.api.baseurl + '/game/skill/find/' + id);
           },
           get: function(id) {
             return $http.get(config.api.baseurl + '/game/findbyid/' + id);  
@@ -24,21 +24,16 @@ angular.module('sgaAdminApp').service('LeaderboardsApi', [
           create: function(item) {
             return $http.post(config.api.baseurl + '/game', item);  
           },
-          createFilter: function(item) {
-            return $http.post(config.api.baseurl + '/game/filter', item);  
+          createSkill: function(item) {
+            return $http.post(config.api.baseurl + '/game/skill', item);  
           },
           "delete": function(id){
-              return $http["delete"](config.api.baseurl + '/game/' + id);
+            return $http["delete"](config.api.baseurl + '/game/' + id);
           }
       },
       'user': {
         get: function(username){
             return $http.get(config.api.baseurl + '/user/find/' + username);
-        }
-      },
-      'leaderboard': {
-        list: function(item){
-          return $http.get(config.api.baseurl + 'game/leaderboard' + item);
         }
       }
     };

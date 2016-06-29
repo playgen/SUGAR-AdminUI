@@ -28,6 +28,9 @@ angular.module('sgaAdminApp').controller('LeaderboardsCtrl', [
     $scope.showLeaderboards = function(item) {
       $location.path('/leaderboards/' + item.Id + '/all');
     };
+    $scope.showGlobal = function() {
+      $location.path('/leaderboards/global/all');
+    };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });

@@ -42,10 +42,10 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
         itemtype: 'games'
       });
     };
-    $scope.showAchievements = function(item) {
-      var gameName = item.Name;
-      $location.path('/games/' + item.Id + '/achievements');
-    };
+    // $scope.showAchievements = function(item) {
+    //   var gameName = item.Name;
+    //   $location.path('/games/' + item.Id + '/achievements');
+    // };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });

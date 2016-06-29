@@ -42,13 +42,17 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/games.html',
     controller: 'GamesCtrl',
     login: true
-  }).when('/games/:itemId/achievements/new', {
+  }).when('/achievements', {
     templateUrl: 'views/achievement.html',
     controller: 'AchievementCtrl',
     login: true
-  }).when('/games/:itemId/achievements', {
+  }).when('/achievements/:itemId/all', {
     templateUrl: 'views/achievementShow.html',
     controller: 'AchievementShowCtrl',
+    login: true
+  }).when('/achievements/:itemId/new', {
+    templateUrl: 'views/achievementNew.html',
+    controller: 'AchievementNewCtrl',
     login: true
   }).when('/resources', {
     templateUrl: 'views/resources.html',
@@ -65,6 +69,14 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
   }).when('/leaderboards/:itemId/all', {
     templateUrl: 'views/leaderboardsFilter.html',
     controller: 'LeaderboardsFilterCtrl',
+    login: true
+  }).when('/skills', {
+    templateUrl: 'views/skills.html',
+    controller: 'SkillsCtrl',
+    login: true
+  }).when('/skills/:itemId/all', {
+    templateUrl: 'views/skillsAll.html',
+    controller: 'SkillsAllCtrl',
     login: true
   }).when('/list/:itemtype', {
     templateUrl: 'views/list.html',

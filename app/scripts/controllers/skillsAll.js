@@ -8,8 +8,8 @@
   * # GroupsCtrl
   * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'LeaderboardsApi', function($scope, $routeParams, $location, modalManager, LeaderboardsApi) {
+angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
+  '$scope', '$routeParams', '$location', 'modalManager', 'SkillsApi', function($scope, $routeParams, $location, modalManager, SkillsApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
     
@@ -21,13 +21,13 @@ angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      return LeaderboardsApi['games'].listFilters($scope.itemId).then(function(res) {
+      return SkillsApi['games'].listSkills($scope.itemId).then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
         }
       });
     };
-    LeaderboardsApi['games'].get($scope.itemId).then(function(res){
+       SkillsApi['games'].get($scope.itemId).then(function(res){
         if (res.status === 200 && res.data != null)
         {
           $scope.gameFound = true;
@@ -39,33 +39,21 @@ angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
       }).catch(function () {
         $scope.gameFound = false;
       });
-    $scope.addFilter = function(item) {
-      return modalManager.open('newFilter', {} );
-    };
-
-    $scope.apply = function (item){
-      $scope.filter = item;
-      $scope.filter.GameID = $scope.itemId;
-      LeaderboardsApi['leaderboard'].list($scope.filter).then(function(res){
-        //change the $scope.items for population of the leaderboard list
-        if (res.status === 200 && res.data != null)
-        {
-          $scope.items = res.data;
-        }
-      });
-    };
+    $scope.addSkill = function (item) {
+      return modalManager.open('newSkill', {} );
+    }
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });
   }
-]).controller('CreateFilterModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'LeaderboardsApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, LeaderboardsApi, modaldata) {
+]).controller('CreateSkillModalCtrl', [
+  '$scope', '$rootScope', '$uibModalInstance', 'SkillsApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, SkillsApi, modaldata) {
     $scope.itemtype = modaldata.itemtype;
     $scope.config = modaldata.config;
     $scope.item = {};
     
     $scope.save = function() {
-        return LeaderboardsApi['games'].createFilter($scope.item).then(function() {
+        return SkillsApi['games'].createSkill($scope.item).then(function() {
             $uibModalInstance.close();
             return $rootScope.$broadcast('savedItem');
         });

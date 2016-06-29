@@ -84,6 +84,10 @@ angular.module('sgaAdminApp').service('modalManager', [
         temp: 'createResourceModal.html',
         cont: 'CreateResourceModalCtrl'
       },
+      'newSkill': {
+        temp: 'createSkillModal.html',
+        cont: 'CreateSkillModalCtrl'
+      },
       'newFilter': {
         temp: 'createFilterModal.html',
         cont: 'CreateFilterModalCtrl'

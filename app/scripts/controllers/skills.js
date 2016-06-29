@@ -8,8 +8,8 @@
   * # GroupsCtrl
   * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('ResourcesCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'ResourcesApi', function($scope, $routeParams, $location, modalManager, ResourcesApi) {
+angular.module('sgaAdminApp').controller('SkillsCtrl', [
+  '$scope', '$routeParams', '$location', 'modalManager', 'SkillsApi', function($scope, $routeParams, $location, modalManager, SkillsApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemid = $routeParams.itemid;
     
@@ -19,17 +19,17 @@ angular.module('sgaAdminApp').controller('ResourcesCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      return ResourcesApi['games'].list().then(function(res) {
+      return SkillsApi['games'].list().then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
         }
       });
     };
-    $scope.showResources = function(item) {
-      $location.path('/resources/' + item.Id + '/all');
+    $scope.showSkills = function(item) {
+      $location.path('/skills/' + item.Id + '/all');
     };
         $scope.showGlobal = function() {
-      $location.path('/resources/global/all');
+      $location.path('/skills/global/all');
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
