@@ -102,11 +102,18 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
     $scope.item = {};
     
     $scope.save = function() {
+        var f = document.getElementById('file').files[0];
+        var r =  new FileReader();
+        r.onloadend = function(e){
+          var data = e.target.result;
+        }
+        r.readAsArrayBuffer(f);
         return GamesApi[$scope.itemtype].create($scope.item).then(function() {
             $uibModalInstance.close();
             return $rootScope.$broadcast('savedItem');
         });
     };
+    
     return $scope.close = function() {
       return $uibModalInstance.close();
     };

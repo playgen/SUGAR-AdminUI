@@ -67,6 +67,12 @@
 			</div>
 		</div>
 	</div>
+		<div class="form-group">
+			<label for="inputName" class="col-xs-3 control-label">Icon:</label>
+			<div class="col-xs-9">
+				<input class="input-lg" id="file" type="file" ng-model="item.Icon"/>
+			</div>
+		</div>
 	<div class="modal-footer">
 		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
 		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Save</button>
