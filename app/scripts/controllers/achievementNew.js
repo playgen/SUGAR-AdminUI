@@ -90,7 +90,7 @@ angular.module('sgaAdminApp').controller('AchievementNewCtrl', [
       r.onloadend = function(e){
         var data = e.target.result;
       }
-      r.readAsBinaryString(f);
+      r.readAsArrayBuffer(f);
 
       AchievementsApi['achievements'].create($scope.achievement).then(function(res){
         $location.path('/achievements/'+ $scope.itemId + '/all' );
