@@ -3,15 +3,20 @@
 		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Menu</button>
 	</div>
 </div>
+<div>
+	<div class="col-xs-12">
+		<h3><small>This screen displays the list of games which can be selected to manage resources within each game<small></h3>
+	</div>
+</div>
 <div ng-init="init()">
 <h3>Select to view Resources</h3>
 	<table class="table table-bordered">
-		<tr>
+		<!--<tr>
 			<td style="width: 10px"></td>
 			<td ng-click="showGlobal()"><h4>GLOBAL RESOURCES</h4></td>
-		</tr>
+		</tr>-->
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-			<td></td>
+			<!--<td></td>-->
             <td ng-click="showResources(item)">{{item.Name}}</td>
 		</tr>
 	</table>
