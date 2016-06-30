@@ -89,6 +89,10 @@ angular.module('sgaAdminApp').controller('AchievementNewCtrl', [
         $location.path('/achievements/'+ $scope.itemId + '/all' );
       });
     };
+    $scope.back = function (){
+      //go back to list of achievements for this game
+      $location.path('/achievements/'+ $scope.itemId + '/all');
+    };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });

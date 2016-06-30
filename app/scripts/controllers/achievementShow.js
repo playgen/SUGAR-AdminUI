@@ -75,6 +75,10 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
     $scope.add = function(item) {
         $location.path('/achievements/' + $scope.itemId + '/new');
     };
+    $scope.back = function (){
+      //go back to achievements game list
+      $location.path("/achievements");
+    };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });

@@ -44,6 +44,10 @@ angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
     $scope.addResource = function (item) {
       return modalManager.open('newResource', {} );
     }
+    $scope.back = function (){
+      //go back to resources games list
+      $location.path("/resources");
+    };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });

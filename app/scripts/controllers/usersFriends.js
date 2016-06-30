@@ -91,6 +91,10 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
              $scope.init();
         });
     }; 
+    $scope.back = function (){
+      //go back to users list
+      $location.path("/users");
+    };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });

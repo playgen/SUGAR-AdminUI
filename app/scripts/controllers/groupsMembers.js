@@ -53,6 +53,10 @@ angular.module('sgaAdminApp').controller('GroupsMembersCtrl', [
         itemId: $scope.itemId
       });
     };
+    $scope.back = function (){
+      //go back to group list
+      $location.path("/groups");
+    };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });

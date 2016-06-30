@@ -42,6 +42,10 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
         itemtype: 'games'
       });
     };
+    $scope.back = function (){
+      //go back to main menu
+      $location.path("/");
+    };
     // $scope.showAchievements = function(item) {
     //   var gameName = item.Name;
     //   $location.path('/games/' + item.Id + '/achievements');

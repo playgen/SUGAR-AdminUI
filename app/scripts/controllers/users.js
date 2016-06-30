@@ -48,6 +48,10 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
     $scope.showGroups = function(item) {
       $location.path('/users/'+ item.Id + '/groups');
     };
+    $scope.back = function (){
+      //go back to main menu
+      $location.path("/");
+    };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });
@@ -92,6 +96,7 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
       });
       return $uibModalInstance.close();
     };
+    
   }
 ]).controller('CreateUserModalCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'UsersApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, UsersApi, modaldata) {

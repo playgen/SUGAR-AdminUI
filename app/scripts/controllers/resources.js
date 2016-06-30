@@ -31,6 +31,10 @@ angular.module('sgaAdminApp').controller('ResourcesCtrl', [
         $scope.showGlobal = function() {
       $location.path('/resources/global/all');
     };
+    $scope.back = function (){
+      //go back to main menu
+      $location.path("/");
+    };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });

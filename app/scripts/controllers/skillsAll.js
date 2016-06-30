@@ -68,6 +68,10 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
     $scope.addSkill = function (item) {
       return modalManager.open('newSkill', {} );
     }
+    $scope.back = function (){
+      //go back to skills games list
+      $location.path("/skills");
+    };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });
