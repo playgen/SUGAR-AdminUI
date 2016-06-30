@@ -22,10 +22,10 @@
 					<option value="1">Count</option>
 				</select>
 			</th>
-			<th class="col-xs-2">Range Start<input type="text" class="form-control" ng-model="item.RangeStart" required/>
+			<th class="col-xs-2">Range Start<input type="number" class="form-control" ng-model="item.RangeStart" required/>
 			</th>
 			</th>
-			<th class="col-xs-2">Range End<input type="text" class="form-control" ng-model="item.RangeEnd" required/>
+			<th class="col-xs-2">Range End<input type="number" class="form-control" ng-model="item.RangeEnd" required/>
 			</th>
 			<th></th>
 		</tr>
@@ -39,9 +39,9 @@
 	</table>
 	<table class="table table-bordered">
 		<tr>
-			<th>Rank</th>
-			<th>Name</th>
-			<th>Value</th>
+			<th><h4>Rank</h4></th>
+			<th><h4>Name</h4></th>
+			<th><h4>Value</h4></th>
 			<th></th>
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">

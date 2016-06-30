@@ -20,5 +20,13 @@
 				<button type="button" class="btn btn-primary btn-block btn-flat" ng-click="submit()" ng-disabled="myForm.$invalid">Sign In</button>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<label class="pull-left" ng-if="registerFail">Account already exists, please sign in</label>
+			</div>
+			<div class="col-xs-12">
+				<label class="pull-right" ng-if="loginFail">Failed to Sign in, please check your log in details or register</label>
+			</div>
+		</div>
 	</div>
 </div>

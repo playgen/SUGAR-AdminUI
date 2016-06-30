@@ -10,6 +10,8 @@
  */
 angular.module('sgaAdminApp').controller('LoginCtrl', [
   '$scope', '$location', 'config', 'Auth', 'User', function($scope, $location, config, Auth, User) {
+    $scope.loginFail = false;
+    $scope.registerFail = false;
     $scope.user = {
       Name: '',
       Password: ''
@@ -17,9 +19,20 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
     $scope.register = function () {
         User.register($scope.user).then(function(res){
             //automatically log in
-            $scope.submit();
+            if (res.status === 200)
+              $scope.submit();
             // $scope.user.Name = '';
             // $scope.user.Password = '';
+        })
+        .catch(function (res) {
+          if (res.status === -1)
+          {
+            $scope.loginFail = false;
+            $scope.registerFail = true;
+            
+            var name = false;
+          }
+          
         });
     }
     return $scope.submit = function() {
@@ -35,7 +48,15 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
             return $location.path('/');
           }
         }
-      });
+      }).catch(function (res) {
+          if (res.status === -1)
+          {
+            $scope.registerFail = false;
+            $scope.loginFail = true;
+            var name = false;
+          }
+          
+        });;
     };
   }
 ]);
