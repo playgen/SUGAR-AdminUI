@@ -85,6 +85,13 @@ angular.module('sgaAdminApp').controller('AchievementNewCtrl', [
       $scope.achievement.Reward.DataType = $scope.item.Reward.DataType;
       $scope.achievement.Reward.Value = $scope.item.Reward.Value;   
 
+      var f = document.getElementById('file').files[0];
+      var r =  new FileReader();
+      r.onloadend = function(e){
+        var data = e.target.result;
+      }
+      r.readAsBinaryString(f);
+
       AchievementsApi['achievements'].create($scope.achievement).then(function(res){
         $location.path('/achievements/'+ $scope.itemId + '/all' );
       });

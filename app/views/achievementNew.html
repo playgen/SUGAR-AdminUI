@@ -24,9 +24,15 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<h4 for="inputName" class="col-xs-2 control-label">Icon:</h4>
+			<div class="col-xs-10">
+				<input class="input-lg" id="file" type="file" ng-model="item.Icon"/>
+			</div>
+		</div>
+		<div class="form-group">
 			<h4 for="inputName" class="col-xs-2 control-label">Token:</h4>
 			<div class="col-xs-10">
-				<input type="text" class="form-control" ng-model="item.Token" required/>
+				<input type="text" class="form-control" file-model="item.Token" required/>
 			</div>
 		</div>
 		<div class="form-group">
