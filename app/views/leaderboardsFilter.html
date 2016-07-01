@@ -5,59 +5,18 @@
 </div>
 <div>
 	<div class="col-xs-12">
-		<h3><small>This page allows you to display a leaderboard using the filters below<small></h3>
+		<h3><small>This page manages the leaderboards for the selected platform, from here you can:<br />- Open selected leaderboards<br />- Create a new Leaderboard<br />- Edit a leaderboard<br />- Delete an existing Leaderboard<small></h3>
 	</div>
 </div>
 <div ng-init="init()" ng-if="gameFound">
 <h3><span>{{gameName}}</span> Leaderboards</h3>
 	<table class="table table-bordered">
-		<form name="Filters">
-		<tr class="listitem">
-			<th class="col-xs-2">Group or User<select class="form-control input-lg" ng-model="item.actor" required>
-					<option value="0">Group</option>
-					<option value="1">User</option>
-				</select>
-			</th>
-			<th class="col-xs-3">Select a Filter<select class="form-control input-lg" ng-model="item.Filter" required>
-					<option value="0">*GOLD*</option>
-					<option value="1">*TIME PLAYED*</option>
-					<option value="2">*MEMBERS*</option>
-					<option value="3">*ACHIEVEMENTS*</option>
-				</select>
-			</th>
-			<th class="col-xs-3">Sort By<select class="form-control input-lg" ng-model="item.Sort" required>
-					<option value="0">Highest</option>
-					<option value="1">Lowest</option>
-					<option value="1">Cumulative</option>
-					<option value="1">Count</option>
-				</select>
-			</th>
-			<th class="col-xs-2">Range Start<input type="number" class="form-control" ng-model="item.RangeStart" required/>
-			</th>
-			</th>
-			<th class="col-xs-2">Range End<input type="number" class="form-control" ng-model="item.RangeEnd" required/>
-			</th>
-			<th></th>
-		</tr>
-		</form>
-		<tr>
-			<td/><td/><td/><td/>
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'Token' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+			<td>{{item.Token}}</td>
 			<td>
-			<button class="btn btn-success pull-right" type="button" ng-click="apply(item)" ng-disabled="Filters.$invalid">Apply Filter</button>
+				<button class="btn btn-success btn-sm" title="Show this Leaderboard" ng-click="showLeaderboard(item)"><i class=""> View Leaderboard</i></button>
+				<button class="btn btn-danger btn-sm" title="Delete this Leaderboard" ng-click="delete(item)"><i class="fa fa-trash-o"> Delete</i></button>
 			</td>
-		</tr>
-	</table>
-	<table class="table table-bordered">
-		<tr>
-			<th><h4>Rank</h4></th>
-			<th><h4>Name</h4></th>
-			<th><h4>Value</h4></th>
-			<th></th>
-		</tr>
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-			<td>{{item.Rank}}</td>
-            <td>{{item.Name}}</td>
-			<td>{{item.Value}}</td>
 		</tr>
 	</table>
 	<div class="row">
@@ -65,14 +24,16 @@
 			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 		</div>
 	</div>
-	<div class="col-xs-12 text-center button-container"/>
+	<div class="col-xs-12 text-center button-container">
+			<button class="btn btn-success pull-right" type="button" ng-click="add()"><i class="fa" ng-class="page.display.icon"></i>Add New Leaderboard</button>
+		</div>
 </div>
 <div>
 	<h3 ng-if="!gameFound" ><span>Cannot display leaderboards, no game found with ID:- </span>{{itemId}}<span></span></h3>
 </div>
 <!-- Create a new Filter  -->
 
-<script type="text/ng-template" id="createFilterModal.html">
+<script type="text/ng-template" id="createLeaderboardModal.html">
   <form name="myForm">
 	<div class="modal-header">
 		<h3 class="modal-title">Create new Filter</h3>
@@ -82,6 +43,61 @@
 			<div class="col-xs-3"><label>Name</label></div>
 			<div class="col-xs-9">
 				<input type="text" class="form-control" ng-model="item.Name" required/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3"><label>Token</label></div>
+			<div class="col-xs-9">
+				<input type="text" class="form-control" ng-model="item.Token" required/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3"><label>Key</label></div>
+			<div class="col-xs-9">
+				<input type="text" class="form-control" ng-model="item.Key" required/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3"><label>Actor Type</label></div>
+			<div class="col-xs-9">
+				<select class="form-control" ng-model="item.ActorType" required>
+					<option value="0">Any</option>
+					<option value="1">User</option>
+					<option value="2">Group</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3"><label>Game Data Type</label></div>
+			<div class="col-xs-9">
+				<select class="form-control" ng-model="item.GameDataType" required>
+					<option value="0">String</option>
+					<option value="1">Long</option>
+					<option value="2">Float</option>
+					<option value="3">Boolena</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3"><label>Criteria Scope</label></div>
+			<div class="col-xs-9">
+				<select class="form-control" ng-model="item.CriteriaScope" required>
+					<option value="Actor">Actor</option>
+					<option value="RelatedActors">Related Actors</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3"><label>Leaderboard Type</label></div>
+			<div class="col-xs-9">
+				<select class="form-control" ng-model="item.LeaderboardType" required>
+					<option value="0">Highest</option>
+					<option value="1">Lowest</option>
+					<option value="2">Cumulative</option>
+					<option value="3">Count</option>
+					<option value="4">Earliest</option>
+					<option value="5">Latest</option>
+				</select>
 			</div>
 		</div>
 	</div>

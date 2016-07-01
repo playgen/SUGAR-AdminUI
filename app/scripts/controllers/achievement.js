@@ -26,10 +26,10 @@ angular.module('sgaAdminApp').controller('AchievementCtrl', [
       });
     };
     $scope.showAchievements = function(item) {
-      $location.path('/achievements/' + item.Id + '/all');
+      $location.path('/achievements/' + item.Id);
     };
         $scope.showGlobal = function() {
-      $location.path('/achievements/global/all');
+      $location.path('/achievements/global');
     };
     $scope.back = function (){
       //go back to main menu

@@ -93,12 +93,12 @@ angular.module('sgaAdminApp').controller('AchievementNewCtrl', [
       r.readAsArrayBuffer(f);
 
       AchievementsApi['achievements'].create($scope.achievement).then(function(res){
-        $location.path('/achievements/'+ $scope.itemId + '/all' );
+        $location.path('/achievements/'+ $scope.itemId);
       });
     };
     $scope.back = function (){
       //go back to list of achievements for this game
-      $location.path('/achievements/'+ $scope.itemId + '/all');
+      $location.path('/achievements/'+ $scope.itemId);
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();

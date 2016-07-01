@@ -88,9 +88,9 @@ angular.module('sgaAdminApp').service('modalManager', [
         temp: 'createSkillModal.html',
         cont: 'CreateSkillModalCtrl'
       },
-      'newFilter': {
-        temp: 'createFilterModal.html',
-        cont: 'CreateFilterModalCtrl'
+      'newLeaderboard': {
+        temp: 'createLeaderboardModal.html',
+        cont: 'CreateLeaderboardModalCtrl'
       }
     };
     modalManager = {

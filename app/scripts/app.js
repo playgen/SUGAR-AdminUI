@@ -46,7 +46,7 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/achievement.html',
     controller: 'AchievementCtrl',
     login: true
-  }).when('/achievements/:itemId/all', {
+  }).when('/achievements/:itemId', {
     templateUrl: 'views/achievementShow.html',
     controller: 'AchievementShowCtrl',
     login: true
@@ -58,7 +58,7 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/resources.html',
     controller: 'ResourcesCtrl',
     login: true
-  }).when('/resources/:itemId/all', {
+  }).when('/resources/:itemId', {
     templateUrl: 'views/resourcesAll.html',
     controller: 'ResourcesAllCtrl',
     login: true
@@ -66,15 +66,19 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/leaderboards.html',
     controller: 'LeaderboardsCtrl',
     login: true
-  }).when('/leaderboards/:itemId/all', {
+  }).when('/leaderboards/:itemId', {
     templateUrl: 'views/leaderboardsFilter.html',
     controller: 'LeaderboardsFilterCtrl',
+    login: true
+  }).when('/leaderboards/:itemId/:itemKey', {
+    templateUrl: 'views/leaderboardsShow.html',
+    controller: 'LeaderboardsShowCtrl',
     login: true
   }).when('/skills', {
     templateUrl: 'views/skills.html',
     controller: 'SkillsCtrl',
     login: true
-  }).when('/skills/:itemId/all', {
+  }).when('/skills/:itemId', {
     templateUrl: 'views/skillsAll.html',
     controller: 'SkillsAllCtrl',
     login: true

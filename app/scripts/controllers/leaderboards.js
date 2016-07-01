@@ -26,10 +26,10 @@ angular.module('sgaAdminApp').controller('LeaderboardsCtrl', [
       });
     };
     $scope.showLeaderboards = function(item) {
-      $location.path('/leaderboards/' + item.Id + '/all');
+      $location.path('/leaderboards/' + item.Id);
     };
     $scope.showGlobal = function() {
-      $location.path('/leaderboards/global/all');
+      $location.path('/leaderboards/global');
     };
     $scope.back = function (){
       //go back to main menu

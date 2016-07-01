@@ -1,0 +1,56 @@
+<div>
+	<div class="col-xs-12 button-container">
+		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Leaderboards List</button>
+	</div>
+</div>
+<div>
+	<div class="col-xs-12">
+		<!--<h3><small>This page allows you to display a leaderboard using the filters below<small></h3>-->
+	</div>
+</div>
+<div ng-init="init()" ng-if="leaderboardFound">
+<h3><span>{{leaderboardToken}}</span></h3>
+	<table class="table table-bordered">
+		<tr>
+			<th><h4>Rank</h4></th>
+			<th><h4>Name</h4></th>
+			<th><h4>Value</h4></th>
+			<th></th>
+		</tr>
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+			<td>{{item.Rank}}</td>
+            <td>{{item.Name}}</td>
+			<td>{{item.Value}}</td>
+		</tr>
+	</table>
+	<div class="row">
+		<div class="col-xs-12 text-center">
+			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+		</div>
+	</div>
+	<div class="col-xs-12 text-center button-container"/>
+</div>
+<div>
+	<h3 ng-if="!leaderboardFound" ><span>Cannot display leaderboards, no leadeboard found with Token:- </span>{{leaderboardToken}}<span></span></h3>
+</div>
+<!-- Create a new Filter  -->
+
+<script type="text/ng-template" id="createLeaderboardModal.html">
+  <form name="myForm">
+	<div class="modal-header">
+		<h3 class="modal-title">Create new Filter</h3>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xs-3"><label>Name</label></div>
+			<div class="col-xs-9">
+				<input type="text" class="form-control" ng-model="item.Name" required/>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
+		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Save</button>
+	</div>
+  </form>
+</script>

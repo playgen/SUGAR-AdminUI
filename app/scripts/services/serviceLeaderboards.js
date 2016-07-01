@@ -24,9 +24,6 @@ angular.module('sgaAdminApp').service('LeaderboardsApi', [
           create: function(item) {
             return $http.post(config.api.baseurl + '/game', item);  
           },
-          createFilter: function(item) {
-            return $http.post(config.api.baseurl + '/game/filter', item);  
-          },
           "delete": function(id){
               return $http["delete"](config.api.baseurl + '/game/' + id);
           }
@@ -37,8 +34,17 @@ angular.module('sgaAdminApp').service('LeaderboardsApi', [
         }
       },
       'leaderboard': {
-        list: function(item){
-          return $http.get(config.api.baseurl + 'game/leaderboard' + item);
+        list: function(id){
+          return $http.get(config.api.baseurl + '/leaderboards/game/' + id + '/list');
+        },
+        createFilter: function(item) {
+            return $http.post(config.api.baseurl + '/leaderboards/create', item);  
+        },
+        getLeaderboard: function (id) {
+          return $http.get(config.api.baseurl + 'leaderboard/list' + id);
+        },
+        "delete": function (id) {
+          return $http["delete"](config.api.baseurl + '/leaderboards/' + id);
         }
       }
     };

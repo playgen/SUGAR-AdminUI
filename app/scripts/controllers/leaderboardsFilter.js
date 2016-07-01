@@ -22,7 +22,7 @@ angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      return LeaderboardsApi['games'].listFilters($scope.itemId).then(function(res) {
+      return LeaderboardsApi['leaderboard'].list($scope.itemId).then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
         }
@@ -41,37 +41,37 @@ angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
       }).catch(function () {
         $scope.gameFound = false;
       });
-    $scope.addFilter = function(item) {
-      return modalManager.open('newFilter', {} );
-    };
-
-    $scope.apply = function (item){
-      $scope.filter = item;
-      $scope.filter.GameID = $scope.itemId;
-      LeaderboardsApi['leaderboard'].list($scope.filter).then(function(res){
-        //change the $scope.items for population of the leaderboard list
-        if (res.status === 200 && res.data != null)
-        {
-          $scope.items = res.data;
-        }
+    $scope.add = function(item) {
+      return modalManager.open('newLeaderboard', {
+        itemId: $scope.itemId
       });
     };
+    $scope["delete"] = function(item){
+      LeaderboardsApi['leaderboard'].delete(item.Id).then(function(res)
+      {
+        $scope.init();
+      });
+    };
+    $scope.showLeaderboard = function(item)
+    {
+      $location.path('/leaderboards/' + $scope.itemId + '/' + item.Token);
+    }
     $scope.back = function (){
       //go back to resources games list
-      $location.path("/resources");
+      $location.path("/leaderboards");
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });
   }
-]).controller('CreateFilterModalCtrl', [
+]).controller('CreateLeaderboardModalCtrl', [
   '$scope', '$rootScope', '$uibModalInstance', 'LeaderboardsApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, LeaderboardsApi, modaldata) {
-    $scope.itemtype = modaldata.itemtype;
-    $scope.config = modaldata.config;
+    $scope.itemId = modaldata.itemId;
     $scope.item = {};
     
     $scope.save = function() {
-        return LeaderboardsApi['games'].createFilter($scope.item).then(function() {
+      $scope.item.GameId = $scope.itemId;
+        return LeaderboardsApi['leaderboard'].createFilter($scope.item).then(function() {
             $uibModalInstance.close();
             return $rootScope.$broadcast('savedItem');
         });

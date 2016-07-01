@@ -26,10 +26,10 @@ angular.module('sgaAdminApp').controller('SkillsCtrl', [
       });
     };
     $scope.showSkills = function(item) {
-      $location.path('/skills/' + item.Id + '/all');
+      $location.path('/skills/' + item.Id);
     };
         $scope.showGlobal = function() {
-      $location.path('/skills/global/all');
+      $location.path('/skills/global');
     };
     $scope.back = function (){
       //go back to main menu
