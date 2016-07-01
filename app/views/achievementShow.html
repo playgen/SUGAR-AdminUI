@@ -23,17 +23,17 @@
 			</thead>
 			<tbody ng-repeat="n in range()">
 				<tr>
-					<td>{{items[n].Name}}</td>
-					<td>{{items[n].CompletionCriteria[0].Key}}</td>
-					<td>{{items[n].CompletionCriteria[0].DataType}} {{items[n].CompletionCriteria[0].ComparisonType}} {{items[n].CompletionCriteria[0].Value}}</td>
+					<td><h4>{{items[n].Name}}</h4></td>
+					<td><h4>{{items[n].CompletionCriteria[0].Key}}</h4></td>
+					<td><h4>{{items[n].CompletionCriteria[0].DataType}} {{items[n].CompletionCriteria[0].ComparisonType}} {{items[n].CompletionCriteria[0].Value}}</h4></td>
 					<td>
 					<button class="btn btn-danger pull-right" type="button" ng-click="remove(items[n])"><i class="fa fa-times"></i></button>
 				</td>
 				</tr>
 				<tr ng-repeat="i in criteriaRange(n)">
 					<td></td>
-					<td>{{items[n].CompletionCriteria[i].Key}}</td>
-					<td>{{items[n].CompletionCriteria[i].DataType}} {{items[n].CompletionCriteria[i].ComparisonType}} {{items[n].CompletionCriteria[i].Value}}</td>
+					<td><h4>{{items[n].CompletionCriteria[i].Key}}</h4></td>
+					<td><h4>{{items[n].CompletionCriteria[i].DataType}} {{items[n].CompletionCriteria[i].ComparisonType}} {{items[n].CompletionCriteria[i].Value}}</h4></td>
 				</tr>
 			</tbody>
 		</table>

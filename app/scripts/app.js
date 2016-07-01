@@ -82,6 +82,10 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/skillsAll.html',
     controller: 'SkillsAllCtrl',
     login: true
+  }).when('/skills/:itemId/new', {
+    templateUrl: 'views/skillsNew.html',
+    controller: 'SkillsNewCtrl',
+    login: true
   }).when('/list/:itemtype', {
     templateUrl: 'views/list.html',
     controller: 'ListCtrl',

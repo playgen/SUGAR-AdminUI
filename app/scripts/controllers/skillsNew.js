@@ -8,8 +8,8 @@
   * # AchievementCtrl
   * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('AchievementNewCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'AchievementsApi', function($scope, $routeParams, $location, modalManager, AchievementsApi) {
+angular.module('sgaAdminApp').controller('SkillsNewCtrl', [
+  '$scope', '$routeParams', '$location', 'modalManager', 'SkillsApi', function($scope, $routeParams, $location, modalManager, SkillsApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
 
@@ -24,20 +24,20 @@ angular.module('sgaAdminApp').controller('AchievementNewCtrl', [
     };
 
     //make sure that the id is valid to prevent bad data being sent, if not push back to achievemnt screen
-    AchievementsApi['games'].get($scope.itemId).then(function(res){
+    SkillsApi['games'].get($scope.itemId).then(function(res){
     if (res.status === 200 && res.data != null)
     {
       
     }
     else 
     {
-      $location.path("/games/" + $scope.itemId + "/achievements");
+      $location.path("/games/" + $scope.itemId + "/skills");
     }
     }).catch(function () {
-      $location.path("/games/" + $scope.itemId + "/achievements");
+      $location.path("/games/" + $scope.itemId + "/skills");
     });
     $scope.init = function() {
-      AchievementsApi['games'].list().then(function(res) {
+      SkillsApi['games'].list().then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
           $scope.range();
@@ -64,15 +64,6 @@ angular.module('sgaAdminApp').controller('AchievementNewCtrl', [
     }
     $scope.create = function() {
 
-      var completeCriteria = "[";
-      for (var i=0; i<$scope.criterias; i++)
-      { 
-          if (i != 0)
-            completeCriteria += ", "
-          completeCriteria += "{ " + "\"Key\": \"" + $scope.item[i+1].Key + "\", \"DataType\": " + $scope.item[i+1].DataType + ", \"ComparisonType\": " + $scope.item[i+1].ComparisonType + ", \"Value\": \"" + $scope.item[i+1].Value +  "\" }"; 
-      }
-      completeCriteria += "]";
-
       $scope.achievement = {};
       $scope.achievement.GameId = $scope.itemId;
       $scope.achievement.Name = $scope.item.Name;
@@ -95,21 +86,19 @@ angular.module('sgaAdminApp').controller('AchievementNewCtrl', [
       $scope.achievement.Reward[0].DataType = $scope.item.Reward.DataType;
       $scope.achievement.Reward[0].Value = $scope.item.Reward.Value;   
 
-
       // var f = document.getElementById('file').files[0];
       // var r =  new FileReader();
       // r.onloadend = function(e){
       //   var data = e.target.result;
       // }
       // r.readAsArrayBuffer(f);
-
-      AchievementsApi['achievements'].create($scope.achievement).then(function(res){
-        $location.path('/achievements/'+ $scope.itemId);
+      SkillsApi['skills'].createSkill($scope.achievement).then(function(res){
+        $location.path('/skills/'+ $scope.itemId);
       });
     };
     $scope.back = function (){
       //go back to list of achievements for this game
-      $location.path('/achievements/'+ $scope.itemId);
+      $location.path('/skills/'+ $scope.itemId);
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();

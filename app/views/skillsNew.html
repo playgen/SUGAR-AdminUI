@@ -1,18 +1,18 @@
 <div>
 	<div class="col-xs-12 button-container">
-		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Achievements</button>
+		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Skills</button>
 	</div>
 </div>
 <div>
 	<div class="col-xs-12">
-		<h3><small>This page is used to create new achievements for the game, simply full out the information below and click 'Create Achievement', multiple criterias are possible using the 'Add Critera' button below<small></h3>
+		<h3><small>This page is used to create new skills for the game, simply full out the information below and click 'Create Skillls', multiple criterias are possible using the 'Add Critera' button below<small></h3>
 	</div>
 </div>
 <div ng-init="init()">
 	<form class="form-horizontal" name="myForm">
 	<table class="table table-bordered">
 		<div class="form-group">
-			<h4 for="inputName" class="col-xs-2 control-label">Achievement Name:</h4>
+			<h4 for="inputName" class="col-xs-2 control-label">Skill Name:</h4>
 			<div class="col-xs-10">
 				<input type="text" class="form-control" ng-model="item.Name" required/>
 			</div>
@@ -39,8 +39,8 @@
 			<h4 for="inputName" class="col-xs-2 control-label">Actor Type:</h4>
 			<div class="col-xs-10">
 				<select class="form-control" ng-model="item.ActorType" required>
-					<option value="0">User Achievement</option>
-					<option value="1">Group Achievemnet</option>
+					<option value="0">User Skill</option>
+					<option value="1">Group Skill</option>
 				</select>
 			</div>
 		</div>
@@ -98,43 +98,6 @@
 			<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="minusCriteria(item)" ng-if="criterias > 1">Remove Criteria</button>
 		</div>
 		<div class="col-xs-12 text-center button-container">
-			<button class="btn btn-success pull-right" type="button" ng-disabled="myForm.$invalid" ng-click="create()"><i class="fa fa-plus"></i> Create Achievement</button>
+			<button class="btn btn-success pull-right" type="button" ng-disabled="myForm.$invalid" ng-click="create()"><i class="fa fa-plus"></i> Create Skill</button>
 		</div>
 </div>
-
-<!-- Confirm that we want to delete the game  -->
-
-<script type="text/ng-template" id="confirmDeleteModal.html">
-	<div class="modal-header">
-		<h3 class="modal-title">You are deleting {{config.display.individualTitle(item)}}</h3>
-	</div>
-	<div class="modal-body">
-		Are you sure you want to delete the game {{config.display.individualTitle(item)}}?
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> No, cancel</button>
-		<button class="btn btn-success" type="button" ng-click="delete()"><i class="fa fa-trash-o"></i> Yes, delete {{config.display.individualTitle(item)}}</button>
-	</div>
-</script>
-
-<!-- Create a new game  -->
-
-<script type="text/ng-template" id="createModal.html">
-  <form name="myForm">
-	<div class="modal-header">
-		<h3 class="modal-title">Create new game</h3>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-xs-3"><label>Name</label></div>
-			<div class="col-xs-9">
-				<input type="text" class="form-control" ng-model="item.Name" required/>
-			</div>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
-		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Save</button>
-	</div>
-  </form>
-</script>
