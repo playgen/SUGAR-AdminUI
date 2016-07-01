@@ -40,8 +40,8 @@ angular.module('sgaAdminApp').service('LeaderboardsApi', [
         createFilter: function(item) {
             return $http.post(config.api.baseurl + '/leaderboards/create', item);  
         },
-        getLeaderboard: function (id) {
-          return $http.get(config.api.baseurl + 'leaderboard/list/' + id);
+        getLeaderboard: function (item) {
+          return $http.post(config.api.baseurl + '/leaderboards/standings/', item);
         },
         "delete": function (id) {
           return $http["delete"](config.api.baseurl + '/leaderboards/' + id);

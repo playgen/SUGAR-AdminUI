@@ -70,7 +70,7 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/leaderboardsFilter.html',
     controller: 'LeaderboardsFilterCtrl',
     login: true
-  }).when('/leaderboards/:itemId/:itemKey', {
+  }).when('/leaderboards/:itemId/:itemToken', {
     templateUrl: 'views/leaderboardsShow.html',
     controller: 'LeaderboardsShowCtrl',
     login: true

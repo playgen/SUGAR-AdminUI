@@ -54,7 +54,7 @@ angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
     };
     $scope.showLeaderboard = function(item)
     {
-      $location.path('/leaderboards/' + $scope.itemId + '/' + item.Token);
+      $location.path('/leaderboards/' + $scope.itemId + '/' + item.Id);
     }
     $scope.back = function (){
       //go back to resources games list
