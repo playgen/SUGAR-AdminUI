@@ -11,7 +11,7 @@
 angular.module('sgaAdminApp').controller('SkillsCtrl', [
   '$scope', '$routeParams', '$location', 'modalManager', 'SkillsApi', function($scope, $routeParams, $location, modalManager, SkillsApi) {
     $scope.itemtype = $routeParams.itemtype;
-    $scope.itemid = $routeParams.itemid;
+    $scope.itemId = $routeParams.itemId;
     
     $scope.items = [];
     $scope.pagination = {

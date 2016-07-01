@@ -22,7 +22,7 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
-      return SkillsApi['games'].listSkills($scope.itemId).then(function(res) {
+      return SkillsApi['skills'].listSkills($scope.itemId).then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
         }
@@ -83,7 +83,7 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
     $scope.item = {};
     
     $scope.save = function() {
-        return SkillsApi['games'].createSkill($scope.item).then(function() {
+        return SkillsApi['skils'].createSkill($scope.item).then(function() {
             $uibModalInstance.close();
             return $rootScope.$broadcast('savedItem');
         });

@@ -11,24 +11,29 @@
 angular.module('sgaAdminApp').service('SkillsApi', [
   '$http', 'config', function($http, config) {
     return {
-      'games':{
+      'skills':{
           list: function(){
-            return $http.get(config.api.baseurl + '/game/list')
+            return $http.get(config.api.baseurl + '/skills/list')
           },
           listSkills: function(id) {
-            return $http.get(config.api.baseurl + '/game/skill/find/' + id);
+            return $http.get(config.api.baseurl + '/skills/game/' + id + '/list');
           },
           get: function(id) {
-            return $http.get(config.api.baseurl + '/game/findbyid/' + id);  
-          },
-          create: function(item) {
-            return $http.post(config.api.baseurl + '/game', item);  
+            return $http.get(config.api.baseurl + '/skills/game/' + id);  
           },
           createSkill: function(item) {
-            return $http.post(config.api.baseurl + '/game/skill', item);  
+            return $http.post(config.api.baseurl + '/skills/create', item);  
           },
           "delete": function(id){
-            return $http["delete"](config.api.baseurl + '/game/' + id);
+            return $http["delete"](config.api.baseurl + '/skills/' + id);
+          }
+      },
+      'games':{
+        list: function(){
+            return $http.get(config.api.baseurl + '/game/list')
+          },
+          get: function (id) {
+            return $http.get(config.api.baseurl + '/game/findbyid/' + id); 
           }
       },
       'user': {

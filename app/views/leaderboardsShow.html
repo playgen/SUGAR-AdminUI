@@ -18,7 +18,7 @@
 			<th></th>
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-			<td>{{item.Rank}}</td>
+			<td>{{item.Ranking}}</td>
             <td>{{item.Name}}</td>
 			<td>{{item.Value}}</td>
 		</tr>
