@@ -9,20 +9,22 @@
 	</div>
 </div>
 <div ng-init="init()" ng-if="gameFound">
-
-	<h3><span>Achievements in </span>{{gameName}}<span>:</span></h3>
 	<div class="modal-body">
 		<table class="table table-bordered">
-			<thead>
-			<tr class="listitem">
-				<th>Name</th>
-				<th>Key</th>
-				<th>Completion Criteria</th>
-				
+			<tr>
+				<td style="width: 10px"></td>
+				<td><h3>Achievements in <span>{{gameName}}</span></h3></td>
 			</tr>
-			</thead>
+			<tr class="listitem">
+				<td style="width: 10px"></td>
+				<td>Name</td>
+				<td>Key</td>
+				<td>Completion Criteria</td>
+			</tr>
 			<tbody ng-repeat="n in range()">
+				
 				<tr>
+					<td></td>
 					<td><h4>{{items[n].Name}}</h4></td>
 					<td><h4>{{items[n].CompletionCriteria[0].Key}}</h4></td>
 					<td><h4>{{items[n].CompletionCriteria[0].DataType}} {{items[n].CompletionCriteria[0].ComparisonType}} {{items[n].CompletionCriteria[0].Value}}</h4></td>
@@ -31,6 +33,7 @@
 				</td>
 				</tr>
 				<tr ng-repeat="i in criteriaRange(n)">
+					<td></td>
 					<td></td>
 					<td><h4>{{items[n].CompletionCriteria[i].Key}}</h4></td>
 					<td><h4>{{items[n].CompletionCriteria[i].DataType}} {{items[n].CompletionCriteria[i].ComparisonType}} {{items[n].CompletionCriteria[i].Value}}</h4></td>

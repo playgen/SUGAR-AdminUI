@@ -10,15 +10,20 @@
 </div>
 <div ng-init="init()" ng-if="userFound">
 
-	<h3><span>Groups </span>{{userName}}<span> is a member of:</span></h3>
 	<div class="modal-body">
 		<table class="table table-bordered">
+			<tr>
+				<td style="width: 10px"></td>
+				<td><h3>Groups <span>{{userName}}</span> is a member of:</h3></td>
+			</tr>
 			<tr class="listitem">
+				<td style="width: 10px"></td>
 				<th>Name</th>
 				<th></th>
 			</tr>
             <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
-                <td>{{item.Name}}</td>
+                <td></td>
+				<td>{{item.Name}}</td>
                 <td>
 					<button class="btn btn-danger pull-right" type="button" ng-click="remove(item)"><i class="fa fa-times"> Leave</i></button>
                 </td>
@@ -43,7 +48,7 @@
     <form name="myForm">
         <div class="modal-body">
             <class>Enter Group Name</class>
-            <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" required/>
+            <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" placeholder="Username" required/>
             <class="form-control" ng-if="!exists">Error: Group Not Found</class>
         </div>
     </form>

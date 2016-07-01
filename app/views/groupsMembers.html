@@ -9,13 +9,14 @@
 	</div>
 </div>
 <div ng-init="init()" ng-if="groupFound">
-
-	<div class="modal-header">
-		<h3 class="modal-title"><span>Members of </span>{{groupName}}<span>:</span></h3>
-	</div>
 	<div class="modal-body">
 		<table class="table table-bordered">
+			<tr>
+				<td style="width: 10px"></td>
+				<td><h3>Members of <span>{{groupName}}</span>:</h3></td>
+			</tr>
 			<tr class="listitem">
+				<td></td>
 				<th>Player Name</th>
 				<th></th>
 			</tr>
@@ -47,7 +48,7 @@
     <div class="modal-body">
         <class>Enter Player Name</class>
         <form name="myForm">
-        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" required/>
+        <input type="text" placeholder="Username" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" required/>
         </form>
         <class="form-control" ng-if="!exists">Error: Player Not Found</class>
     </div>

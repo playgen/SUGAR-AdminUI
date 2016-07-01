@@ -9,18 +9,22 @@
 	</div>
 </div>
 <div ng-init="init()" ng-if="userFound" >
-
-	<h3><span>Friends of </span>{{userName}}<span>:</span></h3>
 	<div class="modal-body">
 		<table class="table table-bordered">
+			<tr>
+				<td style="width: 10px"></td>
+				<td><h3>Friends of <span>{{userName}}</span></h3></td>
+			</tr>
 			<tr class="listitem">
+				<td style="width: 10px"></td>
 				<th>Name</th>
 				<th></th>
 				<th></th>
 			</tr>
 			<!-- Show friend requests from other playersfirst -->
 			<tr class="listitem" ng-repeat="item in requests | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
-                <td>{{item.Name}}</td>
+                <td></td>
+				<td>{{item.Name}}</td>
 				<td>Pending</td>
                 <td>
 					<button class="btn btn-danger pull-right" type="button" ng-click="reject(item)"><i class="fa fa-times"> Reject</i></button>
@@ -64,7 +68,7 @@
     <div class="modal-body">        
         <class>Enter Player Name</class>
         <form name="myForm">
-        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" required/>
+        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" placeholder="Username" required/>
         </form>
         <class="form-control" ng-if="!exists">Error: Player Not Found</class>
     </div>

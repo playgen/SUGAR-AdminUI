@@ -9,9 +9,13 @@
 	</div>
 </div>
 <div ng-init="init()" ng-if="gameFound">
-<h3><span>{{gameName}}</span> Leaderboards</h3>
 	<table class="table table-bordered">
+		<tr>
+			<td style="width: 10px"></td>
+			<td><h3><span>{{gameName}}</span> Leaderboards</h3></td>
+		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Token' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+			<td style="width: 10px"></td>
 			<td>{{item.Token}}</td>
 			<td>
 				<button class="btn btn-success btn-sm" title="Show this Leaderboard" ng-click="showLeaderboard(item)"><i class=""> View Leaderboard</i></button>
@@ -36,25 +40,25 @@
 <script type="text/ng-template" id="createLeaderboardModal.html">
   <form name="myForm">
 	<div class="modal-header">
-		<h3 class="modal-title">Create new Filter</h3>
+		<h3 class="modal-title">Create new Leaderboard</h3>
 	</div>
 	<div class="modal-body">
 		<div class="row">
 			<div class="col-xs-3"><label>Name</label></div>
 			<div class="col-xs-9">
-				<input type="text" class="form-control" ng-model="item.Name" required/>
+				<input type="text"  placeholder="Leaderboard Name" class="form-control" ng-model="item.Name" required/>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-3"><label>Token</label></div>
 			<div class="col-xs-9">
-				<input type="text" class="form-control" ng-model="item.Token" required/>
+				<input type="text" placeholder="Unique Leaderboard Token" class="form-control" ng-model="item.Token" required/>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-3"><label>Key</label></div>
 			<div class="col-xs-9">
-				<input type="text" class="form-control" ng-model="item.Key" required/>
+				<input type="text" placeholder="Unique Leaderboard Key" class="form-control" ng-model="item.Key" required/>
 			</div>
 		</div>
 		<div class="row">

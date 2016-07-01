@@ -9,10 +9,13 @@
 	</div>
 </div>
 <div ng-init="init()" ng-if="gameFound">
-<h3>Resources in <span>{{gameName}}</span></h3>
 	<table class="table table-bordered">
+		<tr>
+			<td style="width: 10px"></td>
+			<td><h3>Resources in <span>{{gameName}}</span></h3></td>
+		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-			<td></td>
+			<td style="width: 10px"></td>
             <td>{{item.Name}}</td>
 		</tr>
 	</table>

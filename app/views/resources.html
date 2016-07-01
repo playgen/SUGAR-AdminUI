@@ -9,14 +9,18 @@
 	</div>
 </div>
 <div ng-init="init()">
-<h3>Select to view Resources</h3>
 	<table class="table table-bordered">
+		<tr>
+			<td style="width: 10px"></td>
+			<td><h3>Select to view Resources</h3></td>
+		</tr>
 		<!--<tr>
 			<td style="width: 10px"></td>
 			<td ng-click="showGlobal()"><h4>GLOBAL RESOURCES</h4></td>
 		</tr>-->
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<!--<td></td>-->
+			<td style="width: 10px"></td>
             <td ng-click="showResources(item)">{{item.Name}}</td>
 		</tr>
 	</table>

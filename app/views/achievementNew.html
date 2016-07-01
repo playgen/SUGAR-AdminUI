@@ -14,13 +14,13 @@
 		<div class="form-group">
 			<h4 for="inputName" class="col-xs-2 control-label">Achievement Name:</h4>
 			<div class="col-xs-10">
-				<input type="text" class="form-control" ng-model="item.Name" required/>
+				<input type="text" placeholder="Achievement Name" class="form-control" ng-model="item.Name" required/>
 			</div>
 		</div>
 		<div class="form-group">
 			<h4 for="inputName" class="col-xs-2 control-label">Description:</h4>
 			<div class="col-xs-10">
-				<input type="text" class="form-control" ng-model="item.Description" required/>
+				<input type="text" placeholder="Achievement Description" class="form-control" ng-model="item.Description" required/>
 			</div>
 		</div>
 		<div class="form-group">
@@ -32,13 +32,13 @@
 		<div class="form-group">
 			<h4 for="inputName" class="col-xs-2 control-label">Token:</h4>
 			<div class="col-xs-10">
-				<input type="text" class="form-control" ng-model="item.Token" required/>
+				<input type="text" placeholder="Unique Token" class="form-control" ng-model="item.Token" required/>
 			</div>
 		</div>
 		<div class="form-group">
-			<h4 for="inputName" class="col-xs-2 control-label">Actor Type:</h4>
+			<h4 for="inputName"  class="col-xs-2 control-label">Actor Type:</h4>
 			<div class="col-xs-10">
-				<select class="form-control" ng-model="item.ActorType" required>
+				<select class="form-control" placeholder="User Achievement" ng-model="item.ActorType" required>
 					<option value="0">User Achievement</option>
 					<option value="1">Group Achievemnet</option>
 				</select>
@@ -48,9 +48,9 @@
 			<h4 for="inputName" class="col-xs-2 control-label">Reward</h4>
 		</div>
 		<div class="form-group">
-			<h5 for="inputName" class="col-xs-2 control-label">Key:</h5>
+			<h5 for="inputName"" class="col-xs-2 control-label">Key:</h5>
 			<div class="col-xs-10">
-				<input type="text" class="form-control" ng-model="item.Reward.Key"/>
+				<input type="text" placeholder="Unique Reward Key" class="form-control" ng-model="item.Reward.Key"/>
 			</div>
 		</div>
 		<div class="form-group">
@@ -67,12 +67,12 @@
 		<div class="form-group">
 			<h5 for="inputName" class="col-xs-2 control-label">Value:</h5>
 			<div class="col-xs-10">
-				<input type="text" class="form-control" ng-model="item.Reward.Value"/>
+				<input type="text" placeholder="Reward Amount" class="form-control" ng-model="item.Reward.Value"/>
 			</div>
 		</div>
 		<tr class="listitem" ng-repeat="n in range()">
 			<td><label>Criteria {{n}}:</label></td>
-            <td>Key<input type="text" class="form-control" ng-model="item[n].Key" required/></td>
+            <td>Key<input type="text" placeholder="Unique Criteria Name" class="form-control" ng-model="item[n].Key" required/></td>
 			<td>Data Type<select class="form-control" ng-model="item[n].DataType" required>
 					<option value="0">String</option>
 					<option value="1">Long</option>
@@ -89,7 +89,7 @@
 					<option value="5"><=</option>
 				</select>
 			</td>
-			<td>Value<input type="text" class="form-control" ng-model="item[n].Value" required/></td>
+			<td>Value<input type="text" placeholder="Value to match" class="form-control" ng-model="item[n].Value" required/></td>
 		</tr>
 	</table>
 	</form>
