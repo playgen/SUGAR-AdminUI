@@ -1,9 +1,15 @@
+<contentHeader>
 <div>
 	<div class="col-xs-12 button-container">
 		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Games List</button>
 	</div>
 </div>
+</contentHeader>
+<contentMain>
 <div>
+	<div>
+	    <h3 ng-if="!gameFound" ><span>Cannot display achievements, no game found with ID:- </span>{{itemId}}<span></span></h3>
+    </div>
 	<div class="col-xs-12">
 		<h3><small>This page displays all the achievements in the selected game, showing the name of the achievement, the key and the criteria that must be reached to complete the achievement<br />From this page you can also:<br />- Create new Achievements for the selected game<br />- Edit current achievements<br />- Delete achievements<small></h3>
 	</div>
@@ -41,18 +47,17 @@
 			</tbody>
 		</table>
 	</div>
+</div>
+</contentMain>
 	<div class="row">
 		<div class="col-xs-12 text-center">
 			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 		</div>
 	</div>
-	<div class="col-xs-12 text-center button-container">
+	<div ng-if="gameFound" class="col-xs-12 text-center button-container">
 			<button class="btn btn-success pull-right" type="button" ng-click="add()"><i class="fa" ng-class="page.display.icon"></i>Add New Achievement</button>
 		</div>
-</div>
-<div>
-	<h3 ng-if="!gameFound" ><span>Cannot display achievements, no game found with ID:- </span>{{itemId}}<span></span></h3>
-</div>
+
 
 <!-- Confirm that we want to delete the game  -->
 

@@ -1,8 +1,11 @@
+<contentHeader>
 <div>
 	<div class="col-xs-12 button-container">
 		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Menu</button>
 	</div>
 </div>
+</contentHeader>
+<contentMain>
 <div>
 	<div class="col-xs-12">
 		<h3><small>This page displays the list of games which can be selected to manage skills within each game. Global skills are also available for skills that are not restricted to one game<small></h3>
@@ -23,10 +26,11 @@
             <td ng-click="showSkills(item)">{{item.Name}}</td>
 		</tr>
 	</table>
-	<div class="row">
-		<div class="col-xs-12 text-center">
-			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
-		</div>
-	</div>
-	<div class="col-xs-12 text-center button-container"/>
 </div>
+</contentMain>
+<div class="row">
+	<div class="col-xs-12 text-center">
+		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+	</div>
+</div>
+<div class="col-xs-12 text-center button-container"/>

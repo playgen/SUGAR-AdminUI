@@ -1,8 +1,11 @@
+<contentHeader>
 <div>
 	<div class="col-xs-12 button-container">
 		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Skills</button>
 	</div>
 </div>
+</contentHeader>
+<contentMain>
 <div>
 	<div class="col-xs-12">
 		<h3><small>This page is used to create new skills for the game, simply full out the information below and click 'Create Skillls', multiple criterias are possible using the 'Add Critera' button below<small></h3>
@@ -93,11 +96,12 @@
 		</tr>
 	</table>
 	</form>
-		<div>
-			<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="addCriteria(item)" >Add Criteria</button>
-			<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="minusCriteria(item)" ng-if="criterias > 1">Remove Criteria</button>
-		</div>
-		<div class="col-xs-12 text-center button-container">
-			<button class="btn btn-success pull-right" type="button" ng-disabled="myForm.$invalid" ng-click="create()"><i class="fa fa-plus"></i> Create Skill</button>
-		</div>
+</div>
+</contentMain>
+<div>
+	<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="addCriteria(item)" >Add Criteria</button>
+	<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="minusCriteria(item)" ng-if="criterias > 1">Remove Criteria</button>
+</div>
+<div class="col-xs-12 text-center button-container">
+	<button class="btn btn-success pull-right" type="button" ng-disabled="myForm.$invalid" ng-click="create()"><i class="fa fa-plus"></i> Create Skill</button>
 </div>

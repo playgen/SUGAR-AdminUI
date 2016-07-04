@@ -1,9 +1,15 @@
+<contentHeader>
 <div>
 	<div class="col-xs-12 button-container">
 		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Groups</button>
 	</div>
 </div>
+</contentHeader>
+<contentMain>
 <div>
+	<div>
+	    <h3 ng-if="!groupFound" ><span>Cannot display group members, no group found with ID:- </span>{{itemId}}<span></span></h3>
+    </div>
 	<div class="col-xs-12">
 		<h3><small>This page displays the members of a group, and from this page you can:<br />- Add members to the current group<br />- Remove members from the current group<small></h3>
 	</div>
@@ -30,15 +36,14 @@
 		    </tr>
 		</table>
 	</div>
-	<div>
-        <div class="col-xs-12 text-center button-container">
-            <button class="btn btn-success pull-right" type="button" ng-click="add(item)"></i>Add New Member</button>
-        </div>
+</contentMain>
+<div>
+	<div ng-if="groupFound" class="col-xs-12 text-center button-container">
+		<button class="btn btn-success pull-right" type="button" ng-click="add(item)"></i>Add New Member</button>
 	</div>
 </div>
-<div>
-	<h3 ng-if="!groupFound" ><span>Cannot display group members, no group found with ID:- </span>{{itemId}}<span></span></h3>
 </div>
+
 <!-- Add a member to the group -->
 
 <script type="text/ng-template" id="addMemberModal.html">

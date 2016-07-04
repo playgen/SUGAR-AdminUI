@@ -1,8 +1,11 @@
+<contentHeader>
 <div>
 	<div class="col-xs-12 button-container">
 		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Menu</button>
 	</div>
 </div>
+</contentHeader>
+<contentMain>
 <div>
 	<div class="col-xs-12">
 		<h3><small>Below is all the registered users, from this page you can:<br />- View users' friends, add and delete friends and respond to friends requests.<br />- View users' groups, join new groups and leave exitsing groups.<br />- Create new users<br />- Edit users information<br />- Delete users<small></h3>
@@ -26,17 +29,17 @@
             </td>
 		</tr>
 	</table>
-	<div class="row">
-		<div class="col-xs-12 text-center">
-			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
-		</div>
+</div>
+</contentMain>
+<div >
+	<div class="col-xs-12 text-center">
+		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 	</div>
-	<div>
-		<div class="col-xs-12 text-center button-container">
-			<button class="btn btn-success pull-right" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new user</button>
-		</div>
+</div>
+<div>
+	<div class="col-xs-12 text-center button-container">
+		<button class="btn btn-success pull-right" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new user</button>
 	</div>
-
 </div>
 
 <!-- Confirm that we want to delete the user  -->

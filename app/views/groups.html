@@ -1,11 +1,14 @@
-<div ng-init="init()">
+<contentHeader>
 	<div>
 		<div class="col-xs-12 button-container">
 			<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Menu</button>
 		</div>
 	</div>
+</contentHeader>
+<contentMain>
 <div>
-	<div class="col-xs-12">
+<div>
+	<div ng-init="init()" class="col-xs-12">
 		<h3><small>This page displays the list of groups in the system and the number of members in each group, using this page you can:<br />- View members of a selected group to add or remove users<br />- Create new groups<br />- Edit group information<br />- Delete groups<small></h3>
 	</div>
 </div>
@@ -27,6 +30,8 @@
             </td>
 		</tr>
 	</table>
+	</div>
+	</contentMain>
 	<div class="row">
 		<div class="col-xs-12 text-center">
 			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
@@ -37,7 +42,6 @@
 			<button class="btn btn-success pull-right" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new group</button>
 		</div>
 	</div>
-</div>
 
 <!-- Confirm that we want to delete the group  -->
 

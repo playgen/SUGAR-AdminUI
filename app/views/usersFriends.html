@@ -1,9 +1,15 @@
+<contentHeader>
 <div>
 	<div class="col-xs-12 button-container">
 		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Users</button>
 	</div>
 </div>
+</contentHeader>
+<contentMain>
 <div>
+	<div>
+	    <h3 ng-if="!userFound" ><span>Cannot display friends, no user found with ID:- </span>{{itemId}}<span></span></h3>
+    </div>
 	<div class="col-xs-12">
 		<h3><small>This page displays a list of friends for the selected user, including accepted friends, pending requests from other users and requests sent<br />You can also add new friends by entering the a users name in the 'Add New Friend' menu<small></h3>
 	</div>
@@ -49,15 +55,14 @@
 		    </tr>
 		</table>
 	</div>
-	<div>
-        <div class="col-xs-12 text-center button-container">
-        	<button class="btn btn-success pull-right" type="button" ng-click="add(item)"></i>Add New Friend</button>
-        </div>
+</div>
+</contenMain>
+<div>
+	<div ng-if="userFound" class="col-xs-12 text-center button-container">
+		<button class="btn btn-success pull-right" type="button" ng-click="add(item)"></i>Add New Friend</button>
 	</div>
 </div>
-<div>
-	<h3 ng-if="!userFound" ><span>Cannot display friends, no user found with ID:- </span>{{itemId}}<span></span></h3>
-</div>
+
 
 <!-- request to add a new friend -->
 

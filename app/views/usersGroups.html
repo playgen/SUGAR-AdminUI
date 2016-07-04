@@ -1,9 +1,15 @@
+<contentHeader>
 <div>
 	<div class="col-xs-12 button-container">
 		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Users</button>
 	</div>
 </div>
+</contentHeader>
+<contentMain>
 <div>
+	<div>
+	    <h3 ng-if="!userFound" ><span>Cannot display groups, no user found with ID:- </span>{{itemId}}<span></span></h3>
+    </div>
 	<div class="col-xs-12">
 		<h3><small>This page displays a list of groups for the selected user, which can be left using the leave button and join a new group by typing a group name into the 'Join New Group' popup<small></h3>
 	</div>
@@ -30,15 +36,14 @@
 		    </tr>
 		</table>
 	</div>
-	<div>
-        <div class="col-xs-12 text-center button-container">
-            <button class="btn btn-success pull-right" type="button" ng-click="add(item)"></i>Join New Group</button>
-        </div>
+</div>
+</contentMain>
+<div>
+	<div ng-if="userFound" class="col-xs-12 text-center button-container">
+		<button class="btn btn-success pull-right" type="button" ng-click="add(item)"></i>Join New Group</button>
 	</div>
 </div>
-<div>
-	<h3 ng-if="!userFound" ><span>Cannot display groups, no user found with ID:- </span>{{itemId}}<span></span></h3>
-</div>
+
 <!-- Add player to a group -->
 
 <script type="text/ng-template" id="addGroupModal.html">
