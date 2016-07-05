@@ -35,8 +35,8 @@ a[ng-click], .clickable {
 //page layout styling
 .contentBody {
   position: absolute;
-  left: 150px;
-  right: 0pc;
+  left: 0px;
+  right: 0px;
   height: 100vh; 
   display: flex;
   flex-direction: column;
@@ -51,9 +51,10 @@ contentHeader{
 	background-color: #FFEC00;
 }
 contentFooter{
+	position: relative;
   	height: 100px;
+	  bottom: 0;
   	padding: 10px;
-  	background-color: #FFEC00;
 }
 contentMain{
 	position: relative;
@@ -62,6 +63,32 @@ contentMain{
   	flex: 1;
   	overflow: scroll;
   	overflow-x: hidden;
+	  background-color: #fff;
+}
+contentMainHomeBG{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	bottom: 0px;
+	background: url("/images/SUGAR_background_Name.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+contentLogIn{
+	position: relative;
+	overflow: hidden;
+}
+contentHome{
+	position: relative;
+	top:50px;
+	overflow: hidden;
+	background: url("/images/SUGAR_background_Name.png");
+}
+.bgImage{
+	border-color: #000;
+	border-width: 2px;
+	width: 100%;
+	height: 100%;
 }
 .main-header .logo {
   text-align: center;
@@ -78,8 +105,11 @@ contentMain{
 }
 .main-header .navbar {
   margin-bottom: 0;
+  margin-right: 0px;
   margin-left: 150px;
+  color: white;
   border: none;
   min-height: 50px;
+  font-size: 20px;
   border-radius: 0;
 }

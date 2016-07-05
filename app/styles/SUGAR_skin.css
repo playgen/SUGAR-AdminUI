@@ -59,7 +59,7 @@
 .skin-purple .wrapper,
 .skin-purple .main-sidebar,
 .skin-purple .left-side {
-  background-color: #E5007E;
+  background-color: #fff;
 }
 .skin-purple .user-panel > .info,
 .skin-purple .user-panel > .info > a {
@@ -103,7 +103,7 @@
 .skin-purple .sidebar-form input[type="text"],
 .skin-purple .sidebar-form .btn {
   box-shadow: none;
-  background-color: #b30062;
+  background-color: #fff;
   border: 1px solid transparent;
   height: 35px;
   -webkit-transition: all 0.3s ease-in-out;
