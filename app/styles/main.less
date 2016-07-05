@@ -32,3 +32,24 @@ a[ng-click], .clickable {
 		}
 	}
 }
+.contentBody {
+  position: absolute;
+  left: 150px;
+  right: 150px;
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  font-size: 20px;
+}
+contentHeader, contentFooter{
+  height: 100px;
+  padding: 10px;
+  background-color: #FFEC00;
+}
+contentMain{
+  padding: 10px;
+  flex: 1;
+  overflow: scroll;
+  overflow-x: hidden;
+}
