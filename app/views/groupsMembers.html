@@ -1,7 +1,7 @@
 <contentHeader>
 <div>
-	<div class="col-xs-12 button-container">
-		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Groups</button>
+	<div class="col-xs-3">
+		<h4 class="" ng-click="back()"><< Back to Groups</h4>
 	</div>
 </div>
 </contentHeader>
@@ -11,7 +11,7 @@
 	    <h3 ng-if="!groupFound" ><span>Cannot display group members, no group found with ID:- </span>{{itemId}}<span></span></h3>
     </div>
 	<div class="col-xs-12">
-		<h3><small>This page displays the members of a group, and from this page you can:<br />- Add members to the current group<br />- Remove members from the current group<small></h3>
+		<h4>This page displays the members of a group, and from this page you can:<br />- Add members to the current group<br />- Remove members from the current group</h4>
 	</div>
 </div>
 <div ng-init="init()" ng-if="groupFound">
@@ -19,7 +19,7 @@
 		<table class="table table-bordered">
 			<tr>
 				<td style="width: 10px"></td>
-				<td><h3>Members of <span>{{groupName}}</span>:</h3></td>
+				<th>Members of <span>{{groupName}}</span>:</th>
 			</tr>
 			<tr class="listitem">
 				<td></td>

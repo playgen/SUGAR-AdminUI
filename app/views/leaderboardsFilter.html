@@ -1,7 +1,7 @@
 <contentHeader>
 <div>
-	<div class="col-xs-12 button-container">
-		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Games List</button>
+	<div class="col-xs-3">
+		<h4 class="" ng-click="back()"><< Back to Games List</h4>
 	</div>
 </div>
 </contentHeader>
@@ -11,14 +11,14 @@
 	    <h3 ng-if="!gameFound" ><span>Cannot display leaderboards, no game found with ID:- </span>{{itemId}}<span></span></h3>
     </div>
 	<div class="col-xs-12">
-		<h3><small>This page manages the leaderboards for the selected platform, from here you can:<br />- Open selected leaderboards<br />- Create a new Leaderboard<br />- Edit a leaderboard<br />- Delete an existing Leaderboard<small></h3>
+		<h4>This page manages the leaderboards for the selected platform, from here you can:<br />- Open selected leaderboards<br />- Create a new Leaderboard<br />- Edit a leaderboard<br />- Delete an existing Leaderboard</h4>
 	</div>
 </div>
 <div ng-init="init()" ng-if="gameFound">
 	<table class="table table-bordered">
 		<tr>
 			<td style="width: 10px"></td>
-			<td><h3><span>{{gameName}}</span> Leaderboards</h3></td>
+			<th><span>{{gameName}}</span> Leaderboards</th>
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Token' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td style="width: 10px"></td>

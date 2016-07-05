@@ -1,7 +1,7 @@
 <contentHeader>
 <div>
-	<div class="col-xs-12 button-container">
-		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Leaderboards List</button>
+	<div class="col-xs-3">
+		<h4 class="" ng-click="back()"><< Back to Leaderboards List</h4>
 	</div>
 </div>
 </contentHeader>
@@ -11,16 +11,16 @@
 	    <h3 ng-if="!leaderboardFound" ><span>Cannot display leaderboards, no leadeboard found with Token:- </span>{{leaderboardToken}}<span></span></h3>
     </div>
 	<div class="col-xs-12">
-		<!--<h3><small>This page allows you to display a leaderboard using the filters below<small></h3>-->
+		<!--<h4>This page allows you to display a leaderboard using the filters below</h4>-->
 	</div>
 </div>
 <div ng-init="init()" ng-if="leaderboardFound">
 <h3><span>{{leaderboardToken}}</span></h3>
 	<table class="table table-bordered">
 		<tr>
-			<th><h4>Rank</h4></th>
-			<th><h4>Name</h4></th>
-			<th><h4>Value</h4></th>
+			<th>Rank</th>
+			<th>Name</th>
+			<th>Value</th>
 			<th></th>
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">

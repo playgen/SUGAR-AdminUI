@@ -1,25 +1,25 @@
 <contentHeader>
 <div>
-	<div class="col-xs-12 button-container">
-		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Menu</button>
+	<div class="col-xs-3">
+		<h4 class="" ng-click="back()"><< Back to Menu</h4>
 	</div>
 </div>
 </contentHeader>
 <contentMain>
 <div>
 	<div class="col-xs-12">
-		<h3><small>This page displays the list of games which can be selected to manage skills within each game. Global skills are also available for skills that are not restricted to one game<small></h3>
+		<h4>This page displays the list of games which can be selected to manage skills within each game. Global skills are also available for skills that are not restricted to one game</h4>
 	</div>
 </div>
 <div ng-init="init()">
 	<table class="table table-bordered">
 		<tr>
 			<td style="width: 10px"></td>
-			<td><h3>Select to view Skills</h3></td>
+			<th>Select to view Skills</th>
 		</tr>
 		<tr>
 			<td style="width: 10px"></td>
-			<td ng-click="showGlobal()"><h4>GLOBAL SKILLS</h4></td>
+			<td ng-click="showGlobal()">GLOBAL SKILLS</td>
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td></td>

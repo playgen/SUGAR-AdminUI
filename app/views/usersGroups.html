@@ -1,7 +1,7 @@
 <contentHeader>
 <div>
-	<div class="col-xs-12 button-container">
-		<button class="btn btn-danger pull-left" type="button" ng-click="back()">Back to Users</button>
+	<div class="col-xs-3">
+		<h4 class="" ng-click="back()"><< Back to Users</h4>
 	</div>
 </div>
 </contentHeader>
@@ -11,7 +11,7 @@
 	    <h3 ng-if="!userFound" ><span>Cannot display groups, no user found with ID:- </span>{{itemId}}<span></span></h3>
     </div>
 	<div class="col-xs-12">
-		<h3><small>This page displays a list of groups for the selected user, which can be left using the leave button and join a new group by typing a group name into the 'Join New Group' popup<small></h3>
+		<h4>This page displays a list of groups for the selected user, which can be left using the leave button and join a new group by typing a group name into the 'Join New Group' popup</h4>
 	</div>
 </div>
 <div ng-init="init()" ng-if="userFound">
@@ -20,7 +20,7 @@
 		<table class="table table-bordered">
 			<tr>
 				<td style="width: 10px"></td>
-				<td><h3>Groups <span>{{userName}}</span> is a member of:</h3></td>
+				<th>Groups <span>{{userName}}</span> is a member of:</th>
 			</tr>
 			<tr class="listitem">
 				<td style="width: 10px"></td>

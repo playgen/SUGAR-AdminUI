@@ -8,8 +8,11 @@
   * # Auth
   * Service in the sgaAdminApp.
  */
-angular.module('sgaAdminApp').factory('Auth', [
-  'ipCookie', 'config', function(ipCookie, config) {
+angular.module('sgaAdminApp')
+  .factory('Auth', [
+    'ipCookie', 
+    'config', 
+    function(ipCookie, config) {
     var Auth;
     Auth = {
       get: function(key) {
