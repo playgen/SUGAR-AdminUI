@@ -8,7 +8,7 @@
   * # GroupsCtrl
   * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
+angular.module('sgaAdminApp').controller('ResourcesActorsCtrl', [
   '$scope', '$routeParams', '$location', 'modalManager', 'ResourcesApi', function($scope, $routeParams, $location, modalManager, ResourcesApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
@@ -16,13 +16,17 @@ angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
     $scope.gameFound = true;
     $scope.gameName = '';
 
+    $scope.ActorType = "User"
+    $scope.AltActor = "Group"
+
     $scope.items = [];
     $scope.pagination = {
       perPage: 10,
       currentPage: 1
     };
     $scope.init = function() {
-      return ResourcesApi['games'].listResources($scope.itemId).then(function(res) {
+      //TODO: get list for current Actor Type
+      return ResourcesApi[$scope.ActorType].list().then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
         }
@@ -41,17 +45,20 @@ angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
       }).catch(function () {
         $scope.gameFound = false;
       });
-    $scope.manageResources = function (){
-      $location.path("/resources/" + $scope.itemId + "/manage");
+    $scope.changeActor = function ()
+    {
+      var temp = $scope.AltActor;
+      $scope.AltActor = $scope.ActorType;
+      $scope.ActorType = temp;
+      $scope.init();
     };
-    $scope.showActors = function () {
-      $location.path("/resources/" + $scope.itemId + "/actors");
-    };
-
     $scope.back = function (){
       //go back to resources games list
-      $location.path("/resources");
+      $location.path("/resources/"+ $scope.itemId );
     };
+    $scope.showResources = function (item) {
+      $location.path("/resources/" + $scope.itemId + "/" + $scope.ActorType + "/" + item.Id);
+    }
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });

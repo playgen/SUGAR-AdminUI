@@ -80,10 +80,6 @@ angular.module('sgaAdminApp').service('modalManager', [
           temp: 'addAchievementModal.html',
           cont: 'addAchievementModalCtrl'
       },
-      'newResource': {
-        temp: 'createResourceModal.html',
-        cont: 'CreateResourceModalCtrl'
-      },
       'newSkill': {
         temp: 'createSkillModal.html',
         cont: 'CreateSkillModalCtrl'
@@ -91,6 +87,10 @@ angular.module('sgaAdminApp').service('modalManager', [
       'newLeaderboard': {
         temp: 'createLeaderboardModal.html',
         cont: 'CreateLeaderboardModalCtrl'
+      },
+      'createResource' :{
+        temp: 'createResourceModal.html',
+        cont: 'CreateResourceModalCtrl'
       }
     };
     modalManager = {

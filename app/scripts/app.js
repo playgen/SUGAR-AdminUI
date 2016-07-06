@@ -62,6 +62,18 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
     templateUrl: 'views/resourcesAll.html',
     controller: 'ResourcesAllCtrl',
     login: true
+  }).when('/resources/:itemId/manage', {
+    templateUrl: 'views/resourcesManage.html',
+    controller: 'ResourcesManageCtrl',
+    login: true
+  }).when('/resources/:itemId/actors', {
+    templateUrl: 'views/resourcesActors.html',
+    controller: 'ResourcesActorsCtrl',
+    login: true
+  }).when('/resources/:itemId/:actorType/:actorId', {
+    templateUrl: 'views/resourcesActorsManage.html',
+    controller: 'ResourcesActorsManageCtrl',
+    login: true
   }).when('/leaderboards', {
     templateUrl: 'views/leaderboards.html',
     controller: 'LeaderboardsCtrl',

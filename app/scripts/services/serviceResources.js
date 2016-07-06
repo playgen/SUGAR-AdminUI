@@ -31,9 +31,20 @@ angular.module('sgaAdminApp').service('ResourcesApi', [
             return $http["delete"](config.api.baseurl + '/game/' + id);
           }
       },
-      'user': {
-        get: function(username){
-            return $http.get(config.api.baseurl + '/user/find/' + username);
+      'User': {
+        list: function () {
+          return $http.get(config.api.baseurl + '/user/list');
+        },
+        get: function (id) {
+          return $http.get(config.api.baseurl + '/user/findbyid/' + id)
+        }
+      },
+      'Group': {
+        list: function() {
+          return $http.get(config.api.baseurl + '/group/list');
+        },
+        get: function(id) {
+          return $http.get(config.api.baseurl + ("/group/findbyid/" + id));
         }
       }
     };

@@ -8,13 +8,16 @@
   * # GroupsCtrl
   * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
+angular.module('sgaAdminApp').controller('ResourcesActorsManageCtrl', [
   '$scope', '$routeParams', '$location', 'modalManager', 'ResourcesApi', function($scope, $routeParams, $location, modalManager, ResourcesApi) {
-    $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
+    $scope.actorType = $routeParams.actorType;
+    $scope.actorId = $routeParams.actorId;
     
     $scope.gameFound = true;
     $scope.gameName = '';
+
+    $scope.actorName;
 
     $scope.items = [];
     $scope.pagination = {
@@ -22,35 +25,38 @@ angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
       currentPage: 1
     };
     $scope.init = function() {
+      
       return ResourcesApi['games'].listResources($scope.itemId).then(function(res) {
         if (res.status === 200 && res.data != null) {
           $scope.items = res.data;
         }
       });
     };
-       ResourcesApi['games'].get($scope.itemId).then(function(res){
-        if (res.status === 200 && res.data != null)
-        {
-          $scope.gameFound = true;
-          $scope.gameName = res.data.Name;
-        }
-        else 
-        {
-          $scope.gameFound = false;
-        }
-      }).catch(function () {
-        $scope.gameFound = false;
-      });
-    $scope.manageResources = function (){
-      $location.path("/resources/" + $scope.itemId + "/manage");
-    };
-    $scope.showActors = function () {
-      $location.path("/resources/" + $scope.itemId + "/actors");
-    };
-
+    ResourcesApi['games'].get($scope.itemId).then(function(res){
+    if (res.status === 200 && res.data != null)
+    {
+      $scope.gameFound = true;
+      $scope.gameName = res.data.Name;
+    }
+    else 
+    {
+      $scope.gameFound = false;
+    }
+    }).catch(function () {
+      $scope.gameFound = false;
+    });
+    ResourcesApi[$scope.actorType].get($scope.actorId).then(function(res) {
+      if (res.status === 200 && res.data != null) {
+        $scope.actorName = res.data.Name;
+      }
+    });
     $scope.back = function (){
       //go back to resources games list
-      $location.path("/resources");
+      $location.path("/resources/"+ $scope.itemId );
+    };
+    $scope.setValue = function()
+    {
+      // ResourcesApi['resources'].update($scope.item);
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();

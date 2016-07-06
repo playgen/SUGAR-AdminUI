@@ -17,10 +17,10 @@
 			<td style="width: 10px"></td>
 			<th>Select to view Resources</th>
 		</tr>
-		<!--<tr>
+		<tr>
 			<td style="width: 10px"></td>
 			<td ng-click="showGlobal()">GLOBAL RESOURCES</td>
-		</tr>-->
+		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<!--<td></td>-->
 			<td style="width: 10px"></td>

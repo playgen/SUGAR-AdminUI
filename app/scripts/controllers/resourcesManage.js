@@ -8,7 +8,7 @@
   * # GroupsCtrl
   * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
+angular.module('sgaAdminApp').controller('ResourcesManageCtrl', [
   '$scope', '$routeParams', '$location', 'modalManager', 'ResourcesApi', function($scope, $routeParams, $location, modalManager, ResourcesApi) {
     $scope.itemtype = $routeParams.itemtype;
     $scope.itemId = $routeParams.itemId;
@@ -41,19 +41,33 @@ angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
       }).catch(function () {
         $scope.gameFound = false;
       });
-    $scope.manageResources = function (){
-      $location.path("/resources/" + $scope.itemId + "/manage");
-    };
-    $scope.showActors = function () {
-      $location.path("/resources/" + $scope.itemId + "/actors");
-    };
-
+      $scope.addResource = function () {
+        return modalManager.open('createResource', {
+      });
+    }
     $scope.back = function (){
       //go back to resources games list
-      $location.path("/resources");
+      $location.path("/resources/"+ $scope.itemId );
     };
     return $scope.$on('savedItem', function(event, args) {
       return $scope.init();
     });
+  }
+]).controller('CreateResourceModalCtrl', [
+  '$scope', '$rootScope', '$uibModalInstance', 'ResourcesApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, ResourcesApi, modaldata) {
+    $scope.itemtype = modaldata.itemtype;
+    $scope.config = modaldata.config;
+    $scope.item = {};
+    
+    $scope.save = function() {
+        return ResourcesApi['resources'].create($scope.item).then(function() {
+            $uibModalInstance.close();
+            return $rootScope.$broadcast('savedItem');
+        });
+    };
+    return $scope.close = function() {
+      $rootScope.$broadcast('savedItem');
+      return $uibModalInstance.close();
+    };
   }
 ]);

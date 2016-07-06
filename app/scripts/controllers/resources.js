@@ -28,9 +28,9 @@ angular.module('sgaAdminApp').controller('ResourcesCtrl', [
     $scope.showResources = function(item) {
       $location.path('/resources/' + item.Id);
     };
-    // $scope.showGlobal = function() {
-    //   $location.path('/resources/global');
-    // };
+    $scope.showGlobal = function() {
+      $location.path('/resources/global');
+    };
     $scope.back = function (){
       //go back to main menu
       $location.path("/");

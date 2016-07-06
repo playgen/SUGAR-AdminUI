@@ -1,0 +1,55 @@
+<contentHeader>
+<div>
+	<div class="col-xs-3">
+		<h4 class="" ng-click="back()"><< Back to Actor Menu for Resources in {{gameName}}</h4>
+	</div>
+</div>
+</contentHeader>
+<contentMain>
+<div>
+	<div>
+	    <h3 ng-if="!gameFound" ><span>Cannot display resources, no game found with ID:- </span>{{itemId}}<span></span></h3>
+    </div>
+	<div class="col-xs-12">
+		<h4>This page displays all the resources in the selected game, showing the name of the resource<br />From this page you can also:<br />- Create new resources for the selected game<br />- Edit current resources<br />- Delete resources</h4>
+	</div>
+</div>
+<div ng-init="init()" ng-if="gameFound">
+	<table class="table table-bordered">
+		<tr>
+			<td style="width: 1%"></td>
+			<th style="width: 39%">Resources owned by <span>{{actorName}}</span></th>
+			<th style="width: 10%"></th>
+			<th style="width: 10%"></th>
+			<th style="width: 10%"></th>
+			<th style="width: 30%"></th>
+		</tr>
+		<tr>
+			<th></th>
+			<th>Resource Name</th>
+			<th>Value</th>
+			<th>New Value</th>
+			<th></th>
+		</tr>
+		<tr>
+			<td style="width: 10px"></td>
+            <td>Test Name</td>
+			<td>200</td>
+			<td><input type="text"></td>
+			<td><button class="btn btn-success pull-left" ng-click="Set Value">Set Value</button></td>
+		</tr>
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+			<td style="width: 10px"></td>
+            <td>{{item.Name}}</td>
+			<td>{{item.Value}}</td>
+			<td><input type="text" ng-model="item.Value"></td>
+			<td><button class="btn btn-success pull-left" ng-click="setValue()">Set Value</button></td>
+		</tr>
+	</table>
+</div>
+</contentMain>
+<div class="row">
+	<div class="col-xs-12 text-center">
+		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+	</div>
+</div>
