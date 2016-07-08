@@ -38,8 +38,9 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
     return $scope.submit = function() {
       return User.login($scope.user).then(function(res) {
         var ref, returnPath;
-        if ((res != null ? res.status : void 0) === 200 && (((ref = res.data) != null ? ref.Token : void 0) != null)) {
-          Auth.set(config.tokens.session, res.data.Token);
+        if (res.status === 200 && res.data != null) {
+          var token = headers()["bearer"];
+          Auth.set(config.tokens.session, token);
           returnPath = $location.search()["return"];
           if (returnPath != null) {
             $location.search('return', null);
