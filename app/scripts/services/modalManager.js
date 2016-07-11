@@ -2,117 +2,118 @@
 'use strict';
 
 /**
-  * @ngdoc service
-  * @name sgaAdminApp.modalManager
-  * @description
-  * # modalManager
-  * Service in the sgaAdminApp.
+ * @ngdoc service
+ * @name sgaAdminApp.modalManager
+ * @description
+ * # modalManager
+ * Service in the sgaAdminApp.
  */
 angular.module('sgaAdminApp').service('modalManager', [
-  '$uibModal', 'listConfigs', function($uibModal, listConfigs) {
-    var configs, modalManager;
-    configs = {
-      'editUser': {
-        temp: 'editModal.html',
-        cont: 'EditUserModalCtrl'
-      },
-      'editGroup': {
-        temp: 'editModal.html',
-        cont: 'EditGroupModalCtrl'
-      },
-      'editGame': {
-        temp: 'editModal.html',
-        cont: 'EditGameModalCtrl'
-      },
-      'createUser': {
-        temp: 'createModal.html',
-        cont: 'CreateUserModalCtrl'
-      },
-      'createGroup': {
-        temp: 'createModal.html',
-        cont: 'CreateGroupModalCtrl'
-      },
-      'createGame': {
-        temp: 'createModal.html',
-        cont: 'CreateGameModalCtrl'
-      },
-      'deleteUser': {
-        temp: 'confirmDeleteModal.html',
-        cont: 'ConfirmDeleteUserModalCtrl'
-      },
-      'deleteGroup': {
-        temp: 'confirmDeleteModal.html',
-        cont: 'ConfirmDeleteGroupModalCtrl'
-      },
-      'deleteGame': {
-        temp: 'confirmDeleteModal.html',
-        cont: 'ConfirmDeleteGameModalCtrl'
-      },
-      'showAlliances': {
-        temp: 'showAllianceModal.html',
-        cont: 'showAllianceModalCtrl'
-      },
-      'showFriends': {
-        temp: 'showFriendsModal.html',
-        cont: 'showFriendsModalCtrl'
-      },
-      'showFriendRequests': {
-          temp: 'showFriendRequestsModal.html',
-          cont: 'showFriendRequestsModalCtrl'
-      },
-      'showGroups': {
-        temp: 'showGroupsModal.html',
-        cont: 'showGroupsModalCtrl'
-      },
-      'addFriend': {
-        temp: 'addFriendModal.html',
-        cont: 'addFriendModalCtrl'
-      },
-      'addMember': {
-        temp: 'addMemberModal.html',
-        cont: 'addMemberModalCtrl'
-      },
-      'addGroup': {
-        temp: 'addGroupModal.html',
-        cont: 'addGroupModalCtrl'
-      },
-      'addAchievement': {
-          temp: 'addAchievementModal.html',
-          cont: 'addAchievementModalCtrl'
-      },
-      'newSkill': {
-        temp: 'createSkillModal.html',
-        cont: 'CreateSkillModalCtrl'
-      },
-      'newLeaderboard': {
-        temp: 'createLeaderboardModal.html',
-        cont: 'CreateLeaderboardModalCtrl'
-      },
-      'createResource' :{
-        temp: 'createResourceModal.html',
-        cont: 'CreateResourceModalCtrl'
-      }
-    };
-    modalManager = {
-      open: function(modaltype, data) {
-        if (configs[modaltype] != null) {
-          if (data.config == null) {
-            data.config = listConfigs[data.itemtype];
-          }
-          return $uibModal.open({
-            animation: true,
-            templateUrl: configs[modaltype].temp,
-            controller: configs[modaltype].cont,
-            size: 'lg',
-            resolve: {
-              modaldata: function() {
-                return data;
-              }
-            }
-          });
-        }
-      }
-    };
-    return modalManager;
-  }
+	'$uibModal', 'listConfigs',
+	function($uibModal, listConfigs) {
+		var configs, modalManager;
+		configs = {
+			'editUser': {
+				temp: 'editModal.html',
+				cont: 'EditUserModalCtrl'
+			},
+			'editGroup': {
+				temp: 'editModal.html',
+				cont: 'EditGroupModalCtrl'
+			},
+			'editGame': {
+				temp: 'editModal.html',
+				cont: 'EditGameModalCtrl'
+			},
+			'createUser': {
+				temp: 'createModal.html',
+				cont: 'CreateUserModalCtrl'
+			},
+			'createGroup': {
+				temp: 'createModal.html',
+				cont: 'CreateGroupModalCtrl'
+			},
+			'createGame': {
+				temp: 'createModal.html',
+				cont: 'CreateGameModalCtrl'
+			},
+			'deleteUser': {
+				temp: 'confirmDeleteModal.html',
+				cont: 'ConfirmDeleteUserModalCtrl'
+			},
+			'deleteGroup': {
+				temp: 'confirmDeleteModal.html',
+				cont: 'ConfirmDeleteGroupModalCtrl'
+			},
+			'deleteGame': {
+				temp: 'confirmDeleteModal.html',
+				cont: 'ConfirmDeleteGameModalCtrl'
+			},
+			'showAlliances': {
+				temp: 'showAllianceModal.html',
+				cont: 'showAllianceModalCtrl'
+			},
+			'showFriends': {
+				temp: 'showFriendsModal.html',
+				cont: 'showFriendsModalCtrl'
+			},
+			'showFriendRequests': {
+				temp: 'showFriendRequestsModal.html',
+				cont: 'showFriendRequestsModalCtrl'
+			},
+			'showGroups': {
+				temp: 'showGroupsModal.html',
+				cont: 'showGroupsModalCtrl'
+			},
+			'addFriend': {
+				temp: 'addFriendModal.html',
+				cont: 'addFriendModalCtrl'
+			},
+			'addMember': {
+				temp: 'addMemberModal.html',
+				cont: 'addMemberModalCtrl'
+			},
+			'addGroup': {
+				temp: 'addGroupModal.html',
+				cont: 'addGroupModalCtrl'
+			},
+			'addAchievement': {
+				temp: 'addAchievementModal.html',
+				cont: 'addAchievementModalCtrl'
+			},
+			'newSkill': {
+				temp: 'createSkillModal.html',
+				cont: 'CreateSkillModalCtrl'
+			},
+			'newLeaderboard': {
+				temp: 'createLeaderboardModal.html',
+				cont: 'CreateLeaderboardModalCtrl'
+			},
+			'createResource': {
+				temp: 'createResourceModal.html',
+				cont: 'CreateResourceModalCtrl'
+			}
+		};
+		modalManager = {
+			open: function(modaltype, data) {
+				if (configs[modaltype] != null) {
+					if (data.config == null) {
+						data.config = listConfigs[data.itemtype];
+					}
+					return $uibModal.open({
+						animation: true,
+						templateUrl: configs[modaltype].temp,
+						controller: configs[modaltype].cont,
+						size: 'lg',
+						resolve: {
+							modaldata: function() {
+								return data;
+							}
+						}
+					});
+				}
+			}
+		};
+		return modalManager;
+	}
 ]);

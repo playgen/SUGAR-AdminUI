@@ -2,82 +2,79 @@
 'use strict';
 
 /**
-  * @ngdoc function
-  * @name sgaAdminApp.controller:GroupsCtrl
-  * @description
-  * # GroupsCtrl
-  * Controller of the sgaAdminApp
+ * @ngdoc function
+ * @name sgaAdminApp.controller:GroupsCtrl
+ * @description
+ * # GroupsCtrl
+ * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'LeaderboardsApi', function($scope, $routeParams, $location, modalManager, LeaderboardsApi) {
-    $scope.itemtype = $routeParams.itemtype;
-    $scope.itemId = $routeParams.itemId;
-    
-    $scope.gameFound = true;
-    $scope.gameName = '';
-    
-    $scope.items = [];
-    $scope.pagination = {
-      perPage: 10,
-      currentPage: 1
-    };
-    $scope.init = function() {
-      return LeaderboardsApi['leaderboard'].list($scope.itemId).then(function(res) {
-        if (res.status === 200 && res.data != null) {
-          $scope.items = res.data;
-        }
-      });
-    };
-    LeaderboardsApi['games'].get($scope.itemId).then(function(res){
-        if (res.status === 200 && res.data != null)
-        {
-          $scope.gameFound = true;
-          $scope.gameName = res.data.Name;
-        }
-        else 
-        {
-          $scope.gameFound = false;
-        }
-      }).catch(function () {
-        $scope.gameFound = false;
-      });
-    $scope.add = function(item) {
-      return modalManager.open('newLeaderboard', {
-        itemId: $scope.itemId
-      });
-    };
-    $scope["delete"] = function(item){
-      LeaderboardsApi['leaderboard'].delete(item.Id).then(function(res)
-      {
-        $scope.init();
-      });
-    };
-    $scope.showLeaderboard = function(item)
-    {
-      $location.path('/leaderboards/' + $scope.itemId + '/' + item.Id);
-    }
-    $scope.back = function (){
-      //go back to resources games list
-      $location.path("/leaderboards");
-    };
-    return $scope.$on('savedItem', function(event, args) {
-      return $scope.init();
-    });
-  }
+	'$scope', '$routeParams', '$location', 'modalManager', 'LeaderboardsApi',
+	function($scope, $routeParams, $location, modalManager, LeaderboardsApi) {
+		$scope.itemtype = $routeParams.itemtype;
+		$scope.itemId = $routeParams.itemId;
+
+		$scope.gameFound = true;
+		$scope.gameName = '';
+
+		$scope.items = [];
+		$scope.pagination = {
+			perPage: 10,
+			currentPage: 1
+		};
+		$scope.init = function() {
+			return LeaderboardsApi['leaderboard'].list($scope.itemId).then(function(res) {
+				if (res.status === 200 && res.data != null) {
+					$scope.items = res.data;
+				}
+			});
+		};
+		LeaderboardsApi['games'].get($scope.itemId).then(function(res) {
+			if (res.status === 200 && res.data != null) {
+				$scope.gameFound = true;
+				$scope.gameName = res.data.Name;
+			} else {
+				$scope.gameFound = false;
+			}
+		}).catch(function() {
+			$scope.gameFound = false;
+		});
+		$scope.add = function(item) {
+			return modalManager.open('newLeaderboard', {
+				itemId: $scope.itemId
+			});
+		};
+		$scope["delete"] = function(item) {
+			LeaderboardsApi['leaderboard'].delete(item.Id).then(function(res) {
+				$scope.init();
+			});
+		};
+		$scope.showLeaderboard = function(item) {
+			$location.path('/leaderboards/' + $scope.itemId + '/' + item.Id);
+		}
+		$scope.back = function() {
+			//go back to resources games list
+			$location.path("/leaderboards");
+		};
+		return $scope.$on('savedItem', function(event, args) {
+			return $scope.init();
+		});
+	}
 ]).controller('CreateLeaderboardModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'LeaderboardsApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, LeaderboardsApi, modaldata) {
-    $scope.itemId = modaldata.itemId;
-    $scope.item = {};
-    
-    $scope.save = function() {
-      $scope.item.GameId = $scope.itemId;
-        return LeaderboardsApi['leaderboard'].createFilter($scope.item).then(function() {
-            $uibModalInstance.close();
-            return $rootScope.$broadcast('savedItem');
-        });
-    };
-    return $scope.close = function() {
-      return $uibModalInstance.close();
-    };
-  }
+	'$scope', '$rootScope', '$uibModalInstance', 'LeaderboardsApi', 'modaldata',
+	function($scope, $rootScope, $uibModalInstance, LeaderboardsApi, modaldata) {
+		$scope.itemId = modaldata.itemId;
+		$scope.item = {};
+
+		$scope.save = function() {
+			$scope.item.GameId = $scope.itemId;
+			return LeaderboardsApi['leaderboard'].createFilter($scope.item).then(function() {
+				$uibModalInstance.close();
+				return $rootScope.$broadcast('savedItem');
+			});
+		};
+		return $scope.close = function() {
+			return $uibModalInstance.close();
+		};
+	}
 ]);

@@ -2,142 +2,146 @@
 'use strict';
 
 /**
-  * @ngdoc function
-  * @name sgaAdminApp.controller:GroupsCtrl
-  * @description
-  * # GroupsCtrl
-  * Controller of the sgaAdminApp
+ * @ngdoc function
+ * @name sgaAdminApp.controller:GroupsCtrl
+ * @description
+ * # GroupsCtrl
+ * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('GamesCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'GamesApi', function($scope, $routeParams, $location, modalManager, GamesApi) {
-    $scope.itemtype = $routeParams.itemtype;
-    $scope.itemid = $routeParams.itemid;
-    
-    $scope.items = [];
-    $scope.pagination = {
-      perPage: 10,
-      currentPage: 1
-    };
-    $scope.init = function() {
-      return GamesApi['games'].list().then(function(res) {
-        if (res.status === 200 && res.data != null) {
-          $scope.items = res.data;
-        }
-      });
-    };
-    $scope.select = function(item) {
-      return modalManager.open('editGame', {
-        itemtype: 'games',
-        item: item
-      });
-    };
-    $scope["delete"] = function(item) {
-      return modalManager.open('deleteGame', {
-        itemtype: 'games',
-        item: item
-      });
-    };
-    $scope.create = function() {
-      return modalManager.open('createGame', {
-        itemtype: 'games'
-      });
-    };
-    $scope.back = function (){
-      //go back to main menu
-      $location.path("/");
-    };
-    // $scope.showAchievements = function(item) {
-    //   var gameName = item.Name;
-    //   $location.path('/games/' + item.Id + '/achievements');
-    // };
-    return $scope.$on('savedItem', function(event, args) {
-      return $scope.init();
-    });
-  }
+	'$scope', '$routeParams', '$location', 'modalManager', 'GamesApi',
+	function($scope, $routeParams, $location, modalManager, GamesApi) {
+		$scope.itemtype = $routeParams.itemtype;
+		$scope.itemid = $routeParams.itemid;
+
+		$scope.items = [];
+		$scope.pagination = {
+			perPage: 10,
+			currentPage: 1
+		};
+		$scope.init = function() {
+			return GamesApi['games'].list().then(function(res) {
+				if (res.status === 200 && res.data != null) {
+					$scope.items = res.data;
+				}
+			});
+		};
+		$scope.select = function(item) {
+			return modalManager.open('editGame', {
+				itemtype: 'games',
+				item: item
+			});
+		};
+		$scope["delete"] = function(item) {
+			return modalManager.open('deleteGame', {
+				itemtype: 'games',
+				item: item
+			});
+		};
+		$scope.create = function() {
+			return modalManager.open('createGame', {
+				itemtype: 'games'
+			});
+		};
+		$scope.back = function() {
+			//go back to main menu
+			$location.path("/");
+		};
+		// $scope.showAchievements = function(item) {
+		//   var gameName = item.Name;
+		//   $location.path('/games/' + item.Id + '/achievements');
+		// };
+		return $scope.$on('savedItem', function(event, args) {
+			return $scope.init();
+		});
+	}
 ]).controller('EditGameModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'GamesApi', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, GamesApi, modalManager, modaldata) {
-    $scope.itemtype = modaldata.itemtype;
-    $scope.config = modaldata.config;
-    if (modaldata.item != null) {
-      $scope.item = modaldata.item;
-    } else if (modaldata.itemid != null) {
-      $scope.item = {};
-      GamesApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
-        if ((data != null ? data.data : void 0) != null) {
-          return $scope.item = data.data;
-        } else {
-          return $uibModalInstance.close();
-        }
-      });
-    } else {
-      $uibModalInstance.close();
-    }
-    $scope.editables = $scope.config.editables.view;
-    $scope.editables.forEach(function(e) {
-      return e.original = $scope.item[e.key];
-    });
-    $scope.link = function(itemtype, id) {
-      return modalManager.open('editGame', {
-        itemtype: itemtype,
-        itemid: id
-      });
-    };
-    $scope.save = function() {
-      return GamesApi[$scope.itemtype].update($scope.item.Id, $scope.item).then(function() {
-        $uibModalInstance.close();
-        return $rootScope.$broadcast('savedItem');
-      });
-    };
-    return $scope.close = function() {
-      $scope.editables.forEach(function(e) {
-        return $scope.item[e.key] = e.original;
-      });
-      return $uibModalInstance.close();
-    };
-  }
+	'$scope', '$rootScope', '$uibModalInstance', 'GamesApi', 'modalManager', 'modaldata',
+	function($scope, $rootScope, $uibModalInstance, GamesApi, modalManager, modaldata) {
+		$scope.itemtype = modaldata.itemtype;
+		$scope.config = modaldata.config;
+		if (modaldata.item != null) {
+			$scope.item = modaldata.item;
+		} else if (modaldata.itemid != null) {
+			$scope.item = {};
+			GamesApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
+				if ((data != null ? data.data : void 0) != null) {
+					return $scope.item = data.data;
+				} else {
+					return $uibModalInstance.close();
+				}
+			});
+		} else {
+			$uibModalInstance.close();
+		}
+		$scope.editables = $scope.config.editables.view;
+		$scope.editables.forEach(function(e) {
+			return e.original = $scope.item[e.key];
+		});
+		$scope.link = function(itemtype, id) {
+			return modalManager.open('editGame', {
+				itemtype: itemtype,
+				itemid: id
+			});
+		};
+		$scope.save = function() {
+			return GamesApi[$scope.itemtype].update($scope.item.Id, $scope.item).then(function() {
+				$uibModalInstance.close();
+				return $rootScope.$broadcast('savedItem');
+			});
+		};
+		return $scope.close = function() {
+			$scope.editables.forEach(function(e) {
+				return $scope.item[e.key] = e.original;
+			});
+			return $uibModalInstance.close();
+		};
+	}
 ]).controller('CreateGameModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'GamesApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, GamesApi, modaldata) {
-    $scope.itemtype = modaldata.itemtype;
-    $scope.config = modaldata.config;
-    $scope.item = {};
-    
-    $scope.save = function() {
-        // var f = document.getElementById('file').files[0];
-        // var r =  new FileReader();
-        // r.onloadend = function(e){
-        //   var data = e.target.result;
-        // }
-        // r.readAsArrayBuffer(f);
-        return GamesApi[$scope.itemtype].create($scope.item).then(function() {
-            $uibModalInstance.close();
-            return $rootScope.$broadcast('savedItem');
-        });
-    };
-    
-    return $scope.close = function() {
-      return $uibModalInstance.close();
-    };
-  }
+	'$scope', '$rootScope', '$uibModalInstance', 'GamesApi', 'modaldata',
+	function($scope, $rootScope, $uibModalInstance, GamesApi, modaldata) {
+		$scope.itemtype = modaldata.itemtype;
+		$scope.config = modaldata.config;
+		$scope.item = {};
+
+		$scope.save = function() {
+			// var f = document.getElementById('file').files[0];
+			// var r =  new FileReader();
+			// r.onloadend = function(e){
+			//   var data = e.target.result;
+			// }
+			// r.readAsArrayBuffer(f);
+			return GamesApi[$scope.itemtype].create($scope.item).then(function() {
+				$uibModalInstance.close();
+				return $rootScope.$broadcast('savedItem');
+			});
+		};
+
+		return $scope.close = function() {
+			return $uibModalInstance.close();
+		};
+	}
 ]).controller('ConfirmDeleteGameModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'GamesApi', 'modaldata', function($scope, $rootScope, $uibModalInstance, GamesApi, modaldata) {
-    $scope.itemtype = modaldata.itemtype;
-    $scope.config = modaldata.config;
-    if (modaldata.item != null) {
-      $scope.item = modaldata.item;
-    } else if (modaldata.itemid != null) {
-      $scope.item = {};
-      GamesApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
-        return console.log(data);
-      });
-    }
-    $scope["delete"] = function() {
-      return GamesApi[$scope.itemtype]["delete"]($scope.item.Id).then(function() {
-        $uibModalInstance.close();
-        return $rootScope.$broadcast('savedItem');
-      });
-    };
-    return $scope.close = function() {
-      return $uibModalInstance.close();
-    };
-  }
+	'$scope', '$rootScope', '$uibModalInstance', 'GamesApi', 'modaldata',
+	function($scope, $rootScope, $uibModalInstance, GamesApi, modaldata) {
+		$scope.itemtype = modaldata.itemtype;
+		$scope.config = modaldata.config;
+		if (modaldata.item != null) {
+			$scope.item = modaldata.item;
+		} else if (modaldata.itemid != null) {
+			$scope.item = {};
+			GamesApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
+				return console.log(data);
+			});
+		}
+		$scope["delete"] = function() {
+			return GamesApi[$scope.itemtype]["delete"]($scope.item.Id).then(function() {
+				$uibModalInstance.close();
+				return $rootScope.$broadcast('savedItem');
+			});
+		};
+		return $scope.close = function() {
+			return $uibModalInstance.close();
+		};
+	}
 ]);

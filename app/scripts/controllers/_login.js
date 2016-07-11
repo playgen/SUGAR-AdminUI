@@ -2,62 +2,61 @@
 'use strict';
 
 /**
-  * @ngdoc function
-  * @name sgaAdminApp.controller:LoginCtrl
-  * @description
-  * # LoginCtrl
-  * Controller of the sgaAdminApp
+ * @ngdoc function
+ * @name sgaAdminApp.controller:LoginCtrl
+ * @description
+ * # LoginCtrl
+ * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('LoginCtrl', [
-  '$scope', '$location', 'config', 'Auth', 'User', function($scope, $location, config, Auth, User) {
-    $scope.loginFail = false;
-    $scope.registerFail = false;
-    $scope.user = {
-      Name: '',
-      Password: ''
-    };
-    $scope.register = function () {
-        User.register($scope.user).then(function(res){
-            //automatically log in
-            if (res.status === 200)
-              $scope.submit();
-            // $scope.user.Name = '';
-            // $scope.user.Password = '';
-        })
-        .catch(function (res) {
-          if (res.status === -1)
-          {
-            $scope.loginFail = false;
-            $scope.registerFail = true;
-            
-            var name = false;
-          }
-          
-        });
-    }
-    return $scope.submit = function() {
-      return User.login($scope.user).then(function(res) {
-        var ref, returnPath;
-        if (res.status === 200 && res.data != null) {
-          var token = headers()["bearer"];
-          Auth.set(config.tokens.session, token);
-          returnPath = $location.search()["return"];
-          if (returnPath != null) {
-            $location.search('return', null);
-            return $location.path(returnPath);
-          } else {
-            return $location.path('/');
-          }
-        }
-      }).catch(function (res) {
-          if (res.status === -1)
-          {
-            $scope.registerFail = false;
-            $scope.loginFail = true;
-            var name = false;
-          }
-          
-        });;
-    };
-  }
+	'$scope', '$location', 'config', 'Auth', 'User',
+	function($scope, $location, config, Auth, User) {
+		$scope.loginFail = false;
+		$scope.registerFail = false;
+		$scope.user = {
+			Name: '',
+			Password: ''
+		};
+		$scope.register = function() {
+			User.register($scope.user).then(function(res) {
+					//automatically log in
+					if (res.status === 200)
+						$scope.submit();
+					// $scope.user.Name = '';
+					// $scope.user.Password = '';
+				})
+				.catch(function(res) {
+					if (res.status === -1) {
+						$scope.loginFail = false;
+						$scope.registerFail = true;
+
+						var name = false;
+					}
+
+				});
+		}
+		return $scope.submit = function() {
+			return User.login($scope.user).then(function(res) {
+				var ref, returnPath;
+				if (res.status === 200 && res.data != null) {
+					var token = headers()["bearer"];
+					Auth.set(config.tokens.session, token);
+					returnPath = $location.search()["return"];
+					if (returnPath != null) {
+						$location.search('return', null);
+						return $location.path(returnPath);
+					} else {
+						return $location.path('/');
+					}
+				}
+			}).catch(function(res) {
+				if (res.status === -1) {
+					$scope.registerFail = false;
+					$scope.loginFail = true;
+					var name = false;
+				}
+
+			});;
+		};
+	}
 ]);

@@ -2,85 +2,83 @@
 'use strict';
 
 /**
-  * @ngdoc function
-  * @name sgaAdminApp.controller:showAchievementsCtrl
-  * @description
-  * # showAchievementsCtrl
-  * Controller of the sgaAdminApp
+ * @ngdoc function
+ * @name sgaAdminApp.controller:showAchievementsCtrl
+ * @description
+ * # showAchievementsCtrl
+ * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'AchievementsApi', function($scope, $routeParams, $location, modalManager, AchievementsApi) {
-    $scope.itemtype = $routeParams.itemtype;
-    $scope.itemId = $routeParams.itemId;
-    
-    $scope.items = [];
-    $scope.criterias = 1;
+	'$scope', '$routeParams', '$location', 'modalManager', 'AchievementsApi',
+	function($scope, $routeParams, $location, modalManager, AchievementsApi) {
+		$scope.itemtype = $routeParams.itemtype;
+		$scope.itemId = $routeParams.itemId;
 
-    $scope.gameName = '';
-    $scope.gameFound = true;
+		$scope.items = [];
+		$scope.criterias = 1;
 
-    $scope.pagination = {
-      perPage: 10,
-      currentPage: 1
-    };
-    $scope.init = function() {
-      AchievementsApi['achievements'].list($scope.itemId).then(function(res) {
-        if (res.status === 200 && res.data != null) {
-          $scope.items = res.data;
-          $scope.range(); 
-        }
-      });
-            AchievementsApi['games'].get($scope.itemId).then(function(res){
-        if (res.status === 200 && res.data != null)
-        {
-          $scope.gameName = res.data.Name;
-        }
-        else 
-        {
-          $scope.gameFound = false;
-        }
-      }).catch(function () {
-        $scope.gameFound = false;
-      });
-    };
-    $scope.range = function(min, max, step) {
-        if ($scope.items == null)
-          return 0;
-        step = step || 1;
-        min = 0;
-        max = $scope.items.length-1;
-        var input = [];
-        for (var i = min; i <= max; i += step) {
-            input.push(i);
-        }
-        return input;
-    };
-    $scope.criteriaRange = function(index) {
-        if ($scope.items == null)
-          return 0;
-        var step = 1;
-        var min = 1;
-        var max = $scope.items[index].CompletionCriteria.length;
-        var input = [];
-        for (var i = min; i <= max; i += step) {
-            input.push(i);
-        }
-        return input;
-    };
-    $scope.remove = function(item){
-        AchievementsApi['achievements'].delete(item.Id).then(function(res) {
-            $scope.init();
-        });
-    };
-    $scope.add = function(item) {
-        $location.path('/achievements/' + $scope.itemId + '/new');
-    };
-    $scope.back = function (){
-      //go back to achievements game list
-      $location.path("/achievements");
-    };
-    return $scope.$on('savedItem', function(event, args) {
-      return $scope.init();
-    });
-  }
+		$scope.gameName = '';
+		$scope.gameFound = true;
+
+		$scope.pagination = {
+			perPage: 10,
+			currentPage: 1
+		};
+		$scope.init = function() {
+			AchievementsApi['achievements'].list($scope.itemId).then(function(res) {
+				if (res.status === 200 && res.data != null) {
+					$scope.items = res.data;
+					$scope.range();
+				}
+			});
+			AchievementsApi['games'].get($scope.itemId).then(function(res) {
+				if (res.status === 200 && res.data != null) {
+					$scope.gameName = res.data.Name;
+				} else {
+					$scope.gameFound = false;
+				}
+			}).catch(function() {
+				$scope.gameFound = false;
+			});
+		};
+		$scope.range = function(min, max, step) {
+			if ($scope.items == null)
+				return 0;
+			step = step || 1;
+			min = 0;
+			max = $scope.items.length - 1;
+			var input = [];
+			for (var i = min; i <= max; i += step) {
+				input.push(i);
+			}
+			return input;
+		};
+		$scope.criteriaRange = function(index) {
+			if ($scope.items == null)
+				return 0;
+			var step = 1;
+			var min = 1;
+			var max = $scope.items[index].CompletionCriteria.length;
+			var input = [];
+			for (var i = min; i <= max; i += step) {
+				input.push(i);
+			}
+			return input;
+		};
+		$scope.remove = function(item) {
+			AchievementsApi['achievements'].delete(item.Id).then(function(res) {
+				$scope.init();
+			});
+		};
+		$scope.add = function(item) {
+			$location.path('/achievements/' + $scope.itemId + '/new');
+		};
+		$scope.back = function() {
+			//go back to achievements game list
+			$location.path("/achievements");
+		};
+		return $scope.$on('savedItem', function(event, args) {
+			return $scope.init();
+		});
+	}
 ]);

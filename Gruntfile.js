@@ -47,7 +47,7 @@ module.exports = function(grunt) {
     },
     connect: {
       options: {
-        port: 9000,
+        port: 9005,
         hostname: 'localhost',
         livereload: 35729
       },
@@ -356,10 +356,6 @@ module.exports = function(grunt) {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
     grunt.task.run(['clean:server', 'wiredep', 'concurrent:server', 'postcss:server', 'connect:livereload', 'watch']);
-  });
-  grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function(target) {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run(['serve:' + target]);
   });
   grunt.registerTask('test', ['clean:server', 'less', 'wiredep', 'concurrent:test', 'postcss', 'connect:test', 'karma']);
   grunt.registerTask('build', ['clean:dist', 'wiredep', 'useminPrepare', 'concurrent:dist', 'postcss', 'ngtemplates', 'concat', 'ngAnnotate', 'copy:dist', 'cdnify', 'cssmin', 'uglify', 'filerev', 'usemin', 'htmlmin']);
