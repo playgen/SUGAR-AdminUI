@@ -1,14 +1,14 @@
 <contentHeader>
 <div>
 	<div class="col-xs-3">
-		<h4 class="" ng-click="back()"><< Back to Skills</h4>
+		<h4 class="" ng-click="back()"> Back to Skills</h4>
 	</div>
 </div>
 </contentHeader>
 <contentMain>
 <div>
 	<div class="col-xs-12">
-		<h4>This page is used to create new skills for the game, simply full out the information below and click 'Create Skillls', multiple criterias are possible using the 'Add Critera' button below<
+		<h4>This page is used to create new skills for the game, simply full out the information below and click 'Create Skillls', multiple criterias are possible using the 'Add Critera' button below</h4>
 	</div>
 </div>
 <div ng-init="init()">
@@ -84,12 +84,12 @@
 				</select>
 			</td>
 			<td>Comparison Type<select class="form-control" ng-model="item[n].ComparisonType" required>
-					<option value="0">==</option>
-					<option value="1">!=</option>
-					<option value="2">></option>
-					<option value="3">>=</option>
-					<option value="4"><</option>
-					<option value="5"><=</option>
+					<option value="0">equal to</option>
+					<option value="1">not equal to</option>
+					<option value="2">greater than</option>
+					<option value="3">greater than or equal to</option>
+					<option value="4">less than</option>
+					<option value="5">less than or eqaul to</option>
 				</select>
 			</td>
 			<td>Value<input type="text" placeholder="Value to match" class="form-control" ng-model="item[n].Value" required/></td>
