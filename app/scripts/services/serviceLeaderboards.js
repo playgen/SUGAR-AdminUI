@@ -17,7 +17,7 @@ angular.module('sgaAdminApp').service('LeaderboardsApi', [
 					return $http.get(config.api.baseurl + '/game/list')
 				},
 				listFilters: function(id) {
-					return $http.get(config.api.baseurl + '/game/filters/find/' + id)
+					return $http.get(config.api.baseurl + 'NEEDS API CALL' + id)
 				},
 				get: function(id) {
 					return $http.get(config.api.baseurl + '/game/findbyid/' + id);

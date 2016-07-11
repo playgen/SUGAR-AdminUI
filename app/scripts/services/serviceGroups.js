@@ -26,7 +26,7 @@ angular.module('sgaAdminApp').service('GroupsApi', [
 					return $http.post(config.api.baseurl + '/group', item);
 				},
 				update: function(id, item) {
-					return $http.put(config.api.baseurl + "/group", item);
+					return $http.put(config.api.baseurl + "/group/update/" + id, item);
 				},
 				"delete": function(id) {
 					return $http["delete"](config.api.baseurl + ("/group/" + id));
