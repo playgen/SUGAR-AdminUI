@@ -66,7 +66,7 @@ angular.module('sgaAdminApp').service('UsersApi', [
 					return $http.get(config.api.baseurl + '/groupmember/usergroups/' + id);
 				},
 				get: function(id) {
-					return $http.get(config.api.baseurl + ("/groupmember/usergroup/s" + id));
+					return $http.get(config.api.baseurl + ("/groupmember/usergroup/" + id));
 				},
 				getGroup: function(username) {
 					return $http.get(config.api.baseurl + ("/group/name/" + username));
