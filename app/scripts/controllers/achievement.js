@@ -2,41 +2,42 @@
 'use strict';
 
 /**
-  * @ngdoc function
-  * @name sgaAdminApp.controller:GroupsCtrl
-  * @description
-  * # GroupsCtrl
-  * Controller of the sgaAdminApp
+ * @ngdoc function
+ * @name sgaAdminApp.controller:GroupsCtrl
+ * @description
+ * # GroupsCtrl
+ * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('AchievementCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'AchievementsApi', function($scope, $routeParams, $location, modalManager, AchievementsApi) {
-    $scope.itemtype = $routeParams.itemtype;
-    $scope.itemid = $routeParams.itemid;
-    
-    $scope.items = [];
-    $scope.pagination = {
-      perPage: 10,
-      currentPage: 1
-    };
-    $scope.init = function() {
-      return AchievementsApi['games'].list().then(function(res) {
-        if (res.status === 200 && res.data != null) {
-          $scope.items = res.data;
-        }
-      });
-    };
-    $scope.showAchievements = function(item) {
-      $location.path('/achievements/' + item.Id);
-    };
-        $scope.showGlobal = function() {
-      $location.path('/achievements/global');
-    };
-    $scope.back = function (){
-      //go back to main menu
-      $location.path("/");
-    };
-    return $scope.$on('savedItem', function(event, args) {
-      return $scope.init();
-    });
-  }
+	'$scope', '$routeParams', '$location', 'modalManager', 'AchievementsApi',
+	function($scope, $routeParams, $location, modalManager, AchievementsApi) {
+		$scope.itemtype = $routeParams.itemtype;
+		$scope.itemid = $routeParams.itemid;
+
+		$scope.items = [];
+		$scope.pagination = {
+			perPage: 10,
+			currentPage: 1
+		};
+		$scope.init = function() {
+			return AchievementsApi['games'].list().then(function(res) {
+				if (res.status === 200 && res.data != null) {
+					$scope.items = res.data;
+				}
+			});
+		};
+		$scope.showAchievements = function(item) {
+			$location.path('/achievements/' + item.Id);
+		};
+		$scope.showGlobal = function() {
+			$location.path('/achievements/global');
+		};
+		$scope.back = function() {
+			//go back to main menu
+			$location.path("/");
+		};
+		return $scope.$on('savedItem', function(event, args) {
+			return $scope.init();
+		});
+	}
 ]);

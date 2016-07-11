@@ -2,30 +2,31 @@
 'use strict';
 
 /**
-  * @ngdoc function
-  * @name sgaAdminApp.controller:SidebarCtrl
-  * @description
-  * # SidebarCtrl
-  * Controller of the sgaAdminApp
+ * @ngdoc function
+ * @name sgaAdminApp.controller:SidebarCtrl
+ * @description
+ * # SidebarCtrl
+ * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('SidebarCtrl', [
-  '$scope', '$location','config', 'Auth', 'listConfigs', function($scope, $location, config, Auth, listConfigs) {
-    var path = $location.path();
-    $scope.isActive = function(page) {
-      return $location.path().indexOf("/list/" + page) !== -1;
-    };
-    $scope.Logout = function () {
-      Auth.set(config.tokens.session, null);
-      Auth.preApproved = false;
-      var returnPath;
-      returnPath = $location.search()["return"];
-          if (returnPath != null) {
-            $location.search('return', null);
-            return $location.path(returnPath);
-          } else {
-            return $location.path('/login');
-          }
-    };
-    return $scope.pages = listConfigs;
-  }
+	'$scope', '$location', 'config', 'Auth', 'listConfigs',
+	function($scope, $location, config, Auth, listConfigs) {
+		var path = $location.path();
+		$scope.isActive = function(page) {
+			return $location.path().indexOf("/list/" + page) !== -1;
+		};
+		$scope.Logout = function() {
+			Auth.set(config.tokens.session, null);
+			Auth.preApproved = false;
+			var returnPath;
+			returnPath = $location.search()["return"];
+			if (returnPath != null) {
+				$location.search('return', null);
+				return $location.path(returnPath);
+			} else {
+				return $location.path('/login');
+			}
+		};
+		return $scope.pages = listConfigs;
+	}
 ]);

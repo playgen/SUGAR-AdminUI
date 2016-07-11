@@ -2,104 +2,100 @@
 'use strict';
 
 /**
-  * @ngdoc function
-  * @name sgaAdminApp.controller:GroupsCtrl
-  * @description
-  * # GroupsCtrl
-  * Controller of the sgaAdminApp
+ * @ngdoc function
+ * @name sgaAdminApp.controller:GroupsCtrl
+ * @description
+ * # GroupsCtrl
+ * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('GroupsMembersCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'GroupsApi', function($scope, $routeParams, $location, modalManager, GroupsApi) {
-    $scope.itemtype = $routeParams.itemtype;
-    $scope.itemId = $routeParams.itemId;
+	'$scope', '$routeParams', '$location', 'modalManager', 'GroupsApi',
+	function($scope, $routeParams, $location, modalManager, GroupsApi) {
+		$scope.itemtype = $routeParams.itemtype;
+		$scope.itemId = $routeParams.itemId;
 
-    $scope.groupName = '';
-    $scope.groupFound = true;
+		$scope.groupName = '';
+		$scope.groupFound = true;
 
-    $scope.items = [];
-    $scope.pagination = {
-      perPage: 10,
-      currentPage: 1
-    };
-    $scope.init = function() {
-      GroupsApi['members'].list($scope.itemId).then(function(res) {
-        if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
-          $scope.items = res.data;
-        }
-       });
-           GroupsApi['groups'].getById($scope.itemId).then(function(res){
-        if (res.status === 200 && res.data != null)
-        {
-          $scope.groupName = res.data.Name;
-        }
-        else 
-        {
-          $scope.groupFound = false;
-        }
-      }).catch(function () {
-        $scope.groupFound = false;
-      });
-    };
-    //our buttons
-    $scope.remove = function(item){
-        var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + $scope.itemId + ", Accepted: false }"
-        GroupsApi['members'].update(friendship).then(function(res) {
-            $scope.init();
-        });
-    }; 
-    $scope.add = function(item) {
-      return modalManager.open('addMember', {
-        itemtype: $scope.itemtype,
-        itemId: $scope.itemId
-      });
-    };
-    $scope.back = function (){
-      //go back to group list
-      $location.path("/groups");
-    };
-    return $scope.$on('savedItem', function(event, args) {
-      return $scope.init();
-    });
-  }
+		$scope.items = [];
+		$scope.pagination = {
+			perPage: 10,
+			currentPage: 1
+		};
+		$scope.init = function() {
+			GroupsApi['members'].list($scope.itemId).then(function(res) {
+				if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
+					$scope.items = res.data;
+				}
+			});
+			GroupsApi['groups'].getById($scope.itemId).then(function(res) {
+				if (res.status === 200 && res.data != null) {
+					$scope.groupName = res.data.Name;
+				} else {
+					$scope.groupFound = false;
+				}
+			}).catch(function() {
+				$scope.groupFound = false;
+			});
+		};
+		//our buttons
+		$scope.remove = function(item) {
+			var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + $scope.itemId + ", Accepted: false }"
+			GroupsApi['members'].update(friendship).then(function(res) {
+				$scope.init();
+			});
+		};
+		$scope.add = function(item) {
+			return modalManager.open('addMember', {
+				itemtype: $scope.itemtype,
+				itemId: $scope.itemId
+			});
+		};
+		$scope.back = function() {
+			//go back to group list
+			$location.path("/groups");
+		};
+		return $scope.$on('savedItem', function(event, args) {
+			return $scope.init();
+		});
+	}
 ]).controller('addMemberModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'GroupsApi', 'modalManager', 'modaldata', function($scope, $rootScope, $uibModalInstance, GroupsApi, modalManager, modaldata) {
-    $scope.itemtype = modaldata.itemtype;
-    $scope.config = modaldata.config;
-    $scope.itemId = modaldata.itemId;
-    $scope.exists = true;
+	'$scope', '$rootScope', '$uibModalInstance', 'GroupsApi', 'modalManager', 'modaldata',
+	function($scope, $rootScope, $uibModalInstance, GroupsApi, modalManager, modaldata) {
+		$scope.itemtype = modaldata.itemtype;
+		$scope.config = modaldata.config;
+		$scope.itemId = modaldata.itemId;
+		$scope.exists = true;
 
-    if (modaldata.item != null) {
-      $scope.item = modaldata.item;
-    } else if (modaldata.itemid != null) {
-      GroupsApi['user'].get(modaldata.itemid).then(function(data) {
-        if ((data != null ? data.data : void 0) != null) {
-          return $scope.item = data.data;
-        }
-      });
-    }
-    //our buttons
-    $scope.close = function(item) {
-        $scope.exists = true;
-        $rootScope.$broadcast('savedItem')
-        return $uibModalInstance.close();
-    };
-    return $scope.add = function(item) {
-        GroupsApi['user'].get($scope.txtBox)
-        
-        .then(function(res)
-        {
-            if (res.data[0]!=null)
-            {
-                //put the data backwards for testing as groups cannot request users join
-                var friendship = "{ RequestorId: " + res.data[0].Id + ", AcceptorId: " + $scope.itemId + ", AutoAccept: true }"
-                GroupsApi['members'].create(friendship).then(function(res){
-                $uibModalInstance.close();
-                  $rootScope.$broadcast('savedItem');
-            });
-            }
-            else
-                $scope.exists = false;
-        });
-    };
-  }
+		if (modaldata.item != null) {
+			$scope.item = modaldata.item;
+		} else if (modaldata.itemid != null) {
+			GroupsApi['user'].get(modaldata.itemid).then(function(data) {
+				if ((data != null ? data.data : void 0) != null) {
+					return $scope.item = data.data;
+				}
+			});
+		}
+		//our buttons
+		$scope.close = function(item) {
+			$scope.exists = true;
+			$rootScope.$broadcast('savedItem')
+			return $uibModalInstance.close();
+		};
+		return $scope.add = function(item) {
+			GroupsApi['user'].get($scope.txtBox)
+
+			.then(function(res) {
+				if (res.data[0] != null) {
+					//put the data backwards for testing as groups cannot request users join
+					var friendship = "{ RequestorId: " + res.data[0].Id + ", AcceptorId: " + $scope.itemId + ", AutoAccept: true }"
+					GroupsApi['members'].create(friendship).then(function(res) {
+						$uibModalInstance.close();
+						$rootScope.$broadcast('savedItem');
+					});
+				} else
+					$scope.exists = false;
+			});
+		};
+	}
 ]);

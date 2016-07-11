@@ -2,64 +2,61 @@
 'use strict';
 
 /**
-  * @ngdoc function
-  * @name sgaAdminApp.controller:GroupsCtrl
-  * @description
-  * # GroupsCtrl
-  * Controller of the sgaAdminApp
+ * @ngdoc function
+ * @name sgaAdminApp.controller:GroupsCtrl
+ * @description
+ * # GroupsCtrl
+ * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('ResourcesActorsManageCtrl', [
-  '$scope', '$routeParams', '$location', 'modalManager', 'ResourcesApi', function($scope, $routeParams, $location, modalManager, ResourcesApi) {
-    $scope.itemId = $routeParams.itemId;
-    $scope.actorType = $routeParams.actorType;
-    $scope.actorId = $routeParams.actorId;
-    
-    $scope.gameFound = true;
-    $scope.gameName = '';
+	'$scope', '$routeParams', '$location', 'modalManager', 'ResourcesApi',
+	function($scope, $routeParams, $location, modalManager, ResourcesApi) {
+		$scope.itemId = $routeParams.itemId;
+		$scope.actorType = $routeParams.actorType;
+		$scope.actorId = $routeParams.actorId;
 
-    $scope.actorName;
+		$scope.gameFound = true;
+		$scope.gameName = '';
 
-    $scope.items = [];
-    $scope.pagination = {
-      perPage: 10,
-      currentPage: 1
-    };
-    $scope.init = function() {
-      
-      return ResourcesApi['games'].listResources($scope.itemId).then(function(res) {
-        if (res.status === 200 && res.data != null) {
-          $scope.items = res.data;
-        }
-      });
-    };
-    ResourcesApi['games'].get($scope.itemId).then(function(res){
-    if (res.status === 200 && res.data != null)
-    {
-      $scope.gameFound = true;
-      $scope.gameName = res.data.Name;
-    }
-    else 
-    {
-      $scope.gameFound = false;
-    }
-    }).catch(function () {
-      $scope.gameFound = false;
-    });
-    ResourcesApi[$scope.actorType].get($scope.actorId).then(function(res) {
-      if (res.status === 200 && res.data != null) {
-        $scope.actorName = res.data.Name;
-      }
-    });
-    $scope.back = function (){
-      //go back to resources games list
-      $location.path("/resources/"+ $scope.itemId );
-    };
-    $scope.setValue = function()
-    {
-      // ResourcesApi['resources'].update($scope.item);
-    };
-    return $scope.$on('savedItem', function(event, args) {
-      return $scope.init();
-    });
-  }
+		$scope.actorName;
+
+		$scope.items = [];
+		$scope.pagination = {
+			perPage: 10,
+			currentPage: 1
+		};
+		$scope.init = function() {
+
+			return ResourcesApi['games'].listResources($scope.itemId).then(function(res) {
+				if (res.status === 200 && res.data != null) {
+					$scope.items = res.data;
+				}
+			});
+		};
+		ResourcesApi['games'].get($scope.itemId).then(function(res) {
+			if (res.status === 200 && res.data != null) {
+				$scope.gameFound = true;
+				$scope.gameName = res.data.Name;
+			} else {
+				$scope.gameFound = false;
+			}
+		}).catch(function() {
+			$scope.gameFound = false;
+		});
+		ResourcesApi[$scope.actorType].get($scope.actorId).then(function(res) {
+			if (res.status === 200 && res.data != null) {
+				$scope.actorName = res.data.Name;
+			}
+		});
+		$scope.back = function() {
+			//go back to resources games list
+			$location.path("/resources/" + $scope.itemId);
+		};
+		$scope.setValue = function() {
+			// ResourcesApi['resources'].update($scope.item);
+		};
+		return $scope.$on('savedItem', function(event, args) {
+			return $scope.init();
+		});
+	}
 ]);
