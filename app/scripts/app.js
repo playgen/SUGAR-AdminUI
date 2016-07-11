@@ -124,9 +124,9 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
 		baseurl: window.location.protocol === "https:" ? 'https://localhost:62312/api' : 'http://localhost:62312/api'
 	},
 	headers: {
-		session: "X-Http-Session"
+		authorization: 'Authorization',
 	},
 	tokens: {
-		session: "SGAAdmin-Session"
+		authorization: 'SUGARAdmin-Token'
 	}
 });

@@ -11,7 +11,7 @@
 angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', 'config', 'Auth', function($scope, $location, config, Auth) {
 	$scope.loggedIn = Auth.isAuthenticated;
 	$scope.Logout = function() {
-		Auth.set(config.tokens.session, null);
+		Auth.set(config.tokens.authorization, null);
 		Auth.preApproved = false;
 		var returnPath;
 		returnPath = $location.search()["return"];

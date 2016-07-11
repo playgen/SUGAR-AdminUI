@@ -16,7 +16,7 @@ angular.module('sgaAdminApp').controller('SidebarCtrl', [
 			return $location.path().indexOf("/list/" + page) !== -1;
 		};
 		$scope.Logout = function() {
-			Auth.set(config.tokens.session, null);
+			Auth.set(config.tokens.authorization, null);
 			Auth.preApproved = false;
 			var returnPath;
 			returnPath = $location.search()["return"];

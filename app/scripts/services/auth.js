@@ -40,7 +40,7 @@ angular.module('sgaAdminApp')
 				isAuthenticated: function() {
 					var token;
 					if (!Auth.preApproved) {
-						token = ipCookie(config.tokens.session);
+						token = ipCookie(config.tokens.authorization);
 						Auth.preApproved = !!((token != null) && token.length);
 					}
 					return Auth.preApproved;
