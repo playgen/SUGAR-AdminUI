@@ -7,41 +7,39 @@
 </contentHeader>
 <contentMain>
 <div>
-<div>
-	<div ng-init="init()" class="col-xs-12">
+	<div class="col-xs-12">
 		<h4>This page displays the list of groups in the system and the number of members in each group, using this page you can:<br />- View members of a selected group to add or remove users<br />- Create new groups<br />- Edit group information<br />- Delete groups</h4>
 	</div>
 </div>
-	<table class="table table-bordered">
-		<tr class="listitem">
-			<th style="width: 10px"></th>
-			<th>Group Name</th>
-            <th>Members</th>
-			<th></th>
-		</tr>
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-			<td></td>
-            <td>{{item.Name}}</td>
-            <td>{{item.members}}</td>
-			<td>
-				<button class="btn btn-primary btn-sm" title="Edit this Group" ng-click="select(item)" ng-if="false"><i class="fa fa-pencil"></i></button>
-				<button class="btn btn-primary btn-sm" title="Show Members For Group" ng-click="showMembers(item)"><i class="fa fa-eye"> Members</i></button>
-				<button class="btn btn-danger btn-sm" title="Delete this Group" ng-click="delete(item)"><i class="fa fa-trash-o"> Delete</i></button>
-            </td>
-		</tr>
-	</table>
+	<div ng-init="init()">
+		<table class="table table-bordered">
+			<tr class="listitem">
+				<th style="width: 10px"></th>
+				<th>Group Name</th>
+	            <th>Members</th>
+				<th></th>
+			</tr>
+			<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+				<td></td>
+	            <td>{{item.Name}}</td>
+	            <td>{{item.members}}</td>
+				<td>
+					<button class="btn btn-primary btn-sm" title="Edit this Group" ng-click="select(item)" ng-if="false"><i class="fa fa-pencil"></i></button>
+					<button class="btn btn-primary btn-sm" title="Show Members For Group" ng-click="showMembers(item)"><i class="fa fa-eye"> Members</i></button>
+					<button class="btn btn-danger btn-sm" title="Delete this Group" ng-click="delete(item)"><i class="fa fa-trash-o"> Delete</i></button>
+	            </td>
+			</tr>
+		</table>
 	</div>
-	</contentMain>
-	<div class="row">
-		<div class="col-xs-12 text-center">
-			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
-		</div>
+</contentMain>
+<contentFooter>
+	<div class="col-xs-4 col-xs-offset-4 text-center">
+		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 	</div>
-	<div>
-		<div class="col-xs-12 text-center button-container">
-			<button class="btn btn-success pull-right" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new group</button>
-		</div>
+	<div class="col-xs-4 text-center button-container">
+		<button class="btn btn-success pull-right" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new group</button>
 	</div>
+</contentFooter>
 
 <!-- Confirm that we want to delete the group  -->
 

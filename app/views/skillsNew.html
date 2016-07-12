@@ -98,10 +98,12 @@
 	</form>
 </div>
 </contentMain>
-<div>
-	<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="addCriteria(item)" >Add Criteria</button>
-	<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="minusCriteria(item)" ng-if="criterias > 1">Remove Criteria</button>
-</div>
-<div class="col-xs-12 text-center button-container">
-	<button class="btn btn-success pull-right" type="button" ng-disabled="myForm.$invalid" ng-click="create()"><i class="fa fa-plus"></i> Create Skill</button>
-</div>
+<contentFooter>
+	<div class="col-xs-8">
+		<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="addCriteria(item)" >Add Criteria</button>
+		<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="minusCriteria(item)" ng-if="criterias > 1">Remove Criteria</button>
+	</div>
+	<div class="col-xs-4 text-center button-container">
+		<button class="btn btn-success pull-right" type="button" ng-disabled="myForm.$invalid" ng-click="create()"><i class="fa fa-plus"></i> Create Skill</button>
+	</div>
+</contentFooter>

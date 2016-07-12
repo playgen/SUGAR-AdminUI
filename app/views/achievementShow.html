@@ -49,15 +49,14 @@
 	</div>
 </div>
 </contentMain>
-	<div class="row">
-		<div class="col-xs-12 text-center">
-			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
-		</div>
+<contentFooter>
+	<div class="col-xs-4 col-xs-offset-4 text-center">
+		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 	</div>
-	<div ng-if="gameFound" class="col-xs-12 text-center button-container">
+	<div ng-if="gameFound" class="col-xs-4 text-center button-container">
 			<button class="btn btn-success pull-right" type="button" ng-click="add()"><i class="fa" ng-class="page.display.icon"></i>Add New Achievement</button>
-		</div>
-
+	</div>
+</contentFooter>
 
 <!-- Confirm that we want to delete the game  -->
 

@@ -1,9 +1,9 @@
 <contentHeader>
-<div>
-	<div class="col-xs-3">
-		<h4 class="" ng-click="back()"> Back to Menu</h4>
+	<div>
+		<div class="col-xs-3">
+			<h4 class="" ng-click="back()"> Back to Menu</h4>
+		</div>
 	</div>
-</div>
 </contentHeader>
 <contentMain>
 <div>
@@ -30,16 +30,14 @@
 	</table>
 </div>
 </contentMain>
-	<div class="row">
-		<div class="col-xs-12 text-center">
-			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
-		</div>
+<contentFooter>
+	<div class="col-xs-4 col-xs-offset-4 text-center">
+		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 	</div>
-	<div>
-		<div class="col-xs-12 text-center button-container">
-			<button class="btn btn-success pull-right" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new game</button>
-		</div>
+	<div class="col-xs-4 text-center button-container">
+		<button class="btn btn-success pull-right" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new game</button>
 	</div>
+</contentFooter>
 
 <!-- Confirm that we want to delete the game  -->
 

@@ -6,31 +6,33 @@
 </div>
 </contentHeader>
 <contentMain>
-<div>
 	<div class="col-xs-12">
 		<h4>This page displays the list of games which can be selected to manage achievements within each game. Global achievements are also available for achievements that are not restricted to one game</h4>
 	</div>
-</div>
-<div ng-init="init()">
-	<table class="table table-bordered">
-		<tr>
-			<td style="width: 10px"></td>
-			<th>Select to view Achievements</th>
-		</tr>
-		<tr>
-			<td style="width: 10px"></td>
-			<td ng-click="showGlobal()">GLOBAL ACHIEVEMENTS<td>
-		</tr>
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-			<td></td>
-            <td ng-click="showAchievements(item)">{{item.Name}}</td>
-		</tr>
-	</table>
-</div>
-</contentMain>
-<div class="row">
-	<div class="col-xs-12 text-center">
-		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+	<div ng-init="init()">
+		<table class="table table-bordered">
+			<tr>
+				<td style="width: 10px"></td>
+				<th>Select to view Achievements</th>
+			</tr>
+			<tr>
+				<td style="width: 10px"></td>
+				<td ng-click="showGlobal()">GLOBAL ACHIEVEMENTS<td>
+			</tr>
+			<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+				<td></td>
+	            <td ng-click="showAchievements(item)">{{item.Name}}</td>
+			</tr>
+		</table>
 	</div>
-</div>
-<div class="col-xs-12 text-center button-container"/>
+</contentMain>
+<contentFooter>
+	<div class="row">
+		<div class="col-xs-4 col-xs-offset-4 text-center">
+			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+		</div>
+	</div>
+		<div class="col-xs-4 text-center button-container">
+	</div>
+</contentFooter>
+
