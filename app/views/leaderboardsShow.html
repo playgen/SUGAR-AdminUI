@@ -18,14 +18,14 @@
 <h3><span>{{leaderboardToken}}</span></h3>
 	<table class="table table-bordered">
 		<tr>
-			<th>Rank</th>
-			<th>Name</th>
-			<th>Value</th>
+			<th class="col-xs-2">Rank</th>
+			<th class="col-xs-5">Name</th>
+			<th class="col-xs-5">Value</th>
 			<th></th>
 		</tr>
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'Ranking' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td>{{item.Ranking}}</td>
-            <td>{{item.Name}}</td>
+            <td>{{item.ActorName}}</td>
 			<td>{{item.Value}}</td>
 		</tr>
 	</table>

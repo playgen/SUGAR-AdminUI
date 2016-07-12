@@ -40,7 +40,9 @@ angular.module('sgaAdminApp').controller('ResourcesManageCtrl', [
 			$scope.gameFound = false;
 		});
 		$scope.addResource = function() {
-			return modalManager.open('createResource', {});
+			return modalManager.open('createResource', {
+				itemId: $scope.itemId
+			});
 		}
 		$scope.back = function() {
 			//go back to resources games list
@@ -53,12 +55,11 @@ angular.module('sgaAdminApp').controller('ResourcesManageCtrl', [
 ]).controller('CreateResourceModalCtrl', [
 	'$scope', '$rootScope', '$uibModalInstance', 'ResourcesApi', 'modaldata',
 	function($scope, $rootScope, $uibModalInstance, ResourcesApi, modaldata) {
-		$scope.itemtype = modaldata.itemtype;
-		$scope.config = modaldata.config;
 		$scope.item = {};
+		$scope.item.gameId = modaldata.itemId;
 
 		$scope.save = function() {
-			return ResourcesApi['resources'].create($scope.item).then(function() {
+			return ResourcesApi['games'].createResource($scope.item).then(function() {
 				$uibModalInstance.close();
 				return $rootScope.$broadcast('savedItem');
 			});

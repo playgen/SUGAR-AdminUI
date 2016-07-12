@@ -65,10 +65,16 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
 		};
 		$scope.addSkill = function(item) {
 			$location.path("/skills/" + $scope.itemId + '/new')
-		}
+		};
 		$scope.back = function() {
 			//go back to skills games list
 			$location.path("/skills");
+		};
+		$scope.remove = function(item)
+		{
+			SkillsApi['skills']["delete"](item.Id).then(function(){
+				$scope.init();
+			});
 		};
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();

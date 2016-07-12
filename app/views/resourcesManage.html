@@ -22,7 +22,7 @@
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td style="width: 10px"></td>
-            <td>{{item.Name}}</td>
+            <td>{{item.Key}}</td>
 		</tr>
 	</table>
 </div>
@@ -47,19 +47,19 @@
 		<div class="row">
 			<div class="col-xs-3"><label>Name</label></div>
 			<div class="col-xs-9">
-				<input type="text" placeholder="Group Name" class="form-control" ng-model="item.Name" required/>
+				<input type="text" placeholder="Resource Name" class="form-control" ng-model="item.Key" required/>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-3"><label>Description</label></div>
+			<div class="col-xs-3"><label>Starting Quantity</label></div>
 			<div class="col-xs-9">
-				<input type="text" placeholder="Group Description" class="form-control" ng-model="item.Description" required/>
+				<input type="number" placeholder="0" class="form-control" ng-model="item.Quantity" required/>
 			</div>
 		</div>
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
-		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Save</button>
+		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Create</button>
 	</div>
   </form>
 </script>
