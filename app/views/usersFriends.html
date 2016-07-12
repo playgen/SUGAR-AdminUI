@@ -39,6 +39,7 @@
 		    </tr>
 			<!-- Show pending friend requests first -->
 			<tr class="listitem" ng-repeat="item in pendings | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+				<td></td>
                 <td>{{item.Name}}</td>
 				<td>Request Sent</td>
                 <td>
@@ -47,6 +48,7 @@
 		    </tr>
 			<!-- Now show the accepted friends -->
             <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+            	<td></td>
                 <td>{{item.Name}}</td>
 				<td>Accepted</td>
                 <td>
@@ -58,7 +60,7 @@
 </div>
 </contenMain>
 <contentFooter>
-	<div ng-if="userFound" class="col-xs-4 col-xs-offset-4 text-center button-container">
+	<div ng-if="userFound" class="col-xs-12 text-center button-container">
 		<button class="btn btn-success pull-right" type="button" ng-click="add(item)"></i>Add New Friend</button>
 	</div>
 </contentFooter>

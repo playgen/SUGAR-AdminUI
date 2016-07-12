@@ -27,6 +27,7 @@
 				<th></th>
 			</tr>
             <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+				<td></td>
 				<td>
 					<span>{{item.Name}}</span>
 				</td>
