@@ -121,7 +121,7 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
 	}
 ]).constant('config', {
 	api: {
-		baseurl: window.location.protocol === "https:" ? 'https://localhost:62312/api' : 'http://localhost:62312/api'
+		baseurl: window.location.hostname == 'localhost' ? 'http://localhost:62312/api' : 'https://api.sugarengine.org/api'
 	},
 	headers: {
 		authorization: 'Authorization',
