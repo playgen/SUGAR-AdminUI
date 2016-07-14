@@ -19,7 +19,7 @@
 		<tr>
 			<td style="width: 1%"></td>
 			<th style="width: 39%">Resources owned by <span>{{actorName}}</span></th>
-			<th style="width: 10%"></th>
+			<th style="width: 20%"></th>
 			<th style="width: 10%"></th>
 			<th style="width: 10%"></th>
 			<th style="width: 30%"></th>
@@ -27,7 +27,21 @@
 		<tr>
 			<th></th>
 			<th>Resource Name</th>
-			<th>Value</th>
+			<th>Quantity Owned</th>
+		</tr>
+		<tr class="listitem" ng-repeat="item in actorItems | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+			<td style="width: 10px"></td>
+            <td>{{item.key}}</td>
+			<td>{{item.quantity}}</td>
+		</tr>
+		<tr>
+			<th></th>
+			<th>Available Resources in game</th>
+		</tr>
+		<tr>
+			<th></th>
+			<th>Resource Name</th>
+			<th>Default Quantity</th>
 			<th>New Value</th>
 			<th></th>
 		</tr>
@@ -36,7 +50,7 @@
             <td>{{item.key}}</td>
 			<td>{{item.quantity}}</td>
 			<td><input type="text" ng-model="item.Value" required></td>
-			<td><button class="btn btn-success pull-left" ng-disabled="!(item.Value.length > 0)" ng-click="setValue(item)">Set Value</button></td>
+			<td><button class="btn btn-success pull-left" ng-disabled="!(item.Value.length > 0)" ng-click="setValue(item)">Add</button></td>
 		</tr>
 	</table>
 </div>

@@ -19,6 +19,9 @@ angular.module('sgaAdminApp').service('ResourcesApi', [
 				listResources: function(id) {
 					return $http.get(config.api.baseurl + '/resource?gameId=' + id);
 				},
+				listPlayerResources: function(id, gameId) {
+					return $http.get(config.api.baseurl + '/resource?actorId=' + id + '&gameId=' + gameId);
+				}, 
 				get: function(id) {
 					return $http.get(config.api.baseurl + '/game/findbyid/' + id);
 				},

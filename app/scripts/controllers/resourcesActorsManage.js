@@ -16,6 +16,7 @@ angular.module('sgaAdminApp').controller('ResourcesActorsManageCtrl', [
 		$scope.actorId = $routeParams.actorId;
 
 		$scope.item = {};
+		$scope.actorItems ={};
 
 		$scope.gameFound = true;
 		$scope.gameName = '';
@@ -28,7 +29,12 @@ angular.module('sgaAdminApp').controller('ResourcesActorsManageCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
-
+			ResourcesApi['games'].listPlayerResources($scope.actorId, $scope.itemId).then(function(res)
+			{
+				if (res.status === 200 && res.data != null){
+					$scope.actorItems = res.data;
+				}
+			});
 			return ResourcesApi['games'].listResources($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data != null) {
 					$scope.items = res.data;
