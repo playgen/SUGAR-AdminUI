@@ -47,6 +47,11 @@ angular.module('sgaAdminApp').service('ResourcesApi', [
 				get: function(id) {
 					return $http.get(config.api.baseurl + ("/group/findbyid/" + id));
 				}
+			},
+			'resources':{
+				update: function(item){
+					return $http.post(config.api.baseurl + '/resource', item)
+				}
 			}
 		};
 	}

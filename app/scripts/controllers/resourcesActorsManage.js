@@ -15,6 +15,8 @@ angular.module('sgaAdminApp').controller('ResourcesActorsManageCtrl', [
 		$scope.actorType = $routeParams.actorType;
 		$scope.actorId = $routeParams.actorId;
 
+		$scope.item = {};
+
 		$scope.gameFound = true;
 		$scope.gameName = '';
 
@@ -36,7 +38,7 @@ angular.module('sgaAdminApp').controller('ResourcesActorsManageCtrl', [
 		ResourcesApi['games'].get($scope.itemId).then(function(res) {
 			if (res.status === 200 && res.data != null) {
 				$scope.gameFound = true;
-				$scope.gameName = res.data.Name;
+				$scope.gameName = res.data.name;
 			} else {
 				$scope.gameFound = false;
 			}
@@ -45,16 +47,24 @@ angular.module('sgaAdminApp').controller('ResourcesActorsManageCtrl', [
 		});
 		ResourcesApi[$scope.actorType].get($scope.actorId).then(function(res) {
 			if (res.status === 200 && res.data != null) {
-				$scope.actorName = res.data.Name;
+				$scope.actorName = res.data.name;
 			}
 		});
 		$scope.back = function() {
 			//go back to resources games list
 			$location.path("/resources/" + $scope.itemId);
 		};
-		$scope.setValue = function() {
-			// ResourcesApi['resources'].update($scope.item);
-		};
+		$scope.setValue = function(item) {
+			//extract the info we need to update the item
+			var resourceItem = {};
+			resourceItem.ActorId = $scope.actorId;
+			resourceItem.GameId = item.gameId;
+			resourceItem.Key = item.key;
+			resourceItem.Quantity = item.Value;
+			ResourcesApi['resources'].update(resourceItem).then(function(){
+				$scope.init();
+			});
+		}
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
 		});

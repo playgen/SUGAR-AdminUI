@@ -32,7 +32,7 @@ angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
 		LeaderboardsApi['games'].get($scope.itemId).then(function(res) {
 			if (res.status === 200 && res.data != null) {
 				$scope.gameFound = true;
-				$scope.gameName = res.data.Name;
+				$scope.gameName = res.data.name;
 			} else {
 				$scope.gameFound = false;
 			}
@@ -45,12 +45,12 @@ angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
 			});
 		};
 		$scope["delete"] = function(item) {
-			LeaderboardsApi['leaderboard'].delete(item.Id).then(function(res) {
+			LeaderboardsApi['leaderboard'].delete(item.id).then(function(res) {
 				$scope.init();
 			});
 		};
 		$scope.showLeaderboard = function(item) {
-			$location.path('/leaderboards/' + $scope.itemId + '/' + item.Id);
+			$location.path('/leaderboards/' + $scope.itemId + '/' + item.id);
 		}
 		$scope.back = function() {
 			//go back to resources games list

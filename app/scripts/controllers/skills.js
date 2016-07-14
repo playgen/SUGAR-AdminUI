@@ -27,7 +27,7 @@ angular.module('sgaAdminApp').controller('SkillsCtrl', [
 			});
 		};
 		$scope.showSkills = function(item) {
-			$location.path('/skills/' + item.Id);
+			$location.path('/skills/' + item.id);
 		};
 		$scope.showGlobal = function() {
 			$location.path('/skills/global');

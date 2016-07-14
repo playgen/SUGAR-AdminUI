@@ -27,7 +27,7 @@ angular.module('sgaAdminApp').controller('AchievementCtrl', [
 			});
 		};
 		$scope.showAchievements = function(item) {
-			$location.path('/achievements/' + item.Id);
+			$location.path('/achievements/' + item.id);
 		};
 		$scope.showGlobal = function() {
 			$location.path('/achievements/global');

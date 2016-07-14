@@ -18,9 +18,9 @@
 			<th>Game Name</th>
 			<th></th>
 		</tr>
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td></td>
-            <td>{{item.Name}}</td>
+            <td>{{item.name}}</td>
 			<td>
 				<button class="btn btn-primary btn-sm" title="Edit this Game" ng-click="select(item)" ng-if="false"><i class="fa fa-pencil"></i></button>
                 <!--<button class="btn btn-primary btn-sm" title="Show Achievements For Game" ng-click="showAchievements(item)"><i class="fa fa-eye"> Achievements</i></button>-->

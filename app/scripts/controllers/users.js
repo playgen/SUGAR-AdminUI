@@ -44,10 +44,10 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
 			});
 		};
 		$scope.showFriends = function(item) {
-			$location.path('/users/' + item.Id + '/friends');
+			$location.path('/users/' + item.id + '/friends');
 		};
 		$scope.showGroups = function(item) {
-			$location.path('/users/' + item.Id + '/groups');
+			$location.path('/users/' + item.id + '/groups');
 		};
 		$scope.back = function() {
 			//go back to main menu
@@ -87,7 +87,7 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
 			});
 		};
 		$scope.save = function() {
-			return UsersApi[$scope.itemtype].update($scope.item.Id, $scope.item).then(function() {
+			return UsersApi[$scope.itemtype].update($scope.item.id, $scope.item).then(function() {
 				$uibModalInstance.close();
 				return $rootScope.$broadcast('savedItem');
 			});
@@ -131,7 +131,7 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
 			});
 		}
 		$scope["delete"] = function() {
-			return UsersApi[$scope.itemtype]["delete"]($scope.item.Id).then(function() {
+			return UsersApi[$scope.itemtype]["delete"]($scope.item.id).then(function() {
 				$uibModalInstance.close();
 				return $rootScope.$broadcast('savedItem');
 			});

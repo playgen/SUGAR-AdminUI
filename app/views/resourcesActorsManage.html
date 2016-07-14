@@ -31,12 +31,12 @@
 			<th>New Value</th>
 			<th></th>
 		</tr>
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+		<tr class="listitem" ng-repeat="item in items | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td style="width: 10px"></td>
-            <td>{{item.Key}}</td>
-			<td>{{item.Quantity}}</td>
-			<td><input type="text" ng-model="item.Value"></td>
-			<td><button class="btn btn-success pull-left" ng-click="setValue()">Set Value</button></td>
+            <td>{{item.key}}</td>
+			<td>{{item.quantity}}</td>
+			<td><input type="text" ng-model="item.Value" required></td>
+			<td><button class="btn btn-success pull-left" ng-disabled="!(item.Value.length > 0)" ng-click="setValue(item)">Set Value</button></td>
 		</tr>
 	</table>
 </div>

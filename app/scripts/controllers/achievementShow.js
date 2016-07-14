@@ -33,7 +33,7 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
 			});
 			AchievementsApi['games'].get($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data != null) {
-					$scope.gameName = res.data.Name;
+					$scope.gameName = res.data.name;
 				} else {
 					$scope.gameFound = false;
 				}
@@ -58,7 +58,7 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
 				return 0;
 			var step = 1;
 			var min = 1;
-			var max = $scope.items[index].CompletionCriteria.length;
+			var max = $scope.items[index].completionCriteria.length;
 			var input = [];
 			for (var i = min; i <= max; i += step) {
 				input.push(i);
@@ -66,7 +66,7 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
 			return input;
 		};
 		$scope.remove = function(item) {
-			AchievementsApi['achievements'].delete(item.Id).then(function(res) {
+			AchievementsApi['achievements'].delete(item.id).then(function(res) {
 				$scope.init();
 			});
 		};

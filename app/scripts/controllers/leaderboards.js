@@ -27,7 +27,7 @@ angular.module('sgaAdminApp').controller('LeaderboardsCtrl', [
 			});
 		};
 		$scope.showLeaderboards = function(item) {
-			$location.path('/leaderboards/' + item.Id);
+			$location.path('/leaderboards/' + item.id);
 		};
 		$scope.showGlobal = function() {
 			$location.path('/leaderboards/global');

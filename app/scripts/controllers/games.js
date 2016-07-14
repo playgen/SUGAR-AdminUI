@@ -49,7 +49,7 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 		};
 		// $scope.showAchievements = function(item) {
 		//   var gameName = item.Name;
-		//   $location.path('/games/' + item.Id + '/achievements');
+		//   $location.path('/games/' + item.id + '/achievements');
 		// };
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
@@ -85,7 +85,7 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 			});
 		};
 		$scope.save = function() {
-			return GamesApi[$scope.itemtype].update($scope.item.Id, $scope.item).then(function() {
+			return GamesApi[$scope.itemtype].update($scope.item.id, $scope.item).then(function() {
 				$uibModalInstance.close();
 				return $rootScope.$broadcast('savedItem');
 			});
@@ -135,7 +135,7 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 			});
 		}
 		$scope["delete"] = function() {
-			return GamesApi[$scope.itemtype]["delete"]($scope.item.Id).then(function() {
+			return GamesApi[$scope.itemtype]["delete"]($scope.item.id).then(function() {
 				$uibModalInstance.close();
 				return $rootScope.$broadcast('savedItem');
 			});

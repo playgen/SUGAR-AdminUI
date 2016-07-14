@@ -20,9 +20,9 @@
 			<td style="width: 10px"></td>
 			<th><span>{{gameName}}</span> Leaderboards</th>
 		</tr>
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'Token' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'token' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td style="width: 10px"></td>
-			<td>{{item.Token}}</td>
+			<td>{{item.token}}</td>
 			<td>
 				<button class="btn btn-success btn-sm" title="Show this Leaderboard" ng-click="showLeaderboard(item)"><i class=""> View Leaderboard</i></button>
 				<button class="btn btn-danger btn-sm" title="Delete this Leaderboard" ng-click="delete(item)"><i class="fa fa-trash-o"> Delete</i></button>

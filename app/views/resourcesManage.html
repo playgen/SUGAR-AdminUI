@@ -22,7 +22,7 @@
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td style="width: 10px"></td>
-            <td>{{item.Key}}</td>
+            <td>{{item.key}}</td>
 		</tr>
 	</table>
 </div>

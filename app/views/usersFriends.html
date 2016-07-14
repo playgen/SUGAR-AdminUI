@@ -28,9 +28,9 @@
 				<th></th>
 			</tr>
 			<!-- Show friend requests from other playersfirst -->
-			<tr class="listitem" ng-repeat="item in requests | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+			<tr class="listitem" ng-repeat="item in requests | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
                 <td></td>
-				<td>{{item.Name}}</td>
+				<td>{{item.name}}</td>
 				<td>Pending</td>
                 <td>
 					<button class="btn btn-danger pull-right" type="button" ng-click="reject(item)"><i class="fa fa-times"> Reject</i></button>
@@ -38,18 +38,18 @@
                 </td>
 		    </tr>
 			<!-- Show pending friend requests first -->
-			<tr class="listitem" ng-repeat="item in pendings | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+			<tr class="listitem" ng-repeat="item in pendings | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
 				<td></td>
-                <td>{{item.Name}}</td>
+                <td>{{item.name}}</td>
 				<td>Request Sent</td>
                 <td>
                     <button class="btn btn-danger pull-right" type="button" ng-click="removePending(item)"><i class="fa fa-times"> Delete</i></button>
                 </td>
 		    </tr>
 			<!-- Now show the accepted friends -->
-            <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+            <tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
             	<td></td>
-                <td>{{item.Name}}</td>
+                <td>{{item.name}}</td>
 				<td>Accepted</td>
                 <td>
                     <button class="btn btn-danger pull-right" type="button" ng-click="remove(item)"><i class="fa fa-times"> Remove</i></button>

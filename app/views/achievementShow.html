@@ -31,9 +31,9 @@
 				
 				<tr>
 					<td></td>
-					<td><h4>{{items[n].Name}}</h4></td>
-					<td><h4>{{items[n].CompletionCriteria[0].Key}}</h4></td>
-					<td><h4>{{items[n].CompletionCriteria[0].DataType}} {{items[n].CompletionCriteria[0].ComparisonType}} {{items[n].CompletionCriteria[0].Value}}</h4></td>
+					<td><h4>{{items[n].name}}</h4></td>
+					<td><h4>{{items[n].completionCriteria[0].key}}</h4></td>
+					<td><h4>{{items[n].completionCriteria[0].dataType}} {{items[n].completionCriteria[0].comparisonType}} {{items[n].completionCriteria[0].value}}</h4></td>
 					<td>
 					<button class="btn btn-danger pull-right" type="button" ng-click="remove(items[n])"><i class="fa fa-times"></i></button>
 				</td>
@@ -41,8 +41,8 @@
 				<tr ng-repeat="i in criteriaRange(n)">
 					<td></td>
 					<td></td>
-					<td><h4>{{items[n].CompletionCriteria[i].Key}}</h4></td>
-					<td><h4>{{items[n].CompletionCriteria[i].DataType}} {{items[n].CompletionCriteria[i].ComparisonType}} {{items[n].CompletionCriteria[i].Value}}</h4></td>
+					<td><h4>{{items[n].completionCriteria[i].key}}</h4></td>
+					<td><h4>{{items[n].completionCriteria[i].dataType}} {{items[n].completionCriteria[i].comparisonType}} {{items[n].completionCriteria[i].value}}</h4></td>
 				</tr>
 			</tbody>
 		</table>

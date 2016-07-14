@@ -18,9 +18,9 @@
 			<th>User Name</th>
 			<th></th>
 		</tr>
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td></td>
-            <td>{{item.Name}}</td>
+            <td>{{item.name}}</td>
 			<td>
 				<button class="btn btn-primary btn-sm" title="Edit this User" ng-click="select(item)" ng-if="false"><i class="fa fa-pencil"></i></button>
 				<button class="btn btn-primary btn-sm" title="Show Friends For User" ng-click="showFriends(item)"><i class="fa fa-eye"> Friends</i></button>

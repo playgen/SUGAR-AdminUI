@@ -19,10 +19,10 @@
 				<td style="width: 10px"></td>
 				<td ng-click="showGlobal()">GLOBAL RESOURCES</td>
 			</tr>
-			<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+			<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 				<!--<td></td>-->
 				<td style="width: 10px"></td>
-	            <td ng-click="showResources(item)">{{item.Name}}</td>
+	            <td ng-click="showResources(item)">{{item.name}}</td>
 			</tr>
 		</table>
 	</div>

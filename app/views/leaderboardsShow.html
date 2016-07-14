@@ -23,10 +23,10 @@
 			<th class="col-xs-5">Value</th>
 			<th></th>
 		</tr>
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'Ranking' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-			<td>{{item.Ranking}}</td>
-            <td>{{item.ActorName}}</td>
-			<td>{{item.Value}}</td>
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'ranking' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+			<td>{{item.ranking}}</td>
+            <td>{{item.actorName}}</td>
+			<td>{{item.value}}</td>
 		</tr>
 	</table>
 </div>

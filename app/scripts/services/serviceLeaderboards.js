@@ -42,7 +42,7 @@ angular.module('sgaAdminApp').service('LeaderboardsApi', [
 					return $http.post(config.api.baseurl + '/leaderboards/create', item);
 				},
 				getLeaderboard: function(item) {
-					return $http.post(config.api.baseurl + '/leaderboards/standings/', item);
+					return $http.post(config.api.baseurl + '/leaderboards/standings', item);
 				},
 				"delete": function(id) {
 					return $http["delete"](config.api.baseurl + '/leaderboards/' + id);

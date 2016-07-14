@@ -36,7 +36,7 @@ angular.module('sgaAdminApp').controller('ResourcesActorsCtrl', [
 		ResourcesApi['games'].get($scope.itemId).then(function(res) {
 			if (res.status === 200 && res.data != null) {
 				$scope.gameFound = true;
-				$scope.gameName = res.data.Name;
+				$scope.gameName = res.data.name;
 			} else {
 				$scope.gameFound = false;
 			}
@@ -54,7 +54,7 @@ angular.module('sgaAdminApp').controller('ResourcesActorsCtrl', [
 			$location.path("/resources/" + $scope.itemId);
 		};
 		$scope.showResources = function(item) {
-			$location.path("/resources/" + $scope.itemId + "/" + $scope.ActorType + "/" + item.Id);
+			$location.path("/resources/" + $scope.itemId + "/" + $scope.ActorType + "/" + item.id);
 		}
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();

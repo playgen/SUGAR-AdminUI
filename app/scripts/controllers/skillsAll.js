@@ -32,7 +32,7 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
 		SkillsApi['games'].get($scope.itemId).then(function(res) {
 			if (res.status === 200 && res.data != null) {
 				$scope.gameFound = true;
-				$scope.gameName = res.data.Name;
+				$scope.gameName = res.data.name;
 			} else {
 				$scope.gameFound = false;
 			}
@@ -56,7 +56,7 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
 				return 0;
 			var step = 1;
 			var min = 1;
-			var max = $scope.items[index].CompletionCriteria.length;
+			var max = $scope.items[index].completionCriteria.length;
 			var input = [];
 			for (var i = min; i <= max; i += step) {
 				input.push(i);
@@ -72,7 +72,7 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
 		};
 		$scope.remove = function(item)
 		{
-			SkillsApi['skills']["delete"](item.Id).then(function(){
+			SkillsApi['skills']["delete"](item.id).then(function(){
 				$scope.init();
 			});
 		};

@@ -46,8 +46,8 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
 				}
 			});
 			UsersApi['users'].getById($scope.itemId).then(function(res) {
-				if (res.status === 200 && res.data.Name != null) {
-					$scope.userName = res.data.Name;
+				if (res.status === 200 && res.data.name != null) {
+					$scope.userName = res.data.name;
 					$scope.userFound = true;
 				} else {
 					$scope.userFound = false;
@@ -64,25 +64,25 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
 			});
 		};
 		$scope.remove = function(item) {
-			var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + $scope.itemId + ", Accepted: false }"
+			var friendship = "{ RequestorId: " + item.id + ", AcceptorId: " + $scope.itemId + ", Accepted: false }"
 			UsersApi['friends'].update(friendship).then(function(res) {
 				$scope.init();
 			});
 		};
 		$scope.removePending = function(item) {
-			var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + item.Id + ", Accepted: false }"
+			var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + item.id + ", Accepted: false }"
 			UsersApi['friendRequests'].update(friendship).then(function(res) {
 				$scope.init();
 			});
 		};
 		$scope.accept = function(item) {
-			var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + $scope.itemId + ", Accepted: true }"
+			var friendship = "{ RequestorId: " + item.id + ", AcceptorId: " + $scope.itemId + ", Accepted: true }"
 			UsersApi["friendRequests"].update(friendship).then(function(res) {
 				$scope.init();
 			});
 		};
 		$scope.reject = function(item) {
-			var friendship = "{ RequestorId: " + item.Id + ", AcceptorId: " + $scope.itemId + ", Accepted: false }"
+			var friendship = "{ RequestorId: " + item.id + ", AcceptorId: " + $scope.itemId + ", Accepted: false }"
 			UsersApi["friendRequests"].update(friendship).then(function(res) {
 				$scope.init();
 			});
@@ -129,7 +129,7 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
 			.then(function(res) {
 				if (res.data[0] != null) {
 					//put the data backwards for testing as groups cannot request users join
-					var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + res.data[0].Id + " }"
+					var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + res.data[0].id + " }"
 					UsersApi['friends'].create(friendship)
 
 					.then(function(res) {

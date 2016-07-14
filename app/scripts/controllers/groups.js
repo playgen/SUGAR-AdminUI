@@ -29,7 +29,7 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 					for (var i in $scope.items) {
 						//loop through our items and pass through the index for us to ensure we set the number of members correctly
 						(function(i) {
-							GroupsApi['members'].list($scope.items[i].Id).then(function(res) {
+							GroupsApi['members'].list($scope.items[i].id).then(function(res) {
 								$scope.items[i].members = null;
 								$scope.items[i].members = res.data.length;
 							});
@@ -56,7 +56,7 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 			});
 		};
 		$scope.showMembers = function(item) {
-			$location.path('/groups/' + item.Id + '/members')
+			$location.path('/groups/' + item.id + '/members')
 		};
 		$scope.back = function() {
 			//go back to main menu
@@ -98,7 +98,7 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 			});
 		};
 		$scope.save = function() {
-			return GroupsApi[$scope.itemtype].update($scope.item.Id, $scope.item).then(function() {
+			return GroupsApi[$scope.itemtype].update($scope.item.id, $scope.item).then(function() {
 				$uibModalInstance.close();
 				return $rootScope.$broadcast('savedItem');
 			});
@@ -143,7 +143,7 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 			});
 		}
 		$scope["delete"] = function() {
-			return GroupsApi[$scope.itemtype]["delete"]($scope.item.Id).then(function() {
+			return GroupsApi[$scope.itemtype]["delete"]($scope.item.id).then(function() {
 				$uibModalInstance.close();
 				return $rootScope.$broadcast('savedItem');
 			});
