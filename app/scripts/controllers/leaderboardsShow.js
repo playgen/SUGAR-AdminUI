@@ -22,11 +22,15 @@ angular.module('sgaAdminApp').controller('LeaderboardsShowCtrl', [
 			perPage: 10,
 			currentPage: 1
 		};
-		var leaderboard = "{ LeaderboardId: " + $scope.itemToken + ", LeaderboardFilterType: 0, Limit: 100, offset: 0 }"
 		$scope.init = function() {
-			return LeaderboardsApi['leaderboard'].getLeaderboard(leaderboard).then(function(res) {
-				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data;
+			LeaderboardsApi['leaderboard'].getConfig($scope.itemToken, $scope.itemId).then(function(res){
+				if (res.status === 200 && res.data != null)
+				{
+					return LeaderboardsApi['leaderboard'].getLeaderboard(res.data).then(function(res) {
+						if (res.status === 200 && res.data != null) {
+							$scope.items = res.data;
+						}
+					});
 				}
 			});
 		};

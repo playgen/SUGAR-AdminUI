@@ -41,6 +41,10 @@ angular.module('sgaAdminApp').service('LeaderboardsApi', [
 				createFilter: function(item) {
 					return $http.post(config.api.baseurl + '/leaderboards/create', item);
 				},
+				getConfig: function(token, gameId)
+				{
+					return $http.get(config.api.baseurl + '/leaderboards/' + token + "/" + gameId);
+				},
 				getLeaderboard: function(item) {
 					return $http.post(config.api.baseurl + '/leaderboards/standings', item);
 				},
