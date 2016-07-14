@@ -376,8 +376,6 @@ module.exports = function(grunt) {
 		}
 		grunt.task.run(['clean:server', 'wiredep', 'concurrent:server', 'postcss:server', 'connect:livereload', 'watch']);
 	});
-	grunt.registerTask('test', ['clean:server', 'less', 'wiredep', 'concurrent:test', 'postcss', 'connect:test', 'karma']);
 	grunt.registerTask('build', ['clean:dist', 'wiredep', 'useminPrepare', 'concurrent:dist', 'postcss', 'ngtemplates', 'concat', 'ngAnnotate', 'copy:dist', 'cssmin', 'uglify', 'filerev', 'usemin', 'htmlmin']);
 	grunt.registerTask('dev', ['clean:dist', 'wiredep', 'useminPrepare', 'concurrent:dev', 'ngAnnotate', 'copy:dev']);
-	grunt.registerTask('default', ['newer:jshint', 'test', 'build']);
 };
