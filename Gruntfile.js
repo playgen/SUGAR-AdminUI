@@ -293,13 +293,20 @@ module.exports = function(grunt) {
 						dot: true,
 						cwd: '<%= appConfig.app %>',
 						dest: '<%= appConfig.dist %>',
-						src: ['*.{ico,png,txt}', '*.html', 'images/{,*/}*.{webp}', 'styles/fonts/{,*/}*.*']
-					}, 
+						src: ['*.{ico,png,txt}', '*.html', "images/*", 'styles/fonts/{,*/}*.*']
+					},
 					{
 						expand: true,
-						cwd: '<%= appConfig.app %>/images',
-						dest: '<%= appConfig.dist %>/images',
-						src: ['generated/*']
+						dot: true,
+						cwd: ".tmp",
+						dest: "<%= appConfig.dist %>",
+						src: ["styles/**"]
+					},
+					{
+						expand: true,	
+						cwd: 'bower_components/font-awesome',
+						src: 'fonts/*',
+						dest: '<%= appConfig.dist %>'
 					}, 
 					{
 						expand: true,
