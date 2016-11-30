@@ -19,6 +19,9 @@ angular.module('sgaAdminApp').service('SkillsApi', [
 				listSkills: function(id) {
 					return $http.get(config.api.baseurl + '/skills/game/' + id + '/list');
 				},
+				globalSkills: function(id){
+					return $http.get(config.api.baseurl + '/skills/global/list');
+				},
 				get: function(id) {
 					return $http.get(config.api.baseurl + '/skills/game/' + id);
 				},

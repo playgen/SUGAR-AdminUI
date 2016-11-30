@@ -127,6 +127,6 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
 		authorization: 'Authorization',
 	},
 	tokens: {
-		authorization: 'SUGARAdmin-Token'
+		authorization: 'SUGAR'
 	}
 });

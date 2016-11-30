@@ -23,22 +23,37 @@ angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
-			return LeaderboardsApi['leaderboard'].list($scope.itemId).then(function(res) {
-				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data;
-				}
-			});
-		};
-		LeaderboardsApi['games'].get($scope.itemId).then(function(res) {
-			if (res.status === 200 && res.data != null) {
-				$scope.gameFound = true;
-				$scope.gameName = res.data.name;
-			} else {
-				$scope.gameFound = false;
+			if ($scope.itemId != "global")
+			{
+				return LeaderboardsApi['leaderboard'].list($scope.itemId).then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.items = res.data['response'];
+					}
+				});
+				LeaderboardsApi['games'].get($scope.itemId).then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.gameFound = true;
+						$scope.gameName = res.data['response'].name;
+					} else {
+						$scope.gameFound = false;
+					}
+				}).catch(function() {
+					$scope.gameFound = false;
+				});	
 			}
-		}).catch(function() {
-			$scope.gameFound = false;
-		});
+			else
+			{
+				return LeaderboardsApi['leaderboard'].getGlobal().then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.items = res.data['response'];
+					}
+				});
+
+				$scope.gameName = "Global";
+				$scope.gameFound = true;
+			}
+		};
+		
 		$scope.add = function(item) {
 			return modalManager.open('newLeaderboard', {
 				itemId: $scope.itemId

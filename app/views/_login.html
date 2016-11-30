@@ -18,17 +18,11 @@
 		</div>
         </form>
 		<div class="row">
-            <div class="col-xs-4">
-                <button type="button" class="btn btn-primary btn-block btn-flat" ng-click="register()" ng-disabled="myForm.$invalid">Register</button>
-            </div>
-			<div class="col-xs-4 col-xs-offset-4">
-				<button type="button" class="btn btn-primary btn-block btn-flat" ng-click="submit()" ng-disabled="myForm.$invalid">Sign In</button>
+			<div class="col-xs-4 col-xs-offset-8">
+				<button type="button" class="btn btn-primary btn-block btn-flat" ng-click="login()" ng-disabled="myForm.$invalid">Sign In</button>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12">
-				<label class="pull-left" ng-if="registerFail">Failed to register, please try again</label>
-			</div>
 			<div class="col-xs-12">
 				<label class="pull-right" ng-if="loginFail">Failed to Sign in, please check your log in details or register</label>
 			</div>

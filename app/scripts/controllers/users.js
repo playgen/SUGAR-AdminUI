@@ -22,7 +22,7 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
 		$scope.init = function() {
 			return UsersApi['users'].list().then(function(res) {
 				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data;
+					$scope.items = res.data['response'];
 				}
 			});
 		};

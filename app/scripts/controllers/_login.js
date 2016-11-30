@@ -15,9 +15,10 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
 		$scope.registerFail = false;
 		$scope.user = {
 			Name: '',
-			Password: ''
+			Password: '',
+			SourceToken: 'SUGAR'
 		};
-		$scope.register = function() {
+/*		$scope.register = function() {
 			User.register($scope.user).then(function(res) {
 					//automatically log in
 					if (res.status === 200)
@@ -34,8 +35,8 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
 					}
 
 				});
-		}
-		return $scope.submit = function() {
+		}*/
+		return $scope.login = function() {
 			return User.login($scope.user).then(function(res) {
 				var ref, returnPath;
 				if (res.status === 200 && res.data != null) {

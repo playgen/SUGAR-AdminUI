@@ -37,14 +37,14 @@ angular.module('sgaAdminApp').controller('ResourcesActorsManageCtrl', [
 			});
 			return ResourcesApi['games'].listResources($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data;
+					$scope.items = res.data['response'];
 				}
 			});
 		};
 		ResourcesApi['games'].get($scope.itemId).then(function(res) {
 			if (res.status === 200 && res.data != null) {
 				$scope.gameFound = true;
-				$scope.gameName = res.data.name;
+				$scope.gameName = res.data['response'].name;
 			} else {
 				$scope.gameFound = false;
 			}
@@ -53,7 +53,7 @@ angular.module('sgaAdminApp').controller('ResourcesActorsManageCtrl', [
 		});
 		ResourcesApi[$scope.actorType].get($scope.actorId).then(function(res) {
 			if (res.status === 200 && res.data != null) {
-				$scope.actorName = res.data.name;
+				$scope.actorName = res.data['response'].name;
 			}
 		});
 		$scope.back = function() {

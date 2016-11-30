@@ -23,27 +23,48 @@ angular.module('sgaAdminApp').controller('LeaderboardsShowCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
-			LeaderboardsApi['leaderboard'].getConfig($scope.itemToken, $scope.itemId).then(function(res){
-				if (res.status === 200 && res.data != null)
-				{
-					return LeaderboardsApi['leaderboard'].getLeaderboard(res.data).then(function(res) {
-						if (res.status === 200 && res.data != null) {
-							$scope.items = res.data;
-						}
-					});
-				}
-			});
-		};
-		LeaderboardsApi['games'].get($scope.itemId).then(function(res) {
-			if (res.status === 200 && res.data != null) {
-				$scope.leaderboardFound = true;
-				$scope.leaderboardToken = res.data.Token;
-			} else {
-				$scope.leaderboardFound = false;
+			
+			if ($scope.itemId != "global")
+			{
+				LeaderboardsApi['leaderboard'].getConfig($scope.itemToken, $scope.itemId).then(function(res){
+					if (res.status === 200 && res.data != null)
+					{
+						return LeaderboardsApi['leaderboard'].getLeaderboard(res.data).then(function(res) {
+							if (res.status === 200 && res.data != null) {
+								$scope.items = res.data['response'];
+							}
+						});
+					}
+				});
+				LeaderboardsApi['games'].get($scope.itemId).then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.leaderboardFound = true;
+						$scope.leaderboardToken = res.data.Token;
+					} else {
+						$scope.leaderboardFound = false;
+					}
+				}).catch(function() {
+					$scope.leaderboardFound = false;
+				});
 			}
-		}).catch(function() {
-			$scope.leaderboardFound = false;
-		});
+			else
+			{
+				LeaderboardsApi['leaderboard'].getGlobal().then(function(res){
+					if (res.status === 200 && res.data != null)
+					{
+						return LeaderboardsApi['leaderboard'].getLeaderboard(res.data).then(function(res) {
+							if (res.status === 200 && res.data != null) {
+								$scope.items = res.data['response'];
+							}
+						});
+					}
+				});
+
+				$scope.leaderboardFound = true;
+				$scope.leaderboardName = "Global";
+			}
+		};
+		
 		$scope.addFilter = function(item) {
 			return modalManager.open('newLeaderboard', {});
 		};
@@ -54,7 +75,7 @@ angular.module('sgaAdminApp').controller('LeaderboardsShowCtrl', [
 			LeaderboardsApi['leaderboard'].list($scope.itemId).then(function(res) {
 				//change the $scope.items for population of the leaderboard list
 				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data;
+					$scope.items = res.data['response'];
 				}
 			});
 		};

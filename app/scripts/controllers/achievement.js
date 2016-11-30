@@ -22,7 +22,7 @@ angular.module('sgaAdminApp').controller('AchievementCtrl', [
 		$scope.init = function() {
 			return AchievementsApi['games'].list().then(function(res) {
 				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data;
+					$scope.items = res.data['response'];
 				}
 			});
 		};

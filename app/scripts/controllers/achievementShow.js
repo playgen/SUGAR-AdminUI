@@ -25,21 +25,36 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
-			AchievementsApi['achievements'].list($scope.itemId).then(function(res) {
+			if ($scope.itemId != "global")
+			{
+				AchievementsApi['achievements'].list($scope.itemId).then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.items = res.data['response'];
+						$scope.range();
+					}
+				});
+				AchievementsApi['games'].get($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data;
-					$scope.range();
-				}
-			});
-			AchievementsApi['games'].get($scope.itemId).then(function(res) {
-				if (res.status === 200 && res.data != null) {
-					$scope.gameName = res.data.name;
+					$scope.gameName = res.data['response'].name;
 				} else {
 					$scope.gameFound = false;
 				}
-			}).catch(function() {
-				$scope.gameFound = false;
-			});
+				}).catch(function() {
+					$scope.gameFound = false;
+				});
+			}
+			else
+			{
+				AchievementsApi['achievements'].global().then(function(res){
+					if (res.status === 200 && res.data != null) {
+						$scope.items = res.data['response'];
+						$scope.range();
+					}
+				});
+				$scope.gameName = "Global";
+				$scope.gameFound = true;
+			}
+			
 		};
 		$scope.range = function(min, max, step) {
 			if ($scope.items == null)
@@ -58,7 +73,7 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
 				return 0;
 			var step = 1;
 			var min = 1;
-			var max = $scope.items[index].completionCriteria.length;
+			var max = $scope.items[index].evaluationCriterias.length;
 			var input = [];
 			for (var i = min; i <= max; i += step) {
 				input.push(i);
@@ -66,9 +81,20 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
 			return input;
 		};
 		$scope.remove = function(item) {
-			AchievementsApi['achievements'].delete(item.id).then(function(res) {
-				$scope.init();
-			});
+			if ($scope.itemId != "global")
+			{
+				console.log("Deleting: " + item.id + "from game: " + $scope.itemId);
+				AchievementsApi['achievements'].delete(item.id, $scope.itemId).then(function(res) {
+					$scope.init();
+				});
+			}
+			else
+			{
+				console.log("Deleting: " + item.id + "from game: " + $scope.itemId);
+				AchievementsApi['achievements'].deleteGlobal(item.id).then(function(res) {
+					$scope.init();
+				});
+			}
 		};
 		$scope.add = function(item) {
 			$location.path('/achievements/' + $scope.itemId + '/new');

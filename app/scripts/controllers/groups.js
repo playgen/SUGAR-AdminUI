@@ -22,7 +22,7 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 		$scope.init = function() {
 			return GroupsApi['groups'].list().then(function(res) {
 				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data;
+					$scope.items = res.data['response'];
 					//get the number of members for each groups
 					$scope.allData = [];
 
@@ -31,7 +31,7 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 						(function(i) {
 							GroupsApi['members'].list($scope.items[i].id).then(function(res) {
 								$scope.items[i].members = null;
-								$scope.items[i].members = res.data.length;
+								$scope.items[i].members = res.data['response'].length;
 							});
 						})(i);
 					}

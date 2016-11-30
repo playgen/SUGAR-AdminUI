@@ -16,11 +16,17 @@ angular.module('sgaAdminApp').service('AchievementsApi', [
 				list: function(id) {
 					return $http.get(config.api.baseurl + '/achievements/game/' + id + '/list');
 				},
+				global: function(){
+					return $http.get(config.api.baseurl + '/achievements/global/list');
+				},
 				create: function(item) {
 					return $http.post(config.api.baseurl + '/achievements/create', item);
 				},
-				"delete": function(id) {
-					return $http["delete"](config.api.baseurl + '/achievements/' + id);
+				"delete": function(token, id) {
+					return $http["delete"](config.api.baseurl + '/achievements/' + token + '/' + id);
+				},
+				"deleteGlobal": function(token){
+					return $http["delete"](config.api.baseurl + '/achievements/' + token + '/global');
 				}
 			},
 			'games': {

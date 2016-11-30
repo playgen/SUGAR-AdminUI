@@ -31,23 +31,23 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
 			$scope.pendings = [];
 			$scope.requests = [];
 			UsersApi['friends'].list($scope.itemId).then(function(res) {
-				if ((res != null ? res.status : void 0) === 200 && (res.data.length > 0)) {
-					$scope.items = res.data;
+				if ((res != null ? res.status : void 0) === 200 && (res.data['response'].length > 0)) {
+					$scope.items = res.data['response'];
 				}
 			});
-			UsersApi['friends'].listPending($scope.itemId).then(function(res) {
+			UsersApi['friendRequests'].listPending($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data != null) {
-					$scope.pendings = res.data;
+					$scope.pendings = res.data['response'];
 				}
 			});
 			UsersApi['friendRequests'].list($scope.itemId).then(function(res) {
-				if (res != null && res.data[0] != null) {
-					$scope.requests = res.data;
+				if (res != null && res.data != null) {
+					$scope.requests = res.data['response'];
 				}
 			});
 			UsersApi['users'].getById($scope.itemId).then(function(res) {
-				if (res.status === 200 && res.data.name != null) {
-					$scope.userName = res.data.name;
+				if (res.status === 200 && res.data['response'].name != null) {
+					$scope.userName = res.data['response'].name;
 					$scope.userFound = true;
 				} else {
 					$scope.userFound = false;
@@ -58,7 +58,7 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
 		};
 		$scope.add = function(item) {
 			return modalManager.open('addFriend', {
-				itemtype: $scope.itemtype,
+				userName: $scope.userName,
 				itemId: $scope.itemId,
 				item: item
 			});
@@ -99,11 +99,16 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
 ]).controller('addFriendModalCtrl', [
 	'$scope', '$rootScope', '$uibModalInstance', 'UsersApi', 'modalManager', 'modaldata',
 	function($scope, $rootScope, $uibModalInstance, UsersApi, modalManager, modaldata) {
-		$scope.itemtype = modaldata.itemtype;
+		$scope.userName = modaldata.userName;
 		$scope.config = modaldata.config;
 		$scope.itemId = modaldata.itemId;
 
 		$scope.exists = true;
+
+		console.log($scope.itemtype);
+		console.log($scope.config);
+		console.log($scope.itemId);
+
 		if (modaldata.item != null) {
 			$scope.item = modaldata.item;
 		} else if (modaldata.itemid != null) {
@@ -127,9 +132,9 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
 			UsersApi['users'].get($scope.txtBox)
 
 			.then(function(res) {
-				if (res.data[0] != null) {
+				if (res.data['response'][0] != null) {
 					//put the data backwards for testing as groups cannot request users join
-					var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + res.data[0].id + " }"
+					var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + res.data['response'][0].id + " }"
 					UsersApi['friends'].create(friendship)
 
 					.then(function(res) {

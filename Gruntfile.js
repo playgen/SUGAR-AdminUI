@@ -381,7 +381,7 @@ module.exports = function(grunt) {
 		if (target === 'dist') {
 			return grunt.task.run(['build', 'connect:dist:keepalive']);
 		}
-		grunt.task.run(['clean:server', 'wiredep', 'concurrent:server', 'postcss:server', 'connect:livereload', 'watch']);
+		grunt.task.run(['clean:server', 'wiredep', 'concurrent:server', 'postcss:server', 'watch']);
 	});
 	grunt.registerTask('build', ['clean:dist', 'wiredep', 'useminPrepare', 'concurrent:dist', 'postcss', 'ngtemplates', 'concat', 'ngAnnotate', 'copy:dist', 'cssmin', 'uglify', 'filerev', 'usemin', 'htmlmin']);
 	grunt.registerTask('dev', ['clean:dist', 'wiredep', 'useminPrepare', 'concurrent:dev', 'ngAnnotate', 'copy:dev']);

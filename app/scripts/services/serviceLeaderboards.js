@@ -38,6 +38,9 @@ angular.module('sgaAdminApp').service('LeaderboardsApi', [
 				list: function(id) {
 					return $http.get(config.api.baseurl + '/leaderboards/game/' + id + '/list');
 				},
+				getGlobal: function(){
+					return $http.get(config.api.baseurl + '/leaderboards/global/list');
+				},
 				createFilter: function(item) {
 					return $http.post(config.api.baseurl + '/leaderboards/create', item);
 				},

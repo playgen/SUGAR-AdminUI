@@ -25,19 +25,27 @@ angular.module('sgaAdminApp').controller('SkillsNewCtrl', [
 		};
 
 		//make sure that the id is valid to prevent bad data being sent, if not push back to achievemnt screen
-		SkillsApi['games'].get($scope.itemId).then(function(res) {
-			if (res.status === 200 && res.data != null) {
+		if ($scope.itemId != "global")
+		{
+			SkillsApi['games'].get($scope.itemId).then(function(res) {
+			
+				if (res.status === 200 && res.data != null) {
 
-			} else {
-				$location.path("/games/" + $scope.itemId + "/skills");
+				} else {
+					$location.path("/games/" + $scope.itemId + "/skills");
+				}
+				}).catch(function() {
+					$location.path("/games/" + $scope.itemId + "/skills");
+				});
 			}
-		}).catch(function() {
-			$location.path("/games/" + $scope.itemId + "/skills");
-		});
+		else
+		{
+
+		}
 		$scope.init = function() {
 			SkillsApi['games'].list().then(function(res) {
 				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data;
+					$scope.items = res.data['response'];
 					$scope.range();
 				}
 			});
@@ -63,25 +71,25 @@ angular.module('sgaAdminApp').controller('SkillsNewCtrl', [
 		$scope.create = function() {
 
 			$scope.achievement = {};
-			$scope.achievement.GameId = $scope.itemId;
+			$scope.achievement.GameId = $scope.itemId == "global" ? null : $scope.itemId;
 			$scope.achievement.Name = $scope.item.Name;
 			$scope.achievement.Description = $scope.item.Description;
 			$scope.achievement.ActorType = $scope.item.ActorType;
 			$scope.achievement.Token = $scope.item.Token;
 
-			$scope.achievement.CompletionCriteria = [];
+			$scope.achievement.evaluationCriterias = [];
 			for (var i = 0; i < $scope.criterias; i++) {
-				$scope.achievement.CompletionCriteria[i] = {};
-				$scope.achievement.CompletionCriteria[i].Key = $scope.item[i + 1].Key;
-				$scope.achievement.CompletionCriteria[i].DataType = $scope.item[i + 1].DataType;
-				$scope.achievement.CompletionCriteria[i].ComparisonType = $scope.item[i + 1].ComparisonType;
-				$scope.achievement.CompletionCriteria[i].Value = $scope.item[i + 1].Value;
+				$scope.achievement.evaluationCriterias[i] = {};
+				$scope.achievement.evaluationCriterias[i].Key = $scope.item[i + 1].Key;
+				$scope.achievement.evaluationCriterias[i].DataType = $scope.item[i + 1].DataType;
+				$scope.achievement.evaluationCriterias[i].ComparisonType = $scope.item[i + 1].ComparisonType;
+				$scope.achievement.evaluationCriterias[i].Value = $scope.item[i + 1].Value;
 			}
-			$scope.achievement.Reward = [];
-			$scope.achievement.Reward[0] = {};
-			$scope.achievement.Reward[0].Key = $scope.item.Reward.Key;
-			$scope.achievement.Reward[0].DataType = $scope.item.Reward.DataType;
-			$scope.achievement.Reward[0].Value = $scope.item.Reward.Value;
+			$scope.achievement.rewards = [];
+			$scope.achievement.rewards[0] = {};
+			$scope.achievement.rewards[0].Key = $scope.item.Reward.Key;
+			$scope.achievement.rewards[0].DataType = $scope.item.Reward.DataType;
+			$scope.achievement.rewards[0].Value = $scope.item.Reward.Value;
 
 			// var f = document.getElementById('file').files[0];
 			// var r =  new FileReader();

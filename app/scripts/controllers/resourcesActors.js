@@ -29,14 +29,14 @@ angular.module('sgaAdminApp').controller('ResourcesActorsCtrl', [
 			//TODO: get list for current Actor Type
 			return ResourcesApi[$scope.ActorType].list().then(function(res) {
 				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data;
+					$scope.items = res.data['response'];
 				}
 			});
 		};
 		ResourcesApi['games'].get($scope.itemId).then(function(res) {
 			if (res.status === 200 && res.data != null) {
 				$scope.gameFound = true;
-				$scope.gameName = res.data.name;
+				$scope.gameName = res.data['response'].name;
 			} else {
 				$scope.gameFound = false;
 			}

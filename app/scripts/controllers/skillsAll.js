@@ -22,23 +22,40 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
 			perPage: 10,
 			currentPage: 1
 		};
+
 		$scope.init = function() {
-			return SkillsApi['skills'].listSkills($scope.itemId).then(function(res) {
-				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data;
-				}
-			});
-		};
-		SkillsApi['games'].get($scope.itemId).then(function(res) {
-			if (res.status === 200 && res.data != null) {
-				$scope.gameFound = true;
-				$scope.gameName = res.data.name;
-			} else {
-				$scope.gameFound = false;
+			if ($scope.itemId != "global")
+			{
+				return SkillsApi['skills'].listSkills($scope.itemId).then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.items = res.data['response'];
+					}
+				});
+				SkillsApi['games'].get($scope.itemId).then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.gameFound = true;
+						$scope.gameName = res.data['response'].name;
+					} else {
+						$scope.gameFound = false;
+					}
+				}).catch(function() {
+					$scope.gameFound = false;
+				});
 			}
-		}).catch(function() {
-			$scope.gameFound = false;
-		});
+			else
+			{
+				return SkillsApi['skills'].globalSkills().then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.items = res.data['response'];
+					}
+				});
+
+				$scope.gameName = "Global";
+				$scope.gameFound = true;
+			}
+		};
+
+		
 		$scope.range = function(min, max, step) {
 			if ($scope.items == null)
 				return 0;
@@ -56,7 +73,7 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
 				return 0;
 			var step = 1;
 			var min = 1;
-			var max = $scope.items[index].completionCriteria.length;
+			var max = $scope.items[index].evaluationCriterias.length;
 			var input = [];
 			for (var i = min; i <= max; i += step) {
 				input.push(i);

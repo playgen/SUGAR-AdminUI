@@ -37,9 +37,6 @@ angular.module('sgaAdminApp').service('UsersApi', [
 				list: function(id) {
 					return $http.get(config.api.baseurl + "/userfriend/friends/" + id);
 				},
-				listPending: function(id) {
-					return $http.get(config.api.baseurl + ("/userfriend/sentrequests/" + id));
-				},
 				get: function(id) {
 					return $http.get(config.api.baseurl + ("/userfriend/" + id));
 				},
@@ -54,6 +51,9 @@ angular.module('sgaAdminApp').service('UsersApi', [
 				}
 			},
 			'friendRequests': {
+				listPending: function(id) {
+					return $http.get(config.api.baseurl + ("/userfriend/sentrequests/" + id));
+				},
 				list: function(id) {
 					return $http.get(config.api.baseurl + "/userfriend/requests/" + id);
 				},
