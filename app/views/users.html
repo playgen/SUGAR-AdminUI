@@ -1,16 +1,17 @@
 <contentHeader>
 <div>
-	<div class="col-xs-3">
+	<div class="col-xs-12">
 		<h4 class="" ng-click="back()"> Back to Menu</h4>
 	</div>
 </div>
-</contentHeader>
-<contentMain>
 <div>
 	<div class="col-xs-12">
 		<h4>Below is all the registered users, from this page you can:<br />- View users' friends, add and delete friends and respond to friends requests.<br />- View users' groups, join new groups and leave exitsing groups.<br />- Create new users<br />- Edit users information<br />- Delete users</h4>
 	</div>
 </div>
+</contentHeader>
+<contentMain>
+
 <div ng-init="init()">
 	<table class="table table-bordered">
 		<tr class="listitem">
@@ -20,13 +21,13 @@
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td></td>
-            <td>{{item.name}}</td>
-			<td>
+            <td ng-click="showProfile(item)">{{item.name}}</td>
+			<!-- <td>
 				<button class="btn btn-primary btn-sm" title="Edit this User" ng-click="select(item)" ng-if="false"><i class="fa fa-pencil"></i></button>
 				<button class="btn btn-primary btn-sm" title="Show Friends For User" ng-click="showFriends(item)"><i class="fa fa-eye"> Friends</i></button>
 				<button class="btn btn-primary btn-sm" title="Show Groups For User" ng-click="showGroups(item)"><i class="fa fa-eye"> Groups</i></button>
 				<button class="btn btn-danger btn-sm" title="Delete this User" ng-click="delete(item)"><i class="fa fa-trash-o"> Delete</i></button>
-            </td>
+            </td> -->
 		</tr>
 	</table>
 </div>

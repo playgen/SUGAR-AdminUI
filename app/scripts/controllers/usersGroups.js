@@ -53,8 +53,8 @@ angular.module('sgaAdminApp').controller('UsersGroupsCtrl', [
 			});
 		}
 		$scope.back = function() {
-			//go back to users list
-			$location.path("/users");
+			//go back to user profile
+			$location.path("/users/" + $scope.itemId);
 		};
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();

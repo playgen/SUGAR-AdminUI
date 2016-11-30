@@ -82,14 +82,14 @@ angular.module('sgaAdminApp').controller('UsersFriendsCtrl', [
 			});
 		};
 		$scope.reject = function(item) {
-			var friendship = "{ RequestorId: " + item.id + ", AcceptorId: " + $scope.itemId + ", Accepted: false }"
+			var friendship = "{ RequestorId: " + itemId + ", AcceptorId: " + $scope.itemId + ", Accepted: false }"
 			UsersApi["friendRequests"].update(friendship).then(function(res) {
 				$scope.init();
 			});
 		};
 		$scope.back = function() {
-			//go back to users list
-			$location.path("/users");
+			//go back to user profile
+			$location.path("/users/" + $scope.itemId);
 		};
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();

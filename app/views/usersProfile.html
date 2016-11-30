@@ -1,0 +1,98 @@
+<contentHeader>
+<div>
+	<div class="col-xs-12">
+		<h4 class="" ng-click="back()"> Back to All Users</h4>
+	</div>
+</div>
+<div class="col-xs-12" ng-if="!userFound">
+    <h3><span>Cannot display user, no user found with ID:- </span>{{itemId}}<span></span></h3>
+</div>
+
+<div class="col-xs-12" ng-if="userFound">
+	<h2>{{userName}}'s Profile</h2>
+</div>
+<div class="col-xs-12" ng-if="userFound">
+	<button class="btn btn-primary" title="View User Information" ng-click="userInfo()" ng-disabled="showInfo">Details</button>
+	<button class="btn btn-primary" title="View Friends" ng-click="userFriends()" ng-disabled="showFriends">Friends</button>
+	<button class="btn btn-primary" title="View Groups" ng-click="userGroups()" ng-disabled="showGroups">Groups</button>
+	<button class="btn btn-primary" title="Close" ng-click="closeTable()" ng-if="showGroups || showFriends || showInfo">Close</button>
+</div>
+</contentHeader>
+<contentMain>	
+<div ng-init="init()" ng-if="userFound" >
+	<table class="table table-bordered" ng-if="showInfo">
+		<tr>
+			<td style="width: 10px"></td>
+			<th>{{userName}}'s Details</th>
+		</tr>
+	</table>
+	<table class="table table-bordered" ng-if="showFriends">
+		<tr>
+			<td style="width: 10px"></td>
+			<th>{{userName}}'s Friends</th>
+		</tr>
+		<tr class="listitem">
+			<td style="width: 10px"></td>
+			<th>Name</th>
+			<th>Status</th>
+			<th></th>
+		</tr>
+
+		<!-- Show friend requests from other playersfirst -->
+		<tr class="listitem" ng-repeat="item in requests | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+            <td></td>
+			<td>{{item.name}}</td>
+			<td>Pending</td>
+            <td>
+				<button class="btn btn-danger pull-right" type="button" ng-click="reject(item)"><i class="fa fa-times"> Reject</i></button>
+				<button class="btn btn-success pull-right" type="button" ng-click="accept(item)"><i class="fa fa-times"> Accept</i></button>
+            </td>
+	    </tr>
+
+		<!-- Show pending friend requests first -->
+		<tr class="listitem" ng-repeat="item in pendings | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+			<td></td>
+            <td>{{item.name}}</td>
+			<td>Request Sent</td>
+            <td>
+                <button class="btn btn-danger pull-right" type="button" ng-click="removePending(item)"><i class="fa fa-times"> Delete</i></button>
+            </td>
+	    </tr>
+
+		<!-- Now show the accepted friends -->
+        <tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+        	<td></td>
+            <td>{{item.name}}</td>
+			<td>Accepted</td>
+            <td>
+                <button class="btn btn-danger pull-right" type="button" ng-click="remove(item)"><i class="fa fa-times"> Remove</i></button>
+            </td>
+	    </tr>
+	</table>
+	<table class="table table-bordered" ng-if="showGroups">
+		<tr>
+			<td style="width: 10px"></td>
+			<th>{{userName}}'s Groups</th>
+		</tr>
+		<tr class="listitem">
+			<td style="width: 10px"></td>
+			<th>Name</th>
+			<th>Role</th>
+			<th></th>
+		</tr>
+        <tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
+            <td></td>
+			<td>{{item.name}}</td>
+			<td></td>
+            <td>
+				<button class="btn btn-danger pull-right" type="button" ng-click="remove(item)"><i class="fa fa-times"> Leave</i></button>
+            </td>
+	    </tr>
+	</table>
+</div>
+</contenMain>
+<contentFooter>
+	<div class="col-xs-4 col-xs-offset-4 text-center">
+		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+	</div>
+</contentFooter>

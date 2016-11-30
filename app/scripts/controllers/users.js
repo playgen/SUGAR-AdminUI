@@ -43,12 +43,9 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
 				itemtype: 'users'
 			});
 		};
-		$scope.showFriends = function(item) {
-			$location.path('/users/' + item.id + '/friends');
-		};
-		$scope.showGroups = function(item) {
-			$location.path('/users/' + item.id + '/groups');
-		};
+		$scope.showProfile = function(item){
+			$location.path('/users/' + item.id);
+		}
 		$scope.back = function() {
 			//go back to main menu
 			$location.path("/");

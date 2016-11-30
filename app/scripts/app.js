@@ -30,6 +30,10 @@ angular.module('sgaAdminApp', ['ngAria', 'ngCookies', 'ngMessages', 'ngResource'
 		templateUrl: 'views/users.html',
 		controller: 'UsersCtrl',
 		login: true
+	}).when('/users/:itemId', {
+		templateUrl: 'views/usersProfile.html',
+		controller: 'UsersProfileCtrl',
+		login: true
 	}).when('/users/:itemId/friends', {
 		templateUrl: 'views/usersFriends.html',
 		controller: 'UsersFriendsCtrl',
