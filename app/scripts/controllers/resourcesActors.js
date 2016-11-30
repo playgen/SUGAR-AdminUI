@@ -27,22 +27,32 @@ angular.module('sgaAdminApp').controller('ResourcesActorsCtrl', [
 		};
 		$scope.init = function() {
 			//TODO: get list for current Actor Type
-			return ResourcesApi[$scope.ActorType].list().then(function(res) {
-				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data['response'];
-				}
-			});
-		};
-		ResourcesApi['games'].get($scope.itemId).then(function(res) {
-			if (res.status === 200 && res.data != null) {
-				$scope.gameFound = true;
-				$scope.gameName = res.data['response'].name;
-			} else {
-				$scope.gameFound = false;
+			
+				ResourcesApi[$scope.ActorType].list().then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.items = res.data['response'];
+					}
+				});
+			if ($scope.itemId != "global")
+			{
+				ResourcesApi['games'].get($scope.itemId).then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.gameFound = true;
+						$scope.gameName = res.data['response'].name;
+					} else {
+						$scope.gameFound = false;
+					}
+				}).catch(function() {
+					$scope.gameFound = false;
+				});
 			}
-		}).catch(function() {
-			$scope.gameFound = false;
-		});
+			else
+			{
+				$scope.gameFound = true;
+				$scope.gameName = "Global";
+			}
+		};
+		
 		$scope.changeActor = function() {
 			var temp = $scope.AltActor;
 			$scope.AltActor = $scope.ActorType;

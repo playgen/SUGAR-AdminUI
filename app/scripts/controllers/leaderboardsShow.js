@@ -14,7 +14,8 @@ angular.module('sgaAdminApp').controller('LeaderboardsShowCtrl', [
 		$scope.itemToken = $routeParams.itemToken;
 		$scope.itemId = $routeParams.itemId;
 
-		$scope.leaderboardToken = true;
+		$scope.leaderboardToken = $scope.itemToken;
+		$scope.leaderboardFound = true;
 		$scope.leaderboardName = '';
 
 		$scope.items = [];
@@ -23,7 +24,7 @@ angular.module('sgaAdminApp').controller('LeaderboardsShowCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
-			
+			console.log($scope.itemId);
 			if ($scope.itemId != "global")
 			{
 				LeaderboardsApi['leaderboard'].getConfig($scope.itemToken, $scope.itemId).then(function(res){
@@ -49,10 +50,10 @@ angular.module('sgaAdminApp').controller('LeaderboardsShowCtrl', [
 			}
 			else
 			{
-				LeaderboardsApi['leaderboard'].getGlobal().then(function(res){
+				LeaderboardsApi['leaderboard'].getGlobalConfig($scope.itemId).then(function(res){
 					if (res.status === 200 && res.data != null)
 					{
-						return LeaderboardsApi['leaderboard'].getLeaderboard(res.data).then(function(res) {
+						LeaderboardsApi['leaderboard'].getLeaderboard(res.data).then(function(res) {
 							if (res.status === 200 && res.data != null) {
 								$scope.items = res.data['response'];
 							}

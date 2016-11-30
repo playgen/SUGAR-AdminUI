@@ -60,9 +60,18 @@ angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
 			});
 		};
 		$scope["delete"] = function(item) {
-			LeaderboardsApi['leaderboard'].delete(item.id).then(function(res) {
-				$scope.init();
-			});
+			if ($scope.itemId != "global")
+			{
+				LeaderboardsApi['leaderboard'].delete(item.token, item.id).then(function(res) {
+					$scope.init();
+				});
+			}
+			else
+			{
+				LeaderboardsApi['leaderboard'].deleteGlobal(item.token).then(function(res) {
+					$scope.init();
+				});
+			}
 		};
 		$scope.showLeaderboard = function(item) {
 			$location.path('/leaderboards/' + $scope.itemId + '/' + item.token);

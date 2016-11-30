@@ -48,11 +48,17 @@ angular.module('sgaAdminApp').service('LeaderboardsApi', [
 				{
 					return $http.get(config.api.baseurl + '/leaderboards/' + token + "/" + gameId);
 				},
+				getGlobalConfig: function(token){
+					return $http.get(config.api.baseurl + '/leaderboards/' + token + '/global');
+				},
 				getLeaderboard: function(item) {
 					return $http.post(config.api.baseurl + '/leaderboards/standings', item);
 				},
-				"delete": function(id) {
-					return $http["delete"](config.api.baseurl + '/leaderboards/' + id);
+				"delete": function(token, gameId) {
+					return $http["delete"](config.api.baseurl + '/leaderboards/' + token + '/' + gameId);
+				},
+				"deleteGlobal": function (token){
+					return $http["delete"](config.api.baseurl + '/leaderboards/' + token + '/global')
 				}
 			}
 		};

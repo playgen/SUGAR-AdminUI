@@ -23,22 +23,36 @@ angular.module('sgaAdminApp').controller('ResourcesAllCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
-			return ResourcesApi['games'].listResources($scope.itemId).then(function(res) {
+			if ($scope.itemId != "global")
+			{
+				ResourcesApi['games'].listResources($scope.itemId).then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.items = res.data['response'];
+					}
+				});
+				ResourcesApi['games'].get($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data['response'];
+					$scope.gameFound = true;
+					$scope.gameName = res.data['response'].name;
+				} else {
+					$scope.gameFound = false;
 				}
-			});
-		};
-		ResourcesApi['games'].get($scope.itemId).then(function(res) {
-			if (res.status === 200 && res.data != null) {
-				$scope.gameFound = true;
-				$scope.gameName = res.data['response'].name;
-			} else {
-				$scope.gameFound = false;
+				}).catch(function() {
+					$scope.gameFound = false;
+				});
 			}
-		}).catch(function() {
-			$scope.gameFound = false;
-		});
+			else
+			{
+				ResourcesApi['games'].listGlobalResources().then(function(res){
+					if (res.status === 200 && res.data != null){
+						$scope.items = res.data['response'];
+					}
+				});
+				$scope.gameName = "Global";
+				$scope.gameFound = true;
+			}
+		};
+		
 		$scope.manageResources = function() {
 			$location.path("/resources/" + $scope.itemId + "/manage");
 		};

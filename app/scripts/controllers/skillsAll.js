@@ -26,7 +26,7 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
 		$scope.init = function() {
 			if ($scope.itemId != "global")
 			{
-				return SkillsApi['skills'].listSkills($scope.itemId).then(function(res) {
+				SkillsApi['skills'].listSkills($scope.itemId).then(function(res) {
 					if (res.status === 200 && res.data != null) {
 						$scope.items = res.data['response'];
 					}
@@ -44,7 +44,7 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
 			}
 			else
 			{
-				return SkillsApi['skills'].globalSkills().then(function(res) {
+				SkillsApi['skills'].globalSkills().then(function(res) {
 					if (res.status === 200 && res.data != null) {
 						$scope.items = res.data['response'];
 					}

@@ -29,33 +29,57 @@ angular.module('sgaAdminApp').controller('ResourcesActorsManageCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
-			ResourcesApi['games'].listPlayerResources($scope.actorId, $scope.itemId).then(function(res)
+			if ($scope.itemId != "global")
 			{
-				if (res.status === 200 && res.data != null){
-					$scope.actorItems = res.data;
-				}
-			});
-			return ResourcesApi['games'].listResources($scope.itemId).then(function(res) {
-				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data['response'];
-				}
-			});
-		};
-		ResourcesApi['games'].get($scope.itemId).then(function(res) {
-			if (res.status === 200 && res.data != null) {
+				ResourcesApi['games'].listActorResources($scope.actorId, $scope.itemId).then(function(res)
+				{
+					if (res.status === 200 && res.data != null){
+						$scope.actorItems = res.data['response'];
+					}
+				});
+				ResourcesApi['games'].listResources($scope.itemId).then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.items = res.data['response'];
+					}
+				});
+
+				ResourcesApi['games'].get($scope.itemId).then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.gameFound = true;
+						$scope.gameName = res.data['response'].name;
+					} else {
+						$scope.gameFound = false;
+					}
+				}).catch(function() {
+					$scope.gameFound = false;
+				});
+				ResourcesApi[$scope.actorType].get($scope.actorId).then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.actorName = res.data['response'].name;
+					}
+				});
+			}
+			else
+			{
+				ResourcesApi['games'].listActorGlobalResources().then(function(res)
+				{
+					if (res.status === 200 && res.data != null){
+						$scope.actorItems = res.data['response'];
+					}
+				});
+				ResourcesApi['games'].listGlobalResources().then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.items = res.data['response'];
+					}
+				});	
+
+				$scope.gameName = "Global";
+				$scope.actorName = "";
 				$scope.gameFound = true;
-				$scope.gameName = res.data['response'].name;
-			} else {
-				$scope.gameFound = false;
 			}
-		}).catch(function() {
-			$scope.gameFound = false;
-		});
-		ResourcesApi[$scope.actorType].get($scope.actorId).then(function(res) {
-			if (res.status === 200 && res.data != null) {
-				$scope.actorName = res.data['response'].name;
-			}
-		});
+
+		};
+		
 		$scope.back = function() {
 			//go back to resources games list
 			$location.path("/resources/" + $scope.itemId);
