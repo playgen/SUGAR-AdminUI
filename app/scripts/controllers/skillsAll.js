@@ -89,9 +89,12 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
 		};
 		$scope.remove = function(item)
 		{
-			SkillsApi['skills']["delete"](item.id).then(function(){
-				$scope.init();
+			return modalManager.open('deleteSkill', {
+				item: item,
+				itemId: $scope.itemId
+
 			});
+
 		};
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
@@ -109,6 +112,41 @@ angular.module('sgaAdminApp').controller('SkillsAllCtrl', [
 				$uibModalInstance.close();
 				return $rootScope.$broadcast('savedItem');
 			});
+		};
+		return $scope.close = function() {
+			return $uibModalInstance.close();
+		};
+	}
+]).controller('ConfirmDeleteSkillModalCtrl', [
+	'$scope', '$rootScope', '$uibModalInstance', 'SkillsApi', 'modaldata',
+	function($scope, $rootScope, $uibModalInstance, SkillsApi, modaldata) {
+
+		$scope.item = modaldata.item;
+		$scope.itemId = modaldata.itemId;
+
+		if (modaldata.item != null) {
+			$scope.item = modaldata.item;
+		} else if (modaldata.itemid != null) {
+			$scope.item = {};
+			usersApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
+				return console.log(data);
+			});
+		}
+		$scope["delete"] = function() {
+			if ($scope.itemId != "global")
+			{
+				SkillsApi['skills']["delete"]($scope.item.token, $scope.itemId).then(function(){
+					$uibModalInstance.close();
+					return $rootScope.$broadcast('savedItem');
+				});
+			}
+			else
+			{
+				SkillsApi['skills']["deleteGlobal"]($scope.item.token).then(function(){
+					$uibModalInstance.close();
+					return $rootScope.$broadcast('savedItem');
+				});
+			}
 		};
 		return $scope.close = function() {
 			return $uibModalInstance.close();

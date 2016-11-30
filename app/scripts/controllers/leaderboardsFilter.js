@@ -60,18 +60,11 @@ angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
 			});
 		};
 		$scope["delete"] = function(item) {
-			if ($scope.itemId != "global")
-			{
-				LeaderboardsApi['leaderboard'].delete(item.token, item.id).then(function(res) {
-					$scope.init();
-				});
-			}
-			else
-			{
-				LeaderboardsApi['leaderboard'].deleteGlobal(item.token).then(function(res) {
-					$scope.init();
-				});
-			}
+			return modalManager.open('deleteLeaderboard', {
+				item: item,
+				itemId: $scope.itemId
+
+			});
 		};
 		$scope.showLeaderboard = function(item) {
 			$location.path('/leaderboards/' + $scope.itemId + '/' + item.token);
@@ -96,6 +89,41 @@ angular.module('sgaAdminApp').controller('LeaderboardsFilterCtrl', [
 				$uibModalInstance.close();
 				return $rootScope.$broadcast('savedItem');
 			});
+		};
+		return $scope.close = function() {
+			return $uibModalInstance.close();
+		};
+	}
+]).controller('ConfirmDeleteLeaderboardModalCtrl', [
+	'$scope', '$rootScope', '$uibModalInstance', 'LeaderboardsApi', 'modaldata',
+	function($scope, $rootScope, $uibModalInstance, LeaderboardsApi, modaldata) {
+
+		$scope.item = modaldata.item;
+		$scope.itemId = modaldata.itemId;
+
+		if (modaldata.item != null) {
+			$scope.item = modaldata.item;
+		} else if (modaldata.itemid != null) {
+			$scope.item = {};
+			usersApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
+				return console.log(data);
+			});
+		}
+		$scope["delete"] = function() {
+			if ($scope.itemId != "global")
+			{
+				return LeaderboardsApi['leaderboard'].delete($scope.item.token, item.id).then(function(res) {
+					$uibModalInstance.close();
+					return $rootScope.$broadcast('savedItem');
+				});
+			}
+			else
+			{
+				return LeaderboardsApi['leaderboard'].deleteGlobal($scope.item.token).then(function(res) {
+					$uibModalInstance.close();
+					return $rootScope.$broadcast('savedItem');
+				});
+			}
 		};
 		return $scope.close = function() {
 			return $uibModalInstance.close();

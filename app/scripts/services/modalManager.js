@@ -49,6 +49,18 @@ angular.module('sgaAdminApp').service('modalManager', [
 				temp: 'confirmDeleteModal.html',
 				cont: 'ConfirmDeleteGameModalCtrl'
 			},
+			'deleteAchievement':{
+				temp: 'confirmDeleteModal.html',
+				cont: 'ConfirmDeleteAchievementModalCtrl'
+			},
+			'deleteSkill':{
+				temp: 'confirmDeleteModal.html',
+				cont: 'ConfirmDeleteSkillModalCtrl'
+			},
+			'deleteLeaderboard': {
+				temp: 'confirmDeleteModal.html',
+				cont: 'ConfirmDeleteLeaderboardModalCtrl'
+			},
 			'showAlliances': {
 				temp: 'showAllianceModal.html',
 				cont: 'showAllianceModalCtrl'
@@ -93,6 +105,7 @@ angular.module('sgaAdminApp').service('modalManager', [
 				temp: 'createResourceModal.html',
 				cont: 'CreateResourceModalCtrl'
 			}
+
 		};
 		modalManager = {
 			open: function(modaltype, data) {

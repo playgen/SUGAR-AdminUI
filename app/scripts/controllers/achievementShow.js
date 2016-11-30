@@ -81,20 +81,10 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
 			return input;
 		};
 		$scope.remove = function(item) {
-			if ($scope.itemId != "global")
-			{
-				console.log("Deleting: " + item.id + "from game: " + $scope.itemId);
-				AchievementsApi['achievements'].delete(item.id, $scope.itemId).then(function(res) {
-					$scope.init();
-				});
-			}
-			else
-			{
-				console.log("Deleting: " + item.id + "from game: " + $scope.itemId);
-				AchievementsApi['achievements'].deleteGlobal(item.id).then(function(res) {
-					$scope.init();
-				});
-			}
+			return modalManager.open('deleteAchievement', {
+				item: item,
+				itemId: $scope.itemId
+			});
 		};
 		$scope.add = function(item) {
 			$location.path('/achievements/' + $scope.itemId + '/new');
@@ -106,5 +96,40 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
 		});
+	}
+]).controller('ConfirmDeleteAchievementModalCtrl', [
+	'$scope', '$rootScope', '$uibModalInstance', 'AchievementsApi', 'modaldata',
+	function($scope, $rootScope, $uibModalInstance, AchievementsApi, modaldata) {
+
+		$scope.item = modaldata.item;
+		$scope.itemId = modaldata.itemId;
+
+		if (modaldata.item != null) {
+			$scope.item = modaldata.item;
+		} else if (modaldata.itemid != null) {
+			$scope.item = {};
+			usersApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
+				return console.log(data);
+			});
+		}
+		$scope["delete"] = function() {
+			if ($scope.itemId != "global")
+			{
+				AchievementsApi['achievements'].delete(item.token, $scope.itemId).then(function(res) {
+					$uibModalInstance.close();
+					return $rootScope.$broadcast('savedItem');
+				});
+			}
+			else
+			{
+				AchievementsApi['achievements'].deleteGlobal(item.token).then(function(res) {
+					$uibModalInstance.close();
+					return $rootScope.$broadcast('savedItem');
+				});
+			}
+		};
+		return $scope.close = function() {
+			return $uibModalInstance.close();
+		};
 	}
 ]);
