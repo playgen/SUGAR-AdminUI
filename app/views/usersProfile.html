@@ -15,21 +15,22 @@
 	<button class="btn btn-primary" title="View User Information" ng-click="userInfo()" ng-disabled="showInfo">Details</button>
 	<button class="btn btn-primary" title="View Friends" ng-click="userFriends()" ng-disabled="showFriends">Friends</button>
 	<button class="btn btn-primary" title="View Groups" ng-click="userGroups()" ng-disabled="showGroups">Groups</button>
-	<button class="btn btn-primary" title="Close" ng-click="closeTable()" ng-if="showGroups || showFriends || showInfo">Close</button>
+	<button class="btn btn-primary" title="Edit Account Details" ng-click="userAccount()" ng-disabled="showAccount">Settings</button>
+	<button class="btn btn-primary" title="Close" ng-click="closeTable()" ng-if="showGroups || showFriends || showInfo || showAccount">Close</button>
 </div>
 </contentHeader>
 <contentMain>	
 <div ng-init="init()" ng-if="userFound" >
-	<table class="table table-bordered" ng-if="showInfo">
+	<table class="table table-bordered table-hover" ng-if="showInfo">
 		<tr>
 			<td style="width: 10px"></td>
-			<th>{{userName}}'s Details</th>
+			<th>Details</th>
 		</tr>
 	</table>
-	<table class="table table-bordered" ng-if="showFriends">
+	<table class="table table-bordered table-hover" ng-if="showFriends">
 		<tr>
 			<td style="width: 10px"></td>
-			<th>{{userName}}'s Friends</th>
+			<th>Friends</th>
 		</tr>
 		<tr class="listitem">
 			<td style="width: 10px"></td>
@@ -55,7 +56,7 @@
             <td>{{item.name}}</td>
 			<td>Request Sent</td>
             <td>
-                <button class="btn btn-danger pull-right" type="button" ng-click="removePending(item)"><i class="fa fa-times"> Delete</i></button>
+                <button class="btn btn-danger pull-right" type="button" ng-click="removePending(item)"><i class="fa fa-times"> Cancel</i></button>
             </td>
 	    </tr>
 
@@ -69,10 +70,10 @@
             </td>
 	    </tr>
 	</table>
-	<table class="table table-bordered" ng-if="showGroups">
+	<table class="table table-bordered table-hover" ng-if="showGroups">
 		<tr>
 			<td style="width: 10px"></td>
-			<th>{{userName}}'s Groups</th>
+			<th>Groups</th>
 		</tr>
 		<tr class="listitem">
 			<td style="width: 10px"></td>
@@ -89,10 +90,72 @@
             </td>
 	    </tr>
 	</table>
+	<div ng-if="showAccount">
+		<button class="btn btn-danger pull-left" type="button" ng-click="delete(item)">Delete User</button>
+	</div>
 </div>
 </contenMain>
 <contentFooter>
-	<div class="col-xs-4 col-xs-offset-4 text-center">
-		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+	<div class="col-xs-3" ng-if="showFriends">
+		<button class="btn btn-success pull-left" type="button" ng-click="addFriend(item)"><i class="fa fa-user"> Add New Friend</i></button>
+	</div>
+	<div class="col-xs-3" ng-if="showGroups">
+		<button class="btn btn-success pull-left" type="button" ng-click="addGroup(item)"><i class="fa fa-group"> Join Group</i></button>
+	</div>
+	<div class="col-xs-9 text-center" ng-if="showGroups || showFriends">
+		<uib-pagination class="pull-right" total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 	</div>
 </contentFooter>
+
+<!-- request to add a new friend -->
+
+<script type="text/ng-template" id="addFriendModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title"><span>Add a new Friend</h3>
+    </div>
+    <div class="modal-body">        
+        <class>Enter Player Name</class>
+        <form name="myForm">
+        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" placeholder="Username" required/>
+        </form>
+        <class="form-control" ng-if="!exists">Error: Player Not Found</class>
+    </div>
+    <div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> Cancel</button> 
+        <button class="btn btn-success" type="button" ng-click="add(item)"ng-disabled="myForm.$invalid"></i> Add</button>        
+    </div>>
+</script>
+
+<!-- Add player to a group -->
+
+<script type="text/ng-template" id="addGroupModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title"><span>Join a new Group </span></h3>
+    </div>
+    <form name="myForm">
+        <div class="modal-body">
+            <class>Enter Group Name</class>
+            <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" placeholder="Group name" required/>
+            <class="form-control" ng-if="!exists">Error: Group Not Found</class>
+        </div>
+    </form>
+    <div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> Cancel</button>   
+        <button class="btn btn-success" type="button" ng-click="add(item)" ng-disabled="myForm.$invalid">Add</button>           
+    </div>>
+</script>
+
+<!-- Confirm that we want to delete the user  -->
+
+<script type="text/ng-template" id="confirmDeleteModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title">You are deleting {{userName}}</h3>
+	</div>
+	<div class="modal-body">
+		Are you sure you want to delete the user {{userName}}?
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> No</button>
+		<button class="btn btn-success" type="button" ng-click="delete()"><i class="fa fa-trash-o"></i> Yes</button>
+	</div>
+</script>

@@ -114,27 +114,4 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
 			return $uibModalInstance.close();
 		};
 	}
-]).controller('ConfirmDeleteUserModalCtrl', [
-	'$scope', '$rootScope', '$uibModalInstance', 'UsersApi', 'modaldata',
-	function($scope, $rootScope, $uibModalInstance, UsersApi, modaldata) {
-		$scope.itemtype = modaldata.itemtype;
-		$scope.config = modaldata.config;
-		if (modaldata.item != null) {
-			$scope.item = modaldata.item;
-		} else if (modaldata.itemid != null) {
-			$scope.item = {};
-			usersApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
-				return console.log(data);
-			});
-		}
-		$scope["delete"] = function() {
-			return UsersApi[$scope.itemtype]["delete"]($scope.item.id).then(function() {
-				$uibModalInstance.close();
-				return $rootScope.$broadcast('savedItem');
-			});
-		};
-		return $scope.close = function() {
-			return $uibModalInstance.close();
-		};
-	}
 ]);

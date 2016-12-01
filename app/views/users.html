@@ -13,7 +13,7 @@
 <contentMain>
 
 <div ng-init="init()">
-	<table class="table table-bordered">
+	<table class="table table-bordered table-hover">
 		<tr class="listitem">
 			<th style="width: 10px"></th>
 			<th>User Name</th>
@@ -33,27 +33,15 @@
 </div>
 </contentMain>
 <contentFooter>
-	<div class="col-xs-4 col-xs-offset-4 text-center">
-		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+	<div class="col-xs-3 text-center button-container">
+		<button class="btn btn-success pull-left" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new user</button>
 	</div>
-	<div class="col-xs-4 text-center button-container">
-		<button class="btn btn-success pull-right" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new user</button>
+	<div class="col-xs-9 text-center">
+		<uib-pagination class="pull-right" total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 	</div>
-</contentFooter>
-<!-- Confirm that we want to delete the user  -->
 
-<script type="text/ng-template" id="confirmDeleteModal.html">
-	<div class="modal-header">
-		<h3 class="modal-title">You are deleting {{config.display.individualTitle(item)}}</h3>
-	</div>
-	<div class="modal-body">
-		Are you sure you want to delete the user {{config.display.individualTitle(item)}}?
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> No, cancel</button>
-		<button class="btn btn-success" type="button" ng-click="delete()"><i class="fa fa-trash-o"></i> Yes, delete {{config.display.individualTitle(item)}}</button>
-	</div>
-</script>
+</contentFooter>
+
 
 <!-- Create a new user  -->
 
