@@ -9,10 +9,10 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('UsersCtrl', [
-	'$scope', '$routeParams', '$location', 'modalManager', 'UsersApi',
-	function($scope, $routeParams, $location, modalManager, UsersApi) {
-		$scope.itemtype = $routeParams.itemtype;
-		$scope.itemid = $routeParams.itemid;
+	'$scope', '$stateParams', '$location', 'modalManager', 'UsersApi',
+	function($scope, $stateParams, $location, modalManager, UsersApi) {
+		$scope.itemtype = $stateParams.itemtype;
+		$scope.itemid = $stateParams.itemid;
 
 		$scope.items = [];
 		$scope.pagination = {
