@@ -36,22 +36,25 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			controller: 'UsersCtrl',
 			login:true
 		})
-		.state('user.profile', {
-			url: '/:itemId',
+		.state('userProfile', {
+			url: '/users/:itemId',
 			templateUrl: 'views/usersProfile.html',
 			controller: 'UsersProfileCtrl'
 		})	
-		.state('user.details', {
+		.state('userProfile.Details', {
 			url: '/details',
-			templateUrl: 'views/users.html'
+			templateUrl: 'views/usersProfile.Details.html',
+			controller: 'UsersProfileDetailsCtrl'
 		})	
-		.state('user.friends', {
+		.state('userProfile.Friends', {
 			url: '/friends',
-			templateUrl: 'views/users.html'
+			templateUrl: 'views/usersProfile.Friends.html',
+			controller: 'UsersProfileFriendsCtrl'
 		})	
-		.state('user.groups', {
+		.state('userProfile.Groups', {
 			url: '/groups',
-			templateUrl: 'views/users.html'
+			templateUrl: 'views/usersProfile.Groups.html',
+			controller: 'UsersProfileGroupsCtrl'
 		});	
 	// return $routeProvider.when('/login', {
 	// 	templateUrl: 'views/_login.html',

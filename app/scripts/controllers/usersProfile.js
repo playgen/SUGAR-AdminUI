@@ -32,35 +32,6 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
-			if ($scope.showFriends)
-			{
-				$scope.items = [];
-				$scope.pendings = [];
-				$scope.requests = [];
-				UsersApi['friends'].list($scope.itemId).then(function(res) {
-					if ((res != null ? res.status : void 0) === 200 && (res.data['response'].length > 0)) {
-						$scope.items = res.data['response'];
-					}
-				});
-				UsersApi['friendRequests'].listPending($scope.itemId).then(function(res) {
-					if (res.status === 200 && res.data != null) {
-						$scope.pendings = res.data['response'];
-					}
-				});
-				UsersApi['friendRequests'].list($scope.itemId).then(function(res) {
-					if (res != null && res.data != null) {
-						$scope.requests = res.data['response'];
-					}
-				});
-			}
-			if ($scope.showGroups)
-			{
-				UsersApi['userGroups'].list($scope.itemId).then(function(res) {
-				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data['response'];
-				}
-			});
-			}
 			UsersApi['users'].getById($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data['response'].name != null) {
 					$scope.userName = res.data['response'].name;
@@ -71,30 +42,6 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 			}).catch(function() {
 				$scope.userFound = false;
 			});
-		};
-		$scope.userFriends = function() {
-			$scope.DisableViews();
-			$scope.showFriends = true;
-
-			$scope.init();
-		};
-		$scope.userGroups = function() {
-			$scope.DisableViews();
-			$scope.showGroups = true;
-
-			$scope.init();
-		};
-		$scope.userInfo = function(){
-			$scope.DisableViews();
-			$scope.showInfo = true;
-
-			$scope.init();
-		};
-		$scope.userAccount = function(){
-			$scope.DisableViews();
-			$scope.showAccount = true;
-
-			$scope.init();
 		};
 		$scope.closeTable = function(){
 			$scope.DisableViews();
