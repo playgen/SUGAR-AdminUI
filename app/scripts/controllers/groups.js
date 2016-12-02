@@ -31,7 +31,7 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 						(function(i) {
 							GroupsApi['members'].list($scope.items[i].id).then(function(res) {
 								$scope.items[i].members = null;
-								$scope.items[i].members = res.data['response'].length;
+								$scope.items[i].members = res.data['response'].length == 1 ? "1 Member" : res.data['response'].length + " Members";
 							});
 						})(i);
 					}
