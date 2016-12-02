@@ -14,11 +14,6 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemId = $stateParams.itemId;
 
-		$scope.showFriends = false;
-		$scope.showGroups = false;
-		$scope.showInfo = false;
-		$scope.showAccount = false;
-
 		$scope.userFound = true;
 
 		$scope.userName = '';
@@ -44,25 +39,11 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 			});
 		};
 		$scope.closeTable = function(){
-			$scope.DisableViews();
-
 			$scope.init();
 		};
 
-		$scope.addFriend = function(item) {
-			return modalManager.open('addFriend', {
-				userName: $scope.userName,
-				itemId: $scope.itemId,
-				item: item
-			});
-		};
-		$scope.addGroup = function(item) {
-			return modalManager.open('addGroup', {
-				itemtype: $scope.itemtype,
-				itemId: $scope.itemId,
-				item: item
-			});
-		};
+		
+		
 
 		$scope["delete"] = function(item) {
 			return modalManager.open('deleteUser', {
@@ -75,13 +56,6 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 		$scope.back = function() {
 			//go back to users list
 			$location.path("/users");
-		};
-
-		$scope.DisableViews = function(){
-			$scope.showGroups = false;
-			$scope.showFriends = false;
-			$scope.showInfo = false;
-			$scope.showAccount = false;
 		};
 
 		return $scope.$on('savedItem', function(event, args) {

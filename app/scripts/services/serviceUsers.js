@@ -51,10 +51,10 @@ angular.module('sgaAdminApp').service('UsersApi', [
 				}
 			},
 			'friendRequests': {
-				listPending: function(id) {
+				listSentRequests: function(id) {
 					return $http.get(config.api.baseurl + ("/userfriend/sentrequests/" + id));
 				},
-				list: function(id) {
+				listRequests: function(id) {
 					return $http.get(config.api.baseurl + "/userfriend/requests/" + id);
 				},
 				update: function(item) {

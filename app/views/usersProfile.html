@@ -1,45 +1,29 @@
 <contentHeader>
-<div>
-	<div class="col-xs-12">
-		<h4 class="" ng-click="back()"> Back to All Users</h4>
+	<div>
+		<div class="col-xs-12">
+			<h4 class="" ng-click="back()"> Back to All Users</h4>
+		</div>
 	</div>
-</div>
-<div class="col-xs-12" ng-if="!userFound">
-    <h3><span>Cannot display user, no user found with ID:- </span>{{itemId}}<span></span></h3>
-</div>
+	<div class="col-xs-12" ng-if="!userFound">
+	    <h3><span>Cannot display user, no user found with ID:- </span>{{itemId}}<span></span></h3>
+	</div>
 
-<div class="col-xs-12" ng-if="userFound">
-	<h2>{{userName}}'s Profile</h2>
-</div>
-<div class="col-xs-12" ng-if="userFound">
-	<a ui-sref="userProfile.Details" ui-sref-active="activeState">Details</a>
-	<a ui-sref="userProfile.Friends" ui-sref-active="activeState">Friends</a>
-	<a ui-sref="userProfile.Groups" ui-sref-active="activeState">Groups</a>
-	<!-- <button class="btn btn-primary" title="View User Information" ng-click="userInfo()" ng-disabled="showInfo">Details</button>
-	<button class="btn btn-primary" title="View Friends" ng-click="userFriends()" ng-disabled="showFriends">Friends</button>
-	<button class="btn btn-primary" title="View Groups" ng-click="userGroups()" ng-disabled="showGroups">Groups</button>
-	<button class="btn btn-primary" title="Edit Account Details" ng-click="userAccount()" ng-disabled="showAccount">Settings</button>
-	<button class="btn btn-primary" title="Close" ng-click="closeTable()" ng-if="showGroups || showFriends || showInfo || showAccount">Close</button> -->
-</div>
+	<div class="col-xs-12" ng-if="userFound">
+		<h2>{{userName}}'s Profile</h2>
+	</div>
+	<div class="col-xs-12" ng-if="userFound">
+		<button class="btn btn-primary" ui-sref="userProfile.Details" ui-sref-active="activeState">Details</button>
+		<button class="btn btn-primary" ui-sref="userProfile.Friends" ui-sref-active="activeState">Friends</button>
+		<button class="btn btn-primary" ui-sref="userProfile.Groups" ui-sref-active="activeState">Groups</button>
+	</div>
 </contentHeader>
 <contentMain>	
-<div ng-init="init()" ng-if="userFound" >
-	<div>
-		<ui-view></ui-view>
+	<div ng-init="init()" ng-if="userFound" >
+		<div>
+			<ui-view></ui-view>
+		</div>
 	</div>
-</div>
 </contenMain>
-<contentFooter>
-	<div class="col-xs-3" ng-if="showFriends">
-		<button class="btn btn-success pull-left" type="button" ng-click="addFriend(item)"><i class="fa fa-user"> Add New Friend</i></button>
-	</div>
-	<div class="col-xs-3" ng-if="showGroups">
-		<button class="btn btn-success pull-left" type="button" ng-click="addGroup(item)"><i class="fa fa-group"> Join Group</i></button>
-	</div>
-	<div class="col-xs-9 text-center" ng-if="showGroups || showFriends">
-		<uib-pagination class="pull-right" total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
-	</div>
-</contentFooter>
 
 <!-- request to add a new friend -->
 

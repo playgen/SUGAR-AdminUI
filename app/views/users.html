@@ -21,13 +21,9 @@
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td></td>
-            <td ng-click="showProfile(item)">{{item.name}}</td>
-			<!-- <td>
-				<button class="btn btn-primary btn-sm" title="Edit this User" ng-click="select(item)" ng-if="false"><i class="fa fa-pencil"></i></button>
-				<button class="btn btn-primary btn-sm" title="Show Friends For User" ng-click="showFriends(item)"><i class="fa fa-eye"> Friends</i></button>
-				<button class="btn btn-primary btn-sm" title="Show Groups For User" ng-click="showGroups(item)"><i class="fa fa-eye"> Groups</i></button>
-				<button class="btn btn-danger btn-sm" title="Delete this User" ng-click="delete(item)"><i class="fa fa-trash-o"> Delete</i></button>
-            </td> -->
+            <td>
+            	<button class="col-xs-12 text-left btn-secondary" ng-click="showProfile(item)">{{item.name}}</button>
+        	</td>
 		</tr>
 	</table>
 </div>
