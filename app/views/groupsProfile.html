@@ -1,0 +1,59 @@
+<contentHeader>
+	<div>
+		<div class="col-xs-12">
+			<h4 class="" ng-click="back()"> Back to All Groups</h4>
+		</div>
+	</div>
+	<div class="col-xs-12" ng-if="!groupFound">
+	    <h3><span>Cannot display group, no group found with ID:- </span>{{itemId}}<span></span></h3>
+	</div>
+
+	<div class="col-xs-12" ng-if="groupFound">
+		<h2>Group: {{groupName}}</h2>
+	</div>
+	<div class="col-xs-12" ng-if="groupFound">
+		<button class="btn btn-primary" ui-sref="groupsProfile.Details" ui-sref-active="activeState">Details</button>
+		<button class="btn btn-primary" ui-sref="groupsProfile.Members" ui-sref-active="activeState">Members</button>
+	</div>
+</contentHeader>
+<contentMain>	
+	<div ng-init="init()" ng-if="groupFound" >
+		<div>
+			<ui-view></ui-view>
+		</div>
+	</div>
+</contenMain>
+
+<!-- Add a member to the group -->
+
+<script type="text/ng-template" id="addMemberModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title"><span>Add a new member to </span>{{itemtype}}<span>:</span></h3>
+    </div>
+    <div class="modal-body">
+        <class>Enter Player Name</class>
+        <form name="myForm">
+        <input type="text" placeholder="Username" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" required/>
+        </form>
+        <class="form-control" ng-if="!exists">Error: Player Not Found</class>
+    </div>
+    <div class="modal-footer">
+        		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> Cancel</button>  
+                <button class="btn btn-success" type="button" ng-click="add(item)"ng-disabled="myForm.$invalid">Add</button>      
+    </div>>
+</script>
+
+<!-- Confirm that we want to delete the group  -->
+
+<script type="text/ng-template" id="confirmDeleteModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title">You are deleting {{groupName}}</h3>
+	</div>
+	<div class="modal-body">
+		Are you sure you want to delete the group {{groupName}}?
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> No, cancel</button>
+		<button class="btn btn-success" type="button" ng-click="delete()"><i class="fa fa-trash-o"></i> Yes, delete {{config.display.individualTitle(item)}}</button>
+	</div>
+</script>

@@ -15,7 +15,7 @@
 	</tr>
 
 	<!-- Show friend requests from other players first -->
-	<tr class="listitem" ng-repeat="item in requests | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingIncomingRequests">
+	<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingIncomingRequests">
         <td></td>
 		<td>{{item.name}}</td>
 		<td>Pending</td>
@@ -26,7 +26,7 @@
     </tr>
 
 	<!-- Show friend requests sent second -->
-	<tr class="listitem" ng-repeat="item in pendings | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingPendingRequests">
+	<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingPendingRequests">
 		<td></td>
         <td>{{item.name}}</td>
 		<td>Request Sent</td>

@@ -1,32 +1,31 @@
 <contentHeader>
-<div>
-	<div class="col-xs-12">
-		<h4 class="" ng-click="back()"> Back to Menu</h4>
+	<div>
+		<div class="col-xs-12">
+			<h4 class="" ng-click="back()"> Back to Menu</h4>
+		</div>
 	</div>
-</div>
-<div>
-	<div class="col-xs-12">
-		<h4>Below is all the registered users, from this page you can:<br />- View users' friends, add and delete friends and respond to friends requests.<br />- View users' groups, join new groups and leave exitsing groups.<br />- Create new users<br />- Edit users information<br />- Delete users</h4>
+	<div>
+		<div class="col-xs-12">
+			<h4>Below is all the registered users, from this page you can:<br />- View users' friends, add and delete friends and respond to friends requests.<br />- View users' groups, join new groups and leave exitsing groups.<br />- Create new users<br />- Edit users information<br />- Delete users</h4>
+		</div>
 	</div>
-</div>
 </contentHeader>
 <contentMain>
-
-<div ng-init="init()">
-	<table class="table table-bordered table-hover">
-		<tr class="listitem">
-			<th style="width: 10px"></th>
-			<th>User Name</th>
-			<th></th>
-		</tr>
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-			<td></td>
-            <td>
-            	<button class="col-xs-12 text-left btn-secondary" ng-click="showProfile(item)">{{item.name}}</button>
-        	</td>
-		</tr>
-	</table>
-</div>
+	<div ng-init="init()">
+		<table class="table table-bordered table-hover">
+			<tr class="listitem">
+				<th style="width: 10px"></th>
+				<th>User Name</th>
+				<th></th>
+			</tr>
+			<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+				<td></td>
+	            <td>
+	            	<button class="col-xs-12 text-left btn-secondary" ng-click="showProfile(item)">{{item.name}}</button>
+	        	</td>
+			</tr>
+		</table>
+	</div>
 </contentMain>
 <contentFooter>
 	<div class="col-xs-3 text-center button-container">

@@ -39,7 +39,8 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 		.state('userProfile', {
 			url: '/users/:itemId',
 			templateUrl: 'views/usersProfile.html',
-			controller: 'UsersProfileCtrl'
+			controller: 'UsersProfileCtrl',
+			login:true
 		})	
 		.state('userProfile.Details', {
 			url: '/details',
@@ -55,7 +56,30 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			url: '/groups',
 			templateUrl: 'views/usersProfile.Groups.html',
 			controller: 'UsersProfileGroupsCtrl'
-		});	
+		})
+
+		.state('groups', {
+			url: '/groups',
+			templateUrl: 'views/groups.html',
+			controller: 'GroupsCtrl',
+			login: true
+		})
+		.state('groupsProfile', {
+			url: '/groups/:itemId',
+			templateUrl: 'views/groupsProfile.html',
+			controller: 'GroupsProfileCtrl',
+			login: true
+		})
+		.state('groupsProfile.Details', {
+			url: '/details',
+			templateUrl: 'views/groupsProfile.Details.html',
+			controller: 'GroupsProfileDetailsCtrl'
+		})
+		.state('groupsProfile.Members', {
+			url: '/members',
+			templateUrl: 'views/groupsProfile.Members.html',
+			controller: 'GroupsProfileMembersCtrl'
+		});
 	// return $routeProvider.when('/login', {
 	// 	templateUrl: 'views/_login.html',
 	// 	controller: 'LoginCtrl',

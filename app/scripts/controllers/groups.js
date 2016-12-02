@@ -9,10 +9,10 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('GroupsCtrl', [
-	'$scope', '$routeParams', '$location', 'modalManager', 'GroupsApi',
-	function($scope, $routeParams, $location, modalManager, GroupsApi) {
-		$scope.itemtype = $routeParams.itemtype;
-		$scope.itemid = $routeParams.itemid;
+	'$scope', '$stateParams', '$location', 'modalManager', 'GroupsApi',
+	function($scope, $stateParams, $location, modalManager, GroupsApi) {
+		$scope.itemtype = $stateParams.itemtype;
+		$scope.itemid = $stateParams.itemid;
 
 		$scope.items = [];
 		$scope.pagination = {
@@ -44,12 +44,10 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 				item: item
 			});
 		};
-		$scope["delete"] = function(item) {
-			return modalManager.open('deleteGroup', {
-				itemtype: 'groups',
-				item: item
-			});
-		};
+		
+		$scope.showProfile = function(item){
+			$location.path('/groups/' + item.id);
+		}
 		$scope.create = function() {
 			return modalManager.open('createGroup', {
 				itemtype: 'groups'
@@ -66,51 +64,6 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 			return $scope.init();
 		});
 	}
-]).controller('EditGroupModalCtrl', [
-	'$scope', '$rootScope', '$uibModalInstance', 'GroupsApi', 'modalManager', 'modaldata',
-	function($scope, $rootScope, $uibModalInstance, GroupsApi, modalManager, modaldata) {
-		$scope.itemtype = modaldata.itemtype;
-		$scope.config = modaldata.config;
-		if (modaldata.item != null) {
-			$scope.item = modaldata.item;
-		} else if (modaldata.itemid != null) {
-			$scope.item = {};
-			GroupsApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
-				if ((data != null ? data.data : void 0) != null) {
-					return $scope.item = data.data;
-				} else {
-					$rootScope.$broadcast('savedItem')
-					return $uibModalInstance.close();
-				}
-			});
-		} else {
-			$uibModalInstance.close();
-			return $rootScope.$broadcast('savedItem');
-		}
-		$scope.editables = $scope.config.editables.view;
-		$scope.editables.forEach(function(e) {
-			return e.original = $scope.item[e.key];
-		});
-		$scope.link = function(itemtype, id) {
-			return modalManager.open('editGroup', {
-				itemtype: itemtype,
-				itemid: id
-			});
-		};
-		$scope.save = function() {
-			return GroupsApi[$scope.itemtype].update($scope.item.id, $scope.item).then(function() {
-				$uibModalInstance.close();
-				return $rootScope.$broadcast('savedItem');
-			});
-		};
-		return $scope.close = function() {
-			$scope.editables.forEach(function(e) {
-				return $scope.item[e.key] = e.original;
-			});
-			$rootScope.$broadcast('savedItem');
-			return $uibModalInstance.close();
-		};
-	}
 ]).controller('CreateGroupModalCtrl', [
 	'$scope', '$rootScope', '$uibModalInstance', 'GroupsApi', 'modaldata',
 	function($scope, $rootScope, $uibModalInstance, GroupsApi, modaldata) {
@@ -126,30 +79,6 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 		};
 		return $scope.close = function() {
 			$rootScope.$broadcast('savedItem');
-			return $uibModalInstance.close();
-		};
-	}
-]).controller('ConfirmDeleteGroupModalCtrl', [
-	'$scope', '$rootScope', '$uibModalInstance', 'GroupsApi', 'modaldata',
-	function($scope, $rootScope, $uibModalInstance, GroupsApi, modaldata) {
-		$scope.itemtype = modaldata.itemtype;
-		$scope.config = modaldata.config;
-		if (modaldata.item != null) {
-			$scope.item = modaldata.item;
-		} else if (modaldata.itemid != null) {
-			$scope.item = {};
-			GroupsApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
-				return console.log(data);
-			});
-		}
-		$scope["delete"] = function() {
-			return GroupsApi[$scope.itemtype]["delete"]($scope.item.id).then(function() {
-				$uibModalInstance.close();
-				return $rootScope.$broadcast('savedItem');
-			});
-		};
-		return $scope.close = function() {
-			$rootScope.$broadcast('savedItem')
 			return $uibModalInstance.close();
 		};
 	}

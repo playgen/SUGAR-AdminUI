@@ -3,16 +3,16 @@
 
 /**
  * @ngdoc function
- * @name sgaAdminApp.controller:GroupsCtrl
+ * @name sgaAdminApp.controller:GroupsProfileCtrl
  * @description
- * # GroupsCtrl
+ * # UsersCtrl
  * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('GroupsMembersCtrl', [
-	'$scope', '$routeParams', '$location', 'modalManager', 'GroupsApi',
-	function($scope, $routeParams, $location, modalManager, GroupsApi) {
-		$scope.itemtype = $routeParams.itemtype;
-		$scope.itemId = $routeParams.itemId;
+angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
+	'$scope', '$stateParams', '$location', 'modalManager', 'GroupsApi',
+	function($scope, $stateParams, $location, modalManager, GroupsApi) {
+		$scope.itemtype = $stateParams.itemtype;
+		$scope.itemId = $stateParams.itemId;
 
 		$scope.groupName = '';
 		$scope.groupFound = true;
@@ -38,6 +38,13 @@ angular.module('sgaAdminApp').controller('GroupsMembersCtrl', [
 				$scope.groupFound = false;
 			});
 		};
+		$scope["delete"] = function(item) {
+			return modalManager.open('deleteGroup', {
+				itemtype: 'groups',
+				groupName: $scope.groupName,
+				itemId: $scope.itemId
+			});
+		};
 		//our buttons
 		$scope.remove = function(item) {
 			var friendship = "{ RequestorId: " + item.id + ", AcceptorId: " + $scope.itemId + ", Accepted: false }"
@@ -58,44 +65,74 @@ angular.module('sgaAdminApp').controller('GroupsMembersCtrl', [
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
 		});
+
 	}
 ]).controller('addMemberModalCtrl', [
 	'$scope', '$rootScope', '$uibModalInstance', 'GroupsApi', 'modalManager', 'modaldata',
 	function($scope, $rootScope, $uibModalInstance, GroupsApi, modalManager, modaldata) {
-		$scope.itemtype = modaldata.itemtype;
-		$scope.config = modaldata.config;
+		$scope.groupName = modaldata.groupName;
 		$scope.itemId = modaldata.itemId;
+
 		$scope.exists = true;
 
 		if (modaldata.item != null) {
 			$scope.item = modaldata.item;
 		} else if (modaldata.itemid != null) {
-			GroupsApi['user'].get(modaldata.itemid).then(function(data) {
+			GroupsApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
 				if ((data != null ? data.data : void 0) != null) {
 					return $scope.item = data.data;
 				}
 			});
 		}
+
 		//our buttons
-		$scope.close = function(item) {
+		$scope.closeModal = function() {
 			$scope.exists = true;
-			$rootScope.$broadcast('savedItem')
-			return $uibModalInstance.close();
+			$uibModalInstance.close();
 		};
-		return $scope.add = function(item) {
+		$scope.add = function(item) {
 			GroupsApi['user'].get($scope.txtBox)
 
 			.then(function(res) {
 				if (res.data['response'][0] != null) {
 					//put the data backwards for testing as groups cannot request users join
 					var friendship = "{ RequestorId: " + res.data['response'][0].id + ", AcceptorId: " + $scope.itemId + ", AutoAccept: true }"
-					GroupsApi['members'].create(friendship).then(function(res) {
+					GroupsApi['members'].create(friendship)
+
+					.then(function(res) {
 						$uibModalInstance.close();
-						$rootScope.$broadcast('savedItem');
+						$rootScope.$broadcast('savedItem')
 					});
 				} else
 					$scope.exists = false;
 			});
 		};
 	}
+]).controller('ConfirmDeleteGroupModalCtrl', [
+	'$scope', '$rootScope', '$location', '$uibModalInstance', 'GroupsApi', 'modaldata',
+	function($scope, $rootScope, $location, $uibModalInstance, GroupsApi, modaldata) {
+		$scope.itemtype = modaldata.itemtype;
+		$scope.groupName = modaldata.groupName;
+		$scope.itemId = modaldata.itemId;
+
+		if (modaldata.item != null) {
+			$scope.item = modaldata.item;
+		} else if (modaldata.itemid != null) {
+			$scope.item = {};
+			usersApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
+				return console.log(data);
+			});
+		}
+		$scope["delete"] = function() {
+			return GroupsApi[$scope.itemtype]["delete"]($scope.itemId).then(function() {
+				$uibModalInstance.close();
+				$location.path("/groups");
+			});
+		};
+		return $scope.closeModal = function() {
+			return $uibModalInstance.close();
+		};
+	}
 ]);
+
+
