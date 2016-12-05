@@ -1,14 +1,13 @@
-<div class="col-xs-3">
-	<button class="btn btn-success" type="button" ng-click="addNew(item)"><i class="fa fa-user"> Add New Leaderboard</i></button>
-</div>
 <div ng-init="init()">
+	<div class="col-xs-3">
+		<button class="btn btn-success" type="button" ng-click="addNew()"><i class="fa fa-scores"> Add New Leaderboard</i></button>
+	</div>
 	<table class="table table-bordered table-hover">
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'token' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td style="width: 10px"></td>
-			<td>{{item.token}}</td>
-			<td>
-				<button class="btn btn-success btn-sm" title="Show this Leaderboard" ng-click="showLeaderboard(item)"><i class=""> View Leaderboard</i></button>
-				<button class="btn btn-danger btn-sm" title="Delete this Leaderboard" ng-click="delete(item)"><i class="fa fa-trash-o"> Delete</i></button>
+			<td><button class="col-xs-12 text-left btn-secondary" ng-click="showLeaderboard(item)"><b>{{item.token}}</b></button></td>
+			<td style="width: 30px">
+				<button class="btn btn-danger btn-sm" title="Delete this Leaderboard" ng-click="remove(item)"><i class="fa fa-times"> Remove</i></button>
 			</td>
 		</tr>
 	</table>

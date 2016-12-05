@@ -1,29 +1,27 @@
-<contentHeader>
-<div>
-	<div class="col-xs-3">
-		<h4 class="" ng-click="back()"> Back to Achievements</h4>
-	</div>
-</div>
-</contentHeader>
 <contentMain>
 <div>
+	<div class="col-xs-3">
+		<button class="btn btn-secondary" type="button" ng-click=back()>Back To Skills</button>
+	</div>
+</div>
+<div>
 	<div class="col-xs-12">
-		<h4>This page is used to create new achievements for the game, simply full out the information below and click 'Create Achievement', multiple criterias are possible using the 'Add Critera' button below</h4>
+		<h4>This page is used to create new skills for the game, simply full out the information below and click 'Create Skillls', multiple criterias are possible using the 'Add Critera' button below</h4>
 	</div>
 </div>
 <div ng-init="init()">
 	<form class="form-horizontal" name="myForm">
 	<table class="table table-bordered table-hover">
 		<div class="form-group">
-			<h4 for="inputName" class="col-xs-2 control-label">Achievement Name:</h4>
+			<h4 for="inputName" class="col-xs-2 control-label">Skill Name:</h4>
 			<div class="col-xs-10">
-				<input type="text" placeholder="Achievement Name" class="form-control" ng-model="item.Name" required/>
+				<input type="text" placeholder="Skill Name" class="form-control" ng-model="item.Name" required/>
 			</div>
 		</div>
 		<div class="form-group">
 			<h4 for="inputName" class="col-xs-2 control-label">Description:</h4>
 			<div class="col-xs-10">
-				<input type="text" placeholder="Achievement Description" class="form-control" ng-model="item.Description" required/>
+				<input type="text" placeholder="Skill Description" class="form-control" ng-model="item.Description" required/>
 			</div>
 		</div>
 		<div class="form-group">
@@ -39,11 +37,11 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<h4 for="inputName"  class="col-xs-2 control-label">Actor Type:</h4>
+			<h4 for="inputName" class="col-xs-2 control-label">Actor Type:</h4>
 			<div class="col-xs-10">
-				<select class="form-control" placeholder="User Achievement" ng-model="item.ActorType" required>
-					<option value="0">User Achievement</option>
-					<option value="1">Group Achievemnet</option>
+				<select class="form-control" ng-model="item.ActorType" required>
+					<option value="0">User Skill</option>
+					<option value="1">Group Skill</option>
 				</select>
 			</div>
 		</div>
@@ -51,9 +49,9 @@
 			<h4 for="inputName" class="col-xs-2 control-label">Reward</h4>
 		</div>
 		<div class="form-group">
-			<h5 for="inputName"" class="col-xs-2 control-label">Key:</h5>
+			<h5 for="inputName" class="col-xs-2 control-label">Key:</h5>
 			<div class="col-xs-10">
-				<input type="text" placeholder="Unique Reward Key" class="form-control" ng-model="item.Reward.Key"/>
+				<input type="text" placeholder="Unique reward Key" class="form-control" ng-model="item.Reward.Key"/>
 			</div>
 		</div>
 		<div class="form-group">
@@ -89,7 +87,7 @@
 					<option value="2">greater than</option>
 					<option value="3">greater than or equal to</option>
 					<option value="4">less than</option>
-					<option value="5">less than or equal to</option>
+					<option value="5">less than or eqaul to</option>
 				</select>
 			</td>
 			<td>Value<input type="text" placeholder="Value to match" class="form-control" ng-model="item[n].Value" required/></td>
@@ -104,44 +102,6 @@
 		<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="minusCriteria(item)" ng-if="criterias > 1">Remove Criteria</button>
 	</div>
 	<div class="col-xs-4 text-center button-container">
-		<button class="btn btn-success pull-right" type="button" ng-disabled="myForm.$invalid" ng-click="create()"><i class="fa fa-plus"></i> Create Achievement</button>
+		<button class="btn btn-success pull-right" type="button" ng-disabled="myForm.$invalid" ng-click="create()"><i class="fa fa-plus"></i> Create Skill</button>
 	</div>
 </contentFooter>
-
-
-<!-- Confirm that we want to delete the game  -->
-
-<script type="text/ng-template" id="confirmDeleteModal.html">
-	<div class="modal-header">
-		<h3 class="modal-title">You are deleting {{config.display.individualTitle(item)}}</h3>
-	</div>
-	<div class="modal-body">
-		Are you sure you want to delete the game {{config.display.individualTitle(item)}}?
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> No, cancel</button>
-		<button class="btn btn-success" type="button" ng-click="delete()"><i class="fa fa-trash-o"></i> Yes, delete {{config.display.individualTitle(item)}}</button>
-	</div>
-</script>
-
-<!-- Create a new game  -->
-
-<script type="text/ng-template" id="createModal.html">
-  <form name="myForm">
-	<div class="modal-header">
-		<h3 class="modal-title">Create new game</h3>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-xs-3"><label>Name</label></div>
-			<div class="col-xs-9">
-				<input type="text" class="form-control" ng-model="item.Name" required/>
-			</div>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
-		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Save</button>
-	</div>
-  </form>
-</script>

@@ -11,12 +11,8 @@
 angular.module('sgaAdminApp').controller('GamesProfileLeaderboardsCtrl', [
 	'$scope', '$stateParams', '$location', 'modalManager', 'LeaderboardsApi',
 	function($scope, $stateParams, $location, modalManager, LeaderboardsApi) {
-		$scope.itemToken = $stateParams.itemToken;
 		$scope.itemId = $stateParams.itemId;
 
-		$scope.leaderboardToken = $scope.itemToken;
-		$scope.leaderboardFound = true;
-		$scope.leaderboardName = '';
 
 		$scope.items = [];
 		$scope.pagination = {
@@ -24,66 +20,67 @@ angular.module('sgaAdminApp').controller('GamesProfileLeaderboardsCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
-			console.log($scope.itemId);
-			if ($scope.itemId != "global")
-			{
-				LeaderboardsApi['leaderboard'].getConfig($scope.itemToken, $scope.itemId).then(function(res){
-					if (res.status === 200 && res.data != null)
-					{
-						return LeaderboardsApi['leaderboard'].getLeaderboard(res.data).then(function(res) {
-							if (res.status === 200 && res.data != null) {
-								$scope.items = res.data['response'];
-							}
-						});
-					}
-				});
-				LeaderboardsApi['games'].get($scope.itemId).then(function(res) {
-					if (res.status === 200 && res.data != null) {
-						$scope.leaderboardFound = true;
-						$scope.leaderboardToken = res.data.Token;
-					} else {
-						$scope.leaderboardFound = false;
-					}
-				}).catch(function() {
-					$scope.leaderboardFound = false;
-				});
-			}
-			else
-			{
-				LeaderboardsApi['leaderboard'].getGlobalConfig($scope.itemId).then(function(res){
-					if (res.status === 200 && res.data != null)
-					{
-						LeaderboardsApi['leaderboard'].getLeaderboard(res.data).then(function(res) {
-							if (res.status === 200 && res.data != null) {
-								$scope.items = res.data['response'];
-							}
-						});
-					}
-				});
 
-				$scope.leaderboardFound = true;
-				$scope.leaderboardName = "Global";
-			}
-		};
-		
-		$scope.addNew = function(item) {
-			return modalManager.open('newLeaderboard', {});
-		};
-
-		$scope.apply = function(item) {
-			$scope.filter = item;
-			$scope.filter.GameID = $scope.itemId;
-			LeaderboardsApi['leaderboard'].list($scope.itemId).then(function(res) {
-				//change the $scope.items for population of the leaderboard list
-				if (res.status === 200 && res.data != null) {
+			// Get a list of leaderboards for this game
+			LeaderboardsApi['leaderboard'].list($scope.itemId).then(function(res){
+				if (res.status === 200 && res.data['response'] != null)
+				{
 					$scope.items = res.data['response'];
 				}
 			});
+
+			// if ($scope.itemId != "global")
+			// {
+			// 	LeaderboardsApi['leaderboard'].getConfig($scope.itemToken, $scope.itemId).then(function(res){
+			// 		if (res.status === 200 && res.data != null)
+			// 		{
+			// 			return LeaderboardsApi['leaderboard'].getLeaderboard(res.data).then(function(res) {
+			// 				if (res.status === 200 && res.data != null) {
+			// 					$scope.items = res.data['response'];
+			// 				}
+			// 			});
+			// 		}
+			// 	});
+			// 	LeaderboardsApi['games'].get($scope.itemId).then(function(res) {
+			// 		if (res.status === 200 && res.data != null) {
+			// 			$scope.leaderboardFound = true;
+			// 			$scope.leaderboardToken = res.data.Token;
+			// 		} else {
+			// 			$scope.leaderboardFound = false;
+			// 		}
+			// 	}).catch(function() {
+			// 		$scope.leaderboardFound = false;
+			// 	});
+			// }
+			// else
+			// {
+			// 	LeaderboardsApi['leaderboard'].getGlobalConfig($scope.itemId).then(function(res){
+			// 		if (res.status === 200 && res.data != null)
+			// 		{
+			// 			LeaderboardsApi['leaderboard'].getLeaderboard(res.data).then(function(res) {
+			// 				if (res.status === 200 && res.data != null) {
+			// 					$scope.items = res.data['response'];
+			// 				}
+			// 			});
+			// 		}
+			// 	});
+
+			// 	$scope.leaderboardFound = true;
+			// 	$scope.leaderboardName = "Global";
+			// }
 		};
-		$scope.back = function() {
-			//go back to resources games list
-			$location.path("/leaderboards/" + $scope.itemId);
+		
+		$scope.addNew = function() {
+			$location.path("/games/" + $scope.itemId + '/newLeaderboard');
 		};
+
+		$scope.remove = function(item) {
+			return modalManager.open('deleteLeaderboard', {
+				item: item,
+				itemId: $scope.itemId
+			});
+		};
+
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
 		});

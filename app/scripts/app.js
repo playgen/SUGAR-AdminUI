@@ -127,12 +127,17 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 		.state('gamesProfile.NewAchievement', {
 			url: '/newAchievement',
 			templateUrl: 'views/gamesProfile.NewAchievement.html',
-			controller: 'GamesProfileNewAchievementsCtrl'
+			controller: 'GamesProfileNewAchievementCtrl'
 		})
 		.state('gamesProfile.Skills', {
 			url: '/skills',
 			templateUrl: 'views/gamesProfile.Skills.html',
 			controller: 'GamesProfileSkillsCtrl'
+		})
+		.state('gamesProfile.NewSkill', {
+			url: '/newSkill',
+			templateUrl: 'views/gamesProfile.NewSkill.html',
+			controller: 'GamesProfileNewSkillCtrl'
 		})
 		.state('gamesProfile.Resources', {
 			url: '/resources',
@@ -143,20 +148,13 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			url: '/leaderboards',
 			templateUrl: 'views/gamesProfile.Leaderboards.html',
 			controller: 'GamesProfileLeaderboardsCtrl'
+		})
+		.state('gamesProfile.newLeaderboard', {
+			url: '/newLeaderboard',
+			templateUrl: 'views/gamesProfile.NewLeaderboard.html',
+			controller: 'GamesProfileNewLeaderboardCtrl'
 		});
 
-	// }).when('/achievements', {
-	// 	templateUrl: 'views/achievement.html',
-	// 	controller: 'AchievementCtrl',
-	// 	login: true
-	// }).when('/achievements/:itemId', {
-	// 	templateUrl: 'views/achievementShow.html',
-	// 	controller: 'AchievementShowCtrl',
-	// 	login: true
-	// }).when('/achievements/:itemId/new', {
-	// 	templateUrl: 'views/achievementNew.html',
-	// 	controller: 'AchievementNewCtrl',
-	// 	login: true
 	// }).when('/resources', {
 	// 	templateUrl: 'views/resources.html',
 	// 	controller: 'ResourcesCtrl',
@@ -177,41 +175,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 	// 	templateUrl: 'views/resourcesActorsManage.html',
 	// 	controller: 'ResourcesActorsManageCtrl',
 	// 	login: true
-	// }).when('/leaderboards', {
-	// 	templateUrl: 'views/leaderboards.html',
-	// 	controller: 'LeaderboardsCtrl',
-	// 	login: true
-	// }).when('/leaderboards/:itemId', {
-	// 	templateUrl: 'views/leaderboardsFilter.html',
-	// 	controller: 'LeaderboardsFilterCtrl',
-	// 	login: true
-	// }).when('/leaderboards/:itemId/:itemToken', {
-	// 	templateUrl: 'views/leaderboardsShow.html',
-	// 	controller: 'LeaderboardsShowCtrl',
-	// 	login: true
-	// }).when('/skills', {
-	// 	templateUrl: 'views/skills.html',
-	// 	controller: 'SkillsCtrl',
-	// 	login: true
-	// }).when('/skills/:itemId', {
-	// 	templateUrl: 'views/skillsAll.html',
-	// 	controller: 'SkillsAllCtrl',
-	// 	login: true
-	// }).when('/skills/:itemId/new', {
-	// 	templateUrl: 'views/skillsNew.html',
-	// 	controller: 'SkillsNewCtrl',
-	// 	login: true
-	// }).when('/list/:itemtype', {
-	// 	templateUrl: 'views/list.html',
-	// 	controller: 'ListCtrl',
-	// 	login: true
-	// }).when('/list/:itemtype/:itemid', {
-	// 	templateUrl: 'views/list.html',
-	// 	controller: 'ListCtrl',
-	// 	login: true
-	// }).otherwise({
-	// 	redirectTo: '/'
-	// });
+
 }).run([
 	'$rootScope', '$location', 'Auth', 'config',
 	function($rootScope, $location, Auth, config) {

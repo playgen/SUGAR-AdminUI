@@ -1,7 +1,7 @@
 <contentHeader>
 	<div>
 		<div class="col-xs-12">
-			<h4 class="" ng-click="back()"> Back to All Games</h4>
+			<button class="btn btn-secondary" type="button" ng-click=back()>Back To Games</button>
 		</div>
 	</div>
 	<div class="col-xs-12" ng-if="!gameFound">
@@ -32,26 +32,10 @@
 
 <script type="text/ng-template" id="confirmDeleteModal.html">
 	<div class="modal-header">
-		<h3 class="modal-title">You are deleting {{gameName}}</h3>
+		<h3 class="modal-title">You are deleting {{name}}</h3>
 	</div>
 	<div class="modal-body">
-		Are you sure you want to delete the game {{gameName}}?
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> No</button>
-		<button class="btn btn-success" type="button" ng-click="delete()"><i class="fa fa-trash-o"></i> Yes</button>
-	</div>
-</script>
-
-
-<!-- Confirm that we want to delete the achievement  -->
-
-<script type="text/ng-template" id="confirmDeleteModal.html">
-	<div class="modal-header">
-		<h3 class="modal-title">You are deleting {{item.token}}</h3>
-	</div>
-	<div class="modal-body">
-		Are you sure you want to delete the achievement {{item.token}}?
+		Are you sure you want to delete the {{type}} {{name}}?
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> No</button>

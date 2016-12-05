@@ -8,7 +8,7 @@
  * # AchievementCtrl
  * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('GamesProfileNewAchievementsCtrl', [
+angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 	'$scope', '$stateParams', '$location', 'modalManager', 'AchievementsApi',
 	function($scope, $stateParams, $location, modalManager, AchievementsApi) {
 		$scope.itemtype = $stateParams.itemtype;

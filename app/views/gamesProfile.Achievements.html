@@ -1,6 +1,6 @@
-<div ng-init="init()" class="modal-body">
+<div ng-init="init()">
 	<div class="col-xs-3">
-		<button class="btn btn-success" type="button" ng-click="addNewAchievement(item)"><i class="fa fa-trophy"> Add New Achievement</i></button>
+		<button class="btn btn-success" type="button" ng-click="addNewAchievement()"><i class="fa fa-trophy"> Add New Achievement</i></button>
 	</div>
 	<table class="table table-bordered table-hover">
 		<tr class="listitem">
@@ -17,7 +17,7 @@
 				<td><h4>{{items[n].evaluationCriterias[0].key}}</h4></td>
 				<td><h4>{{items[n].evaluationCriterias[0].dataType}} {{items[n].evaluationCriterias[0].comparisonType}} {{items[n].evaluationCriterias[0].value}}</h4></td>
 				<td>
-				<button class="btn btn-danger pull-right" type="button" ng-click="remove(items[n])"><i class="fa fa-times"></i></button>
+				<button class="btn btn-danger pull-right" type="button" ng-click="remove(items[n])"><i class="fa fa-times"> Remove</i></button>
 			</td>
 			</tr>
 			<tr ng-repeat="i in criteriaRange(n)">

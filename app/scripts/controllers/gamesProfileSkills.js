@@ -92,7 +92,6 @@ angular.module('sgaAdminApp').controller('GamesProfileSkillsCtrl', [
 			return modalManager.open('deleteSkill', {
 				item: item,
 				itemId: $scope.itemId
-
 			});
 
 		};

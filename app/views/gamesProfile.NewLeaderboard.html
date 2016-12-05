@@ -1,0 +1,85 @@
+<contentMain>
+<div>
+	<div class="col-xs-12">
+		<button class="btn btn-secondary" type="button" ng-click=back()>Back To Leaderboards</button>
+	</div>
+</div>
+<div ng-init="init()">
+	<form class="form-horizontal" name="myForm">
+		<table class="table table-bordered table-hover">
+			<div class="form-group">
+				<h4 for="inputName" class="col-xs-2 control-label">Leaderboard Name:</h4>
+				<div class="col-xs-10">
+					<input type="text" placeholder="Leaderboard Name" class="form-control" ng-model="item.Name" required/>
+				</div>
+			</div>
+			<div class="form-group">
+				<h4 for="inputName" class="col-xs-2 control-label">Token:</h4>
+				<div class="col-xs-10">
+					<input type="text" placeholder="Unique Leaderboard Token" class="form-control" ng-model="item.Token" required/>
+				</div>
+			</div>
+			<div class="form-group">
+				<h4 for="inputName" class="col-xs-2 control-label">Key:</h4>
+				<div class="col-xs-10">
+					<input type="text" placeholder="Unique Leaderboard Key" class="form-control" ng-model="item.Key" required/>
+				</div>
+			</div>
+			<div class="form-group">
+				<h4 for="inputName" class="col-xs-2 control-label">Icon:</h4>
+				<div class="col-xs-10">
+					<input class="input-lg" id="file" type="file" ng-model="item.Icon"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<h4 for="inputName"  class="col-xs-2 control-label">Actor Type:</h4>
+				<div class="col-xs-10">
+					<select class="form-control" ng-model="item.ActorType" required>
+						<option value="0">Any</option>
+						<option value="1">User</option>
+						<option value="2">Group</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<h4 for="inputName"  class="col-xs-2 control-label">Game Data Type:</h4>
+				<div class="col-xs-10">
+					<select class="form-control" ng-model="item.GameDataType" required>
+						<option value="0">String</option>
+						<option value="1">Long</option>
+						<option value="2">Float</option>
+						<option value="3">Boolean</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<h4 for="inputName"  class="col-xs-2 control-label">Criteria Scope:</h4>
+				<div class="col-xs-10">
+					<select class="form-control" ng-model="item.CriteriaScope" required>
+						<option value="Actor">Actor</option>
+						<option value="RelatedActors">Related Actors</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<h4 for="inputName"  class="col-xs-2 control-label">Leaderboard Type:</h4>
+				<div class="col-xs-10">
+					<select class="form-control" ng-model="item.LeaderboardType" required>
+						<option value="0">Highest</option>
+						<option value="1">Lowest</option>
+						<option value="2">Cumulative</option>
+						<option value="3">Count</option>
+						<option value="4">Earliest</option>
+						<option value="5">Latest</option>
+					</select>
+				</div>
+			</div>
+		</table>
+	</form>
+</div>
+</contentMain>
+<contentFooter>
+	<div class="col-xs-12 text-center button-container">
+		<button class="btn btn-success pull-right" type="button" ng-disabled="myForm.$invalid" ng-click="create()"><i class="fa fa-plus"></i> Create Leaderboard</button>
+	</div>
+</contentFooter>

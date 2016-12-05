@@ -8,11 +8,11 @@
  * # AchievementCtrl
  * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('SkillsNewCtrl', [
-	'$scope', '$routeParams', '$location', 'modalManager', 'SkillsApi',
-	function($scope, $routeParams, $location, modalManager, SkillsApi) {
-		$scope.itemtype = $routeParams.itemtype;
-		$scope.itemId = $routeParams.itemId;
+angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
+	'$scope', '$stateParams', '$location', 'modalManager', 'SkillsApi',
+	function($scope, $stateParams, $location, modalManager, SkillsApi) {
+		$scope.itemtype = $stateParams.itemtype;
+		$scope.itemId = $stateParams.itemId;
 
 		$scope.gameFound = true;
 
@@ -98,12 +98,12 @@ angular.module('sgaAdminApp').controller('SkillsNewCtrl', [
 			// }
 			// r.readAsArrayBuffer(f);
 			SkillsApi['skills'].createSkill($scope.achievement).then(function(res) {
-				$location.path('/skills/' + $scope.itemId);
+				$location.path('/games/' + $scope.itemId + '/skills');
 			});
 		};
 		$scope.back = function() {
 			//go back to list of achievements for this game
-			$location.path('/skills/' + $scope.itemId);
+			$location.path('/games/' + $scope.itemId + '/skills');
 		};
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
