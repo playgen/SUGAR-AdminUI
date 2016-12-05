@@ -1,24 +1,52 @@
-
-<header class="main-header">
-	<a href="#/" class="logo">
-<span><img src="images/SUGAR_logo_large.png" height="30px" /></span>
-	<span class="logo-mini">SUGAR</span>
-	<span class="logo-lg">SUGAR Admin Panel</span>
+<!-- 
+<a href="#/" class="logo">
+  <span><img src="images/SUGAR_logo_large.png" height="30px" /></span>
+ <span class="logo-mini">SUGAR</span>
+ <span class="logo-lg">SUGAR Admin Panel</span>
 </a>
-  <nav class="navbar navbar-static-top">
-    <div class="container-fluid">
+<nav class="navbar navbar-static-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+    </div>
+  <div class="collapse navbar-collapse" id="navbar-collapse" ng-if="loggedIn()">
+    <ul class="nav navbar-nav">
+      <li><a ng-href="#/users"><i class="fa fa-user" ng-class="page.display.icon"></i> Users</a></li>
+      <li><a ng-href="#/groups"><i class="fa fa-users" ng-class="page.display.icon"></i> Groups</a></li>
+      <li><a ng-href="#/games"><i class="fa fa-gamepad" ng-class="page.display.icon"></i> Games</a></li>
+    </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a class="pull-right" ng-click="Logout()">Log Out</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+-->
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="navbar-collapse" ng-if="loggedIn()">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand" href="#">SUGAR</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
         <li><a ng-href="#/users"><i class="fa fa-user" ng-class="page.display.icon"></i> Users</a></li>
         <li><a ng-href="#/groups"><i class="fa fa-users" ng-class="page.display.icon"></i> Groups</a></li>
         <li><a ng-href="#/games"><i class="fa fa-gamepad" ng-class="page.display.icon"></i> Games</a></li>
       </ul>
-	  <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right">
         <li><a class="pull-right" ng-click="Logout()">Log Out</a></li>
-	  </ul>
-    </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-</header>
+      </ul>
+    </div>
+  </div>
+</nav>
