@@ -9,10 +9,10 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('GamesCtrl', [
-	'$scope', '$routeParams', '$location', 'modalManager', 'GamesApi',
-	function($scope, $routeParams, $location, modalManager, GamesApi) {
-		$scope.itemtype = $routeParams.itemtype;
-		$scope.itemid = $routeParams.itemid;
+	'$scope', '$stateParams', '$location', 'modalManager', 'GamesApi',
+	function($scope, $stateParams, $location, modalManager, GamesApi) {
+		$scope.itemtype = $stateParams.itemtype;
+		$scope.itemid = $stateParams.itemid;
 
 		$scope.items = [];
 		$scope.pagination = {
@@ -27,17 +27,9 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 			});
 		};
 		$scope.select = function(item) {
-			return modalManager.open('editGame', {
-				itemtype: 'games',
-				item: item
-			});
+			$location.path('/games/' + item.id);
 		};
-		$scope["delete"] = function(item) {
-			return modalManager.open('deleteGame', {
-				itemtype: 'games',
-				item: item
-			});
-		};
+
 		$scope.create = function() {
 			return modalManager.open('createGame', {
 				itemtype: 'games'
@@ -47,10 +39,6 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 			//go back to main menu
 			$location.path("/");
 		};
-		// $scope.showAchievements = function(item) {
-		//   var gameName = item.Name;
-		//   $location.path('/games/' + item.id + '/achievements');
-		// };
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
 		});
@@ -117,29 +105,6 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 			});
 		};
 
-		return $scope.close = function() {
-			return $uibModalInstance.close();
-		};
-	}
-]).controller('ConfirmDeleteGameModalCtrl', [
-	'$scope', '$rootScope', '$uibModalInstance', 'GamesApi', 'modaldata',
-	function($scope, $rootScope, $uibModalInstance, GamesApi, modaldata) {
-		$scope.itemtype = modaldata.itemtype;
-		$scope.config = modaldata.config;
-		if (modaldata.item != null) {
-			$scope.item = modaldata.item;
-		} else if (modaldata.itemid != null) {
-			$scope.item = {};
-			GamesApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
-				return console.log(data);
-			});
-		}
-		$scope["delete"] = function() {
-			return GamesApi[$scope.itemtype]["delete"]($scope.item.id).then(function() {
-				$uibModalInstance.close();
-				return $rootScope.$broadcast('savedItem');
-			});
-		};
 		return $scope.close = function() {
 			return $uibModalInstance.close();
 		};

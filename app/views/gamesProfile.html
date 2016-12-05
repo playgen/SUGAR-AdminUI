@@ -1,0 +1,60 @@
+<contentHeader>
+	<div>
+		<div class="col-xs-12">
+			<h4 class="" ng-click="back()"> Back to All Games</h4>
+		</div>
+	</div>
+	<div class="col-xs-12" ng-if="!gameFound">
+	    <h3><span>Cannot display game, no game found with ID:- </span>{{itemId}}<span></span></h3>
+	</div>
+
+	<div class="col-xs-12" ng-if="gameFound">
+		<h2>Game: {{gameName}}</h2>
+	</div>
+	<div class="col-xs-12" ng-if="gameFound">
+		<button class="btn btn-primary" ui-sref="gamesProfile.Details" ui-sref-active="activeState">Details</button>
+		<button class="btn btn-primary" ui-sref="gamesProfile.Achievements" ui-sref-active="activeState">Achievements</button>
+		<button class="btn btn-primary" ui-sref="gamesProfile.Skills" ui-sref-active="activeState">Skills</button>
+		<button class="btn btn-primary" ui-sref="gamesProfile.Resources" ui-sref-active="activeState">Resources</button>
+		<button class="btn btn-primary" ui-sref="gamesProfile.Leaderboards" ui-sref-active="activeState">Leaderboards</button>
+	</div>
+</contentHeader>
+<contentMain>	
+	<div ng-init="init()" ng-if="gameFound" >
+		<div>
+			<ui-view></ui-view>
+		</div>
+	</div>
+</contenMain>
+
+
+<!-- Confirm that we want to delete the game  -->
+
+<script type="text/ng-template" id="confirmDeleteModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title">You are deleting {{gameName}}</h3>
+	</div>
+	<div class="modal-body">
+		Are you sure you want to delete the game {{gameName}}?
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> No</button>
+		<button class="btn btn-success" type="button" ng-click="delete()"><i class="fa fa-trash-o"></i> Yes</button>
+	</div>
+</script>
+
+
+<!-- Confirm that we want to delete the achievement  -->
+
+<script type="text/ng-template" id="confirmDeleteModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title">You are deleting {{item.token}}</h3>
+	</div>
+	<div class="modal-body">
+		Are you sure you want to delete the achievement {{item.token}}?
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> No</button>
+		<button class="btn btn-success" type="button" ng-click="delete()"><i class="fa fa-trash-o"></i> Yes</button>
+	</div>
+</script>

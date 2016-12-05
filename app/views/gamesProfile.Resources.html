@@ -1,0 +1,17 @@
+<div class="col-xs-3">
+	<button class="btn btn-success" type="button" ng-click="addNew(item)"><i class="fa fa-user"> Add New Resource</i></button>
+</div>
+<div ng-init="init()">
+	<table class="table table-bordered table-hover">
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+			<td style="width: 10px"></td>
+            <td>{{item.key}}</td>
+		</tr>
+	</table>
+</div>
+</contentMain>
+<contentFooter>
+	<div class="col-xs-12 text-center">
+		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+	</div>
+</contentFooter>

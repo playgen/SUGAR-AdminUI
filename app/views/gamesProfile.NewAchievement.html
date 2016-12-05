@@ -1,0 +1,107 @@
+<contentMain>
+<div>
+	<div class="col-xs-3">
+		<h4 class="" ng-click="back()"> Back to Achievements</h4>
+	</div>
+</div>
+<div>
+	<div class="col-xs-12">
+		<h4>This page is used to create new achievements for the game, simply full out the information below and click 'Create Achievement', multiple criterias are possible using the 'Add Critera' button below</h4>
+	</div>
+</div>
+<div ng-init="init()">
+	<form class="form-horizontal" name="myForm">
+	<table class="table table-bordered table-hover">
+		<div class="form-group">
+			<h4 for="inputName" class="col-xs-2 control-label">Achievement Name:</h4>
+			<div class="col-xs-10">
+				<input type="text" placeholder="Achievement Name" class="form-control" ng-model="item.Name" required/>
+			</div>
+		</div>
+		<div class="form-group">
+			<h4 for="inputName" class="col-xs-2 control-label">Description:</h4>
+			<div class="col-xs-10">
+				<input type="text" placeholder="Achievement Description" class="form-control" ng-model="item.Description" required/>
+			</div>
+		</div>
+		<div class="form-group">
+			<h4 for="inputName" class="col-xs-2 control-label">Icon:</h4>
+			<div class="col-xs-10">
+				<input class="input-lg" id="file" type="file" ng-model="item.Icon"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<h4 for="inputName" class="col-xs-2 control-label">Token:</h4>
+			<div class="col-xs-10">
+				<input type="text" placeholder="Unique Token" class="form-control" ng-model="item.Token" required/>
+			</div>
+		</div>
+		<div class="form-group">
+			<h4 for="inputName"  class="col-xs-2 control-label">Actor Type:</h4>
+			<div class="col-xs-10">
+				<select class="form-control" placeholder="User Achievement" ng-model="item.ActorType" required>
+					<option value="0">User Achievement</option>
+					<option value="1">Group Achievemnet</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<h4 for="inputName" class="col-xs-2 control-label">Reward</h4>
+		</div>
+		<div class="form-group">
+			<h5 for="inputName"" class="col-xs-2 control-label">Key:</h5>
+			<div class="col-xs-10">
+				<input type="text" placeholder="Unique Reward Key" class="form-control" ng-model="item.Reward.Key"/>
+			</div>
+		</div>
+		<div class="form-group">
+				<h5 for="inputName" class="col-xs-2 control-label">Data Type:</h5>
+			<div class="col-xs-10">
+				<select class="form-control" ng-model="item.Reward.DataType">
+					<option value="0">String</option>
+					<option value="1">Long</option>
+					<option value="2">Float</option>
+					<option value="3">Boolean</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<h5 for="inputName" class="col-xs-2 control-label">Value:</h5>
+			<div class="col-xs-10">
+				<input type="text" placeholder="Reward Amount" class="form-control" ng-model="item.Reward.Value"/>
+			</div>
+		</div>
+		<tr class="listitem" ng-repeat="n in range()">
+			<td><label>Criteria {{n}}:</label></td>
+            <td>Key<input type="text" placeholder="Unique Criteria Name" class="form-control" ng-model="item[n].Key" required/></td>
+			<td>Data Type<select class="form-control" ng-model="item[n].DataType" required>
+					<option value="0">String</option>
+					<option value="1">Long</option>
+					<option value="2">Float</option>
+					<option value="3">Boolean</option>
+				</select>
+			</td>
+			<td>Comparison Type<select class="form-control" ng-model="item[n].ComparisonType" required>
+					<option value="0">equal to</option>
+					<option value="1">not equal to</option>
+					<option value="2">greater than</option>
+					<option value="3">greater than or equal to</option>
+					<option value="4">less than</option>
+					<option value="5">less than or equal to</option>
+				</select>
+			</td>
+			<td>Value<input type="text" placeholder="Value to match" class="form-control" ng-model="item[n].Value" required/></td>
+		</tr>
+	</table>
+	</form>
+</div>
+</contentMain>
+<contentFooter>
+	<div class="col-xs-8">
+		<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="addCriteria(item)" >Add Criteria</button>
+		<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="minusCriteria(item)" ng-if="criterias > 1">Remove Criteria</button>
+	</div>
+	<div class="col-xs-4 text-center button-container">
+		<button class="btn btn-success pull-right" type="button" ng-disabled="myForm.$invalid" ng-click="create()"><i class="fa fa-plus"></i> Create Achievement</button>
+	</div>
+</contentFooter>

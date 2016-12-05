@@ -1,0 +1,36 @@
+<div ng-init="init()" class="modal-body">
+	<div class="col-xs-3">
+		<button class="btn btn-success" type="button" ng-click="addNewAchievement(item)"><i class="fa fa-trophy"> Add New Achievement</i></button>
+	</div>
+	<table class="table table-bordered table-hover">
+		<tr class="listitem">
+			<td style="width: 10px"></td>
+			<th>Name</th>
+			<th>Key</th>
+			<th>Completion Criteria</th>
+		</tr>
+		<tbody ng-repeat="n in range()">
+			
+			<tr>
+				<td></td>
+				<td><h4>{{items[n].name}}</h4></td>
+				<td><h4>{{items[n].evaluationCriterias[0].key}}</h4></td>
+				<td><h4>{{items[n].evaluationCriterias[0].dataType}} {{items[n].evaluationCriterias[0].comparisonType}} {{items[n].evaluationCriterias[0].value}}</h4></td>
+				<td>
+				<button class="btn btn-danger pull-right" type="button" ng-click="remove(items[n])"><i class="fa fa-times"></i></button>
+			</td>
+			</tr>
+			<tr ng-repeat="i in criteriaRange(n)">
+				<td></td>
+				<td></td>
+				<td><h4>{{items[n].evaluationCriterias[i].key}}</h4></td>
+				<td><h4>{{items[n].evaluationCriterias[i].dataType}} {{items[n].evaluationCriterias[i].comparisonType}} {{items[n].evaluationCriterias[i].value}}</h4></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<contentFooter>
+	<div class="col-xs-12 text-center">
+		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+	</div>
+</contentFooter>

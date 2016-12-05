@@ -1,41 +1,33 @@
 <contentHeader>
-	<div>
-		<div class="col-xs-3">
-			<h4 class="" ng-click="back()"> Back to Menu</h4>
-		</div>
+	<div class="col-xs-3">
+		<h4 class="" ng-click="back()"> Back to Menu</h4>
 	</div>
-</contentHeader>
-<contentMain>
-<div>
 	<div class="col-xs-12">
 		<h4>This page displays the list of games in the system, using this page you can:<br />- Create new games<br />- Edit game information<br />- Delete games</h4>
 	</div>
-</div>
+</contentHeader>
+<contentMain>
 <div ng-init="init()">
 	<table class="table table-bordered table-hover">
 		<tr class="listitem">
 			<th style="width: 10px"></th>
 			<th>Game Name</th>
-			<th></th>
 		</tr>
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td></td>
-            <td>{{item.name}}</td>
 			<td>
-				<button class="btn btn-primary btn-sm" title="Edit this Game" ng-click="select(item)" ng-if="false"><i class="fa fa-pencil"></i></button>
-                <!--<button class="btn btn-primary btn-sm" title="Show Achievements For Game" ng-click="showAchievements(item)"><i class="fa fa-eye"> Achievements</i></button>-->
-				<button class="btn btn-danger btn-sm" title="Delete this Game" ng-click="delete(item)"><i class="fa fa-trash-o"> Delete</i></button>
+				<button class="col-xs-12 text-left btn-secondary" ng-click="select(item)"><b>{{item.name}}</b></button>
             </td>
 		</tr>
 	</table>
 </div>
 </contentMain>
 <contentFooter>
-	<div class="col-xs-4 col-xs-offset-4 text-center">
-		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+	<div class="col-xs-3 text-center button-container">
+		<button class="btn btn-success pull-left" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new game</button>
 	</div>
-	<div class="col-xs-4 text-center button-container">
-		<button class="btn btn-success pull-right" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new game</button>
+	<div class="col-xs-9 text-center">
+		<uib-pagination class="pull-right" total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 	</div>
 </contentFooter>
 

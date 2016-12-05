@@ -3,59 +3,59 @@
 
 /**
  * @ngdoc function
- * @name sgaAdminApp.controller:showAchievementsCtrl
+ * @name sgaAdminApp.controller:GroupsCtrl
  * @description
- * # showAchievementsCtrl
+ * # GroupsCtrl
  * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
-	'$scope', '$routeParams', '$location', 'modalManager', 'AchievementsApi',
-	function($scope, $routeParams, $location, modalManager, AchievementsApi) {
-		$scope.itemtype = $routeParams.itemtype;
-		$scope.itemId = $routeParams.itemId;
+angular.module('sgaAdminApp').controller('GamesProfileSkillsCtrl', [
+	'$scope', '$stateParams', '$location', 'modalManager', 'SkillsApi',
+	function($scope, $stateParams, $location, modalManager, SkillsApi) {
+		$scope.itemtype = $stateParams.itemtype;
+		$scope.itemId = $stateParams.itemId;
+
+		$scope.gameFound = true;
+		$scope.gameName = '';
 
 		$scope.items = [];
-		$scope.criterias = 1;
-
-		$scope.gameName = '';
-		$scope.gameFound = true;
-
 		$scope.pagination = {
 			perPage: 10,
 			currentPage: 1
 		};
+
 		$scope.init = function() {
 			if ($scope.itemId != "global")
 			{
-				AchievementsApi['achievements'].list($scope.itemId).then(function(res) {
+				SkillsApi['skills'].listSkills($scope.itemId).then(function(res) {
 					if (res.status === 200 && res.data != null) {
 						$scope.items = res.data['response'];
-						$scope.range();
 					}
 				});
-				AchievementsApi['games'].get($scope.itemId).then(function(res) {
-				if (res.status === 200 && res.data != null) {
-					$scope.gameName = res.data['response'].name;
-				} else {
-					$scope.gameFound = false;
-				}
+				SkillsApi['games'].get($scope.itemId).then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.gameFound = true;
+						$scope.gameName = res.data['response'].name;
+					} else {
+						$scope.gameFound = false;
+					}
 				}).catch(function() {
 					$scope.gameFound = false;
 				});
 			}
 			else
 			{
-				AchievementsApi['achievements'].global().then(function(res){
+				SkillsApi['skills'].globalSkills().then(function(res) {
 					if (res.status === 200 && res.data != null) {
 						$scope.items = res.data['response'];
-						$scope.range();
 					}
 				});
+
 				$scope.gameName = "Global";
 				$scope.gameFound = true;
 			}
-			
 		};
+
+		
 		$scope.range = function(min, max, step) {
 			if ($scope.items == null)
 				return 0;
@@ -80,21 +80,24 @@ angular.module('sgaAdminApp').controller('AchievementShowCtrl', [
 			}
 			return input;
 		};
-		$scope.remove = function(item) {
-			return modalManager.open('deleteAchievement', {
-				item: item,
-				itemId: $scope.itemId
-			});
-		};
-		$scope.add = function(item) {
-			$location.path('/achievements/' + $scope.itemId + '/new');
+		$scope.addSkill = function(item) {
+			$location.path("/skills/" + $scope.itemId + '/new')
 		};
 		$scope.back = function() {
-			//go back to achievements game list
-			$location.path("/achievements");
+			//go back to skills games list
+			$location.path("/skills");
+		};
+		$scope.remove = function(item)
+		{
+			return modalManager.open('deleteSkill', {
+				item: item,
+				itemId: $scope.itemId
+
+			});
+
 		};
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
 		});
 	}
-]);
+])

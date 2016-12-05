@@ -16,6 +16,11 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise('/');
 
 	$stateProvider
+
+		//-------------------------------------------------------
+		// Main
+		//-------------------------------------------------------
+
 		.state('main', {
 			url: '/',
 			templateUrl: 'views/_main.html',
@@ -23,12 +28,20 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			login: true
 		})
 
+		//-------------------------------------------------------
+		// Login
+		//-------------------------------------------------------
+
 		.state('login', {
 			url: '/login',
 			templateUrl: 'views/_login.html',
 			controller: 'LoginCtrl',
 			login: false
 		})
+
+		//-------------------------------------------------------
+		// users
+		//-------------------------------------------------------
 
 		.state('users', {
 			url: '/users',
@@ -58,6 +71,10 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			controller: 'UsersProfileGroupsCtrl'
 		})
 
+		//-------------------------------------------------------
+		// Groups
+		//-------------------------------------------------------
+
 		.state('groups', {
 			url: '/groups',
 			templateUrl: 'views/groups.html',
@@ -79,43 +96,55 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			url: '/members',
 			templateUrl: 'views/groupsProfile.Members.html',
 			controller: 'GroupsProfileMembersCtrl'
+		})
+
+		//-------------------------------------------------------
+		// Games
+		//-------------------------------------------------------
+
+		.state('games', {
+			url: '/games',
+			templateUrl: 'views/games.html',
+			controller: 'GamesCtrl',
+			login: true
+		})
+		.state('gamesProfile', {
+			url: '/games/:itemId',
+			templateUrl: 'views/gamesProfile.html',
+			controller: 'GamesProfileCtrl',
+			login: true
+		})
+		.state('gamesProfile.Details', {
+			url: '/details',
+			templateUrl: 'views/gamesProfile.Details.html',
+			controller: 'GamesProfileDetailsCtrl'
+		})
+		.state('gamesProfile.Achievements', {
+			url: '/achievements',
+			templateUrl: 'views/gamesProfile.Achievements.html',
+			controller: 'GamesProfileAchievementsCtrl'
+		})
+		.state('gamesProfile.NewAchievement', {
+			url: '/newAchievement',
+			templateUrl: 'views/gamesProfile.NewAchievement.html',
+			controller: 'GamesProfileNewAchievementsCtrl'
+		})
+		.state('gamesProfile.Skills', {
+			url: '/skills',
+			templateUrl: 'views/gamesProfile.Skills.html',
+			controller: 'GamesProfileSkillsCtrl'
+		})
+		.state('gamesProfile.Resources', {
+			url: '/resources',
+			templateUrl: 'views/gamesProfile.resources.html',
+			controller: 'GamesProfileResourcesCtrl'
+		})
+		.state('gamesProfile.Leaderboards', {
+			url: '/leaderboards',
+			templateUrl: 'views/gamesProfile.Leaderboards.html',
+			controller: 'GamesProfileLeaderboardsCtrl'
 		});
-	// return $routeProvider.when('/login', {
-	// 	templateUrl: 'views/_login.html',
-	// 	controller: 'LoginCtrl',
-	// 	login: false
-	// }).when('/', {
-	// 	templateUrl: 'views/_main.html',
-	// 	controller: 'MainCtrl',
-	// 	login: true
-	// }).when('/groups', {
-	// 	templateUrl: 'views/groups.html',
-	// 	controller: 'GroupsCtrl',
-	// 	login: true
-	// }).when('/groups/:itemId/members', {
-	// 	templateUrl: 'views/groupsMembers.html',
-	// 	controller: 'GroupsMembersCtrl',
-	// 	login: true
-	// }).when('/users', {
-	// 	templateUrl: 'views/users.html',
-	// 	controller: 'UsersCtrl',
-	// 	login: true
-	// }).when('/users/:itemId', {
-	// 	templateUrl: 'views/usersProfile.html',
-	// 	controller: 'UsersProfileCtrl',
-	// 	login: true
-	// }).when('/users/:itemId/friends', {
-	// 	templateUrl: 'views/usersFriends.html',
-	// 	controller: 'UsersFriendsCtrl',
-	// 	login: true
-	// }).when('/users/:itemId/groups', {
-	// 	templateUrl: 'views/usersGroups.html',
-	// 	controller: 'UsersGroupsCtrl',
-	// 	login: true
-	// }).when('/games', {
-	// 	templateUrl: 'views/games.html',
-	// 	controller: 'GamesCtrl',
-	// 	login: true
+
 	// }).when('/achievements', {
 	// 	templateUrl: 'views/achievement.html',
 	// 	controller: 'AchievementCtrl',
