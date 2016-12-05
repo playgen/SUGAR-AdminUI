@@ -61,6 +61,10 @@ angular.module('sgaAdminApp').service('modalManager', [
 				temp: 'confirmDeleteModal.html',
 				cont: 'ConfirmDeleteLeaderboardModalCtrl'
 			},
+			'viewLeaderboard': {
+				temp: 'ViewLeaderboardModal.html',
+				cont: 'ViewLeaderboardModalCtrl'
+			},
 			'showAlliances': {
 				temp: 'showAllianceModal.html',
 				cont: 'showAllianceModalCtrl'

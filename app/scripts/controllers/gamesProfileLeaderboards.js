@@ -81,8 +81,35 @@ angular.module('sgaAdminApp').controller('GamesProfileLeaderboardsCtrl', [
 			});
 		};
 
+		$scope.view = function(item){
+			return modalManager.open('viewLeaderboard', {
+				name: item.Token,
+				itemId: $scope.itemId
+			})
+		}
+
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
 		});
+	}
+]).controller('ViewLeaderboardModalCtrl', [
+	'$scope', '$rootScope', '$location', '$uibModalInstance', 'LeaderboardsApi', 'modaldata',
+	function($scope, $rootScope, $location, $uibModalInstance, LeaderboardsApi, modaldata) {
+		$scope.name = modaldata.gameName;
+		$scope.itemId = modaldata.itemId;
+
+		LeaderboardsApi['leaderboard'].getGlobalConfig($scope.itemId).then(function(res){
+			if (res.status === 200 && res.data != null)
+			{
+				LeaderboardsApi['leaderboard'].getLeaderboard(res.data).then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.items = res.data['response'];
+					}
+				});
+			}
+		});
+		return $scope.closeModal = function() {
+			return $uibModalInstance.close();
+		};
 	}
 ]);
