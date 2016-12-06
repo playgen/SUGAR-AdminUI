@@ -37,9 +37,8 @@
       </button>
       <a class="navbar-brand" href="#">SUGAR</a>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
+    <div class="collapse navbar-collapse" id="myNavbar" ng-if="loggedIn()">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
         <li><a ng-href="#/users"><i class="fa fa-user" ng-class="page.display.icon"></i> Users</a></li>
         <li><a ng-href="#/groups"><i class="fa fa-users" ng-class="page.display.icon"></i> Groups</a></li>
         <li><a ng-href="#/games"><i class="fa fa-gamepad" ng-class="page.display.icon"></i> Games</a></li>
