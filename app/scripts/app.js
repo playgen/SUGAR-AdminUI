@@ -45,29 +45,29 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 
 		.state('users', {
 			url: '/users',
-			templateUrl: 'views/users.html',
+			templateUrl: 'views/users/users.html',
 			controller: 'UsersCtrl',
 			login:true
 		})
 		.state('userProfile', {
 			url: '/users/:itemId',
-			templateUrl: 'views/usersProfile.html',
+			templateUrl: 'views/users/usersProfile.html',
 			controller: 'UsersProfileCtrl',
 			login:true
 		})	
 		.state('userProfile.Details', {
 			url: '/details',
-			templateUrl: 'views/usersProfile.Details.html',
+			templateUrl: 'views/users/usersProfile.Details.html',
 			controller: 'UsersProfileDetailsCtrl'
 		})	
 		.state('userProfile.Friends', {
 			url: '/friends',
-			templateUrl: 'views/usersProfile.Friends.html',
+			templateUrl: 'views/users/usersProfile.Friends.html',
 			controller: 'UsersProfileFriendsCtrl'
 		})	
 		.state('userProfile.Groups', {
 			url: '/groups',
-			templateUrl: 'views/usersProfile.Groups.html',
+			templateUrl: 'views/users/usersProfile.Groups.html',
 			controller: 'UsersProfileGroupsCtrl'
 		})
 
@@ -77,24 +77,24 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 
 		.state('groups', {
 			url: '/groups',
-			templateUrl: 'views/groups.html',
+			templateUrl: 'views/groups/groups.html',
 			controller: 'GroupsCtrl',
 			login: true
 		})
 		.state('groupsProfile', {
 			url: '/groups/:itemId',
-			templateUrl: 'views/groupsProfile.html',
+			templateUrl: 'views/groups/groupsProfile.html',
 			controller: 'GroupsProfileCtrl',
 			login: true
 		})
 		.state('groupsProfile.Details', {
 			url: '/details',
-			templateUrl: 'views/groupsProfile.Details.html',
+			templateUrl: 'views/groups/groupsProfile.Details.html',
 			controller: 'GroupsProfileDetailsCtrl'
 		})
 		.state('groupsProfile.Members', {
 			url: '/members',
-			templateUrl: 'views/groupsProfile.Members.html',
+			templateUrl: 'views/groups/groupsProfile.Members.html',
 			controller: 'GroupsProfileMembersCtrl'
 		})
 
@@ -104,55 +104,72 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 
 		.state('games', {
 			url: '/games',
-			templateUrl: 'views/games.html',
+			templateUrl: 'views/games/games.html',
 			controller: 'GamesCtrl',
 			login: true
 		})
 		.state('gamesProfile', {
 			url: '/games/:itemId',
-			templateUrl: 'views/gamesProfile.html',
+			templateUrl: 'views/games/gamesProfile.html',
 			controller: 'GamesProfileCtrl',
 			login: true
 		})
 		.state('gamesProfile.Details', {
 			url: '/details',
-			templateUrl: 'views/gamesProfile.Details.html',
+			templateUrl: 'views/games/gamesProfile.Details.html',
 			controller: 'GamesProfileDetailsCtrl'
 		})
 		.state('gamesProfile.Achievements', {
 			url: '/achievements',
-			templateUrl: 'views/gamesProfile.Achievements.html',
+			templateUrl: 'views/games/gamesProfile.Achievements.html',
 			controller: 'GamesProfileAchievementsCtrl'
 		})
 		.state('gamesProfile.NewAchievement', {
 			url: '/newAchievement',
-			templateUrl: 'views/gamesProfile.NewAchievement.html',
+			templateUrl: 'views/games/gamesProfile.NewAchievement.html',
 			controller: 'GamesProfileNewAchievementCtrl'
 		})
 		.state('gamesProfile.Skills', {
 			url: '/skills',
-			templateUrl: 'views/gamesProfile.Skills.html',
+			templateUrl: 'views/games/gamesProfile.Skills.html',
 			controller: 'GamesProfileSkillsCtrl'
 		})
 		.state('gamesProfile.NewSkill', {
 			url: '/newSkill',
-			templateUrl: 'views/gamesProfile.NewSkill.html',
+			templateUrl: 'views/games/gamesProfile.NewSkill.html',
 			controller: 'GamesProfileNewSkillCtrl'
 		})
 		.state('gamesProfile.Resources', {
 			url: '/resources',
-			templateUrl: 'views/gamesProfile.resources.html',
+			templateUrl: 'views/games/gamesProfile.resources.html',
 			controller: 'GamesProfileResourcesCtrl'
 		})
 		.state('gamesProfile.Leaderboards', {
 			url: '/leaderboards',
-			templateUrl: 'views/gamesProfile.Leaderboards.html',
+			templateUrl: 'views/games/gamesProfile.Leaderboards.html',
 			controller: 'GamesProfileLeaderboardsCtrl'
 		})
 		.state('gamesProfile.newLeaderboard', {
 			url: '/newLeaderboard',
-			templateUrl: 'views/gamesProfile.NewLeaderboard.html',
+			templateUrl: 'views/games/gamesProfile.NewLeaderboard.html',
 			controller: 'GamesProfileNewLeaderboardCtrl'
+		})
+
+		//-------------------------------------------------------
+		// Roles
+		//-------------------------------------------------------
+
+		.state('roles', {
+			url: '/roles',
+			templateUrl: 'views/roles/roles.html',
+			controller: 'RolesCtrl',
+			login: true
+		})
+		.state('rolesProfile', {
+			url: '/roles/:itemId',
+			templateUrl: 'views/roles/rolesProfile.html',
+			controller: 'RolesProfileCtrl',
+			login: true
 		});
 
 	// }).when('/resources', {

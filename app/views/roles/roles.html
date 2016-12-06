@@ -1,0 +1,61 @@
+<contentHeader>
+	<div>
+		<div class="col-xs-12">
+			<button class="btn btn-secondary" type="button" ng-click=back()>Back To Menu</button>
+		</div>
+	</div>
+	<div>
+		<div class="col-xs-12">
+			<h4>Below is all the default roles, from this page you can:<br />- View claims for each role</h4>
+		</div>
+	</div>
+</contentHeader>
+<contentMain>
+	<div ng-init="init()">
+		<table class="table table-bordered table-hover">
+			<tr class="listitem">
+				<th style="width: 10px"></th>
+				<th>Role Name</th>
+				<th></th>
+			</tr>
+			<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+				<td></td>
+	            <td>
+	            	<button class="col-xs-12 text-left btn-secondary" ng-click="showRole(item)"><b>{{item.name}}</b></button>
+	        	</td>
+			</tr>
+		</table>
+	</div>
+</contentMain>
+<contentFooter>
+<!-- 	<div class="col-xs-3 text-center button-container">
+		<button class="btn btn-success pull-left" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new role</button>
+	</div> -->
+	<div class="col-xs-9 text-center">
+		<uib-pagination class="pull-right" total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+	</div>
+
+</contentFooter>
+
+
+<!-- Create a new role  -->
+
+<script type="text/ng-template" id="createModal.html">
+  <form name="myForm">
+	<div class="modal-header">
+		<h3 class="modal-title">Create new Role</h3>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xs-3"><label>Name</label></div>
+			<div class="col-xs-9">
+				<input type="text" placeholder="Username" class="form-control" ng-model="item.Name" required/>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
+		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Save</button>
+	</div>
+  </form>
+</script>

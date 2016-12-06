@@ -1,0 +1,33 @@
+<contentHeader>
+	<div>
+		<div class="col-xs-12">
+			<button class="btn btn-secondary" type="button" ng-click=back()>Back To Roles</button>
+		</div>
+	</div>
+	<div class="col-xs-12" ng-if="!roleFound">
+	    <h3><span>Cannot display role, no role found with ID:- </span>{{itemId}}<span></span></h3>
+	</div>
+
+	<div class="col-xs-12" ng-if="roleFound">
+		<h2>Role: {{roleName}}</h2>
+		<h4><span>Below are the list of roles that this role has access to</span></h4>
+	</div>
+</contentHeader>
+<contentMain>	
+	<div ng-init="init()" ng-if="roleFound" >
+		<table class="table table-bordered table-hover">
+		<tr>
+			<h4><b>Claims Available</b></h4>
+		</tr>
+		<tr class="listitem" ng-repeat="item in items | orderBy: 'token' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+            <td>{{item.token}}</td>
+		</tr>
+		</table>
+	</div>
+</contenMain>
+<contentFooter>
+	<div class="col-xs-9 text-center">
+		<uib-pagination class="pull-right" total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+	</div>
+
+</contentFooter>

@@ -61,6 +61,10 @@ angular.module('sgaAdminApp').service('modalManager', [
 				temp: 'confirmDeleteModal.html',
 				cont: 'ConfirmDeleteLeaderboardModalCtrl'
 			},
+			'deleteRole': {
+				temp: 'confirmDeleteModal',
+				cont: 'ConfirmDeleteRoleModalCtrl'
+			},
 			'viewLeaderboard': {
 				temp: 'ViewLeaderboardModal.html',
 				cont: 'ViewLeaderboardModalCtrl'
@@ -108,6 +112,10 @@ angular.module('sgaAdminApp').service('modalManager', [
 			'createResource': {
 				temp: 'createResourceModal.html',
 				cont: 'CreateResourceModalCtrl'
+			},
+			'createRole': {
+				temp: 'createRoleModal.html',
+				cont: 'CreateRoleModalCtrl'
 			}
 
 		};
