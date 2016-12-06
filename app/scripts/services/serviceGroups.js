@@ -53,6 +53,11 @@ angular.module('sgaAdminApp').service('GroupsApi', [
 				get: function(username) {
 					return $http.get(config.api.baseurl + '/user/find/' + username);
 				}
+			},
+			'roles': {
+				list: function() {
+					return $http.get(config.api.baseurl + '/role/list');
+				}
 			}
 		};
 	}

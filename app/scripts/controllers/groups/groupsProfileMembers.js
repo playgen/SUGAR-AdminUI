@@ -27,6 +27,13 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 			}).catch(function() {
 				$scope.groupFound = false;
 			});
+
+			GroupsApi['roles'].list().then(function(res) {
+				if (res.status === 200 && res.data != null)
+				{
+					$scope.roles = res.data['response'];
+				}
+			});
 		};
 		//our buttons
 		$scope.deleteMember = function(item) {
@@ -40,6 +47,10 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 				groupName: $scope.groupName,
 				itemId: $scope.itemId
 			});
+		};
+		$scope.setRole = function(item) {
+			console.log("TODO Update user with id: " + item.id + " with new role: " + item.NewRole)
+			item.NewRole = "";
 		};
 	}
 ]);
