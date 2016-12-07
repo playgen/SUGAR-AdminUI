@@ -9,28 +9,37 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('UsersCtrl', [
-	'$scope', '$stateParams', 'permissionServices', '$location', 'modalManager', 'UsersApi',
-	function($scope, $stateParams, permissionServices, $location, modalManager, UsersApi) {
+	'$scope', '$stateParams', 'permissionService', '$location', 'modalManager', 'UsersApi',
+	function($scope, $stateParams, permissionService, $location, modalManager, UsersApi) {
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemid = $stateParams.itemid;
-		$scope.permissionServices = permissionServices;
+		$scope.permissionService = permissionService;
+
+		$scope.hasGetListPermission;
+		$scope.hasCreatePermission;
 
 		$scope.items = [];
 		$scope.pagination = {
 			perPage: 10,
 			currentPage: 1
 		};
-		$scope.init = function() {
-			var claim = {"actorId":9, "claimId":37, "entityId":9};
+		$scope.init = function() {	
+			// our permissions
+			$scope.hasCreatePermission = permissionService.hasAccessToClaim('CreateUser',-1);
+			$scope.hasGetUserListPermission = permissionService.hasAccessToClaim('GetUser', -1);
 
-			var claims = [claim];
-			$scope.permissionServices.setClaims(claims);
-			
-			return UsersApi['users'].list().then(function(res) {
-				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data['response'];
-				}
-			});
+			if ($scope.hasGetUserListPermission)
+			{
+				return UsersApi['users'].list().then(function(res) {
+					if (res.status === 200 && res.data != null) {
+						$scope.items = res.data['response'];
+					}
+				});
+			}
+			else
+			{
+				$scope.items = [];
+			}
 		};
 		$scope["delete"] = function(item) {
 			return modalManager.open('deleteUser', {

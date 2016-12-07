@@ -28,7 +28,7 @@
 	</div>
 </contentMain>
 <contentFooter>
-	<div class="col-xs-3 text-center button-container">
+	<div class="col-xs-3 text-center button-container" ng-if="hasCreatePermission">
 		<button class="btn btn-success pull-left" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new user</button>
 	</div>
 	<div class="col-xs-9 text-center">

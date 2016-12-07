@@ -8,7 +8,8 @@
  * # HeaderCtrl
  * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', 'config', 'Auth', function($scope, $location, config, Auth) {
+angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', 'permissionService', 'config', 'Auth', function($scope, $location, permissionService, config, Auth) {
+	
 	$scope.loggedIn = Auth.isAuthenticated;
 	$scope.Logout = function() {
 		Auth.set(config.tokens.authorization, null);
@@ -22,4 +23,17 @@ angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', '
 			return $location.path('/login');
 		}
 	};
+
+	$scope.$on('updateNavbar', function () { 
+    	$scope.updateNavbar();
+	});
+
+	// our permissions
+	$scope.updateNavbar = function() {
+		$scope.hasGetUserListPermission = permissionService.hasAccessToClaim('GetUser', -1);
+		$scope.hasGetGroupListPermission = true; //permissionService.hasAccessToClaim('GetGroup',-1);
+		$scope.hasGetGameListPermission = true; //permissionService.hasAccessToClaim('GetGame',-1);
+		$scope.hasGetRoleListPermission = permissionService.hasAccessToClaim('GetRole',-1);
+	}	
+
 }]);

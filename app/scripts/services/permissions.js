@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sgaAdminApp')                                                                                                                                                                        
-.factory("permissionServices", ['$http', 'config', function($http, config) {  
+.service("permissionService", ['$http', 'config', function($http, config) {  
 	var userId = null;
 	var userClaims = [];                                                                                                                                                 
 	return {                                                                                                                                                                                                       
@@ -9,10 +9,10 @@ angular.module('sgaAdminApp')
    			userId = id;
    			userClaims = claims
    		},
-   		hasAccessToClaim: function(claimRequired){
+   		hasAccessToClaim: function(claimRequired, entityId){
    			for (var i = 0; i<userClaims.length; i++)
    			{
-   				if (userClaims[i].claimId == claimRequired.claimId)
+   				if (userClaims[i].claimName == claimRequired && userClaims[i].entityId == entityId)
    				{
    					return true;
    				}

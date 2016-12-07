@@ -9,12 +9,12 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
-	'$scope', '$stateParams', '$location', 'permissionServices', 'modalManager', 'UsersApi',
-	function($scope, $stateParams, $location, permissionServices, modalManager, UsersApi) {
+	'$scope', '$stateParams', '$location', 'permissionService', 'modalManager', 'UsersApi',
+	function($scope, $stateParams, $location, permissionService, modalManager, UsersApi) {
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemId = $stateParams.itemId;
 
-		$scope.permissionServices = permissionServices;
+		$scope.permissionService = permissionService;
 
 		$scope.userFound = true;
 
