@@ -9,8 +9,8 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('LoginCtrl', [
-	'$rootScope', '$scope', '$location', 'permissionService', 'config', 'Auth', 'User', 'UsersApi',
-	function($rootScope, $scope, $location, permissionService, config, Auth, User, UsersApi) {
+	'$scope', '$location', 'permissionService', 'config', 'Auth', 'User', 'UsersApi',
+	function($scope, $location, permissionService, config, Auth, User, UsersApi) {
 		$scope.loginFail = false;
 		$scope.user = {
 			Name: '',
@@ -27,16 +27,8 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
 					var claims = [];
 					var id = res.data['response']['user'].id;
 
-					UsersApi['actorClaim'].list(id).then(function (res){
-						if (res.status === 200 && res.data != null)
-						{
-							claims = res.data['response'];
-							$scope.permissionService.setClaims(id, claims);
-						}
-					})
-					
-					$rootScope.$broadcast('updateNavbar');
-					
+					$scope.permissionService.set(id)
+
 					returnPath = $location.search()["return"];
 					if (returnPath != null) {
 						$location.search('return', null);

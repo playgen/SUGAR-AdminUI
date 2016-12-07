@@ -9,11 +9,19 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', 'permissionService', 'config', 'Auth', function($scope, $location, permissionService, config, Auth) {
-	
+
+	$scope.hasGetUserListPermission = false;
+	$scope.hasGetGroupListPermission = false;
+	$scope.hasGetGameListPermission = false;
+	$scope.hasGetRoleListPermission = false;
+
 	$scope.loggedIn = Auth.isAuthenticated;
 	$scope.Logout = function() {
 		Auth.set(config.tokens.authorization, null);
 		Auth.preApproved = false;
+
+		$scope.resetNavbar();
+
 		var returnPath;
 		returnPath = $location.search()["return"];
 		if (returnPath != null) {
@@ -35,5 +43,12 @@ angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', '
 		$scope.hasGetGameListPermission = true; //permissionService.hasAccessToClaim('GetGame',-1);
 		$scope.hasGetRoleListPermission = permissionService.hasAccessToClaim('GetRole',-1);
 	}	
+
+	$scope.resetNavbar = function() {
+		$scope.hasGetUserListPermission = false;
+		$scope.hasGetGroupListPermission = false;
+		$scope.hasGetGameListPermission = false;
+		$scope.hasGetRoleListPermission = false;
+	}
 
 }]);
