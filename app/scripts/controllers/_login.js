@@ -9,15 +9,15 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('LoginCtrl', [
-	'$scope', '$location', 'config', 'Auth', 'User',
-	function($scope, $location, config, Auth, User) {
+	'$scope', '$location', 'permissionServices', 'config', 'Auth', 'User', 'UsersApi',
+	function($scope, $location, permissionServices, config, Auth, User, UsersApi) {
 		$scope.loginFail = false;
-		$scope.registerFail = false;
 		$scope.user = {
 			Name: '',
 			Password: '',
 			SourceToken: 'SUGAR'
 		};
+		$scope.permissionServices = permissionServices;
 /*		$scope.register = function() {
 			User.register($scope.user).then(function(res) {
 					//automatically log in
@@ -40,6 +40,19 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
 			return User.login($scope.user).then(function(res) {
 				var ref, returnPath;
 				if (res.status === 200 && res.data != null) {
+
+					var claims = [];
+					var id = res.data['response']['user'].id;
+
+					UsersApi['actorClaim'].list(id).then(function (res){
+						if (res.status === 200 && res.data != null)
+						{
+							claims = res.data['response'];
+							$scope.permissionServices.setClaims(id, claims);
+						}
+					})
+					
+
 					returnPath = $location.search()["return"];
 					if (returnPath != null) {
 						$location.search('return', null);
@@ -50,7 +63,6 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
 				}
 			}).catch(function(res) {
 				if (res.status === -1) {
-					$scope.registerFail = false;
 					$scope.loginFail = true;
 					var name = false;
 				}

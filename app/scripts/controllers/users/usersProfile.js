@@ -9,10 +9,12 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
-	'$scope', '$stateParams', '$location', 'modalManager', 'UsersApi',
-	function($scope, $stateParams, $location, modalManager, UsersApi) {
+	'$scope', '$stateParams', '$location', 'permissionServices', 'modalManager', 'UsersApi',
+	function($scope, $stateParams, $location, permissionServices, modalManager, UsersApi) {
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemId = $stateParams.itemId;
+
+		$scope.permissionServices = permissionServices;
 
 		$scope.userFound = true;
 
@@ -41,9 +43,6 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 		$scope.closeTable = function(){
 			$scope.init();
 		};
-
-		
-		
 
 		$scope["delete"] = function(item) {
 			return modalManager.open('deleteUser', {

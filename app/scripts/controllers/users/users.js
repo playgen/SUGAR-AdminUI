@@ -9,10 +9,11 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('UsersCtrl', [
-	'$scope', '$stateParams', '$location', 'modalManager', 'UsersApi',
-	function($scope, $stateParams, $location, modalManager, UsersApi) {
+	'$scope', '$stateParams', 'permissionServices', '$location', 'modalManager', 'UsersApi',
+	function($scope, $stateParams, permissionServices, $location, modalManager, UsersApi) {
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemid = $stateParams.itemid;
+		$scope.permissionServices = permissionServices;
 
 		$scope.items = [];
 		$scope.pagination = {
@@ -20,16 +21,15 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
+			var claim = {"actorId":9, "claimId":37, "entityId":9};
+
+			var claims = [claim];
+			$scope.permissionServices.setClaims(claims);
+			
 			return UsersApi['users'].list().then(function(res) {
 				if (res.status === 200 && res.data != null) {
 					$scope.items = res.data['response'];
 				}
-			});
-		};
-		$scope.select = function(item) {
-			return modalManager.open('editUser', {
-				itemtype: 'users',
-				item: item
 			});
 		};
 		$scope["delete"] = function(item) {

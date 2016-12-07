@@ -81,6 +81,11 @@ angular.module('sgaAdminApp').service('UsersApi', [
 					return $http["delete"](config.api.baseurl + "/groupmember", item);
 				}
 			},
+			'actorClaim': {
+				list: function(id){
+					return $http.get(config.api.baseurl + '/ActorClaim/actor/' + id)
+				},
+			}
 		};
 	}
 ]);

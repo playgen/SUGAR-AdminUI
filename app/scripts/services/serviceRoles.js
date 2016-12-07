@@ -34,6 +34,11 @@ angular.module('sgaAdminApp').service('RolesApi', [
 				"delete": function(roleId, claimId){
 					return $http.get(config.api.baseurl + '/role/' + roleId + '/claim/' + claimId);
 				}
+			},
+			'actorClaim': {
+				list: function(id){
+					return $http.get(config.api.baseurl + '/ActorClaim/actor/' + id)
+				},
 			}
 		};
 	}
