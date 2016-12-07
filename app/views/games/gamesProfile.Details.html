@@ -1,6 +1,6 @@
 <div>
 	<div>
-		<button class="btn btn-danger" type="button" ng-click="delete(item)">Delete Game</button>
+		<button class="btn btn-danger" type="button" ng-click="delete(item)" ng-if="hasDeletePermission">Delete Game</button>
 	</div>
 	<table class="table table-bordered table-hover" ng-init="init()">
 		<tr>

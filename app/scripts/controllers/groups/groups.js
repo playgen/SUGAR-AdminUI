@@ -9,10 +9,15 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('GroupsCtrl', [
-	'$scope', '$stateParams', '$location', 'modalManager', 'GroupsApi',
-	function($scope, $stateParams, $location, modalManager, GroupsApi) {
+	'$scope', '$stateParams', '$location', 'permissionService', 'modalManager', 'GroupsApi',
+	function($scope, $stateParams, $location, permissionService, modalManager, GroupsApi) {
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemid = $stateParams.itemid;
+
+		$scope.permissionService = permissionService;
+
+		$scope.hasGetListPermission;
+		$scope.hasCreatePermission;
 
 		$scope.items = [];
 		$scope.pagination = {
@@ -21,6 +26,10 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 		};
 		$scope.init = function() {
 			return GroupsApi['groups'].list().then(function(res) {
+				// our permissions
+				$scope.hasCreatePermission = permissionService.hasAccessToClaim('CreateGroup',-1);
+				$scope.hasGetListPermission = true;
+
 				if (res.status === 200 && res.data != null) {
 					$scope.items = res.data['response'];
 					//get the number of members for each groups

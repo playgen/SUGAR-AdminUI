@@ -13,10 +13,10 @@
 	</div>
 	<div class="col-xs-12" ng-if="gameFound">
 		<button class="btn btn-primary" ui-sref="gamesProfile.Details" ui-sref-active="activeState">Details</button>
-		<button class="btn btn-primary" ui-sref="gamesProfile.Achievements" ui-sref-active="activeState">Achievements</button>
-		<button class="btn btn-primary" ui-sref="gamesProfile.Skills" ui-sref-active="activeState">Skills</button>
-		<button class="btn btn-primary" ui-sref="gamesProfile.Resources" ui-sref-active="activeState" title="disabled until resources updated"ng-disabled="true">Resources</button>
-		<button class="btn btn-primary" ui-sref="gamesProfile.Leaderboards" ui-sref-active="activeState">Leaderboards</button>
+		<button class="btn btn-primary" ui-sref="gamesProfile.Achievements" ui-sref-active="activeState" ng-if="hasGetAchievementPermission">Achievements</button>
+		<button class="btn btn-primary" ui-sref="gamesProfile.Skills" ui-sref-active="activeState" ng-if="hasGetSkillPermission">Skills</button>
+		<button class="btn btn-primary" ui-sref="gamesProfile.Resources" ui-sref-active="activeState" title="disabled until resources updated"ng-disabled="true" ng-if="hasGetResourcePermission">Resources</button>
+		<button class="btn btn-primary" ui-sref="gamesProfile.Leaderboards" ui-sref-active="activeState" ng-if="hasGetLeaderboardPermission">Leaderboards</button>
 	</div>
 </contentHeader>
 <contentMain>	

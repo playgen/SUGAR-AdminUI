@@ -26,9 +26,9 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
 		$scope.init = function() {	
 			// our permissions
 			$scope.hasCreatePermission = permissionService.hasAccessToClaim('CreateUser',-1);
-			$scope.hasGetUserListPermission = permissionService.hasAccessToClaim('GetUser', -1);
+			$scope.hasGetListPermission = permissionService.hasAccessToClaim('GetUser', -1);
 
-			if ($scope.hasGetUserListPermission)
+			if ($scope.hasGetListPermission)
 			{
 				return UsersApi['users'].list().then(function(res) {
 					if (res.status === 200 && res.data != null) {

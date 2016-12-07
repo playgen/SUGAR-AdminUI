@@ -18,7 +18,7 @@ angular.module('sgaAdminApp')
    		hasAccessToClaim: function(claimRequired, entityId){
    			for (var i = 0; i<userClaims.length; i++)
    			{
-   				if (userClaims[i].claimName == claimRequired && userClaims[i].entityId == entityId)
+   				if (userClaims[i].claimName == claimRequired && (userClaims[i].entityId == entityId || userClaims[i].entityId == -1))
    				{
    					return true;
    				}

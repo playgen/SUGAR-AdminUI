@@ -8,7 +8,7 @@
 </contentHeader>
 <contentMain>
 <div ng-init="init()">
-	<table class="table table-bordered table-hover">
+	<table class="table table-bordered table-hover" ng-if="hasGetListPermission">
 		<tr class="listitem">
 			<th style="width: 10px"></th>
 			<th>Game Name</th>
@@ -24,7 +24,7 @@
 </contentMain>
 <contentFooter>
 	<div class="col-xs-3 text-center button-container">
-		<button class="btn btn-success pull-left" type="button" ng-click="create()"><i class="fa fa-plus"></i> Create new game</button>
+		<button class="btn btn-success pull-left" type="button" ng-click="create()" ng-if="hasCreatePermission"><i class="fa fa-plus"></i> Create new game</button>
 	</div>
 	<div class="col-xs-9 text-center">
 		<uib-pagination class="pull-right" total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>

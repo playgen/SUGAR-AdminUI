@@ -9,10 +9,15 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('GamesCtrl', [
-	'$scope', '$stateParams', '$location', 'modalManager', 'GamesApi',
-	function($scope, $stateParams, $location, modalManager, GamesApi) {
+	'$scope', '$stateParams', '$location', 'permissionService', 'modalManager', 'GamesApi',
+	function($scope, $stateParams, $location, permissionService, modalManager, GamesApi) {
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemid = $stateParams.itemid;
+
+		$scope.permissionService = permissionService;
+
+		$scope.hasGetListPermission;
+		$scope.hasCreatePermission;
 
 		$scope.items = [];
 		$scope.pagination = {
@@ -20,6 +25,10 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
+			// our permissions
+			$scope.hasCreatePermission = permissionService.hasAccessToClaim('CreateGame',-1);
+			$scope.hasGetListPermission = true;
+
 			return GamesApi['games'].list().then(function(res) {
 				if (res.status === 200 && res.data != null) {
 					$scope.items = res.data['response'];

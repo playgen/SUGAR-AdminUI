@@ -9,10 +9,15 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('RolesCtrl', [
-	'$scope', '$stateParams', '$location', 'modalManager', 'RolesApi',
-	function($scope, $stateParams, $location, modalManager, RolesApi) {
+	'$scope', '$stateParams', '$location', 'permissionService', 'modalManager', 'RolesApi',
+	function($scope, $stateParams, $location, permissionService, modalManager, RolesApi) {
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemid = $stateParams.itemid;
+
+		$scope.permissionService = permissionService;
+
+		$scope.hasGetListPermission;
+		$scope.hasCreatePermission;
 
 		$scope.items = [];
 		$scope.pagination = {
@@ -20,6 +25,11 @@ angular.module('sgaAdminApp').controller('RolesCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
+
+			// our permissions
+			$scope.hasCreatePermission = permissionService.hasAccessToClaim('CreateRole',-1);
+			$scope.hasGetListPermission = permissionService.hasAccessToClaim('GetRole', -1);
+
 			return RolesApi['roles'].list().then(function(res) {
 				if (res.status === 200 && res.data != null) {
 					$scope.items = res.data['response'];

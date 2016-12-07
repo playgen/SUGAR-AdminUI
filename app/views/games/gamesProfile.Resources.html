@@ -2,7 +2,7 @@
 	<div class="col-xs-3">
 		<button class="btn btn-success" type="button" ng-click="addNew(item)"><i class="fa fa-user"> Add New Resource</i></button>
 	</div>
-	<table class="table table-bordered table-hover">
+	<table class="table table-bordered table-hover" ng-if="hasGetResourcePermission">
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td style="width: 10px"></td>
             <td>{{item.key}}</td>
