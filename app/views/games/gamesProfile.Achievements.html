@@ -1,6 +1,6 @@
 <div ng-init="init()">
 	<div class="col-xs-3">
-		<button class="btn btn-success" type="button" ng-click="addNewAchievement()"><i class="fa fa-trophy" ng-if="hasCreateAchievementPermission"> Add New Achievement</i></button>
+		<button class="btn btn-success" type="button" ng-click="addNewAchievement()" ng-if="hasCreateAchievementPermission"><i class="fa fa-trophy" > Add New Achievement</i></button>
 	</div>
 	<table class="table table-bordered table-hover" ng-if="hasGetAchievementPermission">
 		<tr class="listitem">

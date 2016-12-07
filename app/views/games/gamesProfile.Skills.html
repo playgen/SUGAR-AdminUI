@@ -1,6 +1,6 @@
 <div ng-init="init()">
 	<div class="col-xs-3">
-		<button class="btn btn-success" type="button" ng-click="addNewSkill()"><i class="fa fa-user" ng-if="hasCreateSkillPermission"> Add New Skill</i></button>
+		<button class="btn btn-success" type="button" ng-click="addNewSkill()" ng-if="hasCreateSkillPermission"><i class="fa fa-user" > Add New Skill</i></button>
 	</div>	
 	<table class="table table-bordered table-hover" ng-if="hasGetSkillPermission">
 		<tr class="listitem">

@@ -1,6 +1,6 @@
 <div ng-init="init()">
 	<div class="col-xs-3">
-		<button class="btn btn-success" type="button" ng-click="addNew()"><i class="fa fa-scores" ng-if="hasCreateLeaderboardPermission"> Add New Leaderboard</i></button>
+		<button class="btn btn-success" type="button" ng-click="addNew()" ng-if="hasCreateLeaderboardPermission"><i class="fa fa-scores"> Add New Leaderboard</i></button>
 	</div>
 	<table class="table table-bordered table-hover" ng-if="hasGetLeaderboardPermission">
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'token' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
