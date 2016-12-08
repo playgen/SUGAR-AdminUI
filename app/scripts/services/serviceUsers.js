@@ -18,7 +18,7 @@ angular.module('sgaAdminApp').service('UsersApi', [
 					return $http.get(config.api.baseurl + '/user/list');
 				},
 				get: function(username) {
-					return $http.get(config.api.baseurl + '/user/find/' + username);
+					return $http.get(config.api.baseurl + '/user/find/' + username + "/true");
 				},
 				getById: function(id) {
 					return $http.get(config.api.baseurl + '/user/findbyid/' + id)

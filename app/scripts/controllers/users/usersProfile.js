@@ -53,7 +53,7 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 			$scope.hasUpdateFriendRequestPermission = permissionService.hasAccessToClaim('UpdateUserFriendRequest', $scope.itemId);
 
 			$scope.hasCreateGroupMemberPermission = permissionService.hasAccessToClaim('CreateGroupMemberRequest', $scope.itemId);
-			$scope.hasDeleteGroupMemberPermission = permissionService.hasAccessToClaim('DeleteGroupMember', $scope.itemId);
+			$scope.hasDeleteGroupMemberPermission = true;
 
 			UsersApi['users'].getById($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data['response'].name != null) {

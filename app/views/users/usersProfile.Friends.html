@@ -3,22 +3,26 @@
 </div>
 <div class="col-xs-12">
 	<button class="btn btn-info" type="button" ng-click="viewFriends()" ng-if="hasGetFriendPermission">Friends ({{friends.length}})</button>
-	<button class="btn btn-info" type="button" ng-click="viewPending()" ng-Disabled="pendings.length==0" ng-if="hasGetFriendRequestPermission">Sent Requests ({{pendings.length}})</button>
+	<button class="btn btn-info" type="button" ng-click="viewPending()" ng-Disabled="pendings.length==0" ng-if="hasGetFriendRequestPermission">Requests Sent({{pendings.length}})</button>
 	<button class="btn btn-info" type="button" ng-click="viewIncoming()" ng-Disabled="requests.length==0" ng-if="hasGetFriendRequestPermission">Friend Requests ({{requests.length}})</button>
 </div>
 <table class="table table-bordered table-hover" ng-init="init()">
 	<tr class="listitem">
 		<td style="width: 10px"></td>
-		<th>Name</th>
-		<th ng-if="!ShowingFriends">Status</th>
+		<th ng-if="ShowingIncomingRequests">Friend Requests</th>
+		<th ng-if="ShowingPendingRequests">Requests Sent</th>
+		<th ng-if="ShowingFriends">Friends</th>
 		<th></th>
 	</tr>
-
+	<tr class="listitem">
+		<td style="width: 10px"></td>
+		<th>Name</th>
+		<th></th>
+	</tr>
 	<!-- Show friend requests from other players first -->
 	<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingIncomingRequests && hasGetFriendPermission">
         <td></td>
 		<td>{{item.name}}</td>
-		<td>Pending</td>
         <td>
 			<button class="btn btn-danger pull-right" type="button" ng-click="reject(item)" ng-if="hasUpdateFriendRequestPermission"><i class="fa fa-times"> Reject</i></button>
 			<button class="btn btn-success pull-right" type="button" ng-click="accept(item)" ng-if="hasUpdateFriendRequestPermission"><i class="fa fa-times"> Accept</i></button>
@@ -29,7 +33,6 @@
 	<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingPendingRequests && hasGetFriendRequestPermission">
 		<td></td>
         <td>{{item.name}}</td>
-		<td>Request Sent</td>
         <td>
             <button class="btn btn-danger pull-right" type="button" ng-click="removePending(item)"  ng-if="hasUpdateFriendRequestPermission"><i class="fa fa-times"> Cancel</i></button>
         </td>

@@ -16,6 +16,14 @@ angular.module('sgaAdminApp').controller('UsersProfileGroupsCtrl', [
 				item: item
 			});
 		};
-
+		$scope.remove = function(item) {
+            var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + item.id + ", Accepted: false }"
+            UsersApi['userGroups'].update(friendship).then(function(res) {
+                $scope.init();
+            });
+        };
+        return $scope.$on('savedItem', function(event, args) {
+			return $scope.init();
+		});
 	}
 ]);
