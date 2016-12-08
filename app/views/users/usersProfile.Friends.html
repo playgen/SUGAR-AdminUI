@@ -1,10 +1,10 @@
 <div class="col-xs-3">
-	<button class="btn btn-success" type="button" ng-click="addFriend(item)"><i class="fa fa-user"> Add New Friend</i></button>
+	<button class="btn btn-success" type="button" ng-click="addFriend(item)" ng-if="hasCreateFriendRequestPermission"><i class="fa fa-user"> Add New Friend</i></button>
 </div>
 <div class="col-xs-12">
-	<button class="btn btn-info" type="button" ng-click="viewFriends()">View Friends</button>
-	<button class="btn btn-info" type="button" ng-click="viewPending()">View Sent Requests</button>
-	<button class="btn btn-info" type="button" ng-click="viewIncoming()">View Friend Requests</button>
+	<button class="btn btn-info" type="button" ng-click="viewFriends()" ng-if="hasGetFriendPermission">View Friends</button>
+	<button class="btn btn-info" type="button" ng-click="viewPending()" ng-if="hasGetFriendRequestPermission">View Sent Requests</button>
+	<button class="btn btn-info" type="button" ng-click="viewIncoming()" ng-if="hasGetFriendRequestPermission">View Friend Requests</button>
 </div>
 <table class="table table-bordered table-hover" ng-init="init()">
 	<tr class="listitem">
@@ -15,33 +15,33 @@
 	</tr>
 
 	<!-- Show friend requests from other players first -->
-	<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingIncomingRequests">
+	<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingIncomingRequests && hasGetFriendPermission">
         <td></td>
 		<td>{{item.name}}</td>
 		<td>Pending</td>
         <td>
-			<button class="btn btn-danger pull-right" type="button" ng-click="reject(item)"><i class="fa fa-times"> Reject</i></button>
-			<button class="btn btn-success pull-right" type="button" ng-click="accept(item)"><i class="fa fa-times"> Accept</i></button>
+			<button class="btn btn-danger pull-right" type="button" ng-click="reject(item)" ng-if="hasUpdateFriendRequestPermission"><i class="fa fa-times"> Reject</i></button>
+			<button class="btn btn-success pull-right" type="button" ng-click="accept(item)" ng-if="hasUpdateFriendRequestPermission"><i class="fa fa-times"> Accept</i></button>
         </td>
     </tr>
 
 	<!-- Show friend requests sent second -->
-	<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingPendingRequests">
+	<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingPendingRequests && hasGetFriendRequestPermission">
 		<td></td>
         <td>{{item.name}}</td>
 		<td>Request Sent</td>
         <td>
-            <button class="btn btn-danger pull-right" type="button" ng-click="removePending(item)"><i class="fa fa-times"> Cancel</i></button>
+            <button class="btn btn-danger pull-right" type="button" ng-click="removePending(item)"  ng-if="hasUpdateFriendRequestPermission"><i class="fa fa-times"> Cancel</i></button>
         </td>
     </tr>
 
 	<!-- Now show the accepted friends -->
-    <tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingFriends">
+    <tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingFriends && hasGetFriendRequestPermission">
     	<td></td>
         <td>{{item.name}}</td>
 		<td>Accepted</td>
         <td>
-            <button class="btn btn-danger pull-right" type="button" ng-click="remove(item)"><i class="fa fa-times"> Remove</i></button>
+            <button class="btn btn-danger pull-right" type="button" ng-click="remove(item)" ng-if="hasDeleteFriendPermission"><i class="fa fa-times"> Remove</i></button>
         </td>
     </tr>
 </table>

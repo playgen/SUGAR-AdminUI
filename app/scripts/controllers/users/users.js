@@ -18,6 +18,7 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
 		$scope.hasGetListPermission;
 		$scope.hasCreatePermission;
 
+
 		$scope.items = [];
 		$scope.pagination = {
 			perPage: 10,

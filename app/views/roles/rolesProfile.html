@@ -15,7 +15,7 @@
 </contentHeader>
 <contentMain>	
 	<div ng-init="init()" ng-if="roleFound" >
-		<table class="table table-bordered table-hover">
+		<table class="table table-bordered table-hover" ng-if="hasGetListPermission">
 		<tr>
 			<h4><b>Claims Available</b></h4>
 		</tr>

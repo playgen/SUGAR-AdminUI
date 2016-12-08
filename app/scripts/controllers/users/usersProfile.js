@@ -16,6 +16,18 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 
 		$scope.permissionService = permissionService;
 
+		$scope.hasDeleteUserPermission;
+
+		$scope.hasGetFriendPermission;
+		$scope.hasDeleteFriendPermission;
+
+		$scope.hasGetFriendRequestPermission;
+		$scope.hasCreateFriendRequestPermission;
+		$scope.hasUpdateFriendRequestPermission;
+
+		$scope.hasCreateGroupMemberPermission;
+		$scope.hasDeleteGroupMemberPermission;
+
 		$scope.userFound = true;
 
 		$scope.userName = '';
@@ -29,6 +41,20 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
+
+			// Our permissions
+			$scope.hasDeleteUserPermission = permissionService.hasAccessToClaim('DeleteUser', $scope.itemId);
+
+			$scope.hasGetFriendPermission = permissionService.hasAccessToClaim('GetUserFriendRequest', $scope.itemId);
+			$scope.hasDeleteFriendPermission = permissionService.hasAccessToClaim('DeleteUserFriend', $scope.itemId);
+
+			$scope.hasGetFriendRequestPermission = permissionService.hasAccessToClaim('GetUserFriendRequest', $scope.itemId);
+			$scope.hasCreateFriendRequestPermission = permissionService.hasAccessToClaim('CreateUserFriendRequest', $scope.itemId);
+			$scope.hasUpdateFriendRequestPermission = permissionService.hasAccessToClaim('UpdateUserFriendRequest', $scope.itemId);
+
+			$scope.hasCreateGroupMemberPermission = permissionService.hasAccessToClaim('CreateGroupMemberRequest', $scope.itemId);
+			$scope.hasDeleteGroupMemberPermission = permissionService.hasAccessToClaim('DeleteGroupMember', $scope.itemId);
+
 			UsersApi['users'].getById($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data['response'].name != null) {
 					$scope.userName = res.data['response'].name;
