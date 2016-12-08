@@ -9,10 +9,22 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
-	'$scope', '$stateParams', '$location', 'modalManager', 'GroupsApi',
-	function($scope, $stateParams, $location, modalManager, GroupsApi) {
+	'$scope', '$stateParams', '$location', 'permissionService', 'modalManager', 'GroupsApi',
+	function($scope, $stateParams, $location, permissionService, modalManager, GroupsApi) {
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemId = $stateParams.itemId;
+
+		$scope.permissionService = permissionService;
+
+		$scope.hasDeletePermission;
+		$scope.hasEditPermission;
+
+		$scope.hasGetMemberPermission;
+		$scope.hasCreateMemberPermission;
+		$scope.hasDeleteMemberPermission;
+
+		$scope.hasGetRolePermission;
+		$scope.hasCreateRolePermission;
 
 		$scope.groupName = '';
 		$scope.groupFound = true;
@@ -23,6 +35,18 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
+			// our permissions
+			$scope.hasDeletePermission = permissionService.hasAccessToClaim('DeleteGroup', $scope.itemId);
+			$scope.hasUpdatePermission = permissionService.hasAccessToClaim('UpdateGroup', $scope.itemId);
+
+			$scope.hasGetMemberPermission = true;
+			$scope.hasCreateMemberPermission = permissionService.hasAccessToClaim('CreateGroupMemberRequest', $scope.itemId);
+			$scope.hasDeleteMemberPermission = permissionService.hasAccessToClaim('DeleteGroupMember', $scope.itemId);
+
+			$scope.hasGetRolePermission = permissionService.hasAccessToClaim('GetRole', $scope.itemId);
+			$scope.hasCreateRolePermission = permissionService.hasAccessToClaim('CreateRole', $scope.itemId);
+
+
 			GroupsApi['members'].list($scope.itemId).then(function(res) {
 				if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
 					$scope.items = res.data['response'];

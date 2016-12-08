@@ -1,12 +1,12 @@
 <div class="col-xs-3">
-	<button class="btn btn-success" type="button" ng-click="addMember(item)"><i class="fa fa-user"> Add New Member</i></button>
+	<button class="btn btn-success" type="button" ng-click="addMember(item)" ng-if="hasCreateMemberPermission"><i class="fa fa-user"> Add New Member</i></button>
 </div>
 <table class="table table-bordered table-hover" ng-init="init()">
 	<tr class="listitem">
 		<td style="width: 10px"></td>
 		<th>Name</th>
-		<th>Role</th>
-		<th>New Role</th>
+		<th ng-if="hasGetRolePermission">Role</th>
+		<th ng-if="hasUpdateRolePermission">New Role</th>
 		<th></th>
 	</tr>
 
@@ -14,17 +14,18 @@
     <tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
     	<td></td>
         <td>{{item.name}}</td>
-		<td>None Set</td>
-		<td>
+        <!-- TODO add all roles the player has of this group -->
+		<td ng-if="hasGetRolePermission">None Set</td>
+		<td ng-if="hasUpdateRolePermission">
 			<select ng-model="item.NewRole" required>
 				<option ng:repeat="role in roles" value="{{role.name}}">
 			        {{role.name}}
 			    </option>
 			</select>
-			<button class="btn btn-primary" type="button" ng-Disabled="item.NewRole==''||item.NewRole==null"ng-click="setRole(item)">Set</button>
+			<button class="btn btn-primary" type="button" ng-Disabled="item.NewRole==''||item.NewRole==null"ng-click="setRole(item)">Add</button>
 		</td>
         <td>
-            <button class="btn btn-danger pull-right" type="button" ng-click="deleteMember(item)"><i class="fa fa-times"> Remove</i></button>
+            <button class="btn btn-danger pull-right" type="button" ng-click="deleteMember(item)" ng-if="hasDeleteMemberPermission"><i class="fa fa-times"> Remove</i></button>
         </td>
     </tr>
 </table>

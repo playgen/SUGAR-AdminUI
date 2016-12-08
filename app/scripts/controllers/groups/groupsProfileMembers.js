@@ -28,12 +28,15 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 				$scope.groupFound = false;
 			});
 
-			GroupsApi['roles'].list().then(function(res) {
-				if (res.status === 200 && res.data != null)
-				{
-					$scope.roles = res.data['response'];
-				}
-			});
+			if ($scope.hasGetRolePermission)
+			{
+				GroupsApi['roles'].list().then(function(res) {
+					if (res.status === 200 && res.data != null)
+					{
+						$scope.roles = res.data['response'];
+					}
+				});
+			}
 		};
 		//our buttons
 		$scope.deleteMember = function(item) {
