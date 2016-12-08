@@ -34,16 +34,6 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 					$scope.items = res.data['response'];
 					//get the number of members for each groups
 					$scope.allData = [];
-
-					for (var i in $scope.items) {
-						//loop through our items and pass through the index for us to ensure we set the number of members correctly
-						(function(i) {
-							GroupsApi['members'].list($scope.items[i].id).then(function(res) {
-								$scope.items[i].members = null;
-								$scope.items[i].members = res.data['response'].length == 1 ? "1 Member" : res.data['response'].length + " Members";
-							});
-						})(i);
-					}
 				}
 			});
 		};
