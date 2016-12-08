@@ -55,5 +55,8 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 			console.log("TODO Update user with id: " + item.id + " with new role: " + item.NewRole)
 			item.NewRole = "";
 		};
+		return $scope.$on('savedItem', function(event, args) {
+			return $scope.init();
+		});
 	}
 ]);
