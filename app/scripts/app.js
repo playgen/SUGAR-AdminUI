@@ -58,17 +58,20 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 		.state('userProfile.Details', {
 			url: '/details',
 			templateUrl: 'views/users/usersProfile.Details.html',
-			controller: 'UsersProfileDetailsCtrl'
+			controller: 'UsersProfileDetailsCtrl',
+			login: true
 		})	
 		.state('userProfile.Friends', {
 			url: '/friends',
 			templateUrl: 'views/users/usersProfile.Friends.html',
-			controller: 'UsersProfileFriendsCtrl'
+			controller: 'UsersProfileFriendsCtrl',
+			login: true
 		})	
 		.state('userProfile.Groups', {
 			url: '/groups',
 			templateUrl: 'views/users/usersProfile.Groups.html',
-			controller: 'UsersProfileGroupsCtrl'
+			controller: 'UsersProfileGroupsCtrl',
+			login: true
 		})
 
 		//-------------------------------------------------------
@@ -90,12 +93,14 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 		.state('groupsProfile.Details', {
 			url: '/details',
 			templateUrl: 'views/groups/groupsProfile.Details.html',
-			controller: 'GroupsProfileDetailsCtrl'
+			controller: 'GroupsProfileDetailsCtrl',
+			login: true
 		})
 		.state('groupsProfile.Members', {
 			url: '/members',
 			templateUrl: 'views/groups/groupsProfile.Members.html',
-			controller: 'GroupsProfileMembersCtrl'
+			controller: 'GroupsProfileMembersCtrl',
+			login: true
 		})
 
 		//-------------------------------------------------------
@@ -117,17 +122,20 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 		.state('gamesProfile.Details', {
 			url: '/details',
 			templateUrl: 'views/games/gamesProfile.Details.html',
-			controller: 'GamesProfileDetailsCtrl'
+			controller: 'GamesProfileDetailsCtrl',
+			login: true
 		})
 		.state('gamesProfile.Achievements', {
 			url: '/achievements',
 			templateUrl: 'views/games/gamesProfile.Achievements.html',
-			controller: 'GamesProfileAchievementsCtrl'
+			controller: 'GamesProfileAchievementsCtrl',
+			login: true
 		})
 		.state('gamesProfile.NewAchievement', {
 			url: '/newAchievement',
 			templateUrl: 'views/games/gamesProfile.NewAchievement.html',
-			controller: 'GamesProfileNewAchievementCtrl'
+			controller: 'GamesProfileNewAchievementCtrl',
+			login: true
 		})
 		.state('gamesProfile.Skills', {
 			url: '/skills',
@@ -137,22 +145,26 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 		.state('gamesProfile.NewSkill', {
 			url: '/newSkill',
 			templateUrl: 'views/games/gamesProfile.NewSkill.html',
-			controller: 'GamesProfileNewSkillCtrl'
+			controller: 'GamesProfileNewSkillCtrl',
+			login: true
 		})
 		.state('gamesProfile.Resources', {
 			url: '/resources',
 			templateUrl: 'views/games/gamesProfile.resources.html',
-			controller: 'GamesProfileResourcesCtrl'
+			controller: 'GamesProfileResourcesCtrl',
+			login: true
 		})
 		.state('gamesProfile.Leaderboards', {
 			url: '/leaderboards',
 			templateUrl: 'views/games/gamesProfile.Leaderboards.html',
-			controller: 'GamesProfileLeaderboardsCtrl'
+			controller: 'GamesProfileLeaderboardsCtrl',
+			login: true
 		})
 		.state('gamesProfile.newLeaderboard', {
 			url: '/newLeaderboard',
 			templateUrl: 'views/games/gamesProfile.NewLeaderboard.html',
-			controller: 'GamesProfileNewLeaderboardCtrl'
+			controller: 'GamesProfileNewLeaderboardCtrl',
+			login: true
 		})
 
 		//-------------------------------------------------------
@@ -194,13 +206,26 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 	// 	login: true
 
 }).run([
-	'$rootScope', '$location', 'Auth', 'config',
-	function($rootScope, $location, Auth, config) {
-		return $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+	'$rootScope', '$state', 'Auth', 'config',
+	function($rootScope, $state, Auth, config) {
+		return $rootScope.$on('$stateChangeStart', function(event, nextRoute, currentRoute) {
+
+			// Go to the login page if not logged in and trying to view a page
+
 			if ((nextRoute != null) && nextRoute.login && !Auth.isAuthenticated()) {
-				$location.search('return', $location.path());
-				return $location.path('/login');
+				// $location.search('return', $location.path());
+				// return $location.path('/login');
+				$state.transitionTo("login");
+      			event.preventDefault(); 
 			}
+
+			// check if going to login page and is already authenticated
+
+			if ((nextRoute != null) && nextRoute.name=='login' && Auth.isAuthenticated())
+			{
+				$state.transitionTo("main");
+      			event.preventDefault(); 
+			}			
 		});
 	}
 ]).constant('config', {
