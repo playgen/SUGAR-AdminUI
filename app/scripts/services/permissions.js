@@ -25,5 +25,9 @@ angular.module('sgaAdminApp')
    			}
    			return false;
    		},
+         hasUserPermissions: function()
+         {
+            return userId != null;
+         }
 	};
 }]);

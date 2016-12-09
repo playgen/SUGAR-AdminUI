@@ -206,23 +206,24 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 	// 	login: true
 
 }).run([
-	'$rootScope', '$state', 'Auth', 'config',
-	function($rootScope, $state, Auth, config) {
+	'$rootScope', '$state', 'permissionService', 'Auth', 'config',
+	function($rootScope, $state, permissionService, Auth, config) {
 		return $rootScope.$on('$stateChangeStart', function(event, nextRoute, currentRoute) {
-
-			// Go to the login page if not logged in and trying to view a page
-
+			if (permissionService.hasUserPermissions() == false)
+			{
+				//log the user out
+				Auth.set(config.tokens.authorization, null);
+				Auth.preApproved = false;
+			}
 			if ((nextRoute != null) && nextRoute.login && !Auth.isAuthenticated()) {
-				// $location.search('return', $location.path());
-				// return $location.path('/login');
+
+				// Go to the login page if not logged in and trying to view a page
 				$state.transitionTo("login");
       			event.preventDefault(); 
 			}
-
-			// check if going to login page and is already authenticated
-
 			if ((nextRoute != null) && nextRoute.name=='login' && Auth.isAuthenticated())
 			{
+				// if going to login page and is already authenticated
 				$state.transitionTo("main");
       			event.preventDefault(); 
 			}			
