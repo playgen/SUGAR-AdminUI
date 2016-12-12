@@ -8,7 +8,7 @@
  * # HeaderCtrl
  * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', 'permissionService', 'config', 'Auth', function($scope, $location, permissionService, config, Auth) {
+angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', 'permissionService', 'ipCookie', 'config', 'Auth', function($scope, $location, permissionService, ipCookie, config, Auth) {
 
 	$scope.hasGetUserListPermission = false;
 	$scope.hasGetGroupListPermission = false;
@@ -19,7 +19,7 @@ angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', '
 	$scope.Logout = function() {
 		Auth.set(config.tokens.authorization, null);
 		Auth.preApproved = false;
-
+		ipCookie.remove("userId");
 		$scope.resetNavbar();
 
 		var returnPath;

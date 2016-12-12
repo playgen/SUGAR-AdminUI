@@ -206,14 +206,13 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 	// 	login: true
 
 }).run([
-	'$rootScope', '$state', 'permissionService', 'Auth', 'config',
-	function($rootScope, $state, permissionService, Auth, config) {
+	'$rootScope', '$state', 'permissionService','ipCookie', 'Auth', 'config',
+	function($rootScope, $state, permissionService, ipCookie, Auth, config) {
 		return $rootScope.$on('$stateChangeStart', function(event, nextRoute, currentRoute) {
-			if (permissionService.hasUserPermissions() == false)
+			if (!permissionService.hasUserPermissions() && ipCookie("userId") != null)
 			{
-				//log the user out
-				Auth.set(config.tokens.authorization, null);
-				Auth.preApproved = false;
+				//permissions have not been set, but we have stored the user id in cookies, so get them again
+				permissionService.set(ipCookie("userId"));
 			}
 			if ((nextRoute != null) && nextRoute.login && !Auth.isAuthenticated()) {
 
