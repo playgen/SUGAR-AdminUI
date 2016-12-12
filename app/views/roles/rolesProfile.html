@@ -16,12 +16,12 @@
 <contentMain>	
 	<div ng-init="init()" ng-if="roleFound" >
 		<table class="table table-bordered table-hover" ng-if="hasGetListPermission">
-		<tr>
-			<h4><b>Claims Available</b></h4>
-		</tr>
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'token' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-            <td>{{item.token}}</td>
-		</tr>
+			<tr class="listitem">
+				<th>Claims Available<th>
+			</tr>
+			<tr class="listitem" ng-repeat="item in items | orderBy: 'token' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+	            <td>{{item.token}}</td>
+			</tr>
 		</table>
 	</div>
 </contenMain>

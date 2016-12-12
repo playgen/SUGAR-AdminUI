@@ -1,11 +1,14 @@
 'use strict';
 
 angular.module('sgaAdminApp').controller('RolesProfileCtrl', [
-	'$scope', '$stateParams', '$location', 'modalManager', 'RolesApi',
-	function($scope, $stateParams, $location, modalManager, RolesApi) {
+	'$scope', '$stateParams', '$location', 'permissionService', 'modalManager', 'RolesApi',
+	function($scope, $stateParams, $location, permissionService, modalManager, RolesApi) {
 		$scope.itemId = $stateParams.itemId;
 
 		$scope.roleFound = true;
+
+		$scope.permissionService = permissionService;
+		$scope.hasGetListPermission;
 
 		$scope.roleName = '';
 
@@ -16,6 +19,8 @@ angular.module('sgaAdminApp').controller('RolesProfileCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
+			$scope.hasGetListPermission = permissionService.hasAccessToClaim('GetRoleClaim', $scope.itemId);
+
 			RolesApi['claims'].list($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data['response'] != null) {
 					$scope.items = res.data['response'];
