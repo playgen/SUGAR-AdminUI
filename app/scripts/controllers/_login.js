@@ -27,15 +27,18 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
 					var claims = [];
 					var id = res.data['response']['user'].id;
 
-					$scope.permissionService.set(id)
 					ipCookie("userId", id);
-					returnPath = $location.search()["return"];
-					if (returnPath != null) {
-						$location.search('return', null);
-						return $location.path(returnPath);
-					} else {
-						return $location.path('/');
-					}
+					$scope.permissionService.get(id).then(function() {
+						
+						// returnPath = $location.search()["return"];
+						// if (returnPath != null) {
+						// 	$location.search('return', null);
+						// 	return $location.path(returnPath);
+						// } else {
+						 	return $location.path('/');
+						// }
+					});
+					//TODO dont let players with no permissions login - error
 				}
 			}).catch(function(res) {
 				if (res.status === -1) {

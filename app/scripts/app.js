@@ -212,7 +212,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			if (!permissionService.hasUserPermissions() && ipCookie("userId") != null)
 			{
 				//permissions have not been set, but we have stored the user id in cookies, so get them again
-				permissionService.set(ipCookie("userId"));
+				permissionService.get(ipCookie("userId"));
 			}
 			if ((nextRoute != null) && nextRoute.login && !Auth.isAuthenticated()) {
 

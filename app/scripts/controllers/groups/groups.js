@@ -35,6 +35,8 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 					//get the number of members for each groups
 					$scope.allData = [];
 				}
+			}).catch(function(res){
+				console.log(res.statusText);
 			});
 		};
 		$scope.select = function(item) {

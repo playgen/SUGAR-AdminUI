@@ -39,6 +39,10 @@ angular.module('sgaAdminApp').service('GroupsApi', [
 				get: function(id) {
 					return $http.get(config.api.baseurl + ("/groupmember/" + id));
 				},
+				getActorsForRole: function(roleId, groupId)
+				{
+					return $http.get(config.api.baseurl + '/ActorRole/role/' + roleId + '/entity/' + groupId)
+				},
 				create: function(item) {
 					return $http.post(config.api.baseurl + '/groupmember', item)
 				},
@@ -56,7 +60,16 @@ angular.module('sgaAdminApp').service('GroupsApi', [
 			},
 			'roles': {
 				list: function() {
-					return $http.get(config.api.baseurl + '/role/list');
+					return $http.get(config.api.baseurl + '/role/scope/group');
+				},
+				getActorRole(actorId, entityId, scopeName) {
+					return $http.get(config.api.baseurl + '/ActorRole/actor/' + actorId + '/entity/' + entityId + '/claimscope/' + scopeName); 
+				},
+				CreateActorRole: function(item){
+					return $http.post(config.api.baseurl + '/actorRole', item)
+				},
+				"delete": function(actorId, entityId, roleId){
+					return $http["delete"](config.api.baseurl + '/ActorRole/actor/' + actorId + '/entity/' + entityId + '/role/' + roleId)
 				}
 			}
 		};

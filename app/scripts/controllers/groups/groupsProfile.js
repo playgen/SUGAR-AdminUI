@@ -9,8 +9,8 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
-	'$scope', '$stateParams', '$location', 'permissionService', 'modalManager', 'GroupsApi',
-	function($scope, $stateParams, $location, permissionService, modalManager, GroupsApi) {
+	'$rootScope', '$scope', '$stateParams', '$state', '$location', 'permissionService', 'modalManager', 'GroupsApi',
+	function($rootScope, $scope, $stateParams, $state, $location, permissionService, modalManager, GroupsApi) {
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemId = $stateParams.itemId;
 
@@ -25,6 +25,7 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 
 		$scope.hasGetRolePermission;
 		$scope.hasCreateRolePermission;
+		$scope.hasUpdateRolePermission;
 
 		$scope.groupName = '';
 		$scope.groupFound = true;
@@ -36,15 +37,7 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 		};
 		$scope.init = function() {
 			// our permissions
-			$scope.hasDeletePermission = permissionService.hasAccessToClaim('DeleteGroup', $scope.itemId);
-			$scope.hasUpdatePermission = permissionService.hasAccessToClaim('UpdateGroup', $scope.itemId);
-
-			$scope.hasGetMemberPermission = true;
-			$scope.hasCreateMemberPermission = permissionService.hasAccessToClaim('CreateGroupMemberRequest', $scope.itemId);
-			$scope.hasDeleteMemberPermission = permissionService.hasAccessToClaim('DeleteGroupMember', $scope.itemId);
-
-			$scope.hasGetRolePermission = permissionService.hasAccessToClaim('GetRole', $scope.itemId);
-			$scope.hasCreateRolePermission = permissionService.hasAccessToClaim('CreateRole', $scope.itemId);
+			$scope.getPermissions();
 
 
 			GroupsApi['members'].list($scope.itemId).then(function(res) {
@@ -86,8 +79,30 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 			//go back to group list
 			$location.path("/groups");
 		};
+
+		$scope.getPermissions = function() {
+			$scope.hasDeletePermission = permissionService.hasAccessToClaim('DeleteGroup', $scope.itemId);
+			$scope.hasUpdatePermission = permissionService.hasAccessToClaim('UpdateGroup', $scope.itemId);
+
+			$scope.hasGetMemberPermission = true;
+			$scope.hasCreateMemberPermission = permissionService.hasAccessToClaim('CreateGroupMemberRequest', $scope.itemId);
+			$scope.hasDeleteMemberPermission = permissionService.hasAccessToClaim('DeleteGroupMember', $scope.itemId);
+
+			$scope.hasGetRolePermission = permissionService.hasAccessToClaim('GetRole', $scope.itemId);
+			$scope.hasCreateRolePermission = permissionService.hasAccessToClaim('CreateRole', $scope.itemId);
+			$scope.hasUpdateRolePermission = true;//permissionService.hasAccessToClaim('UpdateRole', $scope.itemId);
+
+			$rootScope.$emit('permissionsSet');
+			$rootScope.$broadcast('permissionsSetBroadcast');
+			
+		};
+
+
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
+		});
+		return $scope.$on('refreshPermissions', function(event, args) {
+			return $scope.getPermissions();
 		});
 
 	}
