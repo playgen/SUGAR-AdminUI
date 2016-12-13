@@ -18,14 +18,21 @@ angular.module('sgaAdminApp').controller('GamesProfileRolesCtrl', [
 
 		};
 		$scope.showUsersWithRole = function(role) {
-			$scope.role = role;
-			RolesApi['roles'].getActorsForRole(role.id, $scope.itemId).then(function(res){
-				if (res.status === 200 && res.data['response'] != null)
-				{
-					$scope.items = res.data['response'];
-					$scope.isViewingRole = true;
-				}
-			});
+			if ($scope.isViewingRole)
+			{
+				$scope.close();
+			}
+			else
+			{
+				$scope.role = role;
+				RolesApi['roles'].getActorsForRole(role.id, $scope.itemId).then(function(res){
+					if (res.status === 200 && res.data['response'] != null)
+					{
+						$scope.items = res.data['response'];
+						$scope.isViewingRole = true;
+					}
+				});
+			}
 		};
 		$scope.close = function() {
 			$scope.isViewingRole = false;
