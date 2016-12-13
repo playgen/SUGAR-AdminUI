@@ -31,6 +31,8 @@ angular.module('sgaAdminApp').controller('GamesProfileCtrl', [
 		$scope.hasEditLeaderboardPermission;
 		$scope.hasDeleteLeaderboardPermission;
 
+		$scope.hasCreateRolePermission;
+
 		$scope.gameName = '';
 		$scope.gameFound = true;
 
@@ -63,6 +65,8 @@ angular.module('sgaAdminApp').controller('GamesProfileCtrl', [
 			$scope.hasCreateLeaderboardPermission = permissionService.hasAccessToClaim('CreateLeaderboard', $scope.itemId);
 			$scope.hasUpdateLeaderboardPermission = permissionService.hasAccessToClaim('UpdateLeaderboard', $scope.itemId);
 			$scope.hasDeleteLeaderboardPermission = permissionService.hasAccessToClaim('DeleteLeaderboard', $scope.itemId);
+
+			$scope.hasCreateRolePermission = permissionService.hasAccessToClaim('CreateRole', $scope.itemid);
 
 			GamesApi['games'].get($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data != null) {
@@ -238,6 +242,37 @@ angular.module('sgaAdminApp').controller('GamesProfileCtrl', [
 		};
 		return $scope.closeModal = function() {
 			return $uibModalInstance.close();
+		};
+	}
+]).controller('AddRoleModalCtrl', [
+	'$scope', '$rootScope', '$uibModalInstance', 'UsersApi', 'RolesApi', 'modalManager', 'modaldata',
+	function($scope, $rootScope, $uibModalInstance, UsersApi, RolesApi, modalManager, modaldata) {
+		$scope.gameId = modaldata.gameId;
+		$scope.roleId = modaldata.roleId;
+		
+		$scope.exists = true;
+
+		//our buttons
+		$scope.closeModal = function() {
+			$scope.exists = true;
+			$uibModalInstance.close();
+		};
+		$scope.add = function(item) {
+			UsersApi['users'].get($scope.txtBox)
+
+			.then(function(res) {
+				if (res.data['response'][0] != null) {
+					//put the data backwards for testing as groups cannot request users join
+					var userRole = "{ ActorId: " + res.data['response'][0].id + ", roleId: " + $scope.roleId + ", EntityId: " + $scope.gameId + " }"
+					RolesApi['updateRoles'].CreateActorRole(userRole)
+
+					.then(function(res) {
+						$uibModalInstance.close();
+						$rootScope.$broadcast('UpdatedRoles')
+					});
+				} else
+					$scope.exists = false;
+			});
 		};
 	}
 ]);

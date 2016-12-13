@@ -116,7 +116,11 @@ angular.module('sgaAdminApp').service('modalManager', [
 			'createRole': {
 				temp: 'createRoleModal.html',
 				cont: 'CreateRoleModalCtrl'
-			}
+			},
+			'addUserRole': {
+				temp: 'addRoleModal.html',
+				cont: 'AddRoleModalCtrl'
+			},
 
 		};
 		modalManager = {

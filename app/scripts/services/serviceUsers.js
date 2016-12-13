@@ -85,6 +85,11 @@ angular.module('sgaAdminApp').service('UsersApi', [
 				list: function(id){
 					return $http.get(config.api.baseurl + '/ActorClaim/actor/' + id)
 				},
+			},
+			'roles': {
+				getActorRole(actorId, entityId, scopeName) {
+					return $http.get(config.api.baseurl + '/ActorRole/actor/' + actorId + '/entity/' + entityId + '/claimscope/' + scopeName); 
+				},
 			}
 		};
 	}

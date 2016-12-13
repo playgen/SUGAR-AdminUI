@@ -1,6 +1,6 @@
 angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
-	'$scope', '$stateParams', '$location', 'modalManager', 'GroupsApi',
-	function($scope, $stateParams, $location, modalManager, GroupsApi) {
+	'$scope', '$stateParams', '$location', 'modalManager', 'GroupsApi', 'RolesApi',
+	function($scope, $stateParams, $location, modalManager, GroupsApi, RolesApi) {
 		$scope.init = function() {
 			$scope.itemtype = $stateParams.itemtype;
 			$scope.itemId = $stateParams.itemId;
@@ -23,7 +23,7 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
                     for (var i in $scope.items) {
                         //loop through our items and pass through the index for us to ensure we set the number of members correctly
                         (function(i) {
-                            GroupsApi['roles'].getActorRole($scope.items[i].id, $scope.itemId, "Group" ).then(function(res) {
+                            RolesApi['roles'].getActorRole($scope.items[i].id, $scope.itemId, "Group" ).then(function(res) {
                                 
                             	$scope.items[i].role = null;
                             	$scope.items[i].roleId = null;
@@ -50,7 +50,7 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 			}).catch(function() {
 				$scope.groupFound = false;
 			});
-			GroupsApi['roles'].list().then(function(res) {
+			RolesApi['roles'].listScope("Groups").then(function(res) {
 				if (res.status === 200 && res.data != null)
 				{
 					$scope.roles = res.data['response'];
@@ -86,7 +86,7 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 			
 			item.NewRole = "";
 
-			GroupsApi['roles'].CreateActorRole(actorRole).then(function(res) {
+			RolesApi['updateRoles'].CreateActorRole(actorRole).then(function(res) {
 				$scope.init();
 			});
 
@@ -94,7 +94,7 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 		$scope.revokeRole = function(item) {
 			console.log("Removing Role: " + item.role + " with Id: " + item.roleId + ", from user with Id: " + item.id);
 
-			GroupsApi['roles']["delete"](item.id, $scope.itemId, item.roleId).then(function(res) {
+			RolesApi['updateRoles']["delete"](item.id, $scope.itemId, item.roleId).then(function(res) {
 				$scope.init();
 			});
 

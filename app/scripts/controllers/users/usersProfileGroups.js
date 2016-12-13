@@ -6,6 +6,23 @@ angular.module('sgaAdminApp').controller('UsersProfileGroupsCtrl', [
 			UsersApi['userGroups'].list($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data != null) {
 					$scope.items = res.data['response'];
+					for (var i in $scope.items) {
+                        //loop through our items and pass through the index for us to ensure we set the number of members correctly
+                        (function(i) {
+                            UsersApi['roles'].getActorRole($scope.itemId, $scope.items[i].id, "Group" ).then(function(res) {
+                                
+                            	$scope.items[i].role = null;
+                                if (res.status === 200  && res.data['response'] != null)
+								{	
+									var name = res.data['response'][0] != null ? res.data['response'][0].name : null;
+									var roleId = res.data['response'][0] != null ? res.data['response'][0].id : null;
+
+									$scope.items[i].role = name != null ? name : "None"; 
+								}
+                            });
+                        })(i);
+                    }
+
 				}
 			});
 		}

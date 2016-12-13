@@ -58,20 +58,7 @@ angular.module('sgaAdminApp').service('GroupsApi', [
 					return $http.get(config.api.baseurl + '/user/find/' + username);
 				}
 			},
-			'roles': {
-				list: function() {
-					return $http.get(config.api.baseurl + '/role/scope/group');
-				},
-				getActorRole(actorId, entityId, scopeName) {
-					return $http.get(config.api.baseurl + '/ActorRole/actor/' + actorId + '/entity/' + entityId + '/claimscope/' + scopeName); 
-				},
-				CreateActorRole: function(item){
-					return $http.post(config.api.baseurl + '/actorRole', item)
-				},
-				"delete": function(actorId, entityId, roleId){
-					return $http["delete"](config.api.baseurl + '/ActorRole/actor/' + actorId + '/entity/' + entityId + '/role/' + roleId)
-				}
-			}
+			
 		};
 	}
 ]);

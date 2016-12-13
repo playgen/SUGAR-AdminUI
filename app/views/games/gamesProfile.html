@@ -17,6 +17,7 @@
 		<button class="btn btn-primary" ui-sref="gamesProfile.Skills" ui-sref-active="activeState" ng-if="hasGetSkillPermission">Skills</button>
 		<button class="btn btn-primary" ui-sref="gamesProfile.Resources" ui-sref-active="activeState" title="disabled until resources updated"ng-disabled="true" ng-if="hasGetResourcePermission">Resources</button>
 		<button class="btn btn-primary" ui-sref="gamesProfile.Leaderboards" ui-sref-active="activeState" ng-if="hasGetLeaderboardPermission">Leaderboards</button>
+		<button class="btn btn-primary" ui-sref="gamesProfile.Roles" ui-sref-active="activeState" ng-if="hasCreateRolePermission">Manage Roles</button>
 	</div>
 </contentHeader>
 <contentMain>	
@@ -41,4 +42,23 @@
 		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> No</button>
 		<button class="btn btn-success" type="button" ng-click="delete()"><i class="fa fa-trash-o"></i> Yes</button>
 	</div>
+</script>
+
+<!-- request to add a new user to a role -->
+
+<script type="text/ng-template" id="addRoleModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title"><span>Add a new Role for User</h3>
+    </div>
+    <div class="modal-body">        
+        <class>Enter User Name</class>
+        <form name="myForm">
+        <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" placeholder="Username" required/>
+        </form>
+        <class="form-control" ng-if="!exists">Error: User Not Found</class>
+    </div>
+    <div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> Cancel</button> 
+        <button class="btn btn-success" type="button" ng-click="add(item)"ng-disabled="myForm.$invalid"></i> Add</button>        
+    </div>>
 </script>

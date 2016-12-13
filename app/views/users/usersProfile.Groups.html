@@ -15,7 +15,7 @@
     <tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
         <td></td>
 		<td>{{item.name}}</td>
-		<td></td>
+		<td>{{item.role}}</td>
         <td>
 			<button class="btn btn-danger pull-right" type="button" ng-click="remove(item)" ng-if="hasDeleteGroupMemberPermission"><i class="fa fa-times"> Leave</i></button>
         </td>
