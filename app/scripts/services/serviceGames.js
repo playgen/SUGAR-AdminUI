@@ -28,6 +28,14 @@ angular.module('sgaAdminApp').service('GamesApi', [
 				"delete": function(id) {
 					return $http["delete"](config.api.baseurl + '/game/' + id);
 				}
+			},
+			'data': {
+				list(id) {
+					return $http.get(config.api.baseurl + '/gamedata?gameId=' + id);
+				},
+				create(item) {
+					return $http.post(config.api.baseurl + '/gamedata', item);
+				}	
 			}
 		};
 	}

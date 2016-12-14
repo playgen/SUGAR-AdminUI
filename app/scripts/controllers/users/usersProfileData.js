@@ -7,6 +7,10 @@ angular.module('sgaAdminApp').controller('UsersProfileDataCtrl', [
 
 		$scope.init = function()
 		{
+			if (!$scope.hasGetActorDataPermission)
+			{
+				return;
+			}
 			UsersApi['data'].list($scope.itemId).then(function(res){
 				if (res.status === 200 && res.data['response'] != null)
 				{
@@ -29,16 +33,16 @@ angular.module('sgaAdminApp').controller('UsersProfileDataCtrl', [
 			{
 				// See if we can get the game
 				GamesApi['games'].getByName(formData.gameName).then(function(res) {
-					if (res.status === 200 && res.data['response'].id != null)
+					if (res.status === 200 && res.data['response'][0].id != null)
 					{
-						$scope.saveNewData(formData, res.data['response'].id);
+						$scope.saveNewData(formData, res.data['response'][0].id);
 					}
 					else
 					{
-						console.log("Unable to get game with name provided");
+						console.log("Unable to get game with name: " + formData.gameName);
 					}
 				}).catch(function() {
-					console.log("Unable to get game with name provided");
+					console.log("Unable to get game with name: " + formData.gameName);
 				});
 			}
 			

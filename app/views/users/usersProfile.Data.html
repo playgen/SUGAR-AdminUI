@@ -38,7 +38,7 @@
 		<button class="btn btn-success pull-right" type="button" ng-click="addNewData(form)" ng-disabled="myForm.$invalid" ng-if="hasCreateActorDataPermission ">Create New Actor Data</button>
 	</div>
 </form>
-<table class="table table-bordered table-hover" ng-init="init()">
+<table class="table table-bordered table-hover" ng-init="init()" ng-if="hasGetActorDataPermission">
 	<tr class="listitem">
 		<td style="width: 10px"></td>
 		<th>Data</th>
@@ -52,14 +52,14 @@
 		<th>Key</th>
 		<th>value</th>
 		<th>Save Data Type</th>
-		<td></td>
+		<th>Game Id</th>
 	</tr>
 	<tr class="listitem" ng-repeat="item in items | orderBy: 'key' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)">
         <td></td>
 		<td>{{item.key}}</td>
         <td>{{item.value}}</td>
         <td>{{item.saveDataType}}</td>
-        <td></td>
+        <td>{{item.gameId}}</td>
     </tr>
 </table>
 <contentFooter>
