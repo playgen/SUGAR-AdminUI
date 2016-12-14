@@ -28,6 +28,8 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 		$scope.hasCreateGroupMemberPermission;
 		$scope.hasDeleteGroupMemberPermission;
 
+		$scope.hasCreateActorDataPermission;
+
 		$scope.userFound = true;
 
 		$scope.userName = '';
@@ -54,6 +56,8 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 
 			$scope.hasCreateGroupMemberPermission = permissionService.hasAccessToClaim('CreateGroupMemberRequest', $scope.itemId);
 			$scope.hasDeleteGroupMemberPermission = true;
+
+			$scope.hasCreateActorDataPermission = permissionService.hasAccessToClaim('CreateActorData', $scope.itemid);
 
 			UsersApi['users'].getById($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data['response'].name != null) {

@@ -90,6 +90,14 @@ angular.module('sgaAdminApp').service('UsersApi', [
 				getActorRole(actorId, entityId, scopeName) {
 					return $http.get(config.api.baseurl + '/ActorRole/actor/' + actorId + '/entity/' + entityId + '/claimscope/' + scopeName); 
 				},
+			},
+			'data': {
+				list(id) {
+					return $http.get(config.api.baseurl + '/actordata?actorId=' + id);
+				},
+				create(item) {
+					return $http.post(config.api.baseurl + '/actordata', item);
+				}	
 			}
 		};
 	}
