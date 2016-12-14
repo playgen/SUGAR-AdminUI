@@ -50,12 +50,6 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 			}).catch(function() {
 				$scope.groupFound = false;
 			});
-			RolesApi['roles'].listScope("Groups").then(function(res) {
-				if (res.status === 200 && res.data != null)
-				{
-					$scope.roles = res.data['response'];
-				}
-			});
 		};
 		//our buttons
 		$scope.deleteMember = function(item) {
@@ -70,43 +64,6 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 				itemId: $scope.itemId
 			});
 		};
-		$scope.setRole = function(item) {
-			var roleId = null;
-			for (var i=0; i<$scope.roles.length; i++)
-			{
-				if ($scope.roles[i].name == item.NewRole)
-				{
-					roleId = $scope.roles[i].id;
-					continue;
-				}
-			}
-			console.log("Updating user with id: " + item.id + " with new role: " + item.NewRole + "with Id: " + roleId);
-
-			var actorRole = "{ ActorId: " + item.id + ", RoleId: " + roleId + ", EntityId: " + $scope.itemId + "}"
-			
-			item.NewRole = "";
-
-			RolesApi['updateRoles'].CreateActorRole(actorRole).then(function(res) {
-				$scope.init();
-			});
-
-		};
-		$scope.revokeRole = function(item) {
-			console.log("Removing Role: " + item.role + " with Id: " + item.roleId + ", from user with Id: " + item.id);
-
-			RolesApi['updateRoles']["delete"](item.id, $scope.itemId, item.roleId).then(function(res) {
-				$scope.init();
-			});
-
-		};
-		$scope.$on('permissionsSet', function(event, args) {
-			console.log("Permissions Set with emit, refreshing page");
-			return $scope.init();
-		});
-		$scope.$on('permissionsSetBroadcast', function(event, args) {
-			console.log("Permissions Set with broadcast, refreshing page");
-			return $scope.init();
-		});
 		$scope.$on('savedItem', function(event, args) {
 			return $scope.init();
 		});

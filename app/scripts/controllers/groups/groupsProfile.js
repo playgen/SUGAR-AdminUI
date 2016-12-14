@@ -172,6 +172,37 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 			return $uibModalInstance.close();
 		};
 	}
+]).controller('AddRoleModalCtrl', [
+	'$scope', '$rootScope', '$uibModalInstance', 'UsersApi', 'RolesApi', 'modalManager', 'modaldata',
+	function($scope, $rootScope, $uibModalInstance, UsersApi, RolesApi, modalManager, modaldata) {
+		$scope.gameId = modaldata.gameId;
+		$scope.roleId = modaldata.roleId;
+		
+		$scope.exists = true;
+
+		//our buttons
+		$scope.closeModal = function() {
+			$scope.exists = true;
+			$uibModalInstance.close();
+		};
+		$scope.add = function(item) {
+			UsersApi['users'].get($scope.txtBox)
+
+			.then(function(res) {
+				if (res.data['response'][0] != null) {
+					//put the data backwards for testing as groups cannot request users join
+					var userRole = "{ ActorId: " + res.data['response'][0].id + ", roleId: " + $scope.roleId + ", EntityId: " + $scope.gameId + " }"
+					RolesApi['updateRoles'].CreateActorRole(userRole)
+
+					.then(function(res) {
+						$uibModalInstance.close();
+						$rootScope.$broadcast('UpdatedRoles')
+					});
+				} else
+					$scope.exists = false;
+			});
+		};
+	}
 ]);
 
 

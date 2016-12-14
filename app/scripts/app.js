@@ -113,7 +113,12 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			controller: 'GroupsProfileMembersCtrl',
 			login: true
 		})
-
+		.state('groupsProfile.Roles', {
+			url: '/roles',
+			templateUrl: 'views/groups/groupsProfile.Roles.html',
+			controller: 'GroupsProfileRolesCtrl',
+			login: true
+		})
 		//-------------------------------------------------------
 		// Games
 		//-------------------------------------------------------

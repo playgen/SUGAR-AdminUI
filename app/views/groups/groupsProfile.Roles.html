@@ -1,0 +1,49 @@
+<div>
+	<label>Select a role below to manage which users have access to it within this group</label>
+	<table class="table table-bordered table-hover" ng-init="init()">
+		
+		<tr>
+			<td style="width: 10px"></td>
+			<th><h3>Roles</h3></th>
+			<td style="width: 50px"></td>
+		</tr>
+		<tr class="listitem" ng-repeat="role in roles | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+			<td></td>
+			<td>
+				<b>{{role.name}}</b>
+			</td>
+			<td>
+				<button class="btn btn-info" ng-click="showUsersWithRole(role)">Manage Users</button>
+			</td>
+		</tr>
+	</table>
+</div>
+<div ng-if="isViewingRole" ng-style="{'background-color':'#ccc'}">
+	<div>
+		<button class="btn btn-secondary" type="button" ng-click="close()" >Close</button>
+	</div>
+	<div>
+		<button class="btn btn-success" type="button" ng-click="addUser()" ng-if="hasCreateRolePermission" >Assign New User {{role.name}} Role</button>
+	</div>
+	<div>
+		<table class="table table-hover">
+			<tr>
+				<td style="width: 10px"></td>
+				<th>User Name</th>
+				<td style="width: 10px"></td>
+			</tr>
+			<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+				<td></td>
+				<td>{{item.name}}</td>
+				<td>
+					<button type="button" class="btn btn-danger" ng-click="remove(item)" ng-if="item.name!=null">Remove</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<contentFooter>
+		<div class="col-xs-12 text-center">
+			<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+		</div>
+	</contentFooter>
+</div>

@@ -6,7 +6,6 @@
 		<td style="width: 10px"></td>
 		<th>Name</th>
 		<th ng-if="hasGetRolePermission">Role</th>
-		<th ng-if="hasUpdateRolePermission">Add Role</th>
 		<th></th>
 	</tr>
 
@@ -17,15 +16,6 @@
         <!-- TODO add all roles the player has of this group -->
 		<td ng-if="hasGetRolePermission">
 			<span>{{item.role}}</span>
-			<button ng-if="hasUpdateRolePermission && item.role!='None' && item.role!=null" class="btn btn-danger" type="button"ng-click="revokeRole(item)">Revoke</button>
-		</td>
-		<td ng-if="hasUpdateRolePermission">
-			<select ng-model="item.NewRole" required>
-				<option ng:repeat="role in roles" value="{{role.name}}">
-			        {{role.name}}
-			    </option>
-			</select>
-			<button class="btn btn-primary" type="button" ng-Disabled="item.NewRole==''||item.NewRole==null"ng-click="setRole(item)">Set</button>
 		</td>
         <td>
             <button class="btn btn-danger pull-right" type="button" ng-click="deleteMember(item)" ng-if="hasDeleteMemberPermission"><i class="fa fa-times"> Remove</i></button>
