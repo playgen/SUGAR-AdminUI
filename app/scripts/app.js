@@ -15,6 +15,10 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 
 	$urlRouterProvider.otherwise('/');
 
+	$urlRouterProvider.when('/users/:itemId', '/users/:itemId/details');
+	$urlRouterProvider.when('/games/:itemId', '/games/:itemId/details');
+	$urlRouterProvider.when('/groups/:itemId', '/groups/:itemId/details');
+	
 	$stateProvider
 
 		//-------------------------------------------------------
@@ -51,6 +55,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('userProfile', {
 			url: '/users/:itemId',
+			abstract: true,
 			templateUrl: 'views/users/usersProfile.html',
 			controller: 'UsersProfileCtrl',
 			login:true
@@ -59,6 +64,12 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			url: '/details',
 			templateUrl: 'views/users/usersProfile.Details.html',
 			controller: 'UsersProfileDetailsCtrl',
+			login: true
+		})	
+		.state('userProfile.Data', {
+			url: '/data',
+			templateUrl: 'views/users/usersProfile.Data.html',
+			controller: 'UsersProfileDataCtrl',
 			login: true
 		})	
 		.state('userProfile.Friends', {
@@ -123,6 +134,12 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			url: '/details',
 			templateUrl: 'views/games/gamesProfile.Details.html',
 			controller: 'GamesProfileDetailsCtrl',
+			login: true
+		})
+		.state('gamesProfile.Data', {
+			url: '/data',
+			templateUrl: 'views/games/gamesProfile.Data.html',
+			controller: 'GamesProfileDataCtrl',
 			login: true
 		})
 		.state('gamesProfile.Achievements', {
