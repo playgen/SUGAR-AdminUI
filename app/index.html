@@ -102,6 +102,7 @@
 				<script src="scripts/services/serviceGames.js"></script>
 				<script src="scripts/services/serviceSkills.js"></script>
 				<script src="scripts/services/serviceRoles.js"></script>
+				<script src="scripts/services/serviceErrors.js"></script>
 				<!-- other services -->
 				<script src="scripts/services/listConfigs.js"></script>
 				<script src="scripts/services/modalManager.js"></script>
@@ -109,3 +110,18 @@
 				<!-- endbuild -->
 </body>
 </html>
+<!-- Error Message Popup -->
+
+<script type="text/ng-template" id="errorMessageModal.html">
+    <div class="modal-header" ng-style="{'background-color':'#f22'}">
+        <label class="col-xs-12 modal-title"  ng-style="{color:'white', 'font-size':'30px'}"><b>Error</b></label>
+    </div>
+    <div>
+    	<label class='col-xs-12' ng-style="{ 'font-size' : '20px'}">Error Code: {{Code}}</label>
+        <label class="col-xs-12" ng-style="{ 'font-size' : '20px'}">Error Message: {{Message}}</label>
+        <label class="col-xs-12" ng-style="{ 'font-size' : '20px'}">{{OtherInformation}}</label>
+    </div>
+    <div class="modal-footer">
+		<button class="btn pull-right" type="button" ng-click="closeModal()">Ok</button>   
+    </div>
+</script>

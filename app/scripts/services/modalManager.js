@@ -121,6 +121,10 @@ angular.module('sgaAdminApp').service('modalManager', [
 				temp: 'addRoleModal.html',
 				cont: 'AddRoleModalCtrl'
 			},
+			'showError': {
+				temp: 'errorMessageModal.html',
+				cont: 'errorMessageCtrl'
+			}
 
 		};
 		modalManager = {

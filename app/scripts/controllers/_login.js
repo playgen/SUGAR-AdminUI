@@ -9,8 +9,8 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('LoginCtrl', [
-	'$scope', '$location', 'permissionService', 'ipCookie', 'config', 'Auth', 'User', 'UsersApi',
-	function($scope, $location, permissionService, ipCookie, config, Auth, User, UsersApi) {
+	'$scope', '$location', 'permissionService', 'ipCookie', 'config', 'modalManager', 'Auth', 'User', 'UsersApi',
+	function($scope, $location, permissionService, ipCookie, config, modalManager, Auth, User, UsersApi) {
 		$scope.loginFail = false;
 		$scope.user = {
 			Name: '',
@@ -20,6 +20,7 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
 		$scope.permissionService = permissionService;
 
 		return $scope.login = function() {
+
 			return User.login($scope.user).then(function(res) {
 				var ref, returnPath;
 				if (res.status === 200 && res.data != null) {

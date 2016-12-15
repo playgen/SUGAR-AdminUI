@@ -53,8 +53,8 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 		});
 	}
 ]).controller('EditGameModalCtrl', [
-	'$scope', '$rootScope', '$uibModalInstance', 'GamesApi', 'modalManager', 'modaldata',
-	function($scope, $rootScope, $uibModalInstance, GamesApi, modalManager, modaldata) {
+	'$scope', '$rootScope', '$uibModalInstance', 'ErrorService', 'GamesApi', 'modalManager', 'modaldata',
+	function($scope, $rootScope, $uibModalInstance, ErrorService, GamesApi, modalManager, modaldata) {
 		$scope.itemtype = modaldata.itemtype;
 		$scope.config = modaldata.config;
 		if (modaldata.item != null) {
@@ -82,9 +82,16 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 			});
 		};
 		$scope.save = function() {
-			return GamesApi[$scope.itemtype].update($scope.item.id, $scope.item).then(function() {
-				$uibModalInstance.close();
-				return $rootScope.$broadcast('savedItem');
+			return GamesApi[$scope.itemtype].update($scope.item.id, $scope.item).then(function(res) {
+				uibModalInstance.close();
+				if (res.status === 200)
+				{
+					return $rootScope.$broadcast('savedItem');
+				}
+				else
+				{
+					ErrorService.show(res.status, res.statusText, "Failed to update gaem" );
+				}
 			});
 		};
 		return $scope.close = function() {
@@ -95,8 +102,8 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 		};
 	}
 ]).controller('CreateGameModalCtrl', [
-	'$scope', '$rootScope', '$uibModalInstance', 'GamesApi', 'modaldata',
-	function($scope, $rootScope, $uibModalInstance, GamesApi, modaldata) {
+	'$scope', '$rootScope', '$uibModalInstance', 'ErrorService', 'GamesApi', 'modaldata',
+	function($scope, $rootScope, $uibModalInstance, ErrorService, GamesApi, modaldata) {
 		$scope.itemtype = modaldata.itemtype;
 		$scope.config = modaldata.config;
 		$scope.item = {};
@@ -108,10 +115,20 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 			//   var data = e.target.result;
 			// }
 			// r.readAsArrayBuffer(f);
-			return GamesApi[$scope.itemtype].create($scope.item).then(function() {
+			return GamesApi[$scope.itemtype].create($scope.item).then(function(res) {
 				$uibModalInstance.close();
-				return $rootScope.$broadcast('savedItem');
+				if (res.status === 200)
+				{
+					return $rootScope.$broadcast('savedItem');
+				}
+				else
+				{
+					ErrorService.show(res.status, res.statusText, "Failed to create game" );
+				}
+			}).catch(function(res){
+				ErrorService.show(res.status, res.statusText, "Failed to create game" );
 			});
+
 		};
 
 		return $scope.close = function() {
