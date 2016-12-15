@@ -27,6 +27,9 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 		$scope.hasCreateRolePermission;
 		$scope.hasUpdateRolePermission;
 
+		$scope.hasGetActorDataPermission;
+		$scope.hasCreateActorDataPermission;
+
 		$scope.groupName = '';
 		$scope.groupFound = true;
 
@@ -91,6 +94,9 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 			$scope.hasGetRolePermission = permissionService.hasAccessToClaim('GetRole', $scope.itemId);
 			$scope.hasCreateRolePermission = permissionService.hasAccessToClaim('CreateRole', $scope.itemId);
 			$scope.hasUpdateRolePermission = true;//permissionService.hasAccessToClaim('UpdateRole', $scope.itemId);
+
+			$scope.hasGetActorDataPermission = permissionService.hasAccessToClaim('GetActorData', $scope.itemid);
+			$scope.hasCreateActorDataPermission = permissionService.hasAccessToClaim('CreateActorData', $scope.itemid);
 
 			$rootScope.$emit('permissionsSet');
 			$rootScope.$broadcast('permissionsSetBroadcast');

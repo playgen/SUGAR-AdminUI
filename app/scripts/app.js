@@ -107,6 +107,12 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			controller: 'GroupsProfileDetailsCtrl',
 			login: true
 		})
+		.state('groupsProfile.Data', {
+			url: '/data',
+			templateUrl: 'views/groups/groupsProfile.Data.html',
+			controller: 'GroupsProfileDataCtrl',
+			login: true
+		})
 		.state('groupsProfile.Members', {
 			url: '/members',
 			templateUrl: 'views/groups/groupsProfile.Members.html',

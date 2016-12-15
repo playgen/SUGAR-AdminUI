@@ -13,6 +13,7 @@
 	</div>
 	<div class="col-xs-12" ng-if="groupFound">
 		<button class="btn btn-primary" ui-sref="groupsProfile.Details" ui-sref-active="activeState">Details</button>
+		<button class="btn btn-primary" ui-sref="groupsProfile.Data" ui-sref-active="activeState" ng-if="hasGetActorDataPermission">Group Data</button>
 		<button class="btn btn-primary" ui-sref="groupsProfile.Members" ui-sref-active="activeState" ng-if="hasGetMemberPermission">Members</button>
 		<button class="btn btn-primary" ui-sref="groupsProfile.Roles" ui-sref-active="activeState" ng-if="hasGetRolePermission">Manage Roles</button>
 	</div>
