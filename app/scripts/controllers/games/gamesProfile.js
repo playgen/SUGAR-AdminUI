@@ -127,9 +127,12 @@ angular.module('sgaAdminApp').controller('GamesProfileCtrl', [
 			});
 		}
 		$scope["delete"] = function() {
-			return GamesApi['games']["delete"]($scope.itemId).then(function() {
+			return GamesApi['games']["delete"]($scope.itemId).then(function(res) {
 				$uibModalInstance.close();
-				$location.path("/games");
+				if (res.status === 200)
+				{
+					$location.path("/games");
+				}
 			});
 		};
 		return $scope.closeModal = function() {

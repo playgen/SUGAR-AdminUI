@@ -24,6 +24,7 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 			perPage: 10,
 			currentPage: 1
 		};
+		
 		$scope.init = function() {
 			// our permissions
 			$scope.hasCreatePermission = permissionService.hasAccessToClaim('CreateGame',-1);
@@ -90,7 +91,7 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 				}
 				else
 				{
-					ErrorService.show(res.status, res.statusText, "Failed to update gaem" );
+					ErrorService.show(res.status, res.statusText, "Failed to update game" );
 				}
 			});
 		};
@@ -121,12 +122,6 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 				{
 					return $rootScope.$broadcast('savedItem');
 				}
-				else
-				{
-					ErrorService.show(res.status, res.statusText, "Failed to create game" );
-				}
-			}).catch(function(res){
-				ErrorService.show(res.status, res.statusText, "Failed to create game" );
 			});
 
 		};

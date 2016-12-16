@@ -21,13 +21,12 @@ angular.module('sgaAdminApp')
 	])
 	.factory('RequestInterceptor', [
 		'$q', 
-		'$location', 
+		'$location',
+		'$controller',
+		'ErrorService',
 		'config', 
 		'Auth',
-		function($q, 
-			$location, 
-			config, 
-			Auth) {
+		function($q, $location, $controller, ErrorService, config, Auth) {
 			return {
 				'request': function(reqConfig) {
 					if (reqConfig.url.search(config.api.baseurl) !== -1) {
@@ -49,6 +48,11 @@ angular.module('sgaAdminApp')
 					return response || $q.when(response);
 				},
 				'responseError': function(rejection) {
+					// ensure that the modal controller is activated
+					var controller = $controller("myController");
+					var error = {code: rejection.status, message: rejection.statusText, otherInfo: ""};
+					ErrorService.show(error);
+
 					if (rejection.config.url.search(config.api.baseurl) !== -1) {
 						if (rejection.status === 401) {
 							$location.search('return', $location.path());

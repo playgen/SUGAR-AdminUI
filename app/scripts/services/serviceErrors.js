@@ -1,24 +1,37 @@
 angular.module('sgaAdminApp').service("ErrorService", 
-	[ 
-		'modalManager', 
-		function(modalManager) {                                                                                                                                            
-			
+	[ '$rootScope', '$controller',
+	function($rootScope, $controller) {                                                                                                                                            
+
 			var service = {}; 
 
-			service.show = function(code, message, otherInformation) {
-				return modalManager.open('showError', {
-					code: code,
-					message: message,
-					otherInformation: otherInformation
-				});
-			}                                                                                                                                                                                           
+			service.show = function(rejectionReason) {
 
+				$rootScope.$emit('Error', rejectionReason);
+			}                                                                                                                                                                                           
 			return service;
+			
+		}
+	]
+).controller('myController', 
+	[ '$rootScope', 
+	'modalManager', 
+	function($rootScope, modalManager) {
+    
+	    $rootScope.$on('Error', function(event, rejectionReason) {
+
+	  			return modalManager.open('showError', {
+				code: rejectionReason.code,
+				message: rejectionReason.message,
+				otherInformation: rejectionReason.otherInfo
+			});
+	    });
+
+	    return {}
 		}
 	]
 ).controller('errorMessageCtrl', [
-	'$scope', '$rootScope', '$uibModalInstance', 'modalManager', 'modaldata',
-	function($scope, $rootScope, $uibModalInstance, modalManager, modaldata) {
+	'$scope', '$uibModalInstance', 'modaldata',
+	function($scope, $uibModalInstance, modaldata) {
 		$scope.Code = modaldata.code;
 		$scope.Message = modaldata.message;
 		$scope.OtherInformation = modaldata.otherInformation;

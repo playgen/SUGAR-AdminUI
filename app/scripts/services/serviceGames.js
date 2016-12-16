@@ -14,7 +14,7 @@ angular.module('sgaAdminApp').service('GamesApi', [
 		return {
 			'games': {
 				list: function() {
-					return $http.get(config.api.baseurl + '/game/list')
+					return $http.get(config.api.baseurl + '/game/list');
 				},
 				get: function(id) {
 					return $http.get(config.api.baseurl + '/game/findbyid/' + id);

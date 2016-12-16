@@ -8,9 +8,10 @@
  * # modalManager
  * Service in the sgaAdminApp.
  */
-angular.module('sgaAdminApp').service('modalManager', [
-	'$uibModal', 'listConfigs',
-	function($uibModal, listConfigs) {
+angular.module('sgaAdminApp')
+.service('modalManager', [
+	'$uibModal',
+	function($uibModal) {
 		var configs, modalManager;
 		configs = {
 			'editUser': {
@@ -130,9 +131,6 @@ angular.module('sgaAdminApp').service('modalManager', [
 		modalManager = {
 			open: function(modaltype, data) {
 				if (configs[modaltype] != null) {
-					if (data.config == null) {
-						data.config = listConfigs[data.itemtype];
-					}
 					return $uibModal.open({
 						animation: true,
 						templateUrl: configs[modaltype].temp,
