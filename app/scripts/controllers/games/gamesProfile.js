@@ -36,6 +36,9 @@ angular.module('sgaAdminApp').controller('GamesProfileCtrl', [
 		$scope.hasGetGameDataPermission;
 		$scope.hasCreateGameDataPermission;
 
+		$scope.hasGetGameDetailsPermission;
+		$scope.hasCreateGameDetailsPermission;
+
 		$scope.gameName = '';
 		$scope.gameFound = true;
 
@@ -73,6 +76,10 @@ angular.module('sgaAdminApp').controller('GamesProfileCtrl', [
 
 			$scope.hasGetGameDataPermission = permissionService.hasAccessToClaim('GetGameData', $scope.itemId);
 			$scope.hasCreateGameDataPermission = permissionService.hasAccessToClaim('CreateGameData', $scope.itemId);
+
+			$scope.hasGetGameDetailsPermission = permissionService.hasAccessToClaim('GetGameDetail', $scope.itemId);
+			$scope.hasCreateGameDetailsPermission = permissionService.hasAccessToClaim('CreateGameDetail', $scope.itemid);
+
 
 			GamesApi['games'].get($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data != null) {

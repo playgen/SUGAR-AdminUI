@@ -36,6 +36,14 @@ angular.module('sgaAdminApp').service('GamesApi', [
 				create(item) {
 					return $http.post(config.api.baseurl + '/gamedata', item);
 				}	
+			},
+			'details': {
+				list(id) {
+					return $http.get(config.api.baseurl + '/gameDetails?gameId=' + id);
+				},
+				create(item) {
+					return $http.post(config.api.baseurl + '/gamedetails', item);
+				}	
 			}
 		};
 	}

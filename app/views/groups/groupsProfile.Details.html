@@ -1,9 +1,48 @@
-<table class="table table-bordered table-hover" ng-init="init()">
-	<tr>
-		<td style="width: 10px"></td>
-		<th>Details</th>
-	</tr>
-	<div>
-		<button class="btn btn-danger pull-left" type="button" ng-click="delete(item)" ng-if="hasDeletePermission">Delete Group</button>
+<div>
+	<button class="btn btn-danger" type="button" ng-click="delete(item)" ng-if="hasDeletePermission">Delete Group</button>
+</div>
+<div class="col-xs-12">
+	<button class="btn btn-success" type="button" ng-click="addData()" ng-if="hasCreateActorDetailsPermission">Add New Actor Information</button>
+</div>
+<form class="form-horizontal" name="myForm" ng-if="CreateNewData" background-color="#ccc">
+	<div class="form-group">
+		<h4 for="inputName" class="col-xs-2 control-label">Key:</h4>
+		<div class="col-xs-10">
+			<input type="text" placeholder="Actor Data Key" class="form-control" ng-model="form.key" required/>
+		</div>
 	</div>
+	<div class="form-group">
+		<h4 for="inputName" class="col-xs-2 control-label">Value:</h4>
+		<div class="col-xs-10">
+			<input type="text" placeholder="Actor Data value" class="form-control" ng-model="form.value" required/>
+		</div>
+	</div>
+	<div class="col-xs-6">
+		<button class="btn btn-danger pull-left" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+	<div class="col-xs-6">
+		<button class="btn btn-success pull-right" type="button" ng-click="create(form)" ng-disabled="myForm.$invalid" ng-if="hasCreateActorDetailsPermission ">Create New Actor Information</button>
+	</div>
+</form>
+<table class="table table-bordered table-hover" ng-init="init()" ng-if="hasGetActorDataPermission">
+	<tr class="listitem">
+		<td style="width: 10px"></td>
+		<th style="width: 20%">Details</th>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<th>Key</th>
+		<th>value</th>
+	</tr>
+	<tr class="listitem" ng-repeat="item in items | orderBy: 'key' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)">
+        <td></td>
+		<td>{{item.key}}</td>
+        <td>{{item.value}}</td>
+    </tr>
 </table>
+<contentFooter>
+<div class="col-xs-12 text-center">
+	<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+</div>
+</contentFooter>

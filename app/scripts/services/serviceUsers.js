@@ -98,6 +98,14 @@ angular.module('sgaAdminApp').service('UsersApi', [
 				create(item) {
 					return $http.post(config.api.baseurl + '/actordata', item);
 				}	
+			},
+			'details': {
+				list(id) {
+					return $http.get(config.api.baseurl + '/actordetails?actorId=' + id);
+				},
+				create(item) {
+					return $http.post(config.api.baseurl + '/actordetails', item);
+				}	
 			}
 		};
 	}

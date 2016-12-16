@@ -31,6 +31,10 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 		$scope.hasGetActorDataPermission;
 		$scope.hasCreateActorDataPermission;
 
+		$scope.hasGetActorDetailsPermission;
+		$scope.hasCreateActorDetailsPermission;
+
+
 		$scope.userFound = true;
 
 		$scope.userName = '';
@@ -60,6 +64,9 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 
 			$scope.hasGetActorDataPermission = permissionService.hasAccessToClaim('GetActorData', $scope.itemid);
 			$scope.hasCreateActorDataPermission = permissionService.hasAccessToClaim('CreateActorData', $scope.itemid);
+
+			$scope.hasGetActorDetailsPermission = permissionService.hasAccessToClaim('GetActorDetail', $scope.itemId);
+			$scope.hasCreateActorDetailsPermission = permissionService.hasAccessToClaim('CreateActorDetail', $scope.itemid);
 
 			UsersApi['users'].getById($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data['response'].name != null) {
