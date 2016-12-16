@@ -2,29 +2,29 @@
 	<button class="btn btn-danger" type="button" ng-click="delete(item)" ng-if="hasDeletePermission">Delete Game</button>
 </div>
 <div class="col-xs-12">
-	<button class="btn btn-success" type="button" ng-click="addData()" ng-if="hasCreateActorDetailsPermission">Add New Game Information</button>
+	<button class="btn btn-success" type="button" ng-click="addData()" ng-if="hasCreateGameDetailsPermission">Add New Game Information</button>
 </div>
 <form class="form-horizontal" name="myForm" ng-if="CreateNewData" background-color="#ccc">
 	<div class="form-group">
 		<h4 for="inputName" class="col-xs-2 control-label">Key:</h4>
 		<div class="col-xs-10">
-			<input type="text" placeholder="Actor Data Key" class="form-control" ng-model="form.key" required/>
+			<input type="text" placeholder="Game Data Key" class="form-control" ng-model="form.key" required/>
 		</div>
 	</div>
 	<div class="form-group">
 		<h4 for="inputName" class="col-xs-2 control-label">Value:</h4>
 		<div class="col-xs-10">
-			<input type="text" placeholder="Actor Data value" class="form-control" ng-model="form.value" required/>
+			<input type="text" placeholder="Game Data value" class="form-control" ng-model="form.value" required/>
 		</div>
 	</div>
 	<div class="col-xs-6">
 		<button class="btn btn-danger pull-left" type="button" ng-click="cancel()">Cancel</button>
 	</div>
 	<div class="col-xs-6">
-		<button class="btn btn-success pull-right" type="button" ng-click="create(form)" ng-disabled="myForm.$invalid" ng-if="hasCreateActorDetailsPermission ">Create New Game Information</button>
+		<button class="btn btn-success pull-right" type="button" ng-click="create(form)" ng-disabled="myForm.$invalid" ng-if="hasCreateGameDetailsPermission ">Create New Game Information</button>
 	</div>
 </form>
-<table class="table table-bordered table-hover" ng-init="init()" ng-if="hasGetActorDataPermission">
+<table class="table table-bordered table-hover" ng-init="init()" ng-if="hasGetGameDataPermission">
 	<tr class="listitem">
 		<td style="width: 10px"></td>
 		<th style="width: 20%">Details</th>
