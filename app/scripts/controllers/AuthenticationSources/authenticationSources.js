@@ -60,7 +60,7 @@ angular.module('sgaAdminApp').controller('AuthenticationSourcesCtrl', [
 		};
 		$scope.remove = function(item){
 			var id = item.id;
-			if (id == 1)
+			if (item.token == 'SUGAR')
 			{
 				// We cannot delete SUGAR
 				return;

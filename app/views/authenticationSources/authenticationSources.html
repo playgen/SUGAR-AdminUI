@@ -51,13 +51,13 @@
 		<th>Requires Password</th>
 		<td></td>
 	</tr>
-	<tr class="listitem" ng-repeat="item in items | orderBy: 'token' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)">
+	<tr class="listitem" ng-repeat="item in items | orderBy: 'id' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)">
         <td></td>
 		<td>{{item.token}}</td>
         <td>{{item.description}}</td>
         <td>{{item.requiresPassword}}</td>
         <td>
-        	<button class="btn btn-danger pull-right" type="button" ng-click="remove(item)" ng-if="hasDeletePermission"><i class="fa fa-times" > Remove</i></button>
+        	<button class="btn btn-danger pull-right" type="button" ng-click="remove(item)" ng-if="hasDeletePermission && item.token!='SUGAR'"><i class="fa fa-times" > Remove</i></button>
         </td>
     </tr>
 </table>
