@@ -14,6 +14,7 @@ angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', '
 	$scope.hasGetGroupListPermission = false;
 	$scope.hasGetGameListPermission = false;
 	$scope.hasGetRoleListPermission = false;
+	$scope.hasGetSourcesListPermission = false;	
 
 	$scope.loggedIn = Auth.isAuthenticated;
 	$scope.Logout = function() {
@@ -42,6 +43,7 @@ angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', '
 		$scope.hasGetGroupListPermission = true; //permissionService.hasAccessToClaim('GetGroup',-1);
 		$scope.hasGetGameListPermission = true; //permissionService.hasAccessToClaim('GetGame',-1);
 		$scope.hasGetRoleListPermission = permissionService.hasAccessToClaim('GetRole',-1);
+		$scope.hasGetSourcesListPermission = true;//permissionService.hasAccessToClaim('GetAccountSource',-1);
 	}	
 
 	$scope.resetNavbar = function() {
@@ -49,6 +51,7 @@ angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', '
 		$scope.hasGetGroupListPermission = false;
 		$scope.hasGetGameListPermission = false;
 		$scope.hasGetRoleListPermission = false;
+		$scope.hasGetSourcesListPermission = false;
 	}
 
 }]);

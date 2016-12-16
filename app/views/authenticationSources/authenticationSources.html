@@ -1,0 +1,69 @@
+<contentHeader>
+	<div class="col-xs-3">
+		<button class="btn btn-secondary" type="button" ng-click=back()>Back To Menu</button>
+	</div>
+	<div class="col-xs-12">
+		<h4>This page displays the list of account authentication sources available, using this page you can:<br />- Create new sources<br />- Delete sources</h4>
+	</div>
+</contentHeader>
+<contentMain>
+<div class="col-xs-12">
+	<button class="btn btn-success" type="button" ng-click="addData()" ng-if="hasCreatePermission">Add New Authentication Source</button>
+</div>
+<form class="form-horizontal" name="myForm" ng-if="CreateNewData" background-color="#ccc">
+	<div class="form-group">
+		<h4 for="inputName" class="col-xs-2 control-label">Token:</h4>
+		<div class="col-xs-10">
+			<input type="text" placeholder="Authentication Source" class="form-control" ng-model="form.token" required/>
+		</div>
+	</div>
+	<div class="form-group">
+		<h4 for="inputName" class="col-xs-2 control-label">Description:</h4>
+		<div class="col-xs-10">
+			<input type="text" placeholder="Description" class="form-control" ng-model="form.description" required/>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<h4 class="col-xs-12" >Requires Password:
+	    	<input type="checkbox" ng-model="form.requiresPassword">
+	  	</h4>
+	</div>
+	<div class="col-xs-6">
+		<button class="btn btn-danger pull-left" type="button" ng-click="addData()">Cancel</button>
+	</div>
+	<div class="col-xs-6">
+		<button class="btn btn-success pull-right" type="button" ng-click="create(form)" ng-disabled="myForm.$invalid" ng-if="hasCreatePermission ">Create New Actor Information</button>
+	</div>
+</form>
+<table class="table table-bordered table-hover" ng-init="init()">
+	<tr class="listitem">
+		<td style="width: 10px"></td>
+		<th>Authentication Sources</th>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+		<th>Source</th>
+		<th>Description</th>
+		<th>Requires Password</th>
+		<td></td>
+	</tr>
+	<tr class="listitem" ng-repeat="item in items | orderBy: 'token' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)">
+        <td></td>
+		<td>{{item.token}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.requiresPassword}}</td>
+        <td>
+        	<button class="btn btn-danger pull-right" type="button" ng-click="remove(item)" ng-if="hasDeletePermission"><i class="fa fa-times" > Remove</i></button>
+        </td>
+    </tr>
+</table>
+</contentMain>
+<contentFooter>
+<div class="col-xs-12 text-center">
+	<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+</div>
+</contentFooter>

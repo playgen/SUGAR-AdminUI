@@ -216,6 +216,17 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: 'views/roles/rolesProfile.html',
 			controller: 'RolesProfileCtrl',
 			login: true
+		})
+
+		//-------------------------------------------------------
+		// Authentication Sources
+		//-------------------------------------------------------
+
+		.state('authenticationSources', {
+			url: '/authentication',
+			templateUrl: 'views/authenticationSources/authenticationSources.html',
+			controller: 'AuthenticationSourcesCtrl',
+			login: true
 		});
 
 	// }).when('/resources', {
