@@ -165,6 +165,12 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			controller: 'GamesProfileNewAchievementCtrl',
 			login: true
 		})
+		.state('gamesProfile.EditAchievement', {
+			url: '/editAchievement/:token',
+			templateUrl: 'views/games/gamesProfile.NewAchievement.html',
+			controller: 'GamesProfileNewAchievementCtrl',
+			login: true
+		})
 		.state('gamesProfile.Skills', {
 			url: '/skills',
 			templateUrl: 'views/games/gamesProfile.Skills.html',

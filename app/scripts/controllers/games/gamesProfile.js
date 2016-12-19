@@ -13,7 +13,7 @@ angular.module('sgaAdminApp').controller('GamesProfileCtrl', [
 
 		$scope.hasGetAchievementPermission;
 		$scope.hasCreateAchievementPermission;
-		$scope.hasEditAchievementPermission;
+		$scope.hasUpdateAchievementPermission;
 		$scope.hasDeleteAchievementPermission;
 		
 		$scope.hasGetSkillPermission;
@@ -102,6 +102,10 @@ angular.module('sgaAdminApp').controller('GamesProfileCtrl', [
 		$scope["addNewAchievement"] = function() {
 			$location.path('/games/' + $scope.itemId + '/newAchievement');
 		};
+
+		$scope["editAchievement"] = function(item) {
+			$location.path('/games/' + $scope.itemId + '/editAchievement/' + item.token);
+		}
 
 		$scope["addNewSkill"] = function() {
 			$location.path('/games/' + $scope.itemId + '/newSkill');

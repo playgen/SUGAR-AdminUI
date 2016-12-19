@@ -14,6 +14,11 @@ angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemId = $stateParams.itemId;
 
+		$scope.token = $stateParams.token;
+
+		//determine if we are creating or editing an achievement
+		$scope.isNew = $scope.token == null;
+
 		$scope.gameFound = true;
 
 		$scope.items = [];
@@ -44,13 +49,49 @@ angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 					$scope.range();
 				}
 			});
+			if (!$scope.isNew)
+			{
+				// Find the achievement that we are editing
+				AchievementsApi['achievements'].getByToken($scope.itemId, $scope.token).then(function(res){
+					if (res.status === 200 && res.data['response'] != null)
+					{
+						$scope.item = [];
+						var data = res.data['response'];
+						$scope.item.Name = data.name;
+						$scope.item.Description = data.description;
+						$scope.item.ActorType = data.actorType;
+						$scope.item.Token = data.token;
+
+						$scope.criterias = data.evaluationCriterias.length
+
+						$scope.item.evaluationCriterias = [];
+
+
+						for (var i = 0; i < data.evaluationCriterias.length; i++) {
+							var evaluationCriteria = [];
+							evaluationCriteria.Key = data.evaluationCriterias[i].evaluationDataKey;
+							evaluationCriteria.DataType = data.evaluationCriterias[i].evaluationDataType;
+							evaluationCriteria.ComparisonType = data.evaluationCriterias[i].comparisonType;
+							evaluationCriteria.Value = data.evaluationCriterias[i].value;
+
+							$scope.item.evaluationCriterias.push(evaluationCriteria);
+						}	
+
+						$scope.item.Reward = {};
+
+						$scope.item.Reward.Key = data.rewards[0].evaluationDataKey;
+						$scope.item.Reward.DataType = data.rewards[0].evaluationDataType;
+						$scope.item.Reward.Value = data.rewards[0].value;
+					}
+				})
+			}
 		};
 		$scope.range = function(min, max, step) {
 			step = step || 1;
-			min = 1;
+			min = 0;
 			max = $scope.criterias;
 			var input = [];
-			for (var i = min; i <= max; i += step) {
+			for (var i = min; i < max; i += step) {
 				input.push(i);
 			}
 			return input;
@@ -69,7 +110,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 			for (var i = 0; i < $scope.criterias; i++) {
 				if (i != 0)
 					completeCriteria += ", "
-				completeCriteria += "{ " + "\"Key\": \"" + $scope.item[i + 1].Key + "\", \"DataType\": " + $scope.item[i + 1].DataType + ", \"ComparisonType\": " + $scope.item[i + 1].ComparisonType + ", \"Value\": \"" + $scope.item[i + 1].Value + "\" }";
+				completeCriteria += "{ " + "\"Key\": \"" + $scope.item.evaluationCriterias[i].Key + "\", \"DataType\": " + $scope.item.evaluationCriterias[i].DataType + ", \"ComparisonType\": " + $scope.item.evaluationCriterias[i].ComparisonType + ", \"Value\": \"" + $scope.item.evaluationCriterias[i].Value + "\" }";
 			}
 			completeCriteria += "]";
 
@@ -83,15 +124,19 @@ angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 			$scope.achievement.evaluationCriterias = [];
 			for (var i = 0; i < $scope.criterias; i++) {
 				$scope.achievement.evaluationCriterias[i] = {};
-				$scope.achievement.evaluationCriterias[i].key = $scope.item[i + 1].Key;
-				$scope.achievement.evaluationCriterias[i].dataType = $scope.item[i + 1].DataType;
-				$scope.achievement.evaluationCriterias[i].comparisonType = $scope.item[i + 1].ComparisonType;
-				$scope.achievement.evaluationCriterias[i].value = $scope.item[i + 1].Value;
+				$scope.achievement.evaluationCriterias[i].evaluationDataKey = $scope.item.evaluationCriterias[i].Key;
+				$scope.achievement.evaluationCriterias[i].evaluationDataCategory = "GameData";
+				$scope.achievement.evaluationCriterias[i].evaluationDataType = $scope.item.evaluationCriterias[i].DataType;
+				$scope.achievement.evaluationCriterias[i].criteriaQueryType = "Any";
+				$scope.achievement.evaluationCriterias[i].comparisonType = $scope.item.evaluationCriterias[i].ComparisonType;
+				$scope.achievement.evaluationCriterias[i].scope = "Actor";
+				$scope.achievement.evaluationCriterias[i].value = $scope.item.evaluationCriterias[i].Value;
 			}
 			$scope.achievement.rewards = [];
 			$scope.achievement.rewards[0] = {};
-			$scope.achievement.rewards[0].key = $scope.item.Reward.Key;
-			$scope.achievement.rewards[0].dataType = $scope.item.Reward.DataType;
+			$scope.achievement.rewards[0].evaluationDataKey = $scope.item.Reward.Key;
+			$scope.achievement.rewards[0].evaluationDataCategory = "GameData";
+			$scope.achievement.rewards[0].evaluationDataType = $scope.item.Reward.DataType;
 			$scope.achievement.rewards[0].value = $scope.item.Reward.Value;
 
 			console.log($scope.achievement);
@@ -103,9 +148,18 @@ angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 			// }
 			// r.readAsArrayBuffer(f);
 
-			AchievementsApi['achievements'].create($scope.achievement).then(function(res) {
-				$location.path('/games/' + $scope.itemId + '/achievements');
-			});
+			if ($scope.isNew)
+			{
+				AchievementsApi['achievements'].create($scope.achievement).then(function(res) {
+					$location.path('/games/' + $scope.itemId + '/achievements');
+				});
+			}
+			else
+			{
+				AchievementsApi['achievements'].update($scope.achievement).then(function(res) {
+					$location.path('/games/' + $scope.itemId + '/achievements');
+				});
+			}
 		};
 		$scope.back = function() {
 			//go back to list of achievements for this game

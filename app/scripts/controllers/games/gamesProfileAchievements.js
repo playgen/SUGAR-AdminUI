@@ -10,6 +10,8 @@ angular.module('sgaAdminApp').controller('GamesProfileAchievementsCtrl', [
 		$scope.gameName = '';
 		$scope.gameFound = true;
 
+		$scope.isViewing = [];
+
 		$scope.pagination = {
 			perPage: 10,
 			currentPage: 1
@@ -21,6 +23,10 @@ angular.module('sgaAdminApp').controller('GamesProfileAchievementsCtrl', [
 					if (res.status === 200 && res.data != null) {
 						$scope.items = res.data['response'];
 						$scope.range();
+						for (var i=0; i<$scope.items.length; i++)
+						{
+							$scope.isViewing.push(false);
+						}
 					}
 				});
 				AchievementsApi['games'].get($scope.itemId).then(function(res) {
@@ -71,13 +77,25 @@ angular.module('sgaAdminApp').controller('GamesProfileAchievementsCtrl', [
 			return input;
 		};
 		
+		$scope.toggleView = function(n){
+			// hide all other achievements
+			for (var i=0; i<$scope.isViewing.length; i++)
+			{
+				if (i != n)
+				{
+					$scope.isViewing[i] = false;
+				}
+			}
+			$scope.isViewing[n] = !$scope.isViewing[n];
+		}
+
 		$scope.remove = function(item) {
 			return modalManager.open('deleteAchievement', {
 				item: item,
 				itemId: $scope.itemId
 			});
 		};
-		
+
 		$scope.back = function() {
 			//go back to achievements game list
 			$location.path("/achievements");

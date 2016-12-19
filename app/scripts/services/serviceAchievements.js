@@ -19,8 +19,14 @@ angular.module('sgaAdminApp').service('AchievementsApi', [
 				global: function(){
 					return $http.get(config.api.baseurl + '/achievements/global/list');
 				},
+				getByToken: function(gameId, token){
+					return $http.get(config.api.baseurl + '/achievements/find/' + token + '/' + gameId);
+				},
 				create: function(item) {
 					return $http.post(config.api.baseurl + '/achievements/create', item);
+				},
+				update: function(item) {
+					return $http.put(config.api.baseurl + '/achievements/update', item);
 				},
 				"delete": function(token, id) {
 					return $http["delete"](config.api.baseurl + '/achievements/' + token + '/' + id);
