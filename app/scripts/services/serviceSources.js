@@ -22,6 +22,9 @@ angular.module('sgaAdminApp').service('SourcesApi', [
 				create: function(item) {
 					return $http.post(config.api.baseurl + '/accountSource', item);
 				},
+				update: function(item) {
+					return $http.put(config.api.baseurl + '/accountSource', item);
+				},
 				"delete": function(id) {
 					return $http["delete"](config.api.baseurl + '/accountSource/' + id);
 				}
