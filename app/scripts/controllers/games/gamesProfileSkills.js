@@ -14,10 +14,14 @@ angular.module('sgaAdminApp').controller('GamesProfileSkillsCtrl', [
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemId = $stateParams.itemId;
 
-		$scope.gameFound = true;
-		$scope.gameName = '';
-
 		$scope.items = [];
+		$scope.criterias = 1;
+
+		$scope.gameName = '';
+		$scope.gameFound = true;
+
+		$scope.isViewing = [];
+
 		$scope.pagination = {
 			perPage: 10,
 			currentPage: 1
@@ -83,6 +87,18 @@ angular.module('sgaAdminApp').controller('GamesProfileSkillsCtrl', [
 		$scope.addSkill = function(item) {
 			$location.path("/skills/" + $scope.itemId + '/new')
 		};
+
+		$scope.toggleView = function(n){
+			// hide all other achievements
+			for (var i=0; i<$scope.isViewing.length; i++)
+			{
+				if (i != n)
+				{
+					$scope.isViewing[i] = false;
+				}
+			}
+			$scope.isViewing[n] = !$scope.isViewing[n];
+		}
 		$scope.back = function() {
 			//go back to skills games list
 			$location.path("/skills");

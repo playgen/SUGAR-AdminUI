@@ -72,16 +72,16 @@
 			</div>
 		</div>
 		<tr class="listitem" ng-repeat="n in range()">
-			<td><label>Criteria {{n}}:</label></td>
-            <td>Key<input type="text" placeholder="Unique Criteria Name" class="form-control" ng-model="item[n].Key" required/></td>
-			<td>Data Type<select class="form-control" ng-model="item[n].DataType" required>
+			<td><label>Criteria {{n+1}}:</label></td>
+            <td>Key<input type="text" placeholder="Unique Criteria Name" class="form-control" ng-model="item.evaluationCriterias[n].Key" required/></td>
+			<td>Data Type<select class="form-control" ng-model="item.evaluationCriterias[n].DataType" required>
 					<option value="0">String</option>
 					<option value="1">Long</option>
 					<option value="2">Float</option>
 					<option value="3">Boolean</option>
 				</select>
 			</td>
-			<td>Comparison Type<select class="form-control" ng-model="item[n].ComparisonType" required>
+			<td>Comparison Type<select class="form-control" ng-model="item.evaluationCriterias[n].ComparisonType" required>
 					<option value="0">equal to</option>
 					<option value="1">not equal to</option>
 					<option value="2">greater than</option>
@@ -90,7 +90,7 @@
 					<option value="5">less than or eqaul to</option>
 				</select>
 			</td>
-			<td>Value<input type="text" placeholder="Value to match" class="form-control" ng-model="item[n].Value" required/></td>
+			<td>Value<input type="text" placeholder="Value to match" class="form-control" ng-model="item.evaluationCriterias[n].Value" required/></td>
 		</tr>
 	</table>
 	</form>
@@ -102,6 +102,6 @@
 		<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="minusCriteria(item)" ng-if="criterias > 1">Remove Criteria</button>
 	</div>
 	<div class="col-xs-4 text-center button-container">
-		<button class="btn btn-success pull-right" type="button" ng-disabled="myForm.$invalid" ng-click="create()"><i class="fa fa-plus" ng-if="hasCreateSkillPermission"></i> Create Skill</button>
+		<button class="btn btn-success pull-right" type="button" ng-disabled="myForm.$invalid" ng-click="create()"><i class="fa fa-plus" ng-if="hasCreateSkillPermission"></i> {{buttonText}} Skill</button>
 	</div>
 </contentFooter>

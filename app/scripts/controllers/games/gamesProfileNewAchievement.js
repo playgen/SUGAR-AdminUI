@@ -9,7 +9,7 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
-	'$scope', '$stateParams', '$location', 'modalManager', 'AchievementsApi',
+	'$scope', '$stateParams', '$location', 'modalManager', 'AchievementsApi', 
 	function($scope, $stateParams, $location, modalManager, AchievementsApi) {
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemId = $stateParams.itemId;
@@ -29,7 +29,9 @@ angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 			currentPage: 1
 		};
 
-		//make sure that the id is valid to prevent bad data being sent, if not push back to achievemnt screen
+		$scope.buttonText = "Create";
+
+		//make sure that the id is valid to prevent bad data being sent, if not push back to achievement screen
 		if ($scope.itemId != "global")
 		{
 			AchievementsApi['games'].get($scope.itemId).then(function(res) {
@@ -51,6 +53,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 			});
 			if (!$scope.isNew)
 			{
+				$scope.buttonText = "Update";
 				// Find the achievement that we are editing
 				AchievementsApi['achievements'].getByToken($scope.itemId, $scope.token).then(function(res){
 					if (res.status === 200 && res.data['response'] != null)
@@ -59,7 +62,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 						var data = res.data['response'];
 						$scope.item.Name = data.name;
 						$scope.item.Description = data.description;
-						$scope.item.ActorType = data.actorType;
+						$scope.item.ActorType = $scope.getActorType(data.actorType);
 						$scope.item.Token = data.token;
 
 						$scope.criterias = data.evaluationCriterias.length
@@ -70,8 +73,8 @@ angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 						for (var i = 0; i < data.evaluationCriterias.length; i++) {
 							var evaluationCriteria = [];
 							evaluationCriteria.Key = data.evaluationCriterias[i].evaluationDataKey;
-							evaluationCriteria.DataType = data.evaluationCriterias[i].evaluationDataType;
-							evaluationCriteria.ComparisonType = data.evaluationCriterias[i].comparisonType;
+							evaluationCriteria.DataType = $scope.getDataType(data.evaluationCriterias[i].evaluationDataType);
+							evaluationCriteria.ComparisonType = $scope.getComparisonType(data.evaluationCriterias[i].comparisonType);
 							evaluationCriteria.Value = data.evaluationCriterias[i].value;
 
 							$scope.item.evaluationCriterias.push(evaluationCriteria);
@@ -80,7 +83,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 						$scope.item.Reward = {};
 
 						$scope.item.Reward.Key = data.rewards[0].evaluationDataKey;
-						$scope.item.Reward.DataType = data.rewards[0].evaluationDataType;
+						$scope.item.Reward.DataType = $scope.getDataType(data.rewards[0].evaluationDataType);
 						$scope.item.Reward.Value = data.rewards[0].value;
 					}
 				})
@@ -164,6 +167,51 @@ angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 		$scope.back = function() {
 			//go back to list of achievements for this game
 			$location.path('/games/' + $scope.itemId + '/achievements');
+		};
+		$scope.getActorType = function(type) {
+			switch(type) 
+			{
+				case 'User':
+					return "0";
+				case 'Group':
+					return "1";
+				default:
+					return "";
+			}
+		};
+		$scope.getDataType = function(type) {
+			switch(type) 
+			{
+				case 'String':
+					return "0";
+				case 'Long':
+					return "1";
+				case 'Float':
+					return "2";
+				case 'Bool':
+					return "3";
+				default:
+					return "";
+			}
+		};
+		$scope.getComparisonType = function(type) {
+			switch(type) 
+			{
+				case 'Equals':
+					return "0";
+				case 'NotEqual':
+					return "1";
+				case 'Greater':
+					return "2";
+				case 'GreaterOrEqual':
+					return "3";
+				case 'Less':
+					return "4";
+				case 'LessOrEqual':
+					return "5";
+				default:
+					return "";
+			}
 		};
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();

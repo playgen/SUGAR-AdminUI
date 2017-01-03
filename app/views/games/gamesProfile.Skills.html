@@ -3,31 +3,71 @@
 		<button class="btn btn-success" type="button" ng-click="addNewSkill()" ng-if="hasCreateSkillPermission"><i class="fa fa-user" > Add New Skill</i></button>
 	</div>	
 	<table class="table table-bordered table-hover" ng-if="hasGetSkillPermission">
-		<tr class="listitem">
-			<td style="width: 10px"></td>
-				<th>Name</th>
-				<th>Key</th>
-				<th>Completion Criteria</th>
-		</tr>
 		<tbody ng-repeat="n in range()">
 			<tr>
-				<td></td>
 				<td><h4>{{items[n].name}}</h4></td>
-				<td><h4>{{items[n].evaluationCriterias[0].key}}</h4></td>
-				<td><h4>{{items[n].evaluationCriterias[0].dataType}} {{items[n].evaluationCriterias[0].comparisonType}} {{items[n].evaluationCriterias[0].value}}</h4></td>
-				<td>
-				<button class="btn btn-danger pull-right" type="button" ng-click="remove(items[n])"><i class="fa fa-times"> Remove</i></button>
-			</td>
+				<td style="width: 20%"></td>
+				<td style="width: 20%"></td>
+				<td style="width: 10%"></td>
+				<td style="width: 10%">
+					<button class="btn btn-info pull-left" type="button" ng-click="toggleView(n)" ng-if="hasGetSkillPermission">View</button>
+				</td>
 			</tr>
-			<tr ng-repeat="i in criteriaRange(n)">
+			<tr ng-show="isViewing[n]">
+				<th><h4>Name</h4></th>
+				<td>{{items[n].name}}</td>
+				
+			</tr>
+			<tr ng-show="isViewing[n]">
+				<th><h4>Description</h4></th>
+				<td>{{items[n].description}}</td>
+			</tr>
+			<tr ng-show="isViewing[n]">
+				<th><h4>Evaluation Criteria</h4></th>
+			</tr>
+			<tr ng-show="isViewing[n]">
+				<th>Key</th>
+				<th>Data Type</th>
+				<th>Comparison Type</th>
+				<th>Value</th>
+			</tr>
+			<tr ng-show="isViewing[n]">
+				<td>{{items[n].evaluationCriterias[0].evaluationDataKey}}</td>
+				<td>{{items[n].evaluationCriterias[0].evaluationDataType}}</td>
+				<td>{{items[n].evaluationCriterias[0].comparisonType}}</td>
+				<td>{{items[n].evaluationCriterias[0].value}}</td>
+			</tr>
+			<tr ng-repeat="i in criteriaRange(n)" ng-show="isViewing[n]">
+				<td>{{items[n].evaluationCriterias[i].evaluationDataKey}}</td>
+				<td>{{items[n].evaluationCriterias[i].evaluationDataType}}</td>
+				<td>{{items[n].evaluationCriterias[i].comparisonType}}</td>
+				<td>{{items[n].evaluationCriterias[i].value}}</td>
+			</tr>
+			<tr ng-show="isViewing[n]">
+				<th><h4>Reward</h4></th>
+			</tr>
+			<tr ng-show="isViewing[n]">
+				<th>key</th>
+				<th>Data Type</th>
+				<th>Value</th>
+			</tr>
+			<tr ng-show="isViewing[n]">
+				<td>{{items[n].rewards[0].evaluationDataKey}}</td>
+				<td>{{items[n].rewards[0].evaluationDataType}}</td>
+				<td>{{items[n].rewards[0].value}}</td>
+			</tr>
+			<tr ng-show="isViewing[n]">
+				<td>
+					<button class="btn btn-info pull-left" type="button" ng-click="editSkill(items[n])" ng-if="hasUpdateSkillPermission"> Edit Skill</button>
+				</td>
 				<td></td>
 				<td></td>
-				<td><h4>{{items[n].evaluationCriterias[i].key}}</h4></td>
-				<td><h4>{{items[n].evaluationCriterias[i].dataType}} {{items[n].evaluationCriterias[i].comparisonType}} {{items[n].evaluationCriterias[i].value}}</h4></td>
+				<td></td>
+				<td>
+					<button class="btn btn-danger pull-left" type="button" ng-click="remove(items[n])"><i class="fa fa-times" ng-if="hasDeleteSkillPermission"> Remove Skill</i></button>
+				</td>
 			</tr>
 		</tbody>
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-		</tr>
 	</table>
 </div>
 </contentMain>

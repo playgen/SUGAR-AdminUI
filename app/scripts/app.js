@@ -182,6 +182,12 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			controller: 'GamesProfileNewSkillCtrl',
 			login: true
 		})
+		.state('gamesProfile.EditSkill', {
+			url: '/editSkill/:token',
+			templateUrl: 'views/games/gamesProfile.NewSkill.html',
+			controller: 'GamesProfileNewSkillCtrl',
+			login: true
+		})
 		.state('gamesProfile.Resources', {
 			url: '/resources',
 			templateUrl: 'views/games/gamesProfile.resources.html',

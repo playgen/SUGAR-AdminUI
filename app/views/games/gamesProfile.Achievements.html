@@ -3,8 +3,6 @@
 		<button class="btn btn-success" type="button" ng-click="addNewAchievement()" ng-if="hasCreateAchievementPermission"><i class="fa fa-trophy" > Add New Achievement</i></button>
 	</div>
 	<table class="table table-bordered table-hover" ng-if="hasGetAchievementPermission">
-		
-		
 		<tbody ng-repeat="n in range()">
 			<tr>
 				<td><h4>{{items[n].name}}</h4></td>
@@ -12,7 +10,7 @@
 				<td style="width: 20%"></td>
 				<td style="width: 10%"></td>
 				<td style="width: 10%">
-					<button class="btn btn-info pull-left" type="button" ng-click="toggleView(n)" ng-if="hasUpdateAchievementPermission">View</button>
+					<button class="btn btn-info pull-left" type="button" ng-click="toggleView(n)" ng-if="hasGetAchievementPermission">View</button>
 				</td>
 			</tr>
 			<tr ng-show="isViewing[n]">
@@ -60,7 +58,7 @@
 			</tr>
 			<tr ng-show="isViewing[n]">
 				<td>
-					<button class="btn btn-danger pull-left" type="button" ng-click="editAchievement(items[n])" ng-if="hasUpdateAchievementPermission"> Edit Achievement</button>
+					<button class="btn btn-info pull-left" type="button" ng-click="editAchievement(items[n])" ng-if="hasUpdateAchievementPermission"> Edit Achievement</button>
 				</td>
 				<td></td>
 				<td></td>
