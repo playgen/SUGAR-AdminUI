@@ -31,6 +31,9 @@ angular.module('sgaAdminApp').service('SkillsApi', [
 				createSkill: function(item) {
 					return $http.post(config.api.baseurl + '/skills/create', item);
 				},
+				update: function(item) {
+					return $http.put(config.api.baseurl + '/skills/update', item);
+				},
 				"delete": function(token, gameId) {
 					return $http["delete"](config.api.baseurl + '/skills/' + token + '/' + gameId);
 				},

@@ -44,7 +44,7 @@ angular.module('sgaAdminApp').service('LeaderboardsApi', [
 				createFilter: function(item) {
 					return $http.post(config.api.baseurl + '/leaderboards/create', item);
 				},
-				getConfig: function(token, gameId)
+				getByToken: function(gameId, token)
 				{
 					return $http.get(config.api.baseurl + '/leaderboards/' + token + "/" + gameId);
 				},
@@ -53,6 +53,9 @@ angular.module('sgaAdminApp').service('LeaderboardsApi', [
 				},
 				getLeaderboard: function(item) {
 					return $http.post(config.api.baseurl + '/leaderboards/standings', item);
+				},
+				updateFilter: function(item) {
+					return $http.put(config.api.baseurl + '/leaderboards/update', item);
 				},
 				"delete": function(token, gameId) {
 					return $http["delete"](config.api.baseurl + '/leaderboards/' + token + '/' + gameId);

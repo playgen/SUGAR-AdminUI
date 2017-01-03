@@ -3,13 +3,54 @@
 		<button class="btn btn-success" type="button" ng-click="addNew()" ng-if="hasCreateLeaderboardPermission"><i class="fa fa-scores"> Add New Leaderboard</i></button>
 	</div>
 	<table class="table table-bordered table-hover" ng-if="hasGetLeaderboardPermission">
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'token' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-			<td style="width: 10px"></td>
-			<td><button class="col-xs-12 text-left btn-secondary" ng-click="view(item)"><b>{{item.token}}</b></button></td>
-			<td style="width: 30px">
-				<button class="btn btn-danger btn-sm" title="Delete this Leaderboard" ng-click="remove(item)"><i class="fa fa-times" ng-if="hasDeleteLeaderboardPermission"> Remove</i></button>
-			</td>
-		</tr>
+		<tbody ng-repeat="item in items">
+			<tr>
+				<td><h4>{{item.name}}</h4></td>
+				<td style="width: 20%"></td>
+				<td style="width: 20%"></td>
+				<td style="width: 10%"></td>
+				<td style="width: 10%">
+					<button class="btn btn-info pull-left" type="button" ng-click="toggleView(item.index)" ng-if="hasGetLeaderboardPermission">View</button>
+				</td>
+			</tr>
+			<tr ng-show="isViewing[item.index]">
+				<th><h4>Token</h4></th>
+				<td>{{item.token}}</td>
+			</tr>
+			<tr ng-show="isViewing[item.index]">
+				<th><h4>Key</h4></th>
+				<td>{{item.key}}</td>
+			</tr>
+			<tr ng-show="isViewing[item.index]">
+				<th><h4>Actor Type</h4></th>
+				<td>{{item.actorType}}</td>
+			</tr>
+			<tr ng-show="isViewing[item.index]">
+				<th><h4>Evaluation Data Type</h4></th>
+				<td>{{item.evaluationDataType}}</td>
+			</tr>
+			<tr ng-show="isViewing[item.index]">
+				<th><h4>Criteria Scope</h4></th>
+				<td>{{item.criteriaScope}}</td>
+			</tr>
+			<tr ng-show="isViewing[item.index]">
+				<th><h4>Leaderboard Type</h4></th>
+				<td>{{item.leaderboardType}}</td>
+			</tr>
+			<tr ng-show="isViewing[item.index]">
+				<td>
+					<button class="btn btn-info pull-left" type="button" ng-click="editLeaderboard(item)" ng-if="hasUpdateLeaderboardPermission"> Edit Leaderboard</button>
+				</td>
+				<td></td>
+				<td>
+					<button class="btn btn-primary" type="button" ng-click="view(item)" ng-if="hasGetLeaderboardPermission">View Leaderboard Standings</button>
+				</td>
+				<td></td>
+				<td>
+					<button class="btn btn-danger pull-left" type="button" ng-click="remove(item)" ng-if="hasDeleteLeaderboardPermission"><i class="fa fa-times"> Remove Leaderboard</i></button>
+				</td>
+			</tr>
+		</tbody>
 	</table>
 </div>
 </contentMain>

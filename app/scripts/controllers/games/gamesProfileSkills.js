@@ -33,6 +33,11 @@ angular.module('sgaAdminApp').controller('GamesProfileSkillsCtrl', [
 				SkillsApi['skills'].listSkills($scope.itemId).then(function(res) {
 					if (res.status === 200 && res.data != null) {
 						$scope.items = res.data['response'];
+						$scope.range();
+						for (var i=0; i<$scope.items.length; i++)
+						{
+							$scope.isViewing.push(false);
+						}
 					}
 				});
 				SkillsApi['games'].get($scope.itemId).then(function(res) {

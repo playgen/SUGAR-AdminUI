@@ -113,7 +113,11 @@ angular.module('sgaAdminApp').controller('GamesProfileCtrl', [
 
 		$scope["editSkill"] = function(item) {
 			$location.path('/games/' + $scope.itemId + '/editSkill/' + item.token);
-		}
+		};
+
+		$scope["editLeaderboard"] = function(item) {
+			$location.path('/games/' + $scope.itemId + '/editLeaderboard/' + item.token);
+		};
 
 		$scope.back = function() {
 			//go back to group list

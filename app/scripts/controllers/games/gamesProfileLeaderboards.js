@@ -13,7 +13,7 @@ angular.module('sgaAdminApp').controller('GamesProfileLeaderboardsCtrl', [
 	function($scope, $stateParams, $location, modalManager, LeaderboardsApi) {
 		$scope.itemId = $stateParams.itemId;
 
-
+		$scope.isViewing = [];
 		$scope.items = [];
 		$scope.pagination = {
 			perPage: 10,
@@ -26,6 +26,11 @@ angular.module('sgaAdminApp').controller('GamesProfileLeaderboardsCtrl', [
 				if (res.status === 200 && res.data['response'] != null)
 				{
 					$scope.items = res.data['response'];
+					for (var i=0; i<$scope.items.length; i++)
+					{
+						$scope.items[i].index = i;
+						$scope.isViewing.push(false);
+					}
 				}
 			});
 
@@ -69,7 +74,17 @@ angular.module('sgaAdminApp').controller('GamesProfileLeaderboardsCtrl', [
 			// 	$scope.leaderboardName = "Global";
 			// }
 		};
-		
+		$scope.toggleView = function(n){
+			// hide all other achievements
+			for (var i=0; i<$scope.isViewing.length; i++)
+			{
+				if (i != n)
+				{
+					$scope.isViewing[i] = false;
+				}
+			}
+			$scope.isViewing[n] = !$scope.isViewing[n];
+		}
 		$scope.addNew = function() {
 			$location.path("/games/" + $scope.itemId + '/newLeaderboard');
 		};
@@ -86,7 +101,7 @@ angular.module('sgaAdminApp').controller('GamesProfileLeaderboardsCtrl', [
 				name: item.Token,
 				itemId: $scope.itemId
 			})
-		}
+		};
 
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();

@@ -206,6 +206,12 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			controller: 'GamesProfileNewLeaderboardCtrl',
 			login: true
 		})
+		.state('gamesProfile.EditLeaderboard', {
+			url: '/editLeaderboard/:token',
+			templateUrl: 'views/games/gamesProfile.NewLeaderboard.html',
+			controller: 'GamesProfileNewLeaderboardCtrl',
+			login: true
+		})
 		.state('gamesProfile.Roles', {
 			url: '/roles',
 			templateUrl: 'views/games/gamesProfile.Roles.html',

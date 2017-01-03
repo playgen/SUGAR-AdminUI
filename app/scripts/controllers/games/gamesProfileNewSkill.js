@@ -141,9 +141,19 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 			//   var data = e.target.result;
 			// }
 			// r.readAsArrayBuffer(f);
-			SkillsApi['skills'].createSkill($scope.achievement).then(function(res) {
-				$location.path('/games/' + $scope.itemId + '/skills');
-			});
+			if ($scope.isNew)
+			{
+				SkillsApi['skills'].createSkill($scope.achievement).then(function(res) {
+					$location.path('/games/' + $scope.itemId + '/skills');
+				});
+			}
+			else
+			{
+				SkillsApi['skills'].update($scope.achievement).then(function(res) {
+					$location.path('/games/' + $scope.itemId + '/achievements');
+				});
+			}
+			
 		};
 		$scope.back = function() {
 			//go back to list of achievements for this game
