@@ -64,6 +64,9 @@ angular.module('sgaAdminApp').service('GroupsApi', [
 				},
 				create(item) {
 					return $http.post(config.api.baseurl + '/actordata', item);
+				},
+				update(item) {
+					return $http.post(config.api.baseurl + '/actordata', item);
 				}	
 			},
 			'details': {

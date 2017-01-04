@@ -55,7 +55,7 @@ angular.module('sgaAdminApp').controller('GamesProfileDetailsCtrl', [
 				return;
 			}
 			// Update the detail
-			var data = {actorId: $scope.itemId, key: itemkey, value: newValue};
+			var data = {gameId: $scope.itemId, key: itemkey, value: newValue};
 			console.log(data);
 			GamesApi['details'].update(data).then(function(res){
 				$scope.init();

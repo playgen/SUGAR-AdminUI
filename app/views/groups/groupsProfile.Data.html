@@ -40,26 +40,65 @@
 </form>
 <table class="table table-bordered table-hover" ng-init="init()" ng-if="hasGetActorDataPermission">
 	<tr class="listitem">
-		<td style="width: 10px"></td>
-		<th>Data</th>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<th style="width: 20%">Data</th>
+		<td style="width: 20%"></td>
+		<td style="width: 20%"></td>
+		<td style="width: 20%"></td>
+		<td style="width: 20%"></td>
 	</tr>
 	<tr>
-		<td></td>
 		<th>Key</th>
-		<th>value</th>
 		<th>Save Data Type</th>
+		<th>value</th>
 		<th>Game Id</th>
 	</tr>
+	<tr>
+		<td>Placeholder Key</td>
+		<td ng-if="!isEditing[0]">String</td>
+		<td ng-show="isEditing[0]">
+			<select class="form-control" ng-model="form.saveDataType" ng-init="form.saveDataType = 'String'">
+				<option value="String">String</option>
+				<option value="Long">Long</option>
+				<option value="Float">Float</option>
+				<option value="Boolean">Boolean</option>
+			</select>
+		</td>
+		<td ng-if="!isEditing[0]">Placeholder Value</td>
+		<td ng-show="isEditing[0]">
+			<input type="text" class="form-control" ng-model="form.value" placeholder="Placeholder Value"/>	
+		</td>
+		<td ng-if="!isEditing[0]">Placeholder Game Id</td>
+		<td ng-show="isEditing[0]">
+			<input type="text" class="form-control" ng-model="form.gameId" placeholder="Placeholder Game Id"/>	
+		</td>
+		<td>
+			<button class="btn btn-info" type="button" ng-click="edit(0)">{{EditButtonText[0]}}</button>
+			<button class="btn btn-success" type="button" ng-click="update(0, '', form)" ng-if="isEditing[0]">Apply</button>
+		</td>
+	</tr>
 	<tr class="listitem" ng-repeat="item in items | orderBy: 'key' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)">
-        <td></td>
-		<td>{{item.key}}</td>
-        <td>{{item.value}}</td>
-        <td>{{item.saveDataType}}</td>
-        <td>{{item.gameId}}</td>
+        <td>{{item.key}}</td>
+		<td ng-if="!isEditing[item.index]">{{item.saveDataType}}</td>
+		<td ng-show="isEditing[item.index]">
+			<select class="form-control" ng-model="form.saveDataType" ng-init="form.saveDataType = item.saveDataType">
+				<option value="String">String</option>
+				<option value="Long">Long</option>
+				<option value="Float">Float</option>
+				<option value="Boolean">Boolean</option>
+			</select>
+		</td>
+		<td ng-if="!isEditing[item.index]">{{item.value}}</td>
+		<td ng-show="isEditing[item.index]">
+			<input type="text" class="form-control" ng-model="form.value" placeholder="{{item.value}}"/>	
+		</td>
+		<td ng-if="!isEditing[item.index]">{{item.gameId}}</td>
+		<td ng-show="isEditing[item.index]">
+			<input type="text" class="form-control" ng-model="form.gameId" placeholder="{{item.gameId}}"/>	
+		</td>
+		<td>
+			<button class="btn btn-info" type="button" ng-click="edit(item.index)">{{EditButtonText[item.index]}}</button>
+			<button class="btn btn-success" type="button" ng-click="update(item.index, item.key, form)" ng-if="isEditing[item.index]">Apply</button>
+		</td>
     </tr>
 </table>
 <contentFooter>

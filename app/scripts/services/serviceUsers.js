@@ -97,7 +97,10 @@ angular.module('sgaAdminApp').service('UsersApi', [
 				},
 				create(item) {
 					return $http.post(config.api.baseurl + '/actordata', item);
-				}	
+				},
+				update(item) {
+					return $http.put(config.api.baseurl + '/actordata', item);
+				}
 			},
 			'details': {
 				list(id) {
