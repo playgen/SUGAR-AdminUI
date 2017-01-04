@@ -65,7 +65,7 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 			$scope.hasGetActorDataPermission = permissionService.hasAccessToClaim('GetActorData', $scope.itemid);
 			$scope.hasCreateActorDataPermission = permissionService.hasAccessToClaim('CreateActorData', $scope.itemid);
 
-			$scope.hasGetActorDetailsPermission = permissionService.hasAccessToClaim('GetActorDetail', $scope.itemId);
+			$scope.hasGetActorDetailsPermission = true;//permissionService.hasAccessToClaim('GetActorDetail', $scope.itemId);
 			$scope.hasCreateActorDetailsPermission = permissionService.hasAccessToClaim('CreateActorDetail', $scope.itemid);
 
 			UsersApi['users'].getById($scope.itemId).then(function(res) {

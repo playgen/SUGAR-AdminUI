@@ -26,19 +26,36 @@
 </form>
 <table class="table table-bordered table-hover" ng-init="init()" ng-if="hasGetActorDataPermission">
 	<tr class="listitem">
-		<td style="width: 10px"></td>
 		<th style="width: 20%">Details</th>
-		<td></td>
+		<td style="width: 40%"></td>
+		<td style="width: 20%"></td>
 	</tr>
-	<tr>
-		<td></td>
-		<th>Key</th>
-		<th>value</th>
 	</tr>
+		<tr>
+		<td>Placeholder Key</td>
+        <td ng-if="!isEditing[0]">Placeholder Value</td>
+		<td ng-show="isEditing[0]">
+			<input type="text" class="form-control" ng-model="form.value" placeholder="Placeholder Value"/>	
+		</td>
+		<td>
+			<button class="btn btn-info" type="button" ng-click="edit(0)">{{EditButtonText[0]}}</button>
+			<button class="btn btn-success" type="button" ng-click="update(0, '', form.value)" ng-if="isEditing[0]">Apply</button>
+		</td>
+    </tr>
 	<tr class="listitem" ng-repeat="item in items | orderBy: 'key' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)">
-        <td></td>
 		<td>{{item.key}}</td>
-        <td>{{item.value}}</td>
+        <td ng-if="!isEditing[item.index]">{{item.value}}</td>
+		<td ng-show="isEditing[item.index]">
+			<input type="text" class="form-control" ng-model="form.value" placeholder="{{item.value}}"/>	
+		</td>
+		<td ng-if="!isEditing[item.index]">{{item.value}}</td>
+		<td ng-show="isEditing[item.index]">
+			<input type="text" class="form-control" ng-model="form.value" placeholder="{{item.value}}"/>	
+		</td>
+		<td>
+			<button class="btn btn-info" type="button" ng-click="edit(item.index)">{{EditButtonText[item.index]}}</button>
+			<button class="btn btn-success" type="button" ng-click="update(item.index, item.key, form.value)" ng-if="isEditing[item.index]">Apply</button>
+		</td>
     </tr>
 </table>
 <contentFooter>

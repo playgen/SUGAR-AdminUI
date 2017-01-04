@@ -77,7 +77,7 @@ angular.module('sgaAdminApp').controller('GamesProfileCtrl', [
 			$scope.hasGetGameDataPermission = permissionService.hasAccessToClaim('GetGameData', $scope.itemId);
 			$scope.hasCreateGameDataPermission = permissionService.hasAccessToClaim('CreateGameData', $scope.itemId);
 
-			$scope.hasGetGameDetailsPermission = permissionService.hasAccessToClaim('GetGameDetail', $scope.itemId);
+			$scope.hasGetGameDetailsPermission = true;//permissionService.hasAccessToClaim('GetGameDetail', $scope.itemId);
 			$scope.hasCreateGameDetailsPermission = permissionService.hasAccessToClaim('CreateGameDetail', $scope.itemid);
 
 
