@@ -72,7 +72,10 @@ angular.module('sgaAdminApp').controller('UsersProfileFriendsCtrl', [
 
 			$scope.items = $scope.friends;
 		};
-
+		$scope.veiwFriendProfile = function(item)
+		{
+			$location.path('/users/' + item.id);
+		}
 		$scope.reset = function () {
 			$scope.items = [];
 

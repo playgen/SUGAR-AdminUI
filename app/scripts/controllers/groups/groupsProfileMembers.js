@@ -58,6 +58,9 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 				$scope.init();
 			});
 		};
+		$scope.viewMemberProfile = function(item) {
+			$location.path('/users/' + item.id);
+		}
 		$scope.addMember = function(item) {
 			return modalManager.open('addMember', {
 				groupName: $scope.groupName,

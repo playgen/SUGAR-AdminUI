@@ -33,6 +33,9 @@ angular.module('sgaAdminApp').controller('UsersProfileGroupsCtrl', [
 				item: item
 			});
 		};
+		$scope.viewGroup = function(item){
+			$location.path('/groups/' + item.id);
+		};
 		$scope.remove = function(item) {
             var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + item.id + ", Accepted: false }"
             UsersApi['userGroups'].update(friendship).then(function(res) {

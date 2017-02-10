@@ -21,7 +21,7 @@
 			<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 				<td></td>
 	            <td>
-	            	<button class="col-xs-12 text-left btn-secondary" ng-click="showRole(item)"><b>{{item.name}}</b></button>
+	            	<a ng-click="showRole(item)"><b>{{item.name}}</b></a>
 	        	</td>
 			</tr>
 		</table>
