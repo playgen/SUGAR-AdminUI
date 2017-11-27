@@ -50,23 +50,23 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 		$scope.init = function() {
 
 			// Our permissions
-			$scope.hasDeleteUserPermission = permissionService.hasAccessToClaim('DeleteUser', $scope.itemId);
+			$scope.hasDeleteUserPermission = permissionService.hasAccessToClaim('Delete-User', $scope.itemId);
 
-			$scope.hasGetFriendPermission = permissionService.hasAccessToClaim('GetUserFriendRequest', $scope.itemId);
-			$scope.hasDeleteFriendPermission = permissionService.hasAccessToClaim('DeleteUserFriend', $scope.itemId);
+			$scope.hasGetFriendPermission = permissionService.hasAccessToClaim('Get-UserFriendRequest', $scope.itemId);
+			$scope.hasDeleteFriendPermission = permissionService.hasAccessToClaim('Delete-UserFriend', $scope.itemId);
 
-			$scope.hasGetFriendRequestPermission = permissionService.hasAccessToClaim('GetUserFriendRequest', $scope.itemId);
-			$scope.hasCreateFriendRequestPermission = permissionService.hasAccessToClaim('CreateUserFriendRequest', $scope.itemId);
-			$scope.hasUpdateFriendRequestPermission = permissionService.hasAccessToClaim('UpdateUserFriendRequest', $scope.itemId);
+			$scope.hasGetFriendRequestPermission = permissionService.hasAccessToClaim('Get-UserFriendRequest', $scope.itemId);
+			$scope.hasCreateFriendRequestPermission = permissionService.hasAccessToClaim('Create-UserFriendRequest', $scope.itemId);
+			$scope.hasUpdateFriendRequestPermission = permissionService.hasAccessToClaim('Update-UserFriendRequest', $scope.itemId);
 
-			$scope.hasCreateGroupMemberPermission = permissionService.hasAccessToClaim('CreateGroupMemberRequest', $scope.itemId);
+			$scope.hasCreateGroupMemberPermission = permissionService.hasAccessToClaim('Create-GroupMemberRequest', $scope.itemId);
 			$scope.hasDeleteGroupMemberPermission = true;
 
-			$scope.hasGetActorDataPermission = permissionService.hasAccessToClaim('GetActorData', $scope.itemid);
-			$scope.hasCreateActorDataPermission = permissionService.hasAccessToClaim('CreateActorData', $scope.itemid);
+			$scope.hasGetActorDataPermission = permissionService.hasAccessToClaim('Get-ActorData', $scope.itemid);
+			$scope.hasCreateActorDataPermission = permissionService.hasAccessToClaim('Create-ActorData', $scope.itemid);
 
-			$scope.hasGetActorDetailsPermission = true;//permissionService.hasAccessToClaim('GetActorDetail', $scope.itemId);
-			$scope.hasCreateActorDetailsPermission = permissionService.hasAccessToClaim('CreateActorDetail', $scope.itemid);
+			$scope.hasGetActorDetailsPermission = true;//permissionService.hasAccessToClaim('Get-ActorDetail', $scope.itemId);
+			$scope.hasCreateActorDetailsPermission = permissionService.hasAccessToClaim('Create-ActorDetail', $scope.itemid);
 
 			UsersApi['users'].getById($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data['response'].name != null) {

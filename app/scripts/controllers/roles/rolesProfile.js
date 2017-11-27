@@ -19,7 +19,7 @@ angular.module('sgaAdminApp').controller('RolesProfileCtrl', [
 			currentPage: 1
 		};
 		$scope.init = function() {
-			$scope.hasGetListPermission = permissionService.hasAccessToClaim('GetRoleClaim', $scope.itemId);
+			$scope.hasGetListPermission = permissionService.hasAccessToClaim('Get-RoleClaim', $scope.itemId);
 
 			RolesApi['claims'].list($scope.itemId).then(function(res) {
 				if (res.status === 200 && res.data['response'] != null) {

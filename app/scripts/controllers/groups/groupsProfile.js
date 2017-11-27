@@ -87,26 +87,26 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 		};
 
 		$scope.getPermissions = function() {
-			$scope.hasDeletePermission = permissionService.hasAccessToClaim('DeleteGroup', $scope.itemId);
-			$scope.hasUpdatePermission = permissionService.hasAccessToClaim('UpdateGroup', $scope.itemId);
+			$scope.hasDeletePermission = permissionService.hasAccessToClaim('Delete-Group', $scope.itemId);
+			$scope.hasUpdatePermission = permissionService.hasAccessToClaim('Update-Group', $scope.itemId);
 
 			$scope.hasGetMemberPermission = true;
-			$scope.hasCreateMemberPermission = permissionService.hasAccessToClaim('CreateGroupMemberRequest', $scope.itemId);
-			$scope.hasDeleteMemberPermission = permissionService.hasAccessToClaim('DeleteGroupMember', $scope.itemId);
+			$scope.hasCreateMemberPermission = permissionService.hasAccessToClaim('Create-GroupMemberRequest', $scope.itemId);
+			$scope.hasDeleteMemberPermission = permissionService.hasAccessToClaim('Delete-GroupMember', $scope.itemId);
 
-			$scope.hasGetRolePermission = permissionService.hasAccessToClaim('GetRole', $scope.itemId);
-			$scope.hasCreateRolePermission = permissionService.hasAccessToClaim('CreateRole', $scope.itemId);
-			$scope.hasUpdateRolePermission = true;//permissionService.hasAccessToClaim('UpdateRole', $scope.itemId);
+			$scope.hasGetRolePermission = permissionService.hasAccessToClaim('Get-Role', $scope.itemId);
+			$scope.hasCreateRolePermission = permissionService.hasAccessToClaim('Create-Role', $scope.itemId);
+			$scope.hasUpdateRolePermission = true;//permissionService.hasAccessToClaim('Update-Role', $scope.itemId);
 
-			$scope.hasGetActorDataPermission = permissionService.hasAccessToClaim('GetActorData', $scope.itemid);
-			$scope.hasCreateActorDataPermission = permissionService.hasAccessToClaim('CreateActorData', $scope.itemid);
+			$scope.hasGetActorDataPermission = permissionService.hasAccessToClaim('Get-ActorData', $scope.itemid);
+			$scope.hasCreateActorDataPermission = permissionService.hasAccessToClaim('Create-ActorData', $scope.itemid);
 
-			$scope.hasGetActorDetailsPermission = true;// permissionService.hasAccessToClaim('GetActorDetail', $scope.itemId);
-			$scope.hasCreateActorDetailsPermission = permissionService.hasAccessToClaim('CreateActorDetail', $scope.itemid);
+			$scope.hasGetActorDetailsPermission = true;// permissionService.hasAccessToClaim('Get-ActorDetail', $scope.itemId);
+			$scope.hasCreateActorDetailsPermission = permissionService.hasAccessToClaim('Create-ActorDetail', $scope.itemid);
 
 			$rootScope.$emit('permissionsSet');
 			$rootScope.$broadcast('permissionsSetBroadcast');
-			
+
 		};
 
 
@@ -189,7 +189,7 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 	function($scope, $rootScope, $uibModalInstance, UsersApi, RolesApi, modalManager, modaldata) {
 		$scope.gameId = modaldata.gameId;
 		$scope.roleId = modaldata.roleId;
-		
+
 		$scope.exists = true;
 
 		//our buttons

@@ -14,7 +14,7 @@ angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', '
 	$scope.hasGetGroupListPermission = false;
 	$scope.hasGetGameListPermission = false;
 	$scope.hasGetRoleListPermission = false;
-	$scope.hasGetSourcesListPermission = false;	
+	$scope.hasGetSourcesListPermission = false;
 
 	$scope.loggedIn = Auth.isAuthenticated;
 	$scope.Logout = function() {
@@ -33,18 +33,18 @@ angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', '
 		}
 	};
 
-	$scope.$on('updateNavbar', function () { 
+	$scope.$on('updateNavbar', function () {
     	$scope.updateNavbar();
 	});
 
 	// our permissions
 	$scope.updateNavbar = function() {
-		$scope.hasGetUserListPermission = permissionService.hasAccessToClaim('GetUser', -1);
-		$scope.hasGetGroupListPermission = true; //permissionService.hasAccessToClaim('GetGroup',-1);
-		$scope.hasGetGameListPermission = true; //permissionService.hasAccessToClaim('GetGame',-1);
-		$scope.hasGetRoleListPermission = permissionService.hasAccessToClaim('GetRole',-1);
-		$scope.hasGetSourcesListPermission = true;//permissionService.hasAccessToClaim('GetAccountSource',-1);
-	}	
+		$scope.hasGetUserListPermission = permissionService.hasAccessToClaim('Get-User', -1);
+		$scope.hasGetGroupListPermission = true; //permissionService.hasAccessToClaim('Get-Group',-1);
+		$scope.hasGetGameListPermission = true; //permissionService.hasAccessToClaim('Get-Game',-1);
+		$scope.hasGetRoleListPermission = permissionService.hasAccessToClaim('Get-Role',-1);
+		$scope.hasGetSourcesListPermission = true;//permissionService.hasAccessToClaim('Get-AccountSource',-1);
+	}
 
 	$scope.resetNavbar = function() {
 		$scope.hasGetUserListPermission = false;

@@ -24,10 +24,10 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
 			perPage: 10,
 			currentPage: 1
 		};
-		$scope.init = function() {	
+		$scope.init = function() {
 			// our permissions
-			$scope.hasCreatePermission = permissionService.hasAccessToClaim('CreateUser',-1);
-			$scope.hasGetListPermission = permissionService.hasAccessToClaim('GetUser', -1);
+			$scope.hasCreatePermission = permissionService.hasAccessToClaim('Create-User',-1);
+			$scope.hasGetListPermission = permissionService.hasAccessToClaim('Get-User', -1);
 
 			if ($scope.hasGetListPermission)
 			{
@@ -115,6 +115,7 @@ angular.module('sgaAdminApp').controller('UsersCtrl', [
 		$scope.item = {};
 
 		$scope.save = function() {
+      $scope.item.SourceToken = "SUGAR";
 			return UsersApi[$scope.itemtype].create($scope.item).then(function() {
 				$uibModalInstance.close();
 				return $rootScope.$broadcast('savedItem');

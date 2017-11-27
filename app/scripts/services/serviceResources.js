@@ -17,16 +17,16 @@ angular.module('sgaAdminApp').service('ResourcesApi', [
 					return $http.get(config.api.baseurl + '/game/list')
 				},
 				listResources: function(id) {
-					return $http.get(config.api.baseurl + '/resources/' + id + '/list');
+					return $http.get(config.api.baseurl + '/resource?gameId=' + id);
 				},
 				listGlobalResources: function(){
-					return $http.get(config.api.baseurl + '/resources/global/list');
+					return $http.get(config.api.baseurl + '/resource/global/list');
 				},
 				listActorResources: function(id, gameId) {
 					return $http.get(config.api.baseurl + '/resource?actorId=' + id + '&gameId=' + gameId);
-				}, 
+				},
 				listActorGlobalResources: function(id){
-					return $http.get(config.api.baseurl + '/resources/' + id + '/global');
+					return $http.get(config.api.baseurl + '/resource/' + id + '/global');
 				},
 				get: function(id) {
 					return $http.get(config.api.baseurl + '/game/findbyid/' + id);

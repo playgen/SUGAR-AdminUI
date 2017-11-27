@@ -16,12 +16,12 @@
 		<button class="btn btn-primary" ui-sref="gamesProfile.Data" ui-sref-active="activeState">Game Data</button>
 		<button class="btn btn-primary" ui-sref="gamesProfile.Achievements" ui-sref-active="activeState" ng-if="hasGetAchievementPermission">Achievements</button>
 		<button class="btn btn-primary" ui-sref="gamesProfile.Skills" ui-sref-active="activeState" ng-if="hasGetSkillPermission">Skills</button>
-		<button class="btn btn-primary" ui-sref="gamesProfile.Resources" ui-sref-active="activeState" title="disabled until resources updated"ng-disabled="true" ng-if="hasGetResourcePermission">Resources</button>
+		<button class="btn btn-primary" ui-sref="gamesProfile.Resources" ui-sref-active="activeState" ng-if="hasGetResourcePermission">Resources</button>
 		<button class="btn btn-primary" ui-sref="gamesProfile.Leaderboards" ui-sref-active="activeState" ng-if="hasGetLeaderboardPermission">Leaderboards</button>
 		<button class="btn btn-primary" ui-sref="gamesProfile.Roles" ui-sref-active="activeState" ng-if="hasCreateRolePermission">Manage Roles</button>
 	</div>
 </contentHeader>
-<contentMain>	
+<contentMain>
 	<div ng-init="init()" ng-if="gameFound" >
 		<div>
 			<ui-view></ui-view>
@@ -51,7 +51,7 @@
     <div class="modal-header">
         <h3 class="modal-title"><span>Add a new Role for User</h3>
     </div>
-    <div class="modal-body">        
+    <div class="modal-body">
         <class>Enter User Name</class>
         <form name="myForm">
         <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" placeholder="Username" required/>
@@ -59,7 +59,7 @@
         <class="form-control" ng-if="!exists">Error: User Not Found</class>
     </div>
     <div class="modal-footer">
-		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> Cancel</button> 
-        <button class="btn btn-success" type="button" ng-click="add(item)"ng-disabled="myForm.$invalid"></i> Add</button>        
+		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> Cancel</button>
+        <button class="btn btn-success" type="button" ng-click="add(item)"ng-disabled="myForm.$invalid"></i> Add</button>
     </div>>
 </script>

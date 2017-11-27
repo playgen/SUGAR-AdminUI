@@ -15,7 +15,7 @@ angular.module('sgaAdminApp').controller('GamesProfileCtrl', [
 		$scope.hasCreateAchievementPermission;
 		$scope.hasUpdateAchievementPermission;
 		$scope.hasDeleteAchievementPermission;
-		
+
 		$scope.hasGetSkillPermission;
 		$scope.hasCreateSkillPermission;
 		$scope.hasEditSkillPermission;
@@ -50,35 +50,35 @@ angular.module('sgaAdminApp').controller('GamesProfileCtrl', [
 
 		$scope.init = function() {
 			// our permissions
-			$scope.hasDeletePermission = permissionService.hasAccessToClaim('DeleteGame', $scope.itemId);
+			$scope.hasDeletePermission = permissionService.hasAccessToClaim('Delete-Game', $scope.itemId);
 
-			$scope.hasGetAchievementPermission = permissionService.hasAccessToClaim('GetAchievement', $scope.itemId);
-			$scope.hasCreateAchievementPermission = permissionService.hasAccessToClaim('CreateAchievement', $scope.itemId);
-			$scope.hasUpdateAchievementPermission = permissionService.hasAccessToClaim('UpdateAchievement', $scope.itemId);
-			$scope.hasDeleteAchievementPermission = permissionService.hasAccessToClaim('DeleteAchievement', $scope.itemId);
-			
+			$scope.hasGetAchievementPermission = permissionService.hasAccessToClaim('Get-Achievement', $scope.itemId);
+			$scope.hasCreateAchievementPermission = permissionService.hasAccessToClaim('Create-Achievement', $scope.itemId);
+			$scope.hasUpdateAchievementPermission = permissionService.hasAccessToClaim('Update-Achievement', $scope.itemId);
+			$scope.hasDeleteAchievementPermission = permissionService.hasAccessToClaim('Delete-Achievement', $scope.itemId);
+
 			$scope.hasGetSkillPermission = $scope.hasGetAchievementPermission;
 			$scope.hasCreateSkillPermission = $scope.hasCreateAchievementPermission;
 			$scope.hasUpdateSkillPermission = $scope.hasUpdateAchievementPermission;
 			$scope.hasDeleteSkillPermission = $scope.hasDeleteAchievementPermission;
 
 			$scope.hasGetResourcePermission = true;
-			$scope.hasCreateResourcePermission = permissionService.hasAccessToClaim('CreateResource', $scope.itemId);
-			$scope.hasUpdateResourcePermission = permissionService.hasAccessToClaim('UpdateResource', $scope.itemId);
-			$scope.hasDeleteResourcePermission = permissionService.hasAccessToClaim('DeleteResource', $scope.itemId);
+			$scope.hasCreateResourcePermission = permissionService.hasAccessToClaim('Create-Resource', $scope.itemId);
+			$scope.hasUpdateResourcePermission = permissionService.hasAccessToClaim('Update-Resource', $scope.itemId);
+			$scope.hasDeleteResourcePermission = permissionService.hasAccessToClaim('Delete-Resource', $scope.itemId);
 
 			$scope.hasGetLeaderboardPermission = true;
-			$scope.hasCreateLeaderboardPermission = permissionService.hasAccessToClaim('CreateLeaderboard', $scope.itemId);
-			$scope.hasUpdateLeaderboardPermission = permissionService.hasAccessToClaim('UpdateLeaderboard', $scope.itemId);
-			$scope.hasDeleteLeaderboardPermission = permissionService.hasAccessToClaim('DeleteLeaderboard', $scope.itemId);
+			$scope.hasCreateLeaderboardPermission = permissionService.hasAccessToClaim('Create-Leaderboard', $scope.itemId);
+			$scope.hasUpdateLeaderboardPermission = permissionService.hasAccessToClaim('Update-Leaderboard', $scope.itemId);
+			$scope.hasDeleteLeaderboardPermission = permissionService.hasAccessToClaim('Delete-Leaderboard', $scope.itemId);
 
-			$scope.hasCreateRolePermission = permissionService.hasAccessToClaim('CreateRole', $scope.itemid);
+			$scope.hasCreateRolePermission = permissionService.hasAccessToClaim('Create-Role', $scope.itemid);
 
-			$scope.hasGetGameDataPermission = permissionService.hasAccessToClaim('GetGameData', $scope.itemId);
-			$scope.hasCreateGameDataPermission = permissionService.hasAccessToClaim('CreateGameData', $scope.itemId);
+			$scope.hasGetGameDataPermission = permissionService.hasAccessToClaim('Get-GameData', $scope.itemId);
+			$scope.hasCreateGameDataPermission = permissionService.hasAccessToClaim('Create-GameData', $scope.itemId);
 
-			$scope.hasGetGameDetailsPermission = true;//permissionService.hasAccessToClaim('GetGameDetail', $scope.itemId);
-			$scope.hasCreateGameDetailsPermission = permissionService.hasAccessToClaim('CreateGameDetail', $scope.itemid);
+			$scope.hasGetGameDetailsPermission = true;//permissionService.hasAccessToClaim('Get-GameDetail', $scope.itemId);
+			$scope.hasCreateGameDetailsPermission = permissionService.hasAccessToClaim('Create-GameDetail', $scope.itemid);
 
 
 			GamesApi['games'].get($scope.itemId).then(function(res) {
@@ -277,7 +277,7 @@ angular.module('sgaAdminApp').controller('GamesProfileCtrl', [
 	function($scope, $rootScope, $uibModalInstance, UsersApi, RolesApi, modalManager, modaldata) {
 		$scope.gameId = modaldata.gameId;
 		$scope.roleId = modaldata.roleId;
-		
+
 		$scope.exists = true;
 
 		//our buttons

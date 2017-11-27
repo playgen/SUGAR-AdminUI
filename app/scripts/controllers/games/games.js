@@ -24,10 +24,10 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 			perPage: 10,
 			currentPage: 1
 		};
-		
+
 		$scope.init = function() {
 			// our permissions
-			$scope.hasCreatePermission = permissionService.hasAccessToClaim('CreateGame',-1);
+			$scope.hasCreatePermission = permissionService.hasAccessToClaim('Create-Game',-1);
 			$scope.hasGetListPermission = true;
 
 			return GamesApi['games'].list().then(function(res) {

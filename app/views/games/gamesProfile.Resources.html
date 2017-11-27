@@ -1,6 +1,6 @@
 <div ng-init="init()">
 	<div class="col-xs-3">
-		<button class="btn btn-success" type="button" ng-click="addNew(item)" ng-if="hasCreateResourcePermission"><i class="fa fa-user"> Add New Resource</i></button>
+		<button class="btn btn-success" type="button" ng-click="addNew()" ng-if="hasCreateResourcePermission"><i class="fa fa-user"> Add New Resource</i></button>
 	</div>
 	<table class="table table-bordered table-hover" ng-if="hasGetResourcePermission">
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
@@ -15,3 +15,31 @@
 		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 	</div>
 </contentFooter>
+
+<!-- Create a new resource  -->
+
+<script type="text/ng-template" id="createResourceModal.html">
+  <form name="myForm">
+	<div class="modal-header">
+		<h3 class="modal-title">Create new Resource</h3>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xs-3"><label>Name</label></div>
+			<div class="col-xs-9">
+				<input type="text" placeholder="Resource Name" class="form-control" ng-model="item.Key" required/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-3"><label>Starting Quantity</label></div>
+			<div class="col-xs-9">
+				<input type="number" placeholder="0" class="form-control" ng-model="item.Quantity" required/>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
+		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Create</button>
+	</div>
+  </form>
+</script>

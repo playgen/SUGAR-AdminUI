@@ -24,7 +24,7 @@ angular.module('sgaAdminApp').service('UsersApi', [
 					return $http.get(config.api.baseurl + '/user/findbyid/' + id)
 				},
 				create: function(item) {
-					return $http.post(config.api.baseurl + '/user', item);
+					return $http.post(config.api.baseurl + '/account/create', item);
 				},
 				update: function(id, item) {
 					return $http.put(config.api.baseurl + "/user", item);
@@ -88,7 +88,7 @@ angular.module('sgaAdminApp').service('UsersApi', [
 			},
 			'roles': {
 				getActorRole(actorId, entityId, scopeName) {
-					return $http.get(config.api.baseurl + '/ActorRole/actor/' + actorId + '/entity/' + entityId + '/claimscope/' + scopeName); 
+					return $http.get(config.api.baseurl + '/ActorRole/actor/' + actorId + '/entity/' + entityId + '/claimscope/' + scopeName);
 				},
 			},
 			'data': {

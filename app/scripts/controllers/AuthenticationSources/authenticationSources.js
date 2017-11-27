@@ -34,11 +34,11 @@ angular.module('sgaAdminApp').controller('AuthenticationSourcesCtrl', [
 
 		$scope.init = function()
 		{
-			$scope.hasGetListPermission = true;// permissionService.hasAccessToClaim('GetAccountSource', -1);
-			$scope.hasCreatePermission = permissionService.hasAccessToClaim('CreateAccountSource', -1);
-			$scope.hasUpdatePermission = permissionService.hasAccessToClaim('UpdateAccountSource', -1);
-			$scope.hasDeletePermission = permissionService.hasAccessToClaim('DeleteAccountSource', -1);
-			
+			$scope.hasGetListPermission = true;// permissionService.hasAccessToClaim('Get-AccountSource', -1);
+			$scope.hasCreatePermission = permissionService.hasAccessToClaim('Create-AccountSource', -1);
+			$scope.hasUpdatePermission = permissionService.hasAccessToClaim('Update-AccountSource', -1);
+			$scope.hasDeletePermission = permissionService.hasAccessToClaim('Delete-AccountSource', -1);
+
 			if (!$scope.hasGetListPermission)
 			{
 				return;

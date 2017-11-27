@@ -30,7 +30,7 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
 
 					ipCookie("userId", id);
 					$scope.permissionService.get(id).then(function() {
-						
+
 						// returnPath = $location.search()["return"];
 						// if (returnPath != null) {
 						// 	$location.search('return', null);

@@ -18,7 +18,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.when('/users/:itemId', '/users/:itemId/details');
 	$urlRouterProvider.when('/games/:itemId', '/games/:itemId/details');
 	$urlRouterProvider.when('/groups/:itemId', '/groups/:itemId/details');
-	
+
 	$stateProvider
 
 		//-------------------------------------------------------
@@ -59,25 +59,25 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: 'views/users/usersProfile.html',
 			controller: 'UsersProfileCtrl',
 			login:true
-		})	
+		})
 		.state('userProfile.Details', {
 			url: '/details',
 			templateUrl: 'views/users/usersProfile.Details.html',
 			controller: 'UsersProfileDetailsCtrl',
 			login: true
-		})	
+		})
 		.state('userProfile.Data', {
 			url: '/data',
 			templateUrl: 'views/users/usersProfile.Data.html',
 			controller: 'UsersProfileDataCtrl',
 			login: true
-		})	
+		})
 		.state('userProfile.Friends', {
 			url: '/friends',
 			templateUrl: 'views/users/usersProfile.Friends.html',
 			controller: 'UsersProfileFriendsCtrl',
 			login: true
-		})	
+		})
 		.state('userProfile.Groups', {
 			url: '/groups',
 			templateUrl: 'views/users/usersProfile.Groups.html',
@@ -281,14 +281,14 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 
 				// Go to the login page if not logged in and trying to view a page
 				$state.transitionTo("login");
-      			event.preventDefault(); 
+      			event.preventDefault();
 			}
 			if ((nextRoute != null) && nextRoute.name=='login' && Auth.isAuthenticated())
 			{
 				// if going to login page and is already authenticated
 				$state.transitionTo("main");
-      			event.preventDefault(); 
-			}			
+      			event.preventDefault();
+			}
 		});
 	}
 ]).constant('config', {
@@ -300,5 +300,5 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 	},
 	tokens: {
 		authorization: 'SUGAR'
-	}
+  },
 });

@@ -1,18 +1,18 @@
 'use strict';
 
-angular.module('sgaAdminApp')                                                                                                                                                                        
-.service("permissionService", 
+angular.module('sgaAdminApp')
+.service("permissionService",
 	[
-		'$http', 
-		'$rootScope', 
+		'$http',
+		'$rootScope',
 		'$q',
-		'config', 
+		'config',
 		function($http, $rootScope, $q, config) {
 
 			var userId = null;
-			var userClaims = [];                                                                                                                                                 
-			
-			var service = {};         
+			var userClaims = [];
+
+			var service = {};
 			service.get = function(id) {
 				userId = id;
 				return $http.get(config.api.baseurl + '/ActorClaim/actor/' + id).then(function(res) {
@@ -24,7 +24,7 @@ angular.module('sgaAdminApp')
 						$rootScope.$broadcast('refreshPermissions');
 					}
 				});
-			}                                                                                                                                                                                           
+			}
 			service.hasAccessToClaim = function(claimRequired, entityId){
 				for (var i = 0; i<userClaims.length; i++)
 				{
@@ -42,8 +42,8 @@ angular.module('sgaAdminApp')
 			// service.getItemClaims = function(itemId)
 			// {
 			// 	var deferred = $q.defer();
-				
-				
+
+
 			// }
 			return service;
 		}

@@ -53,7 +53,7 @@ angular.module('sgaAdminApp').controller('GamesProfileResourcesCtrl', [
 				$scope.gameFound = true;
 			}
 		};
-		
+
 		$scope.addNew = function() {
 			return modalManager.open('createResource', {
 				itemId: $scope.itemId
@@ -65,6 +65,23 @@ angular.module('sgaAdminApp').controller('GamesProfileResourcesCtrl', [
 		};
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
-		});
+    });
 	}
-])
+]).controller('CreateResourceModalCtrl', [
+  '$scope', '$rootScope', '$uibModalInstance', 'ResourcesApi', 'modaldata',
+  function($scope, $rootScope, $uibModalInstance, ResourcesApi, modaldata) {
+    $scope.item = {};
+    $scope.item.gameId = modaldata.itemId == "global" ? null : modaldata.itemId;
+
+    $scope.save = function() {
+      return ResourcesApi['games'].createResource($scope.item).then(function() {
+        $uibModalInstance.close();
+        return $rootScope.$broadcast('savedItem');
+      });
+    };
+    return $scope.close = function() {
+      $rootScope.$broadcast('savedItem');
+      return $uibModalInstance.close();
+    };
+  }
+]);
