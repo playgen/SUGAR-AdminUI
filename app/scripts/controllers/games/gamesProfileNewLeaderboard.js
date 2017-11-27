@@ -45,7 +45,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewLeaderboardCtrl', [
 						$scope.item.Key = data.key;
 						$scope.item.Token = data.token;
 
-						$scope.item.ActorType = $scope.getActorType(data.actorType);
+            $scope.item.ActorType = $scope.getActorType(data.actorType);
 						$scope.item.EvaluationDataType = $scope.getEvaluationDataType(data.evaluationDataType);
 						$scope.item.CriteriaScope = data.criteriaScope;
 						$scope.item.LeaderboardType = $scope.getLeaderboardType(data.leaderboardType);
@@ -54,7 +54,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewLeaderboardCtrl', [
 			}
 		}
 		$scope.getActorType = function(type) {
-			switch(type) 
+			switch(type)
 			{
 				case 'Any':
 					return "0";
@@ -67,7 +67,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewLeaderboardCtrl', [
 			}
 		};
 		$scope.getEvaluationDataType = function(type) {
-			switch(type) 
+			switch(type)
 			{
 				case 'String':
 					return "0";
@@ -82,7 +82,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewLeaderboardCtrl', [
 			}
 		};
 		$scope.getLeaderboardType = function(type) {
-			switch(type) 
+			switch(type)
 			{
 				case 'Highest':
 					return "0";

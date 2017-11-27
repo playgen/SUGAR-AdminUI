@@ -98,7 +98,7 @@ angular.module('sgaAdminApp').controller('GamesProfileLeaderboardsCtrl', [
 
 		$scope.view = function(item){
 			return modalManager.open('viewLeaderboard', {
-				name: item.Token,
+				name: item.token,
 				itemId: $scope.itemId
 			})
 		};
@@ -110,13 +110,24 @@ angular.module('sgaAdminApp').controller('GamesProfileLeaderboardsCtrl', [
 ]).controller('ViewLeaderboardModalCtrl', [
 	'$scope', '$rootScope', '$location', '$uibModalInstance', 'LeaderboardsApi', 'modaldata',
 	function($scope, $rootScope, $location, $uibModalInstance, LeaderboardsApi, modaldata) {
-		$scope.name = modaldata.gameName;
+		$scope.token = modaldata.name;
 		$scope.itemId = modaldata.itemId;
 
-		LeaderboardsApi['leaderboard'].getGlobalConfig($scope.itemId).then(function(res){
+		LeaderboardsApi['leaderboard'].getByToken($scope.itemId, $scope.token).then(function(res){
 			if (res.status === 200 && res.data != null)
 			{
-				LeaderboardsApi['leaderboard'].getLeaderboard(res.data).then(function(res) {
+        var response = res.data['response'];
+
+        $scope.name = response.name;
+
+        var standings = {};
+        standings.LeaderboardToken = response.token;
+        standings.GameId = response.gameId;
+        standings.LeaderboardFilterType = "Top";
+        standings.PageLimit = 50;
+        standings.PageOffset = 0;
+
+				LeaderboardsApi['leaderboard'].getLeaderboard(standings).then(function(res) {
 					if (res.status === 200 && res.data != null) {
 						$scope.items = res.data['response'];
 					}
