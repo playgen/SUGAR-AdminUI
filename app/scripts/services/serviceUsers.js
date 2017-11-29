@@ -27,7 +27,7 @@ angular.module('sgaAdminApp').service('UsersApi', [
 					return $http.post(config.api.baseurl + '/account/create', item);
 				},
 				update: function(id, item) {
-					return $http.put(config.api.baseurl + "/user", item);
+					return $http.put(config.api.baseurl + "/user/update/" + id, item);
 				},
 				"delete": function(id) {
 					return $http["delete"](config.api.baseurl + ("/user/" + id));
@@ -100,17 +100,6 @@ angular.module('sgaAdminApp').service('UsersApi', [
 				},
 				update(item) {
 					return $http.put(config.api.baseurl + '/actordata', item);
-				}
-			},
-			'details': {
-				list(id) {
-					return $http.get(config.api.baseurl + '/actordetails?actorId=' + id);
-				},
-				create(item) {
-					return $http.post(config.api.baseurl + '/actordetails', item);
-				},
-				update(item) {
-					return $http.put(config.api.baseurl + '/actordetails', item);
 				}
 			}
 		};
