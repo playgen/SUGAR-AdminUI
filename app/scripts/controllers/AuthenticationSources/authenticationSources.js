@@ -34,7 +34,7 @@ angular.module('sgaAdminApp').controller('AuthenticationSourcesCtrl', [
 
 		$scope.init = function()
 		{
-			$scope.hasGetListPermission = true;// permissionService.hasAccessToClaim('Get-AccountSource', -1);
+			$scope.hasGetListPermission = permissionService.hasAccessToClaim('Get-AccountSource', -1);
 			$scope.hasCreatePermission = permissionService.hasAccessToClaim('Create-AccountSource', -1);
 			$scope.hasUpdatePermission = permissionService.hasAccessToClaim('Update-AccountSource', -1);
 			$scope.hasDeletePermission = permissionService.hasAccessToClaim('Delete-AccountSource', -1);

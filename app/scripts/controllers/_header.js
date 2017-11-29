@@ -43,7 +43,7 @@ angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', '
 		$scope.hasGetGroupListPermission = true; //permissionService.hasAccessToClaim('Get-Group',-1);
 		$scope.hasGetGameListPermission = true; //permissionService.hasAccessToClaim('Get-Game',-1);
 		$scope.hasGetRoleListPermission = permissionService.hasAccessToClaim('Get-Role',-1);
-		$scope.hasGetSourcesListPermission = true;//permissionService.hasAccessToClaim('Get-AccountSource',-1);
+		$scope.hasGetSourcesListPermission = permissionService.hasAccessToClaim('Get-AccountSource',-1);
 	}
 
 	$scope.resetNavbar = function() {
