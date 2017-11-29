@@ -33,29 +33,13 @@
 	<tr>
 		<th>Key</th>
 		<th>value</th>
-	</tr>
-		<tr>
-		<td>Placeholder Key</td>
-        <td ng-if="!isEditing[0]">Placeholder Value</td>
-		<td ng-show="isEditing[0]">
-			<input type="text" class="form-control" ng-model="form.value" placeholder="Placeholder Value"/>	
-		</td>
-		<td>
-			<button class="btn btn-info" type="button" ng-click="edit(0)">{{EditButtonText[0]}}</button>
-			<button class="btn btn-success" type="button" ng-click="update(0, '', form.value)" ng-if="isEditing[0]">Apply</button>
-		</td>
-    </tr>
 	<tr class="listitem" ng-repeat="item in items | orderBy: 'key' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)">
 		<td>{{item.key}}</td>
-        <td ng-if="!isEditing[item.index]">{{item.value}}</td>
-		<td ng-show="isEditing[item.index]">
-			<input type="text" class="form-control" ng-model="form.value" placeholder="{{item.value}}"/>	
+    <td ng-if="!isEditing[item.index]">{{item.value}}</td>
+		<td ng-show="isEditing[item.index] && item.key != 'id'">
+			<input type="text" class="form-control" ng-model="form.value" placeholder="{{item.value}}"/>
 		</td>
-		<td ng-if="!isEditing[item.index]">{{item.value}}</td>
-		<td ng-show="isEditing[item.index]">
-			<input type="text" class="form-control" ng-model="form.value" placeholder="{{item.value}}"/>	
-		</td>
-		<td>
+		<td ng-if="item.key != 'id'">
 			<button class="btn btn-info" type="button" ng-click="edit(item.index)">{{EditButtonText[item.index]}}</button>
 			<button class="btn btn-success" type="button" ng-click="update(item.index, item.key, form.value)" ng-if="isEditing[item.index]">Apply</button>
 		</td>

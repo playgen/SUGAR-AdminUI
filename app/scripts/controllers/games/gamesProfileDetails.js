@@ -1,7 +1,7 @@
 angular.module('sgaAdminApp').controller('GamesProfileDetailsCtrl', [
 	'$scope', '$stateParams', '$location', 'modalManager', 'GamesApi',
 	function($scope, $stateParams, $location, modalManager, GamesApi) {
-		
+
 		$scope.itemId = $stateParams.itemId;
 
 		$scope.CreateNewData = false;
@@ -11,27 +11,27 @@ angular.module('sgaAdminApp').controller('GamesProfileDetailsCtrl', [
 
 		$scope.init = function()
 		{
-			if (!$scope.hasGetGameDetailsPermission)
-			{
-				return;
-			}
+			// if (!$scope.hasGetGameDetailsPermission)
+			// {
+			// 	return;
+			// }
 
-			// For testing purposes
-			$scope.isEditing.push(false);
-			$scope.EditButtonText.push("Edit");
-			// End testing purposes
-
-			GamesApi['details'].list($scope.itemId).then(function(res){
+			GamesApi['games'].get($scope.itemId).then(function(res){
 				if (res.status === 200 && res.data['response'] != null)
 				{
-					$scope.items = res.data['response'];
-					for (var i=0; i<$scope.items.length; i++)
-					{
-						$scope.items[i].index = i;
+          $scope.item = res.data['response'];
+          var keys = Object.keys($scope.item);
+          $scope.items = [];
+          for (var i=0; i<keys.length; i++)
+          {
+            $scope.items[i] = {};
+            $scope.items[i].index = i;
+            $scope.items[i].key = keys[i];
+            $scope.items[i].value = $scope.item[keys[i]];
 
-						$scope.isEditing.push(false);
-						$scope.EditButtonText.push("Edit");
-					}
+            $scope.isEditing[i] = false;
+						$scope.EditButtonText[i] = "Edit";
+          }
 				}
 			});
 		}
@@ -41,25 +41,31 @@ angular.module('sgaAdminApp').controller('GamesProfileDetailsCtrl', [
 		}
 		$scope.create = function(formData)
 		{
-			var formActorData = {groupId: $scope.itemId, key: formData.key, value: formData.value};
+			// var formActorData = {groupId: $scope.itemId, key: formData.key, value: formData.value};
 
-			GamesApi['details'].create(formActorData).then(function(res){
-				$scope.init();
-				$scope.CreateNewData = false;
-			});
+			// GamesApi['details'].create(formActorData).then(function(res){
+			// 	$scope.init();
+			// 	$scope.CreateNewData = false;
+			// });
 		}
 		$scope.update = function(index, itemkey, newValue) {
 			if (newValue == null)
 			{
 				// do nothing
 				return;
-			}
+      }
+      var keys = Object.keys($scope.item);
+      for (var i=0; i<keys.length; i++)
+      {
+        if (keys[i] == itemkey)
+        {
+          $scope.item[keys[i]] = newValue;
+        }
+      }
 			// Update the detail
-			var data = {gameId: $scope.itemId, key: itemkey, value: newValue};
-			console.log(data);
-			GamesApi['details'].update(data).then(function(res){
+			GamesApi['games'].update($scope.itemId, $scope.item).then(function(res){
 				$scope.init();
-				$scope.isEditing[index] = false;	
+				$scope.isEditing[index] = false;
 				$scope.EditButtonText[index] = "Edit";
 			})
 		}

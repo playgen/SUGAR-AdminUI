@@ -24,6 +24,9 @@ angular.module('sgaAdminApp').service('GamesApi', [
 				},
 				create: function(item) {
 					return $http.post(config.api.baseurl + '/game', item);
+        },
+        update(id, item) {
+					return $http.put(config.api.baseurl + '/game/update/' + id, item);
 				},
 				"delete": function(id) {
 					return $http["delete"](config.api.baseurl + '/game/' + id);
@@ -39,18 +42,7 @@ angular.module('sgaAdminApp').service('GamesApi', [
 				update(item) {
 					return $http.put(config.api.baseurl + '/gamedata', item);
 				}
-			},
-			'details': {
-				list(id) {
-					return $http.get(config.api.baseurl + '/gameDetails?gameId=' + id);
-				},
-				create(item) {
-					return $http.post(config.api.baseurl + '/gamedetails', item);
-				},
-				update(item) {
-					return $http.put(config.api.baseurl + '/gamedetails', item);
-				}
-			}
-		};
+      }
+    };
 	}
 ]);
