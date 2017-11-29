@@ -23,7 +23,7 @@
 	<div class="form-group">
 		<h4 for="inputName"  class="col-xs-2 control-label">Save Data Type:</h4>
 		<div class="col-xs-10">
-			<select class="form-control" ng-model="form.saveDataType" required>
+			<select class="form-control" ng-model="form.evaluationDataType" required>
 				<option value="string">String</option>
 				<option value="long">Long</option>
 				<option value="float">Float</option>
@@ -48,57 +48,33 @@
 	</tr>
 	<tr>
 		<th>Key</th>
-		<th>Save Data Type</th>
+		<th>Evaluation Data Type</th>
 		<th>value</th>
-		<th>Game Id</th>
-	</tr>
-	<tr>
-		<td>Placeholder Key</td>
-		<td ng-if="!isEditing[0]">String</td>
-		<td ng-show="isEditing[0]">
-			<select class="form-control" ng-model="form.saveDataType" ng-init="form.saveDataType = 'String'">
-				<option value="String">String</option>
-				<option value="Long">Long</option>
-				<option value="Float">Float</option>
-				<option value="Boolean">Boolean</option>
-			</select>
-		</td>
-		<td ng-if="!isEditing[0]">Placeholder Value</td>
-		<td ng-show="isEditing[0]">
-			<input type="text" class="form-control" ng-model="form.value" placeholder="Placeholder Value"/>	
-		</td>
-		<td ng-if="!isEditing[0]">Placeholder Game Id</td>
-		<td ng-show="isEditing[0]">
-			<input type="text" class="form-control" ng-model="form.gameId" placeholder="Placeholder Game Id"/>	
-		</td>
-		<td>
-			<button class="btn btn-info" type="button" ng-click="edit(0)">{{EditButtonText[0]}}</button>
-			<button class="btn btn-success" type="button" ng-click="update(0, '', form)" ng-if="isEditing[0]">Apply</button>
-		</td>
+		<!-- <th>Game Id</th> -->
 	</tr>
 	<tr class="listitem" ng-repeat="item in items | orderBy: 'key' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)">
         <td>{{item.key}}</td>
-		<td ng-if="!isEditing[item.index]">{{item.saveDataType}}</td>
+		<td ng-if="!isEditing[item.index]">{{item.dataType}}</td>
 		<td ng-show="isEditing[item.index]">
-			<select class="form-control" ng-model="form.saveDataType" ng-init="form.saveDataType = item.saveDataType">
-				<option value="String">String</option>
-				<option value="Long">Long</option>
-				<option value="Float">Float</option>
-				<option value="Boolean">Boolean</option>
+			<select class="form-control" ng-model="item.evaluationDataType">
+				<option value="0">String</option>
+				<option value="1">Long</option>
+				<option value="2">Float</option>
+				<option value="3">Boolean</option>
 			</select>
 		</td>
 		<td ng-if="!isEditing[item.index]">{{item.value}}</td>
 		<td ng-show="isEditing[item.index]">
-			<input type="text" class="form-control" ng-model="form.value" placeholder="{{item.value}}"/>	
+			<input type="text" class="form-control" ng-model="item.value" placeholder="{{item.value}}"/>
 		</td>
-		<td ng-if="!isEditing[item.index]">{{item.gameId}}</td>
+		<!-- <td ng-if="!isEditing[item.index]">{{item.gameId}}</td>
 		<td ng-show="isEditing[item.index]">
-			<input type="text" class="form-control" ng-model="form.gameId" placeholder="{{item.gameId}}"/>	
-		</td>
-		<td>
+			<input type="text" class="form-control" ng-model="form.gameId" placeholder="{{item.gameId}}"/>
+		</td> -->
+		<!-- <td>
 			<button class="btn btn-info" type="button" ng-click="edit(item.index)">{{EditButtonText[item.index]}}</button>
-			<button class="btn btn-success" type="button" ng-click="update(item.index, item.key, form)" ng-if="isEditing[item.index]">Apply</button>
-		</td>
+			<button class="btn btn-success" type="button" ng-click="update(item.index, item.key, item)" ng-if="isEditing[item.index]">Apply</button>
+		</td> -->
     </tr>
 </table>
 <contentFooter>

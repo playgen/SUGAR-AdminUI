@@ -23,12 +23,13 @@ angular.module('sgaAdminApp').controller('GamesProfileDataCtrl', [
 			GamesApi['data'].list($scope.itemId).then(function(res){
 				if (res.status === 200 && res.data['response'] != null)
 				{
-					$scope.items = res.data['response'];
+          $scope.items = res.data['response'];
 				}
 				for (var i=0; i<$scope.items.length; i++)
 				{
-					$scope.items[i].index = i;
-
+          $scope.items[i].index = i;
+          $scope.items[i].dataType = $scope.items[i].evaluationDataType;
+          $scope.items[i].evaluationDataType = $scope.getDataType($scope.items[i].evaluationDataType);
 					$scope.isEditing.push(false);
 					$scope.EditButtonText.push("Edit");
 				}
@@ -61,7 +62,7 @@ angular.module('sgaAdminApp').controller('GamesProfileDataCtrl', [
 					console.log("Unable to get actor with name: " + formData.actorName);
 				});
 			}
-			
+
 		}
 		$scope.cancel = function() {
 			$scope.CreateNewData = false;
@@ -69,38 +70,36 @@ angular.module('sgaAdminApp').controller('GamesProfileDataCtrl', [
 
 		$scope.saveNewData = function(formData, actorId)
 		{
-			var formGameData = "";
-			//TODO validate the value and the save data type are of the same type
-			if (actorId == null)
-			{
-				formGameData = "{ gameId: " + $scope.itemId + ", key: \"" + formData.key + "\", value: \"" + formData.value + "\", saveDataType: \"" + formData.saveDataType + "\" }";
-			}
-			else
-			{
-				formGameData = "{ actorId: " + actorId + ", gameId: " + $scope.itemId + ", key: \"" + formData.key + "\", value: \"" + formData.value + "\", saveDataType: \"" + formData.saveDataType + "\" }";
-			}
-			GamesApi['data'].create(formActorData).then(function(res){
+      var gameData = {};
+      gameData.gameId = $scope.itemId;
+      gameData.key = formData.key;
+      gameData.value = formData.value;
+      gameData.evaluationDataType = formData.evaluationDataType;
+      gameData.creatingActorId = actorId;
+
+			GamesApi['data'].create(gameData).then(function(res){
 				console.log(res.status);
 				$scope.init();
 				$scope.CreateNewData = false;
 			});
 		}
 		$scope.update = function(index, itemkey, formData) {
-			if (formData == null)
+
+      if (formData == null)
 			{
 				// do nothing
 				return;
 			}
 			formData.value = formData.value || $scope.items[index].value;
-			formData.saveDataType = formData.saveDataType || $scope.items[index].saveDataType;
+			formData.evaluationDataType = formData.evaluationDataType || $scope.items[index].evaluationDataType;
 			formData.gameId = formData.gameId || $scope.items[index].gameId;
 
 			// Update the data
-			var data = {key: itemkey, value: formData.value, saveDataType: formData.saveDataType, gameId: formData.gameId};
+			var data = {key: itemkey, value: formData.value, evaluationDataType: formData.evaluationDataType, gameId: formData.gameId};
 			console.log(data);
 			GamesApi['data'].update(data).then(function(res){
 				$scope.init();
-				$scope.isEditing[index] = false;	
+				$scope.isEditing[index] = false;
 				$scope.EditButtonText[index] = "Edit";
 			})
 		}
@@ -108,6 +107,21 @@ angular.module('sgaAdminApp').controller('GamesProfileDataCtrl', [
 		{
 			$scope.isEditing[index] = !$scope.isEditing[index];
 			$scope.EditButtonText[index] = $scope.isEditing[index] ? "Cancel" : "Edit";
-		}
+    }
+    $scope.getDataType = function(type) {
+			switch(type)
+			{
+				case 'String':
+					return "0";
+				case 'Long':
+					return "1";
+				case 'Float':
+					return "2";
+				case 'Boolean':
+					return "3";
+				default:
+					return "";
+			}
+		};
 	}
 ]);
