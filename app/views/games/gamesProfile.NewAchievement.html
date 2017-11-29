@@ -36,21 +36,22 @@
 				<input class="input-lg" id="file" type="file" ng-model="item.Icon" value="{{item.icon}}"/>
 			</div>
 		</div>
-		
+
 		<div class="form-group">
 			<h4 for="inputName"  class="col-xs-2 control-label">Actor Type:</h4>
 			<div class="col-xs-10">
 				<select class="form-control" placeholder="User Achievement" ng-model="item.ActorType" value="{{item.actorType}}" required>
-					<option value="0">User Achievement</option>
-					<option value="1">Group Achievemnet</option>
+					<option value="0">User And Group Achievement</option>
+					<option value="1">User Achievement</option>
+					<option value="2">Group Achievemnet</option>
 				</select>
 			</div>
 		</div>
 		<div class="form-group">
 			<h4 for="inputName" class="col-xs-2 control-label">Reward</h4>
-		</div>
+    </div>
 		<div class="form-group">
-			<h5 for="inputName"" class="col-xs-2 control-label">Key:</h5>
+			<h5 for="inputName" class="col-xs-2 control-label">Key:</h5>
 			<div class="col-xs-10">
 				<input type="text" placeholder="Unique Reward Key" class="form-control" ng-model="item.Reward.Key"/>
 			</div>
@@ -74,7 +75,15 @@
 		</div>
 		<tr class="listitem" ng-repeat="n in range()">
 			<td><label>Criteria {{n+1}}:</label></td>
-            <td>Key<input type="text" placeholder="Unique Criteria Name" class="form-control" ng-model="item.evaluationCriterias[n].Key" required/></td>
+      <td>Category<select class="form-control" ng-model="item.evaluationCriterias[n].EvaluationDataCategory" required>
+					<option value="0">Game Data</option>
+					<option value="1">Resource</option>
+					<option value="2">Skill</option>
+					<option value="3">Achievement</option>
+					<option value="4">Match Data</option>
+				</select>
+			</td>
+      <td>Key<input type="text" placeholder="Unique Criteria Name" class="form-control" ng-model="item.evaluationCriterias[n].Key" required/></td>
 			<td>Data Type<select class="form-control" ng-model="item.evaluationCriterias[n].DataType" required>
 					<option value="0">String</option>
 					<option value="1">Long</option>
