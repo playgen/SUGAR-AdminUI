@@ -35,7 +35,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 		if ($scope.itemId != "global")
 		{
 			SkillsApi['games'].get($scope.itemId).then(function(res) {
-			
+
 				if (res.status === 200 && res.data != null) {
 
 				} else {
@@ -83,7 +83,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 							evaluationCriteria.Value = data.evaluationCriterias[i].value;
 
 							$scope.item.evaluationCriterias.push(evaluationCriteria);
-						}	
+						}
 
 						$scope.item.Reward = {};
 
@@ -115,25 +115,32 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 		$scope.create = function() {
 
 			$scope.achievement = {};
-			$scope.achievement.GameId = $scope.itemId == "global" ? null : $scope.itemId;
-			$scope.achievement.Name = $scope.item.Name;
-			$scope.achievement.Description = $scope.item.Description;
-			$scope.achievement.ActorType = $scope.item.ActorType;
-			$scope.achievement.Token = $scope.item.Token;
+      $scope.achievement.id = $scope.item.Id;
+			$scope.achievement.gameId = $scope.itemId == "global" ? null : $scope.itemId;
+			$scope.achievement.name = $scope.item.Name;
+			$scope.achievement.description = $scope.item.Description;
+			$scope.achievement.actorType = $scope.item.ActorType;
+			$scope.achievement.token = $scope.item.Token;
 
 			$scope.achievement.evaluationCriterias = [];
 			for (var i = 0; i < $scope.criterias; i++) {
 				$scope.achievement.evaluationCriterias[i] = {};
-				$scope.achievement.evaluationCriterias[i].Key = $scope.item[i + 1].Key;
-				$scope.achievement.evaluationCriterias[i].DataType = $scope.item[i + 1].DataType;
-				$scope.achievement.evaluationCriterias[i].ComparisonType = $scope.item[i + 1].ComparisonType;
-				$scope.achievement.evaluationCriterias[i].Value = $scope.item[i + 1].Value;
+				$scope.achievement.evaluationCriterias[i].id = $scope.item.evaluationCriterias[i].Id;
+				$scope.achievement.evaluationCriterias[i].evaluationDataKey = $scope.item.evaluationCriterias[i].Key;
+				$scope.achievement.evaluationCriterias[i].evaluationDataCategory = $scope.item.evaluationCriterias[i].EvaluationDataCategory;
+				$scope.achievement.evaluationCriterias[i].evaluationDataType = $scope.item.evaluationCriterias[i].DataType;
+				$scope.achievement.evaluationCriterias[i].criteriaQueryType = "Any";
+				$scope.achievement.evaluationCriterias[i].comparisonType = $scope.item.evaluationCriterias[i].ComparisonType;
+				$scope.achievement.evaluationCriterias[i].scope = "Actor";
+				$scope.achievement.evaluationCriterias[i].value = $scope.item.evaluationCriterias[i].Value;
 			}
 			$scope.achievement.rewards = [];
 			$scope.achievement.rewards[0] = {};
-			$scope.achievement.rewards[0].Key = $scope.item.Reward.Key;
-			$scope.achievement.rewards[0].DataType = $scope.item.Reward.DataType;
-			$scope.achievement.rewards[0].Value = $scope.item.Reward.Value;
+			$scope.achievement.rewards[0].id = $scope.item.Reward.Id;
+			$scope.achievement.rewards[0].evaluationDataKey = $scope.item.Reward.Key;
+			$scope.achievement.rewards[0].evaluationDataCategory = $scope.item.Reward.Category;
+			$scope.achievement.rewards[0].evaluationDataType = $scope.item.Reward.DataType;
+			$scope.achievement.rewards[0].value = $scope.item.Reward.Value;
 
 			// var f = document.getElementById('file').files[0];
 			// var r =  new FileReader();
@@ -153,14 +160,14 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 					$location.path('/games/' + $scope.itemId + '/achievements');
 				});
 			}
-			
+
 		};
 		$scope.back = function() {
 			//go back to list of achievements for this game
 			$location.path('/games/' + $scope.itemId + '/skills');
 		};
 		$scope.getActorType = function(type) {
-			switch(type) 
+			switch(type)
 			{
 				case 'User':
 					return "0";
@@ -171,7 +178,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 			}
 		};
 		$scope.getDataType = function(type) {
-			switch(type) 
+			switch(type)
 			{
 				case 'String':
 					return "0";
@@ -186,7 +193,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 			}
 		};
 		$scope.getComparisonType = function(type) {
-			switch(type) 
+			switch(type)
 			{
 				case 'Equals':
 					return "0";
