@@ -21,7 +21,6 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 
 		$scope.gameFound = true;
 
-		$scope.items = [];
 		$scope.criterias = 1;
 
 		$scope.pagination = {
@@ -35,7 +34,6 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 		if ($scope.itemId != "global")
 		{
 			SkillsApi['games'].get($scope.itemId).then(function(res) {
-
 				if (res.status === 200 && res.data != null) {
 
 				} else {
@@ -50,12 +48,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 
 		}
 		$scope.init = function() {
-			SkillsApi['games'].list().then(function(res) {
-				if (res.status === 200 && res.data != null) {
-					$scope.items = res.data['response'];
-					$scope.range();
-				}
-			});
+			$scope.item = [];
 			if (!$scope.isNew)
 			{
 				$scope.buttonText = "Update";
@@ -63,20 +56,21 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 				SkillsApi['skills'].getByToken($scope.itemId, $scope.token).then(function(res){
 					if (res.status === 200 && res.data['response'] != null)
 					{
-						$scope.item = [];
-						var data = res.data['response'];
+            var data = res.data['response'];
+            $scope.item.Id = data.id;
+            $scope.item.GameId = data.gameId;
 						$scope.item.Name = data.name;
 						$scope.item.Description = data.description;
 						$scope.item.ActorType = $scope.getActorType(data.actorType);
 						$scope.item.Token = data.token;
 
-						$scope.criterias = data.evaluationCriterias.length
-
+						$scope.criterias = data.evaluationCriterias.length;
 						$scope.item.evaluationCriterias = [];
 
-
-						for (var i = 0; i < data.evaluationCriterias.length; i++) {
-							var evaluationCriteria = [];
+						for (var i = 0; i < $scope.criterias; i++) {
+              var evaluationCriteria = [];
+              evaluationCriteria.Id = data.evaluationCriterias[i].id;
+              evaluationCriteria.EvaluationDataCategory = $scope.GetCategoryType(data.evaluationCriterias[i].evaluationDataCategory);
 							evaluationCriteria.Key = data.evaluationCriterias[i].evaluationDataKey;
 							evaluationCriteria.DataType = $scope.getDataType(data.evaluationCriterias[i].evaluationDataType);
 							evaluationCriteria.ComparisonType = $scope.getComparisonType(data.evaluationCriterias[i].comparisonType);
@@ -85,8 +79,10 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 							$scope.item.evaluationCriterias.push(evaluationCriteria);
 						}
 
-						$scope.item.Reward = {};
+            $scope.item.Reward = {};
 
+            $scope.item.Reward.Id = data.rewards[0].id;
+            $scope.item.Reward.Type = $scope.GeRewardCategoryType(data.rewards[0].evaluationDataCategory);
 						$scope.item.Reward.Key = data.rewards[0].evaluationDataKey;
 						$scope.item.Reward.DataType = $scope.getDataType(data.rewards[0].evaluationDataType);
 						$scope.item.Reward.Value = data.rewards[0].value;
@@ -105,13 +101,37 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 			return input;
 		};
 		$scope.addCriteria = function() {
-			$scope.criterias++;
-			return $scope.$broadcast("savedItem");
-		}
-		$scope.minusCriteria = function() {
-			$scope.criterias--;
-			return $scope.$broadcast("savedItem");
-		}
+      $scope.criterias++;
+
+      var evaluation = {};
+      evaluation.Key = "";
+      evaluation.EvaluationDataCategory = "";
+      evaluation.EvaluationDataKey = "";
+      evaluation.EvaluationDataType = "";
+      evaluation.ComparisonType = "";
+      evaluation.Value = "";
+
+      if ($scope.item.evaluationCriterias == null)
+      {
+        $scope.item.evaluationCriterias = [];
+      }
+      $scope.item.evaluationCriterias[$scope.criterias-1] = evaluation;
+
+			//return $scope.$broadcast("savedItem");
+    };
+    $scope.removeCriteria = function(index, item){
+      for (var i=index; i<$scope.criterias - 1; i++)
+      {
+				$scope.item.evaluationCriterias[i].Id =                     $scope.item.evaluationCriterias[i+1].Id;
+				$scope.item.evaluationCriterias[i].Key =                    $scope.item.evaluationCriterias[i+1].Key;
+				$scope.item.evaluationCriterias[i].EvaluationDataCategory = $scope.item.evaluationCriterias[i+1].EvaluationDataCategory;
+				$scope.item.evaluationCriterias[i].EvaluationDataKey =      $scope.item.evaluationCriterias[i+1].EvaluationDataKey;
+				$scope.item.evaluationCriterias[i].EvaluationDataType =     $scope.item.evaluationCriterias[i+1].EvaluationDataType;
+				$scope.item.evaluationCriterias[i].ComparisonType =         $scope.item.evaluationCriterias[i+1].ComparisonType;
+        $scope.item.evaluationCriterias[i].Value =                  $scope.item.evaluationCriterias[i+1].Value;
+      }
+      $scope.criterias--;
+    };
 		$scope.create = function() {
 
 			$scope.achievement = {};
@@ -148,7 +168,8 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 			//   var data = e.target.result;
 			// }
 			// r.readAsArrayBuffer(f);
-			if ($scope.isNew)
+
+      if ($scope.isNew)
 			{
 				SkillsApi['skills'].createSkill($scope.achievement).then(function(res) {
 					$location.path('/games/' + $scope.itemId + '/skills');
@@ -157,7 +178,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 			else
 			{
 				SkillsApi['skills'].update($scope.achievement).then(function(res) {
-					$location.path('/games/' + $scope.itemId + '/achievements');
+					$location.path('/games/' + $scope.itemId + '/skills');
 				});
 			}
 
@@ -165,16 +186,33 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 		$scope.back = function() {
 			//go back to list of achievements for this game
 			$location.path('/games/' + $scope.itemId + '/skills');
-		};
+    };
+    $scope.GetCategoryType = function(type){
+      switch(type)
+      {
+        case 'GameData':
+         return "0";
+        case 'Resource':
+         return "1";
+        case 'Skill':
+         return "2";
+        case 'Achievement':
+         return "3";
+        case 'MatchData':
+         return "4";
+      }
+    };
 		$scope.getActorType = function(type) {
 			switch(type)
 			{
-				case 'User':
-					return "0";
-				case 'Group':
-					return "1";
-				default:
-					return "";
+				case 'Undefined':
+        return "0";
+      case 'User':
+        return "1";
+      case 'Group':
+        return "2";
+      default:
+        return "";
 			}
 		};
 		$scope.getDataType = function(type) {
@@ -210,7 +248,16 @@ angular.module('sgaAdminApp').controller('GamesProfileNewSkillCtrl', [
 				default:
 					return "";
 			}
-		};
+    };
+    $scope.GeRewardCategoryType = function(type) {
+      switch(type)
+      {
+        case 'GameData':
+         return "0";
+        case 'Resource':
+         return "1";
+      }
+    }
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
 		});

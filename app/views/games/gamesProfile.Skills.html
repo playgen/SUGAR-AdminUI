@@ -1,7 +1,7 @@
 <div ng-init="init()">
 	<div class="col-xs-3">
 		<button class="btn btn-success" type="button" ng-click="addNewSkill()" ng-if="hasCreateSkillPermission"><i class="fa fa-user" > Add New Skill</i></button>
-	</div>	
+	</div>
 	<table class="table table-bordered table-hover" ng-if="hasGetSkillPermission">
 		<tbody ng-repeat="n in range()">
 			<tr>
@@ -16,7 +16,7 @@
 			<tr ng-show="isViewing[n]">
 				<th><h4>Name</h4></th>
 				<td>{{items[n].name}}</td>
-				
+
 			</tr>
 			<tr ng-show="isViewing[n]">
 				<th><h4>Description</h4></th>
@@ -26,19 +26,22 @@
 				<th><h4>Evaluation Criteria</h4></th>
 			</tr>
 			<tr ng-show="isViewing[n]">
+				<th>Category</th>
 				<th>Key</th>
 				<th>Data Type</th>
 				<th>Comparison Type</th>
 				<th>Value</th>
 			</tr>
 			<tr ng-show="isViewing[n]">
+        <td>{{items[n].evaluationCriterias[0].evaluationDataCategory}}</td>
 				<td>{{items[n].evaluationCriterias[0].evaluationDataKey}}</td>
 				<td>{{items[n].evaluationCriterias[0].evaluationDataType}}</td>
 				<td>{{items[n].evaluationCriterias[0].comparisonType}}</td>
 				<td>{{items[n].evaluationCriterias[0].value}}</td>
 			</tr>
 			<tr ng-repeat="i in criteriaRange(n)" ng-show="isViewing[n]">
-				<td>{{items[n].evaluationCriterias[i].evaluationDataKey}}</td>
+        <td>{{items[n].evaluationCriterias[i].evaluationDataCategory}}</td>
+        <td>{{items[n].evaluationCriterias[i].evaluationDataKey}}</td>
 				<td>{{items[n].evaluationCriterias[i].evaluationDataType}}</td>
 				<td>{{items[n].evaluationCriterias[i].comparisonType}}</td>
 				<td>{{items[n].evaluationCriterias[i].value}}</td>

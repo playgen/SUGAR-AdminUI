@@ -12,7 +12,17 @@
 <div ng-init="init()">
 	<form class="form-horizontal" name="myForm">
 	<table class="table table-bordered table-hover">
-		<div class="form-group">
+    <div class="form-group">
+      <h4 for="inputName"  class="col-xs-2 control-label">Type:</h4>
+      <div class="col-xs-10">
+        <select class="form-control" placeholder="User Achievement" ng-model="item.ActorType" value="{{item.actorType}}" required>
+          <option value="0">User And Group Achievement</option>
+          <option value="1">User Achievement</option>
+          <option value="2">Group Achievemnet</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
 			<h4 for="inputName" class="col-xs-2 control-label">Token:</h4>
 			<div class="col-xs-10">
 				<input type="text" placeholder="Unique Token" class="form-control" ng-model="item.Token" ng-readonly="!isNew" value="{{item.token}}" required/>
@@ -36,38 +46,33 @@
 				<input class="input-lg" id="file" type="file" ng-model="item.Icon" value="{{item.icon}}"/>
 			</div>
 		</div>
-
 		<div class="form-group">
-			<h4 for="inputName"  class="col-xs-2 control-label">Actor Type:</h4>
-			<div class="col-xs-10">
-				<select class="form-control" placeholder="User Achievement" ng-model="item.ActorType" value="{{item.actorType}}" required>
-					<option value="0">User And Group Achievement</option>
-					<option value="1">User Achievement</option>
-					<option value="2">Group Achievemnet</option>
-				</select>
-			</div>
-		</div>
-		<div class="form-group">
-			<h4 for="inputName" class="col-xs-2 control-label">Reward</h4>
+      <h4 for="inputName" class="col-xs-2 control-label">Reward</h4>
+      <div class="col-xs-10">
+        <select class="form-control" ng-model="item.Reward.Type" required>
+          <option value="0">Game Data</option>
+          <option value="1">Resource</option>
+        </select>
+      </div>
     </div>
-		<div class="form-group">
+		<div class="form-group" ng-if="item.Reward.Type != null">
 			<h5 for="inputName" class="col-xs-2 control-label">Key:</h5>
 			<div class="col-xs-10">
 				<input type="text" placeholder="Unique Reward Key" class="form-control" ng-model="item.Reward.Key"/>
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group" ng-if="item.Reward.Type != null">
 				<h5 for="inputName" class="col-xs-2 control-label">Data Type:</h5>
 			<div class="col-xs-10">
 				<select class="form-control" ng-model="item.Reward.DataType">
-					<option value="0">String</option>
-					<option value="1">Long</option>
-					<option value="2">Float</option>
-					<option value="3">Boolean</option>
+            <option value="0" ng-if="item.Reward.Type == '0'">String</option>
+            <option value="1" ng-if="item.Reward.Type == '0'">Long</option>
+            <option value="2">Float</option>
+            <option value="3" ng-if="item.Reward.Type == '0'">Boolean</option>
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group" ng-if="item.Reward.Type != null">
 			<h5 for="inputName" class="col-xs-2 control-label">Value:</h5>
 			<div class="col-xs-10">
 				<input type="text" placeholder="Reward Amount" class="form-control" ng-model="item.Reward.Value"/>
@@ -85,22 +90,27 @@
 			</td>
       <td>Key<input type="text" placeholder="Unique Criteria Name" class="form-control" ng-model="item.evaluationCriterias[n].Key" required/></td>
 			<td>Data Type<select class="form-control" ng-model="item.evaluationCriterias[n].DataType" required>
-					<option value="0">String</option>
-					<option value="1">Long</option>
-					<option value="2">Float</option>
-					<option value="3">Boolean</option>
+					<option value="0" ng-if="item.evaluationCriterias[n].EvaluationDataCategory != '1'">String</option>
+					<option value="1" ng-if="item.evaluationCriterias[n].EvaluationDataCategory != '1'">Long</option>
+					<option value="2" >Float</option>
+					<option value="3" ng-if="item.evaluationCriterias[n].EvaluationDataCategory != '1'">Boolean</option>
 				</select>
 			</td>
 			<td>Comparison Type<select class="form-control" ng-model="item.evaluationCriterias[n].ComparisonType" required>
 					<option value="0">equal to</option>
 					<option value="1">not equal to</option>
-					<option value="2">greater than</option>
-					<option value="3">greater than or equal to</option>
-					<option value="4">less than</option>
-					<option value="5">less than or equal to</option>
+					<option value="2" ng-if="item.evaluationCriterias[n].DataType == '1' || item.evaluationCriterias[n].DataType == '2'">greater than</option>
+					<option value="3" ng-if="item.evaluationCriterias[n].DataType == '1' || item.evaluationCriterias[n].DataType == '2'">greater than or equal to</option>
+					<option value="4" ng-if="item.evaluationCriterias[n].DataType == '1' || item.evaluationCriterias[n].DataType == '2'">less than</option>
+					<option value="5" ng-if="item.evaluationCriterias[n].DataType == '1' || item.evaluationCriterias[n].DataType == '2'">less than or eqaul to</option>
 				</select>
 			</td>
-			<td>Value<input type="text" placeholder="Value to match" class="form-control" ng-model="item.evaluationCriterias[n].Value" required/></td>
+      <td>Value<input type="text" placeholder="Value to match" class="form-control" ng-model="item.evaluationCriterias[n].Value" required/></td>
+      <td>
+        <div class="col-xs-8">
+          <button class="btn btn-primary btn-sm" title="Remove Criteria" ng-click="removeCriteria(n, item)" ng-disabled="criterias <= 1">Remove Criteria</button>
+        </div>
+      </td>
 		</tr>
 	</table>
 	</form>
@@ -108,8 +118,7 @@
 </contentMain>
 <contentFooter>
 	<div class="col-xs-8">
-		<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="addCriteria(item)" >Add Criteria</button>
-		<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="minusCriteria(item)" ng-if="criterias > 1">Remove Criteria</button>
+		<button class="btn btn-primary btn-sm" title="Add a Criteria" ng-click="addCriteria(item)" >Add Another Criteria</button>
 	</div>
 	<div class="col-xs-4 text-center button-container">
 		<button class="btn btn-success pull-right" type="button" ng-disabled="myForm.$invalid" ng-click="create()"><i class="fa fa-plus" ng-if="hasCreateAchievementPermission"></i> {{buttonText}} Achievement</button>
