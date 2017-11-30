@@ -19,8 +19,8 @@
 		<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 			<td></td>
 			<td>
-				<a ng-click="select(item)"><i class="fa fa-gamepad"/><b> {{item.name}}</b></a>
-            </td>
+				<a ng-click="select(item)"><b> {{item.name}}</b></a>
+      </td>
 		</tr>
 	</table>
 </div>

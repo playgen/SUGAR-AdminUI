@@ -23,7 +23,7 @@
 			<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
 				<td></td>
 	            <td>
-	            	<a ng-click="showProfile(item)"><i class="fa fa-users"/><b> {{item.name}}</b> ({{item.memberCount}})</a>
+	            	<a ng-click="showProfile(item)"><b> {{item.name}}</b> ({{item.memberCount}})</a>
             	</td>
 			</tr>
 		</table>
@@ -33,7 +33,7 @@
 	<div class="col-xs-12 text-center">
 		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 	</div>
-	
+
 </contentFooter>
 
 <!-- Confirm that we want to delete the group  -->

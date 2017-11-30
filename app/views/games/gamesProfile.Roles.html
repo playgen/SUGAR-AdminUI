@@ -1,7 +1,7 @@
 <div>
 	<label>Select a role below to manage which users have access to it within this game</label>
 	<table class="table table-bordered table-hover" ng-init="init()">
-		
+
 		<tr>
 			<td style="width: 10px"></td>
 			<th><h3>Roles</h3></th>
@@ -18,7 +18,7 @@
 		</tr>
 	</table>
 </div>
-<div ng-if="isViewingRole" ng-style="{'background-color':'#ccc'}">
+<div ng-if="isViewingRole">
 	<div>
 		<button class="btn btn-secondary" type="button" ng-click="close()" >Close</button>
 	</div>
