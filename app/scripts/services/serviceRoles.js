@@ -20,10 +20,10 @@ angular.module('sgaAdminApp').service('RolesApi', [
 				listScope: function(scope) {
 					return $http.get(config.api.baseurl + '/role/scope/' + scope);
 				},
-				getActorRole(actorId, entityId, scopeName) {
-					return $http.get(config.api.baseurl + '/ActorRole/actor/' + actorId + '/entity/' + entityId + '/claimscope/' + scopeName); 
+				getActorRole: function(actorId, entityId, scopeName) {
+					return $http.get(config.api.baseurl + '/ActorRole/actor/' + actorId + '/entity/' + entityId + '/claimscope/' + scopeName);
 				},
-				getActorsForRole(roleId, entityId) {
+				getActorsForRole: function(roleId, entityId) {
 					return $http.get(config.api.baseurl + '/ActorRole/role/' + roleId + '/entity/' + entityId)
 				},
 				create: function(item) {

@@ -293,7 +293,7 @@ module.exports = function(grunt) {
 						dot: true,
 						cwd: '<%= appConfig.app %>',
 						dest: '<%= appConfig.dist %>',
-						src: ['*.{ico,png,txt}', '*.html', "images/*", 'styles/fonts/{,*/}*.*']
+						src: ['*.{ico,png,txt}', '*.html', "views/**/*.html", "images/*", "fonts/*", "sounds/*", "navigation-bar/**"]
 					},
 					{
 						expand: true,
@@ -316,9 +316,9 @@ module.exports = function(grunt) {
 					}, 
 					{
 						expand: true,
-						cwd: 'bower_components/bootstrap/dist',
-						src: 'fonts/*',
-						dest: '<%= appConfig.dist %>'
+						cwd: "<%= appConfig.bower %>",
+						src:  ["**"],
+						dest: "<%= appConfig.dist %>/bower_components/"
 					}
 				]
 			},
@@ -362,9 +362,6 @@ module.exports = function(grunt) {
 			},			
 		},
 		concurrent: {
-			//   server: ['coffee:dist', 'less'],
-			//   test: ['coffee', 'less'],
-			//   dist: ['coffee', 'less', 'imagemin', 'svgmin']
 			server: ['less'],
 			test: ['less'],
 			dist: ['less'],
