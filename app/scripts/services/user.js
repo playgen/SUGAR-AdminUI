@@ -13,7 +13,7 @@ angular.module('sgaAdminApp').factory('User', [
 	function($http, config) {
 		return {
 			login: function(item) {
-        return $http.post(config.api.baseurl + "/login", item);
+        return $http.post(config.api.baseurl + "/loginplatform", item);
 			},
 			register: function(item) {
 				return $http.post(config.api.baseurl + '/register', item);

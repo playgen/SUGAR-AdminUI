@@ -1,0 +1,54 @@
+<div class="col-xs-3">
+	<button class="btn btn-success" type="button" ng-click="addAlliance(item)" ng-if="hasCreateAllianceRequestPermission"><i class="fa fa-group"> Add New Alliance</i></button>
+</div>
+<div class="col-xs-12">
+	<button class="btn btn-info" type="button" ng-click="viewAlliances()" ng-if="hasGetAlliancePermission">Alliances ({{alliances.length}})</button>
+	<button class="btn btn-info" type="button" ng-click="viewPending()" ng-Disabled="pendings.length==0" ng-if="hasGetAllianceRequestPermission">Requests Sent({{pendings.length}})</button>
+	<button class="btn btn-info" type="button" ng-click="viewIncoming()" ng-Disabled="requests.length==0" ng-if="hasGetAllianceRequestPermission">Alliance Requests ({{requests.length}})</button>
+</div>
+<table class="table table-bordered table-hover" ng-init="init()">
+	<tr class="listitem">
+		<td style="width: 10px"></td>
+		<th ng-if="ShowingIncomingRequests">Alliance Requests</th>
+		<th ng-if="ShowingPendingRequests">Requests Sent</th>
+		<th ng-if="ShowingAlliances">Alliances</th>
+		<th></th>
+	</tr>
+	<tr class="listitem">
+		<td style="width: 10px"></td>
+		<th>Name</th>
+		<th></th>
+	</tr>
+	<!-- Show Alliance requests from other players first -->
+	<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingIncomingRequests && hasGetAlliancePermission">
+        <td></td>
+		<td><a ng-click="veiwAllianceProfile(item)"><i class="fa fa-group"/> {{item.name}}</a></td>
+        <td>
+			<button class="btn btn-danger pull-right" type="button" ng-click="reject(item)" ng-if="hasUpdateAllianceRequestPermission"><i class="fa fa-times"> Reject</i></button>
+			<button class="btn btn-success pull-right" type="button" ng-click="accept(item)" ng-if="hasUpdateAllianceRequestPermission"><i class="fa fa-times"> Accept</i></button>
+        </td>
+    </tr>
+
+	<!-- Show Alliance requests sent second -->
+	<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingPendingRequests && hasGetAllianceRequestPermission">
+		<td></td>
+        <td><a ng-click="veiwAllianceProfile(item)"><i class="fa fa-group"/> {{item.name}}</td>
+        <td>
+            <button class="btn btn-danger pull-right" type="button" ng-click="removePending(item)"  ng-if="hasUpdateAllianceRequestPermission"><i class="fa fa-times"> Cancel</i></button>
+        </td>
+    </tr>
+
+	<!-- Now show the accepted Alliances -->
+    <tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]" ng-if="ShowingAlliances && hasGetAllianceRequestPermission">
+    	<td></td>
+        <td><a ng-click="veiwAllianceProfile(item)"><i class="fa fa-group"/> {{item.name}}</td>
+        <td>
+            <button class="btn btn-danger pull-right" type="button" ng-click="remove(item)" ng-if="hasDeleteAlliancePermission"><i class="fa fa-times"> Remove</i></button>
+        </td>
+    </tr>
+</table>
+<contentFooter>
+<div class="col-xs-12 text-center">
+	<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
+</div>
+</contentFooter>

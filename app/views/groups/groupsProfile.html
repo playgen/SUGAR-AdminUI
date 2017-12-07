@@ -15,10 +15,11 @@
 		<button class="btn btn-primary" ui-sref="groupsProfile.Details" ui-sref-active="activeState">Details</button>
 		<button class="btn btn-primary" ui-sref="groupsProfile.Data" ui-sref-active="activeState" ng-if="hasGetActorDataPermission">Group Data</button>
 		<button class="btn btn-primary" ui-sref="groupsProfile.Members" ui-sref-active="activeState" ng-if="hasGetMemberPermission">Members</button>
+		<button class="btn btn-primary" ui-sref="groupsProfile.Alliances" ui-sref-active="activeState" ng-if="hasGetAlliancePermission">Alliances</button>
 		<button class="btn btn-primary" ui-sref="groupsProfile.Roles" ui-sref-active="activeState" ng-if="hasGetRolePermission">Manage Roles</button>
 	</div>
 </contentHeader>
-<contentMain>	
+<contentMain>
 	<div ng-init="init()" ng-if="groupFound" >
 		<div>
 			<ui-view></ui-view>
@@ -40,8 +41,8 @@
         <class="form-control" ng-if="!exists">Error: Player Not Found</class>
     </div>
     <div class="modal-footer">
-        		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> Cancel</button>  
-                <button class="btn btn-success" type="button" ng-click="add(item)"ng-disabled="myForm.$invalid">Add</button>      
+        		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> Cancel</button>
+                <button class="btn btn-success" type="button" ng-click="add(item)"ng-disabled="myForm.$invalid">Add</button>
     </div>>
 </script>
 
@@ -67,7 +68,7 @@
     <div class="modal-header">
         <h3 class="modal-title"><span>Add a new Role for User</h3>
     </div>
-    <div class="modal-body">        
+    <div class="modal-body">
         <class>Enter User Name</class>
         <form name="myForm">
         <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" placeholder="Username" required/>
@@ -75,7 +76,27 @@
         <class="form-control" ng-if="!exists">Error: User Not Found</class>
     </div>
     <div class="modal-footer">
-		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> Cancel</button> 
-        <button class="btn btn-success" type="button" ng-click="add(item)"ng-disabled="myForm.$invalid"></i> Add</button>        
+		<button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> Cancel</button>
+        <button class="btn btn-success" type="button" ng-click="add(item)"ng-disabled="myForm.$invalid"></i> Add</button>
     </div>>
 </script>
+
+<!-- request to add a new alliance -->
+
+<script type="text/ng-template" id="addAllianceModal.html">
+  <div class="modal-header">
+      <h3 class="modal-title"><span>Add a new Alliance</h3>
+  </div>
+  <div class="modal-body">
+      <class>Enter Group Name</class>
+      <form name="myForm">
+      <input type="text" class="form-control" ng-value="txtBox" ng-model="txtBox" name="txtBox" placeholder="Name" required/>
+      </form>
+      <class="form-control" ng-if="!exists">Error: Group Not Found</class>
+  </div>
+  <div class="modal-footer">
+  <button class="btn btn-danger pull-left" type="button" ng-click="closeModal()"><i class="fa fa-times"></i> Cancel</button>
+      <button class="btn btn-success" type="button" ng-click="addAlliance(item)"ng-disabled="myForm.$invalid"></i> Add</button>
+  </div>>
+</script>
+

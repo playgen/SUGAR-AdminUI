@@ -57,6 +57,31 @@ angular.module('sgaAdminApp').service('GroupsApi', [
 				get: function(username) {
 					return $http.get(config.api.baseurl + '/user/find/' + username);
 				}
+      },
+      'alliances': {
+				list: function(id) {
+					return $http.get(config.api.baseurl + "/alliance/" + id);
+				},
+				create: function(item) {
+					return $http.post(config.api.baseurl + '/alliance', item)
+				},
+				update: function(item) {
+					return $http.put(config.api.baseurl + "/alliance", item);
+				},
+				"delete": function(id) {
+					return $http["delete"](config.api.baseurl + ("/alliance/" + id));
+				}
+			},
+			'allianceRequests': {
+				listSentRequests: function(id) {
+					return $http.get(config.api.baseurl + ("/alliance/sentrequests/" + id));
+				},
+				listRequests: function(id) {
+					return $http.get(config.api.baseurl + "/alliance/requests/" + id);
+				},
+				update: function(item) {
+					return $http.put(config.api.baseurl + '/alliance/request', item);
+				}
 			},
 			'data': {
 				list: function(id) {

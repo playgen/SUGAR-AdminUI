@@ -23,6 +23,12 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 		$scope.hasCreateMemberPermission;
 		$scope.hasDeleteMemberPermission;
 
+    $scope.hasGetAlliancePermission = true;
+    $scope.hasUpdateAllianceRequestPermission;
+    $scope.hasDeleteAllianceRequestPermission;
+    $scope.hasCreateAllianceRequestPermission;
+    $scope.hasGetAllianceRequestPermission;
+
 		$scope.hasGetRolePermission;
 		$scope.hasCreateRolePermission;
 		$scope.hasUpdateRolePermission;
@@ -94,6 +100,15 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 			$scope.hasCreateMemberPermission = permissionService.hasAccessToClaim('Create-GroupMemberRequest', $scope.itemId);
 			$scope.hasDeleteMemberPermission = permissionService.hasAccessToClaim('Delete-GroupMember', $scope.itemId);
 
+      $scope.hasGetAlliancePermission = true;
+      $scope.hasUpdateAllianceRequestPermission = true;
+      $scope.hasCreateAllianceRequestPermission = true;
+      $scope.hasDeleteAllianceRequestPermission = true;
+
+      $scope.hasCreateAllianceRequestPermission = true;
+      $scope.hasGetAllianceRequestPermission = true;
+      $scope.hasGetAllianceRequestPermission = true;
+
 			$scope.hasGetRolePermission = permissionService.hasAccessToClaim('Get-Role', $scope.itemId);
 			$scope.hasCreateRolePermission = permissionService.hasAccessToClaim('Create-Role', $scope.itemId);
 			$scope.hasUpdateRolePermission = true;//permissionService.hasAccessToClaim('Update-Role', $scope.itemId);
@@ -149,6 +164,51 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 					//put the data backwards for testing as groups cannot request users join
 					var friendship = "{ RequestorId: " + res.data['response'][0].id + ", AcceptorId: " + $scope.itemId + ", AutoAccept: true }"
 					GroupsApi['members'].create(friendship)
+
+					.then(function(res) {
+						$uibModalInstance.close();
+						$rootScope.$broadcast('savedItem')
+					});
+				} else
+					$scope.exists = false;
+			});
+    };
+	}
+]).controller('addAllianceModalCtrl', [
+	'$scope', '$rootScope', '$uibModalInstance', 'GroupsApi', 'modalManager', 'modaldata',
+	function($scope, $rootScope, $uibModalInstance, GroupsApi, modalManager, modaldata) {
+		$scope.name = modaldata.name;
+		$scope.config = modaldata.config;
+		$scope.itemId = modaldata.itemId;
+
+		$scope.exists = true;
+
+		if (modaldata.item != null) {
+			$scope.item = modaldata.item;
+		} else if (modaldata.itemid != null) {
+			GroupsApi[$scope.itemtype].get(modaldata.itemid).then(function(data) {
+				if ((data != null ? data.data : void 0) != null) {
+					return $scope.item = data.data;
+				}
+			});
+		}
+
+		//our buttons
+		$scope.closeModal = function() {
+			$scope.exists = true;
+			$uibModalInstance.close();
+		};
+		$scope.addAlliance = function(item) {
+			GroupsApi['groups'].get($scope.txtBox)
+
+			.then(function(res) {
+				if (res.data['response'][0] != null) {
+					//put the data backwards for testing as groups cannot request users join
+          var relationship = {};
+          relationship.RequestorId = $scope.itemId;
+          relationship.AcceptorId = res.data['response'][0].id;
+          relationship.AutoAccept = true;
+					GroupsApi['alliances'].create(relationship)
 
 					.then(function(res) {
 						$uibModalInstance.close();

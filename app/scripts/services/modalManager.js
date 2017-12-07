@@ -93,6 +93,10 @@ angular.module('sgaAdminApp')
 			'addMember': {
 				temp: 'addMemberModal.html',
 				cont: 'addMemberModalCtrl'
+      },
+      'addAlliance': {
+				temp: 'addAllianceModal.html',
+				cont: 'addAllianceModalCtrl'
 			},
 			'addGroup': {
 				temp: 'addGroupModal.html',

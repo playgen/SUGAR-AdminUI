@@ -50,7 +50,7 @@ Object.keys(design).forEach(function (req) {
 	});
 });
 
-app.post('/login', function (req, res) {
+app.post('/loginplatform', function (req, res) {
 	console.log(req.body);
 	if (req.body && req.body.username && logins[req.body.username] === req.body.password) {
 		res.status(200).send({ token: tokens[0] });
