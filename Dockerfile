@@ -15,7 +15,6 @@ RUN bower install
 RUN npm install grunt -g
 
 RUN grunt build
-# COPY dist /usr/share/nginx/html	
-EXPOSE 80
+EXPOSE 4200/tcp 
 
 ENTRYPOINT grunt serve:dist

@@ -34,7 +34,7 @@ angular.module('sgaAdminApp').controller('HeaderCtrl', ['$scope', '$location', '
 	};
 
 	$scope.$on('updateNavbar', function () {
-    	$scope.updateNavbar();
+      $scope.updateNavbar();
 	});
 
 	// our permissions

@@ -8,4 +8,6 @@
   * # MainCtrl
   * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('MainCtrl', ['config', 'Auth', function(config, Auth) {}]);
+angular.module('sgaAdminApp').controller('MainCtrl', ['config', 'Auth', function(config, Auth) {
+  Auth.set(config.tokens.apiVersion, config.api.version);
+}]);

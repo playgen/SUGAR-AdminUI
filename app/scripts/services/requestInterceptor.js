@@ -20,11 +20,11 @@ angular.module('sgaAdminApp')
 		}
 	])
 	.factory('RequestInterceptor', [
-		'$q', 
+		'$q',
 		'$location',
 		'$controller',
 		'ErrorService',
-		'config', 
+		'config',
 		'Auth',
 		function($q, $location, $controller, ErrorService, config, Auth) {
 			return {

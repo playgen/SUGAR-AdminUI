@@ -16,7 +16,8 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
 			Name: '',
 			Password: '',
 			SourceToken: 'SUGAR'
-		};
+    };
+    Auth.set(config.tokens.apiVersion, config.api.version);
 		$scope.permissionService = permissionService;
 
 		return $scope.login = function() {

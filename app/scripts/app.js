@@ -299,12 +299,16 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 	}
 ]).constant('config', {
 	api: {
-		baseurl: window.location.hostname == 'localhost' ? 'http://localhost:62312/api' : 'https://api.sugarengine.org/api'
-	},
+		baseurl: window.location.hostname == 'localhost' ? 'http://localhost:62312/api' : 'https://api.sugarengine.org/api',
+    version: '1.0.0'
+  },
 	headers: {
-		authorization: 'Authorization',
+    authorization: 'Authorization',
+    apiVersion: 'APIVersion'
 	},
 	tokens: {
-		authorization: 'SUGAR'
+    authorization: 'SUGAR',
+    apiVersion: 'APIVersion'
   },
+
 });
