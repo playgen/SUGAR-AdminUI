@@ -76,8 +76,12 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 		};
 		//our buttons
 		$scope.remove = function(item) {
-			var friendship = "{ RequestorId: " + item.id + ", AcceptorId: " + $scope.itemId + ", Accepted: false }"
-			GroupsApi['members'].update(friendship).then(function(res) {
+      var relationship = {};
+      relationship.RequestorId = item.id;
+      relationship.AcceptorId = $scope.itemId;
+      relationship.Accepted = true;
+
+			GroupsApi['members'].update(relationship).then(function(res) {
 				$scope.init();
 			});
 		};
@@ -161,9 +165,12 @@ angular.module('sgaAdminApp').controller('GroupsProfileCtrl', [
 
 			.then(function(res) {
 				if (res.data['response'][0] != null) {
-					//put the data backwards for testing as groups cannot request users join
-					var friendship = "{ RequestorId: " + res.data['response'][0].id + ", AcceptorId: " + $scope.itemId + ", AutoAccept: true }"
-					GroupsApi['members'].create(friendship)
+          //put the data backwards for testing as groups cannot request users join
+          var relationship = {};
+          relationship.RequestorId = res.data['response'][0].id;
+          relationship.AcceptorId = $scope.itemId;
+          relationship.AutoAccept = true;
+					GroupsApi['members'].create(relationship)
 
 					.then(function(res) {
 						$uibModalInstance.close();

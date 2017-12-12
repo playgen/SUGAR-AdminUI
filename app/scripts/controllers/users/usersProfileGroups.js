@@ -10,14 +10,14 @@ angular.module('sgaAdminApp').controller('UsersProfileGroupsCtrl', [
                         //loop through our items and pass through the index for us to ensure we set the number of members correctly
                         (function(i) {
                             UsersApi['roles'].getActorRole($scope.itemId, $scope.items[i].id, "Group" ).then(function(res) {
-                                
+
                             	$scope.items[i].role = null;
                                 if (res.status === 200  && res.data['response'] != null)
-								{	
+								{
 									var name = res.data['response'][0] != null ? res.data['response'][0].name : null;
 									var roleId = res.data['response'][0] != null ? res.data['response'][0].id : null;
 
-									$scope.items[i].role = name != null ? name : "None"; 
+									$scope.items[i].role = name != null ? name : "None";
 								}
                             });
                         })(i);
@@ -37,8 +37,12 @@ angular.module('sgaAdminApp').controller('UsersProfileGroupsCtrl', [
 			$location.path('/groups/' + item.id);
 		};
 		$scope.remove = function(item) {
-            var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + item.id + ", Accepted: false }"
-            UsersApi['userGroups'].update(friendship).then(function(res) {
+      var relationship = {};
+            relationship.RequestorId = $scope.itemId;
+            relationship.AcceptorId = item.id;
+            relationship.Accepted = false;
+
+            UsersApi['userGroups'].update(relationship).then(function(res) {
                 $scope.init();
             });
         };

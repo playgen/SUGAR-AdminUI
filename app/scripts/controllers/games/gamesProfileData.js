@@ -23,13 +23,13 @@ angular.module('sgaAdminApp').controller('GamesProfileDataCtrl', [
 			GamesApi['data'].list($scope.itemId).then(function(res){
 				if (res.status === 200 && res.data['response'] != null)
 				{
-          $scope.items = res.data['response'];
+          $scope.datas = res.data['response'];
 				}
-				for (var i=0; i<$scope.items.length; i++)
+				for (var i=0; i<$scope.datas.length; i++)
 				{
-          $scope.items[i].index = i;
-          $scope.items[i].dataType = $scope.items[i].evaluationDataType;
-          $scope.items[i].evaluationDataType = $scope.getDataType($scope.items[i].evaluationDataType);
+          $scope.datas[i].index = i;
+          $scope.datas[i].dataType = $scope.items[i].evaluationDataType;
+          $scope.datas[i].evaluationDataType = $scope.getDataType($scope.items[i].evaluationDataType);
 					$scope.isEditing.push(false);
 					$scope.EditButtonText.push("Edit");
 				}

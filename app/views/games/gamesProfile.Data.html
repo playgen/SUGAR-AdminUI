@@ -9,9 +9,9 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<h4 for="inputName" class="col-xs-2 control-label">Actor Name (optional):</h4>
+		<h4 for="inputName" class="col-xs-2 control-label">Actor Name:</h4>
 		<div class="col-xs-10">
-			<input type="text" placeholder="Actor Name" class="form-control" ng-model="form.actorName"/>
+			<input type="text" placeholder="Actor Name" class="form-control" ng-model="form.actorName" required/>
 		</div>
 	</div>
 	<div class="form-group">
@@ -40,7 +40,7 @@
 </form>
 <table class="table table-bordered table-hover" ng-init="init()" ng-if="hasGetGameDataPermission">
 	<tr class="listitem">
-		<th style="width: 20%">Data</th>
+		<th style="width: 20%"></th>
 		<td style="width: 20%"></td>
 		<td style="width: 20%"></td>
 		<td style="width: 20%"></td>
@@ -52,7 +52,7 @@
 		<th>value</th>
 		<!-- <th>Game Id</th> -->
 	</tr>
-	<tr class="listitem" ng-repeat="item in items | orderBy: 'key' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)">
+	<tr class="listitem" ng-repeat="item in datas | orderBy: 'key' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)">
         <td>{{item.key}}</td>
 		<td ng-if="!isEditing[item.index]">{{item.dataType}}</td>
 		<td ng-show="isEditing[item.index]">

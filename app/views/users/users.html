@@ -18,7 +18,7 @@
 		<table class="table table-bordered table-hover" ng-if="hasGetListPermission">
 			<tr class="listitem">
 				<th style="width: 10px"></th>
-				<th>User Name</th>
+				<th></th>
 				<th></th>
 			</tr>
 			<tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">

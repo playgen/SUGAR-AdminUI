@@ -23,11 +23,11 @@ angular.module('sgaAdminApp').controller('GroupsProfileDataCtrl', [
 			GroupsApi['data'].list($scope.itemId).then(function(res){
 				if (res.status === 200 && res.data['response'] != null)
 				{
-					$scope.items = res.data['response'];
+					$scope.datas = res.data['response'];
 				}
-				for (var i=0; i<$scope.items.length; i++)
+				for (var i=0; i<$scope.datas.length; i++)
 				{
-					$scope.items[i].index = i;
+					$scope.datas[i].index = i;
 
 					$scope.isEditing.push(false);
 					$scope.EditButtonText.push("Edit");
@@ -61,7 +61,7 @@ angular.module('sgaAdminApp').controller('GroupsProfileDataCtrl', [
 					console.log("Unable to get game with name: " + formData.gameName);
 				});
 			}
-			
+
 		}
 		$scope.cancel = function() {
 			$scope.CreateNewData = false;
@@ -100,7 +100,7 @@ angular.module('sgaAdminApp').controller('GroupsProfileDataCtrl', [
 			console.log(data);
 			GroupsApi['data'].update(data).then(function(res){
 				$scope.init();
-				$scope.isEditing[index] = false;	
+				$scope.isEditing[index] = false;
 				$scope.EditButtonText[index] = "Edit";
 			})
 		}

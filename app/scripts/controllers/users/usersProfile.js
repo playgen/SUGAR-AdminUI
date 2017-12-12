@@ -130,9 +130,13 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 
 			.then(function(res) {
 				if (res.data['response'][0] != null) {
-					//put the data backwards for testing as groups cannot request users join
-					var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + res.data['response'][0].id + " }"
-					UsersApi['friends'].create(friendship)
+          //put the data backwards for testing as groups cannot request users join
+          //put the data backwards for testing as groups cannot request users join
+          var relationship = {};
+          relationship.RequestorId = $scope.itemId;
+          relationship.AcceptorId = res.data['response'][0].id;
+          relationship.AutoAccept = true;
+					UsersApi['friends'].create(relationship)
 
 					.then(function(res) {
 						$uibModalInstance.close();
@@ -172,9 +176,12 @@ angular.module('sgaAdminApp').controller('UsersProfileCtrl', [
 
 			.then(function(res) {
 				if (res.data['response'][0] != null) {
-					//put the data backwards for testing as groups cannot request users join
-					var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + res.data['response'][0].id + ", AutoAccept: true }"
-					UsersApi['userGroups'].createMember(friendship).then(function(res) {
+          //put the data backwards for testing as groups cannot request users join
+          var relationship = {};
+          relationship.RequestorId = $scope.itemId;
+          relationship.AcceptorId = res.data['response'][0].id;
+          relationship.AutoAccept = true;
+					UsersApi['userGroups'].createMember(relationship).then(function(res) {
 						$uibModalInstance.close();
 						$rootScope.$broadcast('savedItem');
 					});

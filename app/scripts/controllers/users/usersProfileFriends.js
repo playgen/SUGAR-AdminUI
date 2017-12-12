@@ -84,28 +84,40 @@ angular.module('sgaAdminApp').controller('UsersProfileFriendsCtrl', [
 			$scope.ShowingIncomingRequests = false;
 		};
 		$scope.remove = function(item) {
-            var friendship = "{ RequestorId: " + item.id + ", AcceptorId: " + $scope.itemId + ", Accepted: false }";
-            UsersApi['friends'].update(friendship).then(function(res) {
+            var relationship = {};
+            relationship.RequestorId = item.id;
+            relationship.AcceptorId = $scope.itemId;
+            relationship.Accepted = false;
+            UsersApi['friends'].update(relationship).then(function(res) {
                 $scope.init();
         	});
 		};
 
         $scope.removePending = function(item) {
-            var friendship = "{ RequestorId: " + $scope.itemId + ", AcceptorId: " + item.id + ", Accepted: false }";
-            UsersApi['friendRequests'].update(friendship).then(function(res) {
+            var relationship = {};
+            relationship.RequestorId = $scope.itemId;
+            relationship.AcceptorId = item.id;
+            relationship.Accepted = false;
+            UsersApi['friendRequests'].update(relationship).then(function(res) {
                 $scope.init();
             });
         };
 
 		$scope.accept = function(item) {
-            var friendship = "{ RequestorId: " + item.id + ", AcceptorId: " + $scope.itemId + ", Accepted: true }";
-            UsersApi["friendRequests"].update(friendship).then(function(res) {
+            var relationship = {};
+            relationship.RequestorId = item.id;
+            relationship.AcceptorId = $scope.itemId;
+            relationship.Accepted = true;
+            UsersApi["friendRequests"].update(relationship).then(function(res) {
                 $scope.init();
             });
         };
         $scope.reject = function(item) {
-            var friendship = "{ RequestorId: " + itemId + ", AcceptorId: " + $scope.itemId + ", Accepted: false }";
-            UsersApi["friendRequests"].update(friendship).then(function(res) {
+            var relationship = {};
+            relationship.RequestorId = item.id;
+            relationship.AcceptorId = $scope.itemId;
+            relationship.Accepted = false;
+            UsersApi["friendRequests"].update(relationship).then(function(res) {
                 $scope.init();
             });
         };

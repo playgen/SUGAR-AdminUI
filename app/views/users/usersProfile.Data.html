@@ -9,9 +9,9 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<h4 for="inputName" class="col-xs-2 control-label">Game Name (optional):</h4>
+		<h4 for="inputName" class="col-xs-2 control-label">Game Name:</h4>
 		<div class="col-xs-10">
-			<input type="text" placeholder="Game Name" class="form-control" ng-model="form.gameName"/>
+			<input type="text" placeholder="Game Name" class="form-control" ng-model="form.gameName" required/>
 		</div>
 	</div>
 	<div class="form-group">
@@ -21,9 +21,9 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<h4 for="inputName"  class="col-xs-2 control-label">Save Data Type:</h4>
+		<h4 for="inputName"  class="col-xs-2 control-label">Evaluation Data Type:</h4>
 		<div class="col-xs-10">
-			<select class="form-control" ng-model="form.saveDataType" required>
+			<select class="form-control" ng-model="form.evaluationDataType" required>
 				<option value="string">String</option>
 				<option value="long">Long</option>
 				<option value="float">Float</option>
@@ -38,24 +38,35 @@
 		<button class="btn btn-success pull-right" type="button" ng-click="addNewData(form)" ng-disabled="myForm.$invalid" ng-if="hasCreateActorDataPermission ">Create New Actor Data</button>
 	</div>
 </form>
-<table class="table table-bordered table-hover" ng-init="init()" ng-if="hasGetActorDataPermission">
-	<tr class="listitem">
-		<th style="width: 20%">Data</th>
+<div ng-init="init()">
+    <h4 class="col-xs-4 control-label">Select A Game:</h4>
+    <div class="col-xs-4">
+      <select ng-options="game.name for game in games" ng-model="select.game" required />
+    </div>
+    <div class="col-xs-4">
+      <button class="btn btn-success pull-left" type="button" ng-click="loadData(select.game)">Load Data For Game </button>
+    </div>
+</div>
+<table class="table table-bordered table-hover" ng-if="hasGetActorDataPermission">
+
+  <tr class="listitem">
+		<th style="width: 20%"></th>
 		<td style="width: 20%"></td>
 		<td style="width: 20%"></td>
 		<td style="width: 20%"></td>
 		<td style="width: 20%"></td>
-	</tr>
+  </tr>
 	<tr>
 		<th>Key</th>
 		<th>Save Data Type</th>
 		<th>value</th>
 		<th>Game Id</th>
 	</tr>
-	<tr>
+  <!-- Example placeholder -->
+  <!-- <tr>
 		<td>Placeholder Key</td>
 		<td>
-			<select class="form-control" ng-model="form.saveDataType" ng-disabled="!isEditing[0]" ng-init="form.saveDataType = 'String'">
+			<select class="form-control" ng-model="form.evaluationDataType" ng-disabled="!isEditing[0]" ng-init="form.evaluationDataType = 'String'">
 				<option value="String">String</option>
 				<option value="Long">Long</option>
 				<option value="Float">Float</option>
@@ -63,21 +74,21 @@
 			</select>
 		</td>
 		<td>
-			<input type="text" class="form-control" ng-model="form.value" ng-readonly="!isEditing[0]" ng-init="form.value = 'Placeholder Value'"/>	
+			<input type="text" class="form-control" ng-model="form.value" ng-readonly="!isEditing[0]" ng-init="form.value = 'Placeholder Value'"/>
 		</td>
 		<td>
-			<input type="text" class="form-control" ng-model="form.gameId" ng-readonly="!isEditing[0]" ng-init="form.gameId = 'Placeholder Game Id'"/>	
+			<input type="text" class="form-control" ng-model="form.gameId" ng-readonly="!isEditing[0]" ng-init="form.gameId = 'Placeholder Game Id'"/>
 		</td>
 		<td>
 			<button class="btn btn-info" type="button" ng-click="edit(0)">{{EditButtonText[0]}}</button>
 			<button class="btn btn-success" type="button" ng-click="update(0, '', form)" ng-if="isEditing[0]">Apply</button>
 		</td>
-	</tr>
-	<tr class="listitem" ng-repeat="item in items | orderBy: 'key' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)">
+  </tr> -->
+	<tr class="listitem" ng-repeat="item in datas | orderBy: 'key' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)">
 		<td>{{item.key}}</td>
-		<td ng-if="!isEditing[item.index]">{{item.saveDataType}}</td>
+		<td ng-if="!isEditing[item.index]">{{item.evaluationDataType}}</td>
 		<td ng-show="isEditing[item.index]">
-			<select class="form-control" ng-model="form.saveDataType" ng-init="form.saveDataType = item.saveDataType">
+			<select class="form-control" ng-model="form.evaluationDataType" ng-init="form.evaluationDataType = item.evaluationDataType">
 				<option value="String">String</option>
 				<option value="Long">Long</option>
 				<option value="Float">Float</option>
@@ -86,11 +97,11 @@
 		</td>
 		<td ng-if="!isEditing[item.index]">{{item.value}}</td>
 		<td ng-show="isEditing[item.index]">
-			<input type="text" class="form-control" ng-model="form.value" placeholder="{{item.value}}"/>	
+			<input type="text" class="form-control" ng-model="form.value" placeholder="{{item.value}}"/>
 		</td>
 		<td ng-if="!isEditing[item.index]">{{item.gameId}}</td>
 		<td ng-show="isEditing[item.index]">
-			<input type="text" class="form-control" ng-model="form.gameId" placeholder="{{item.gameId}}"/>	
+			<input type="text" class="form-control" ng-model="form.gameId" placeholder="{{item.gameId}}"/>
 		</td>
 		<td>
 			<button class="btn btn-info" type="button" ng-click="edit(item.index)">{{EditButtonText[item.index]}}</button>

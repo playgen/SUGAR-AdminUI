@@ -55,7 +55,7 @@ angular.module('sgaAdminApp').service('GroupsApi', [
 			},
 			'user': {
 				get: function(username) {
-					return $http.get(config.api.baseurl + '/user/find/' + username);
+					return $http.get(config.api.baseurl + '/user/find/' + username + "/true");
 				}
       },
       'alliances': {

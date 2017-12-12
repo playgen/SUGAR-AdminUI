@@ -17,22 +17,22 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 			};
 			GroupsApi['members'].list($scope.itemId).then(function(res) {
 				if ((res != null ? res.status : void 0) === 200 && (res.data != null)) {
-					
+
 					$scope.items = res.data['response'];
 
                     for (var i in $scope.items) {
                         //loop through our items and pass through the index for us to ensure we set the number of members correctly
                         (function(i) {
                             RolesApi['roles'].getActorRole($scope.items[i].id, $scope.itemId, "Group" ).then(function(res) {
-                                
+
                             	$scope.items[i].role = null;
                             	$scope.items[i].roleId = null;
                                 if (res.status === 200  && res.data['response'] != null)
-								{	
+								{
 									var name = res.data['response'][0] != null ? res.data['response'][0].name : null;
 									var roleId = res.data['response'][0] != null ? res.data['response'][0].id : null;
 
-									$scope.items[i].role = name != null ? name : "None"; 
+									$scope.items[i].role = name != null ? name : "None";
 									$scope.items[i].roleId = roleId != null ? roleId : null;
 								}
                             });
@@ -53,8 +53,11 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 		};
 		//our buttons
 		$scope.deleteMember = function(item) {
-			var friendship = "{ RequestorId: " + item.id + ", AcceptorId: " + $scope.itemId + ", Accepted: false }"
-			GroupsApi['members'].update(friendship).then(function(res) {
+      var relationship = {};
+      relationship.RequestorId = item.id;
+      relationship.AcceptorId = $scope.itemId;
+      relationship.Accepted = false;
+			GroupsApi['members'].update(relationship).then(function(res) {
 				$scope.init();
 			});
 		};
@@ -70,7 +73,7 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 		$scope.$on('savedItem', function(event, args) {
 			return $scope.init();
 		});
-		
-		
+
+
 	}
 ]);

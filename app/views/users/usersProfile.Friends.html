@@ -2,9 +2,9 @@
 	<button class="btn btn-success" type="button" ng-click="addFriend(item)" ng-if="hasCreateFriendRequestPermission"><i class="fa fa-user"> Add New Friend</i></button>
 </div>
 <div class="col-xs-12">
-	<button class="btn btn-info" type="button" ng-click="viewFriends()" ng-if="hasGetFriendPermission">Friends ({{friends.length}})</button>
-	<button class="btn btn-info" type="button" ng-click="viewPending()" ng-Disabled="pendings.length==0" ng-if="hasGetFriendRequestPermission">Requests Sent({{pendings.length}})</button>
-	<button class="btn btn-info" type="button" ng-click="viewIncoming()" ng-Disabled="requests.length==0" ng-if="hasGetFriendRequestPermission">Friend Requests ({{requests.length}})</button>
+	<!-- <button class="btn btn-info" type="button" ng-click="viewFriends()" ng-if="hasGetFriendPermission">Friends ({{friends.length}})</button>
+	<button class="btn btn-info" type="button" ng-click="viewPending()" ng-if="pendings.length!=0" ng-if="hasGetFriendRequestPermission">Requests Sent({{pendings.length}})</button>
+	<button class="btn btn-info" type="button" ng-click="viewIncoming()" ng-if="requests.length!=0" ng-if="hasGetFriendRequestPermission">Friend Requests ({{requests.length}})</button> -->
 </div>
 <table class="table table-bordered table-hover" ng-init="init()">
 	<tr class="listitem">
@@ -16,7 +16,7 @@
 	</tr>
 	<tr class="listitem">
 		<td style="width: 10px"></td>
-		<th>Name</th>
+		<th></th>
 		<th></th>
 	</tr>
 	<!-- Show friend requests from other players first -->

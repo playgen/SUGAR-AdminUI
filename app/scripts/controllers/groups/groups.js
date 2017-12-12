@@ -27,7 +27,7 @@ angular.module('sgaAdminApp').controller('GroupsCtrl', [
 		$scope.init = function() {
 			return GroupsApi['groups'].list().then(function(res) {
 				// our permissions
-				$scope.hasCreatePermission = permissionService.hasAccessToClaim('Create-Group',-1);
+				$scope.hasCreatePermission = true; //permissionService.hasAccessToClaim('Create-Group',-1);
 				$scope.hasGetListPermission = true;
 
 				if (res.status === 200 && res.data != null) {

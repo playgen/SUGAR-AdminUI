@@ -2,9 +2,9 @@
 	<button class="btn btn-success" type="button" ng-click="addAlliance(item)" ng-if="hasCreateAllianceRequestPermission"><i class="fa fa-group"> Add New Alliance</i></button>
 </div>
 <div class="col-xs-12">
-	<button class="btn btn-info" type="button" ng-click="viewAlliances()" ng-if="hasGetAlliancePermission">Alliances ({{alliances.length}})</button>
-	<button class="btn btn-info" type="button" ng-click="viewPending()" ng-Disabled="pendings.length==0" ng-if="hasGetAllianceRequestPermission">Requests Sent({{pendings.length}})</button>
-	<button class="btn btn-info" type="button" ng-click="viewIncoming()" ng-Disabled="requests.length==0" ng-if="hasGetAllianceRequestPermission">Alliance Requests ({{requests.length}})</button>
+	<!-- <button class="btn btn-info" type="button" ng-click="viewAlliances()" ng-if="hasGetAlliancePermission">Alliances ({{alliances.length}})</button>
+	<button class="btn btn-info" type="button" ng-click="viewPending()" ng-if="pendings.length!=0" ng-if="hasGetAllianceRequestPermission">Requests Sent({{pendings.length}})</button>
+	<button class="btn btn-info" type="button" ng-click="viewIncoming()" ng-if="requests.length!=0" ng-if="hasGetAllianceRequestPermission">Alliance Requests ({{requests.length}})</button> -->
 </div>
 <table class="table table-bordered table-hover" ng-init="init()">
 	<tr class="listitem">
@@ -16,7 +16,7 @@
 	</tr>
 	<tr class="listitem">
 		<td style="width: 10px"></td>
-		<th>Name</th>
+		<th></th>
 		<th></th>
 	</tr>
 	<!-- Show Alliance requests from other players first -->
