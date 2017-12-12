@@ -1,6 +1,6 @@
 angular.module('sgaAdminApp').controller('GamesProfileDataCtrl', [
-	'$scope', '$stateParams', '$location', 'modalManager', 'GamesApi', 'UsersApi',
-	function($scope, $stateParams, $location, modalManager, GamesApi, UsersApi) {
+	'$scope', '$stateParams', '$location', 'modalManager', 'GamesApi', 'UsersApi', 'GroupsApi',
+	function($scope, $stateParams, $location, modalManager, GamesApi, UsersApi, GroupsApi) {
 		$scope.itemId = $stateParams.itemId;
 
 		$scope.CreateNewData = false;
@@ -20,18 +20,48 @@ angular.module('sgaAdminApp').controller('GamesProfileDataCtrl', [
 			$scope.EditButtonText.push("Edit");
 			// End testing purposes
 
-			GamesApi['data'].list($scope.itemId).then(function(res){
+      GroupsApi['groups'].list().then(function(res){
+        if (res.status === 200 && res.data['response'] != null)
+        {
+          $scope.groups = res.data['response'];
+        }
+      });
+      UsersApi['users'].list().then(function(res){
+        if (res.status === 200 && res.data['response'] != null)
+        {
+          $scope.users = res.data['response'];
+        }
+      });
+    }
+    $scope.loadUserData = function(user)
+    {
+      GroupsApi['data'].list(user.id, $scope.itemId).then(function(res){
 				if (res.status === 200 && res.data['response'] != null)
 				{
-          $scope.datas = res.data['response'];
+					$scope.datas = res.data['response'];
+					for (var i=0; i<$scope.datas.length; i++)
+					{
+						$scope.datas[i].index = i;
+            $scope.datas[i].evaluationDataType = $scope.getDataType($scope.datas[i].evaluationDataType);
+						$scope.isEditing.push(false);
+						$scope.EditButtonText.push("Edit");
+					}
 				}
-				for (var i=0; i<$scope.datas.length; i++)
+			});
+    }
+    $scope.loadGroupData = function(group)
+    {
+      GroupsApi['data'].list(group.id, $scope.itemId).then(function(res){
+				if (res.status === 200 && res.data['response'] != null)
 				{
-          $scope.datas[i].index = i;
-          $scope.datas[i].dataType = $scope.items[i].evaluationDataType;
-          $scope.datas[i].evaluationDataType = $scope.getDataType($scope.items[i].evaluationDataType);
-					$scope.isEditing.push(false);
-					$scope.EditButtonText.push("Edit");
+					$scope.datas = res.data['response'];
+					for (var i=0; i<$scope.datas.length; i++)
+					{
+						$scope.datas[i].index = i;
+            $scope.datas[i].evaluationDataType = $scope.getDataType($scope.datas[i].evaluationDataType);
+						$scope.isEditing.push(false);
+						$scope.EditButtonText.push("Edit");
+					}
 				}
 			});
 		}
@@ -42,9 +72,21 @@ angular.module('sgaAdminApp').controller('GamesProfileDataCtrl', [
 		$scope.addNewData = function(formData)
 		{
 			// check that the group provided is valid
-			if (formData.actorName == null || formData.actorName == "" )
+			if (formData.actorType == "group")
 			{
-				$scope.saveNewData(formData, null);
+        // See if we can get the user
+				GroupsApi['groups'].get(formData.actorName).then(function(res) {
+					if (res.status === 200 && res.data['response'][0].id != null)
+					{
+						$scope.saveNewData(formData, res.data['response'][0].id);
+					}
+					else
+					{
+						console.log("Unable to get actor with name: " + formData.actorName);
+					}
+				}).catch(function() {
+					console.log("Unable to get actor with name: " + formData.actorName);
+				});
 			}
 			else
 			{
@@ -98,7 +140,6 @@ angular.module('sgaAdminApp').controller('GamesProfileDataCtrl', [
 			var data = {key: itemkey, value: formData.value, evaluationDataType: formData.evaluationDataType, gameId: formData.gameId};
 			console.log(data);
 			GamesApi['data'].update(data).then(function(res){
-				$scope.init();
 				$scope.isEditing[index] = false;
 				$scope.EditButtonText[index] = "Edit";
 			})

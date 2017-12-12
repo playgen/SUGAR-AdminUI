@@ -38,6 +38,7 @@
 		<button class="btn btn-success pull-right" type="button" ng-click="addNewData(form)" ng-disabled="myForm.$invalid" ng-if="hasCreateActorDataPermission ">Create New Actor Data</button>
 	</div>
 </form>
+<br/>
 <div ng-init="init()">
     <h4 class="col-xs-4 control-label">Select A Game:</h4>
     <div class="col-xs-4">
@@ -50,11 +51,10 @@
 <table class="table table-bordered table-hover" ng-if="hasGetActorDataPermission">
 
   <tr class="listitem">
-		<th style="width: 20%"></th>
-		<td style="width: 20%"></td>
-		<td style="width: 20%"></td>
-		<td style="width: 20%"></td>
-		<td style="width: 20%"></td>
+		<th style="width: 30%"></th>
+		<td style="width: 30%"></td>
+		<td style="width: 30%"></td>
+		<td style="width: 10%"></td>
   </tr>
 	<tr>
 		<th>Key</th>
@@ -103,10 +103,10 @@
 		<td ng-show="isEditing[item.index]">
 			<input type="text" class="form-control" ng-model="form.gameId" placeholder="{{item.gameId}}"/>
 		</td>
-		<td>
+		<!-- <td>
 			<button class="btn btn-info" type="button" ng-click="edit(item.index)">{{EditButtonText[item.index]}}</button>
 			<button class="btn btn-success" type="button" ng-click="update(item.index, item.key, form)" ng-if="isEditing[item.index]">Apply</button>
-		</td>
+		</td> -->
     </tr>
 </table>
 <contentFooter>

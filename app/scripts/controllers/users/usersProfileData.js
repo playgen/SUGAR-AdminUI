@@ -37,7 +37,7 @@ angular.module('sgaAdminApp').controller('UsersProfileDataCtrl', [
 					for (var i=0; i<$scope.datas.length; i++)
 					{
 						$scope.datas[i].index = i;
-            $scope.datas[i].evaluationDataType = $scope.getDataType(data.evaluationCriterias[i].evaluationDataType);
+            $scope.datas[i].evaluationDataType = $scope.getDataType($scope.datas[i].evaluationDataType);
 						$scope.isEditing.push(false);
 						$scope.EditButtonText.push("Edit");
 					}
@@ -80,8 +80,6 @@ angular.module('sgaAdminApp').controller('UsersProfileDataCtrl', [
 		$scope.saveNewData = function(formData, gameId)
 		{
 			var formActorData = {};
-			//TODO validate the value and the save data type are of the same type
-
       formActorData.CreatingActorId = $scope.itemId;
       formActorData.Key = formData.key;
       formActorData.GameId = gameId;
