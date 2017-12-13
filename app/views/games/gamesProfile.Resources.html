@@ -1,13 +1,34 @@
 <div ng-init="init()">
-	<div class="col-xs-3">
-		<button class="btn btn-success" type="button" ng-click="addNew()" ng-if="hasCreateResourcePermission"><i class="fa fa-user"> Add New Resource</i></button>
-	</div>
-	<table class="table table-bordered table-hover" ng-if="hasGetResourcePermission">
-		<tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-			<td style="width: 10px"></td>
-            <td>{{item.key}}</td>
-		</tr>
-	</table>
+  <div class="col-xs-5">
+    <h4 class="col-xs-4">Select a User:</h4>
+      <select class="col-xs-4" ng-options="user.name for user in users" ng-model="select.user" required />
+      <button class="col-xs-4 btn btn-success pull-left" type="button" ng-click="loadActorData(select.user)">Load User's Resources </button>
+    </span>
+  </div>
+<div class="col-xs-1">
+  <h4 align="center">OR</h4>
+</div>
+  <div class="col-xs-5">
+    <h4 class="col-xs-4">Select a group:</h4>
+      <select class="col-xs-4" ng-options="group.name for group in groups" ng-model="select.group" required />
+      <button class="col-xs-4 btn btn-success pull-left" type="button" ng-click="loadActorData(select.group)">Load Group's Resources </button>
+  </div>
+</div>
+<div>
+  <div class="col-xs-3">
+    <button class="btn btn-success" type="button" ng-click="addNew()" ng-if="hasCreateResourcePermission"><i class="fa fa-user"> Add New Resource</i></button>
+  </div>
+  <div class="col-xs-9"></div>
+</div>
+<div>
+    <table class="table table-bordered table-hover" ng-if="hasGetResourcePermission">
+      <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
+        <td style="width: 10px"><b>Key</b></td>
+        <td style="width: 100px">{{item.key}}</td>
+        <td style="width: 10px"><b>Quantity</b></td>
+        <td style="width: 100px">{{item.quantity}}</td>
+      </tr>
+    </table>
 </div>
 </contentMain>
 <contentFooter>
@@ -25,21 +46,36 @@
 	</div>
 	<div class="modal-body">
 		<div class="row">
-			<div class="col-xs-3"><label>Name</label></div>
+			<div class="col-xs-3"><label>Key</label></div>
 			<div class="col-xs-9">
-				<input type="text" placeholder="Resource Name" class="form-control" ng-model="item.Key" required/>
+				<input type="text" placeholder="Resource Name" class="form-control" ng-model="item.key" required/>
 			</div>
-		</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3"><label>Actor Type</label></div>
+      <div class="col-xs-9">
+        <select class="form-control" ng-model="item.actorType" required>
+          <option value="user">User</option>
+          <option value="group">Group</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3"><label>Actor Name</label></div>
+      <div class="col-xs-9">
+        <input type="text" placeholder="Actor Name" class="form-control" ng-model="item.actorName" required/>
+      </div>
+    </div>
 		<div class="row">
-			<div class="col-xs-3"><label>Starting Quantity</label></div>
+			<div class="col-xs-3"><label>Quantity</label></div>
 			<div class="col-xs-9">
-				<input type="number" placeholder="0" class="form-control" ng-model="item.Quantity" required/>
+				<input type="number" placeholder="0" class="form-control" ng-model="item.quantity" required/>
 			</div>
 		</div>
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
-		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Create</button>
+		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Add</button>
 	</div>
   </form>
 </script>

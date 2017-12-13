@@ -253,27 +253,6 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			login: true
 		});
 
-	// }).when('/resources', {
-	// 	templateUrl: 'views/resources.html',
-	// 	controller: 'ResourcesCtrl',
-	// 	login: true
-	// }).when('/resources/:itemId', {
-	// 	templateUrl: 'views/resourcesAll.html',
-	// 	controller: 'ResourcesAllCtrl',
-	// 	login: true
-	// }).when('/resources/:itemId/manage', {
-	// 	templateUrl: 'views/resourcesManage.html',
-	// 	controller: 'ResourcesManageCtrl',
-	// 	login: true
-	// }).when('/resources/:itemId/actors', {
-	// 	templateUrl: 'views/resourcesActors.html',
-	// 	controller: 'ResourcesActorsCtrl',
-	// 	login: true
-	// }).when('/resources/:itemId/:actorType/:actorId', {
-	// 	templateUrl: 'views/resourcesActorsManage.html',
-	// 	controller: 'ResourcesActorsManageCtrl',
-	// 	login: true
-
 }).run([
 	'$rootScope', '$state', 'permissionService','ipCookie', 'Auth', 'config',
 	function($rootScope, $state, permissionService, ipCookie, Auth, config) {

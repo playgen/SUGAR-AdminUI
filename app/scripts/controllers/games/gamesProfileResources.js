@@ -9,8 +9,8 @@
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('GamesProfileResourcesCtrl', [
-	'$scope', '$stateParams', '$location', 'modalManager', 'ResourcesApi',
-	function($scope, $stateParams, $location, modalManager, ResourcesApi) {
+	'$scope', '$stateParams', '$location', 'modalManager', 'ResourcesApi', 'GroupsApi', 'UsersApi',
+	function($scope, $stateParams, $location, modalManager, ResourcesApi, GroupsApi, UsersApi) {
 		$scope.itemtype = $stateParams.itemtype;
 		$scope.itemId = $stateParams.itemId;
 
@@ -22,37 +22,35 @@ angular.module('sgaAdminApp').controller('GamesProfileResourcesCtrl', [
 			perPage: 10,
 			currentPage: 1
 		};
-		$scope.init = function() {
-			if ($scope.itemId != "global")
-			{
-				ResourcesApi['games'].listResources($scope.itemId).then(function(res) {
-					if (res.status === 200 && res.data != null) {
-						$scope.items = res.data['response'];
-					}
-				});
-				ResourcesApi['games'].get($scope.itemId).then(function(res) {
-				if (res.status === 200 && res.data != null) {
-					$scope.gameFound = true;
-					$scope.gameName = res.data['response'].name;
-				} else {
-					$scope.gameFound = false;
-				}
-				}).catch(function() {
-					$scope.gameFound = false;
-				});
-			}
-			else
-			{
-				ResourcesApi['games'].listGlobalResources().then(function(res){
-					if (res.status === 200 && res.data != null){
-						$scope.item = res.data['response'];
-					}
-				});
+    $scope.init = function()
+    {
+      GroupsApi['groups'].list().then(function(res){
+        if (res.status === 200 && res.data['response'] != null)
+        {
+          $scope.groups = res.data['response'];
+        }
+      });
+      UsersApi['users'].list().then(function(res){
+        if (res.status === 200 && res.data['response'] != null)
+        {
+          $scope.users = res.data['response'];
+        }
+      });
+    }
 
-				$scope.gameName = "Global";
-				$scope.gameFound = true;
-			}
-		};
+    $scope.loadActorData = function(actor)
+    {
+      ResourcesApi['games'].listActorResources(actor.id, $scope.itemId).then(function(res){
+				if (res.status === 200 && res.data['response'] != null)
+				{
+					$scope.items = res.data['response'];
+					for (var i=0; i<$scope.items.length; i++)
+					{
+						$scope.items[i].index = i;
+					}
+				}
+			});
+    }
 
 		$scope.addNew = function() {
 			return modalManager.open('createResource', {
@@ -68,17 +66,57 @@ angular.module('sgaAdminApp').controller('GamesProfileResourcesCtrl', [
     });
 	}
 ]).controller('CreateResourceModalCtrl', [
-  '$scope', '$rootScope', '$uibModalInstance', 'ResourcesApi', 'modaldata',
-  function($scope, $rootScope, $uibModalInstance, ResourcesApi, modaldata) {
+  '$scope', '$rootScope', '$uibModalInstance', 'ResourcesApi', 'modaldata', 'UsersApi', 'GroupsApi',
+  function($scope, $rootScope, $uibModalInstance, ResourcesApi, modaldata, UsersApi, GroupsApi) {
     $scope.item = {};
     $scope.item.gameId = modaldata.itemId == "global" ? null : modaldata.itemId;
 
     $scope.save = function() {
-      return ResourcesApi['games'].createResource($scope.item).then(function() {
+      // Get the actor id
+      if ($scope.item.actorType == "user")
+      {
+        UsersApi['users'].get($scope.item.actorName).then(function(res) {
+					if (res.status === 200 && res.data['response'][0].id != null)
+					{
+						$scope.saveNewData($scope.item, res.data['response'][0].id);
+					}
+					else
+					{
+						console.log("Unable to get actor with name: " + $scope.item.actorName);
+					}
+				}).catch(function() {
+					console.log("Unable to get actor with name: " + $scope.item.actorName);
+				});
+      }
+      else
+      {
+        GroupsApi['groups'].get($scope.item.actorName).then(function(res) {
+					if (res.status === 200 && res.data['response'][0].id != null)
+					{
+						$scope.saveNewData($scope.item, res.data['response'][0].id);
+					}
+					else
+					{
+						console.log("Unable to get actor with name: " + $scope.item.actorName);
+					}
+				}).catch(function() {
+					console.log("Unable to get actor with name: " + $scope.item.actorName);
+				});
+      }
+    };
+    $scope.saveNewData = function(data, actorId)
+		{
+      var resource = {};
+      resource.gameId = data.gameId;
+      resource.key = data.key;
+      resource.actorId = actorId;
+      resource.quantity = data.quantity;
+
+      ResourcesApi['games'].createResource(resource).then(function() {
         $uibModalInstance.close();
         return $rootScope.$broadcast('savedItem');
       });
-    };
+		}
     return $scope.close = function() {
       $rootScope.$broadcast('savedItem');
       return $uibModalInstance.close();
