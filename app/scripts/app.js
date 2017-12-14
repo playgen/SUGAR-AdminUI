@@ -278,7 +278,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 	}
 ]).constant('config', {
 	api: {
-		baseurl: window.location.hostname == 'localhost' ? 'http://localhost:62312/api' : 'https://api.sugarengine.org/api',
+		baseurl: window.location.hostname == 'localhost' ? 'http://localhost:59400/api' : 'https://api.sugarengine.org/v1/api',
     version: '1.0.0'
   },
 	headers: {
