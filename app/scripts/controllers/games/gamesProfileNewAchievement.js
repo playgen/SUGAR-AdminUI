@@ -155,7 +155,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 			$scope.achievement.rewards[0] = {};
 			$scope.achievement.rewards[0].id = $scope.item.Reward.Id;
 			$scope.achievement.rewards[0].evaluationDataKey = $scope.item.Reward.Key;
-			$scope.achievement.rewards[0].evaluationDataCategory = $scope.item.Reward.Category;
+			$scope.achievement.rewards[0].evaluationDataCategory = $scope.item.Reward.Type;
 			$scope.achievement.rewards[0].evaluationDataType = $scope.item.Reward.DataType;
 			$scope.achievement.rewards[0].value = $scope.item.Reward.Value;
 
