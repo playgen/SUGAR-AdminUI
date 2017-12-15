@@ -126,6 +126,7 @@ angular.module('sgaAdminApp').controller('GamesProfileLeaderboardsCtrl', [
         standings.LeaderboardFilterType = "Top";
         standings.PageLimit = 50;
         standings.PageOffset = 0;
+        standings.MultiplePerActor = false;
 
 				LeaderboardsApi['leaderboard'].getLeaderboard(standings).then(function(res) {
 					if (res.status === 200 && res.data != null) {
