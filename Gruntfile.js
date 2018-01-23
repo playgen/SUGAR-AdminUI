@@ -380,6 +380,7 @@ module.exports = function(grunt) {
 		}
 		grunt.task.run(['clean:server', 'wiredep', 'concurrent:server', 'postcss:server', 'watch']);
 	});
-	grunt.registerTask('build', ['clean:dist', 'wiredep', 'useminPrepare', 'concurrent:dist', 'postcss', 'ngtemplates', 'concat', 'ngAnnotate', 'copy:dist', 'cssmin', 'uglify', 'filerev', 'usemin', 'htmlmin']);
+	grunt.registerTask('build', ['clean:dist', 'wiredep', 'useminPrepare', 'concurrent:dist', 'postcss', 'concat', 'ngAnnotate', 'copy:dist', 'cssmin', 'uglify', 'filerev', 'usemin', 'htmlmin']);
+	//grunt.registerTask('build', ['clean:dist', 'wiredep', 'useminPrepare', 'concurrent:dist', 'postcss', 'ngtemplates', 'concat', 'ngAnnotate', 'copy:dist', 'cssmin', 'uglify', 'filerev', 'usemin', 'htmlmin']);
 	grunt.registerTask('dev', ['clean:dist', 'wiredep', 'useminPrepare', 'concurrent:dev', 'ngAnnotate', 'copy:dev']);
 };
