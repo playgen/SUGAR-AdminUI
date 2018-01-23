@@ -196,7 +196,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('gamesProfile.Resources', {
 			url: '/resources',
-			templateUrl: 'views/games/gamesProfile.resources.html',
+			templateUrl: 'views/games/gamesProfile.Resources.html',
 			controller: 'GamesProfileResourcesCtrl',
 			login: true
 		})
