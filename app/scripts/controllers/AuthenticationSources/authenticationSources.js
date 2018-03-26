@@ -3,9 +3,9 @@
 
 /**
  * @ngdoc function
- * @name sgaAdminApp.controller:UsersCtrl
+ * @name sgaAdminApp.controller:AuthenticationCtrl
  * @description
- * # UsersCtrl
+ * # AuthenticationCtrl
  * Controller of the sgaAdminApp
  */
 angular.module('sgaAdminApp').controller('AuthenticationSourcesCtrl', [
