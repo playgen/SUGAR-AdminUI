@@ -1,23 +1,21 @@
-angular.module('sgaAdminApp').service("ErrorService", 
-	[ '$rootScope', '$controller',
-	function($rootScope, $controller) {                                                                                                                                            
-
-			var service = {}; 
+angular.module('sgaAdminApp')
+  .service("ErrorService", [ '$rootScope', '$controller', function($rootScope, $controller)
+    {
+			var service = {};
 
 			service.show = function(rejectionReason) {
-
 				$rootScope.$emit('Error', rejectionReason);
-			}                                                                                                                                                                                           
+			}
 			return service;
-			
+
 		}
 	]
-).controller('myController', 
-	[ '$rootScope', 
-	'modalManager', 
+).controller('myController',
+	[ '$rootScope',
+	'modalManager',
 	function($rootScope, modalManager) {
-    	
-		ErrorMessageVisible = false;
+
+	  var ErrorMessageVisible = false;
 
 	    $rootScope.$on('Error', function(event, rejectionReason) {
     		if (!ErrorMessageVisible)
@@ -28,7 +26,7 @@ angular.module('sgaAdminApp').service("ErrorService",
 					message: rejectionReason.message,
 					otherInformation: rejectionReason.otherInfo
 
-					
+
 				});
 	  		}
 	    });
