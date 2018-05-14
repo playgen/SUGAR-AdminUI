@@ -10,3 +10,7 @@ version 0.15.1.
 2. Run `grunt build` for building and `grunt serve` for preview.
 
 3. Default login: user: admin, password: admin
+
+
+## Documentation
+You can find the SUGAR Admin Interface docs [here](http://api.sugarengine.org/v1/features/admin/index.html).
