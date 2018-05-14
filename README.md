@@ -5,4 +5,8 @@ version 0.15.1.
 
 ## Build & development
 
-Run `grunt build` for building and `grunt serve` for preview.
+1. Change the api.baseUrl in app/scripts/app.js to that of your SUGAR server.
+
+2. Run `grunt build` for building and `grunt serve` for preview.
+
+3. Default login: user: admin, password: admin
