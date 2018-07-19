@@ -91,7 +91,7 @@
       <td>Key<input type="text" placeholder="Unique Criteria Name" class="form-control" ng-model="item.evaluationCriterias[n].Key" required/></td>
 			<td>Data Type<select class="form-control" ng-model="item.evaluationCriterias[n].DataType" required>
 					<option value="0" ng-if="item.evaluationCriterias[n].EvaluationDataCategory != '1'">String</option>
-					<option value="1" ng-if="item.evaluationCriterias[n].EvaluationDataCategory != '1'">Long</option>
+					<option value="1" >Long</option>
 					<option value="2" >Float</option>
 					<option value="3" ng-if="item.evaluationCriterias[n].EvaluationDataCategory != '1'">Boolean</option>
 				</select>
