@@ -38,15 +38,15 @@ angular.module('sgaAdminApp').controller('GamesProfileNewLeaderboardCtrl', [
 				LeaderboardsApi['leaderboard'].getByToken($scope.itemId, $scope.token).then(function(res){
 					if (res.status === 200 && res.data['response'] != null)
 					{
-						$scope.item = [];
+            $scope.item = {};
 						var data = res.data['response'];
 						$scope.item.Name = data.name;
-						$scope.item.token = data.token;
 						$scope.item.Key = data.key;
 						$scope.item.Token = data.token;
 
             $scope.item.ActorType = $scope.getActorType(data.actorType);
 						$scope.item.EvaluationDataType = $scope.getEvaluationDataType(data.evaluationDataType);
+						$scope.item.EvaluationDataCategory = $scope.getEvaluationDataCategory(data.evaluationDataCategory);
 						$scope.item.CriteriaScope = data.criteriaScope;
 						$scope.item.LeaderboardType = $scope.getLeaderboardType(data.leaderboardType);
 					}
@@ -77,6 +77,23 @@ angular.module('sgaAdminApp').controller('GamesProfileNewLeaderboardCtrl', [
 					return "2";
 				case 'Bool':
 					return "3";
+				default:
+					return "";
+			}
+    };
+    $scope.getEvaluationDataCategory = function(type) {
+			switch(type)
+			{
+				case 'Game Data':
+					return "0";
+				case 'Resource':
+					return "1";
+				case 'Skill':
+					return "2";
+				case 'Achievement':
+          return "3";
+        case 'Match Data':
+          return "4";
 				default:
 					return "";
 			}
