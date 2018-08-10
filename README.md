@@ -13,4 +13,4 @@ version 0.15.1.
 
 
 ## Documentation
-You can find the SUGAR Admin Interface docs [here](http://api.sugarengine.org/v2/features/admin/index.html).
+You can find the SUGAR Admin Interface docs [here](http://demo.sugarengine.org/v1/features/admin/index.html).
