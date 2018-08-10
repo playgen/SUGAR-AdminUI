@@ -1,2 +1,2 @@
-docker build . -t sugar-admin-v2
-docker run --name sugar-admin-v2 sugar-admin-v2
+docker build . -t sugar-admin-demo
+docker run --name sugar-admin-demo sugar-admin-demo
