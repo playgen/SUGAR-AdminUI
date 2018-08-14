@@ -21,7 +21,7 @@ angular.module('sgaAdminApp').controller('GamesCtrl', [
 
 		$scope.items = [];
 		$scope.pagination = {
-			perPage: 10,
+			perPage: 20,
 			currentPage: 1
 		};
 

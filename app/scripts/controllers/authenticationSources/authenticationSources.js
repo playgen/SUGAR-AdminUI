@@ -19,7 +19,7 @@ angular.module('sgaAdminApp').controller('AuthenticationSourcesCtrl', [
 		$scope.editButtonText = "Edit";
 
 		$scope.pagination = {
-			perPage: 10,
+			perPage: 20,
 			currentPage: 1
 		};
 		$scope.CreateNewData = false;

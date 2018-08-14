@@ -16,7 +16,7 @@ angular.module('sgaAdminApp').controller('GamesProfileLeaderboardsCtrl', [
 		$scope.isViewing = [];
 		$scope.items = [];
 		$scope.pagination = {
-			perPage: 10,
+			perPage: 20,
 			currentPage: 1
 		};
 		$scope.init = function() {

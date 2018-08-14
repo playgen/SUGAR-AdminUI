@@ -23,7 +23,7 @@ angular.module('sgaAdminApp').controller('GamesProfileSkillsCtrl', [
 		$scope.isViewing = [];
 
 		$scope.pagination = {
-			perPage: 10,
+			perPage: 20,
 			currentPage: 1
 		};
 
@@ -64,7 +64,7 @@ angular.module('sgaAdminApp').controller('GamesProfileSkillsCtrl', [
 			}
 		};
 
-		
+
 		$scope.range = function(min, max, step) {
 			if ($scope.items == null)
 				return 0;

@@ -13,7 +13,7 @@ angular.module('sgaAdminApp').controller('GamesProfileAchievementsCtrl', [
 		$scope.isViewing = [];
 
 		$scope.pagination = {
-			perPage: 10,
+			perPage: 20,
 			currentPage: 1
 		};
 		$scope.init = function() {
@@ -50,7 +50,7 @@ angular.module('sgaAdminApp').controller('GamesProfileAchievementsCtrl', [
 				$scope.gameName = "Global";
 				$scope.gameFound = true;
 			}
-			
+
 		};
 		$scope.range = function(min, max, step) {
 			if ($scope.items == null)
@@ -76,7 +76,7 @@ angular.module('sgaAdminApp').controller('GamesProfileAchievementsCtrl', [
 			}
 			return input;
 		};
-		
+
 		$scope.toggleView = function(n){
 			// hide all other achievements
 			for (var i=0; i<$scope.isViewing.length; i++)
@@ -104,6 +104,6 @@ angular.module('sgaAdminApp').controller('GamesProfileAchievementsCtrl', [
 		return $scope.$on('savedItem', function(event, args) {
 			return $scope.init();
 		});
-		
+
 	}
 ])

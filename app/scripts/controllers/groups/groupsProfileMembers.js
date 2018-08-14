@@ -12,7 +12,7 @@ angular.module('sgaAdminApp').controller('GroupsProfileMembersCtrl', [
 
 			$scope.items = [];
 			$scope.pagination = {
-				perPage: 10,
+				perPage: 20,
 				currentPage: 1
 			};
 			GroupsApi['members'].list($scope.itemId).then(function(res) {

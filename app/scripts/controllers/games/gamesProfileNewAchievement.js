@@ -24,7 +24,7 @@ angular.module('sgaAdminApp').controller('GamesProfileNewAchievementCtrl', [
 		$scope.criterias = 1;
 
 		$scope.pagination = {
-			perPage: 10,
+			perPage: 20,
 			currentPage: 1
 		};
 
