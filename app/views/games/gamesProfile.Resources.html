@@ -1,32 +1,30 @@
 <div ng-init="init()">
-  <div class="col-xs-5">
-    <h4 class="col-xs-4">Select a User:</h4>
-      <select class="col-xs-4" ng-options="user.name for user in users" ng-model="select.user" required />
-      <button class="col-xs-4 btn btn-success pull-left" type="button" ng-click="loadActorData(select.user)">Load User's Resources </button>
+  <div class="col-xs-12">
+    <h4 class="col-xs-2">Select a User:</h4>
+      <select class="col-xs-8" ng-options="user.name for user in users" ng-model="select.user" required />
+      <button class="col-xs-2 btn btn-success pull-left" type="button" ng-click="loadActorData(select.user)">Load User's Resources </button>
     </span>
   </div>
-<div class="col-xs-1">
-  <h4 align="center">OR</h4>
-</div>
-  <div class="col-xs-5">
-    <h4 class="col-xs-4">Select a group:</h4>
-      <select class="col-xs-4" ng-options="group.name for group in groups" ng-model="select.group" required />
-      <button class="col-xs-4 btn btn-success pull-left" type="button" ng-click="loadActorData(select.group)">Load Group's Resources </button>
+  <div class="col-xs-12">
+    <h4 class="col-xs-2">Select a group:</h4>
+      <select class="col-xs-8" ng-options="group.name for group in groups" ng-model="select.group" required />
+      <button class="col-xs-2 btn btn-success pull-left" type="button" ng-click="loadActorData(select.group)">Load Group's Resources </button>
   </div>
 </div>
-<div>
-  <div class="col-xs-3">
+<div class="col-xs-12">
+  <div class="col-xs-2 col-xs-offset-5">
     <button class="btn btn-success" type="button" ng-click="addNew()" ng-if="hasCreateResourcePermission"><i class="fa fa-user"> Add New Resource</i></button>
   </div>
-  <div class="col-xs-9"></div>
 </div>
 <div>
-    <table class="table table-bordered table-hover" ng-if="hasGetResourcePermission">
+    <table class="table" ng-if="hasGetResourcePermission">
+      <tr ng-if="items.length > 0">
+          <th style="width: 25%"><b>Key</b></th>
+          <th style="width: 25%"><b>Quantity</b></th>
+      </tr>
       <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
-        <td style="width: 10px"><b>Key</b></td>
-        <td style="width: 100px">{{item.key}}</td>
-        <td style="width: 10px"><b>Quantity</b></td>
-        <td style="width: 100px">{{item.quantity}}</td>
+        <td>{{item.key}}</td>
+        <td>{{item.quantity}}</td>
       </tr>
     </table>
 </div>

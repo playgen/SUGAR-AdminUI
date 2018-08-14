@@ -49,29 +49,25 @@
 </form>
 <br/>
 <div ng-init="init()">
-  <div class="col-xs-5">
-    <h4 class="col-xs-4">Select a User:</h4>
-      <select class="col-xs-4" ng-options="user.name for user in users" ng-model="select.user" required />
-      <button class="col-xs-4 btn btn-success pull-left" type="button" ng-click="loadUserData(select.user)">Load User data For Game </button>
-    </span>
+    <div class="col-xs-12">
+    <h4 class="col-xs-2">Select a User:</h4>
+      <select class="col-xs-8" ng-options="user.name for user in users" ng-model="select.user" required />
+      <button class="col-xs-2 btn btn-success pull-left" type="button" ng-click="loadUserData(select.user)">Load User data For Game </button>
   </div>
-<div class="col-xs-1">
-  <h4 align="center">OR</h4>
-</div>
-  <div class="col-xs-5">
-    <h4 class="col-xs-4">Select a group:</h4>
-      <select class="col-xs-4" ng-options="group.name for group in groups" ng-model="select.group" required />
-      <button class="col-xs-4 btn btn-success pull-left" type="button" ng-click="loadGroupData(select.group)">Load Group data For Game </button>
+  <div class="col-xs-12">
+    <h4 class="col-xs-2">Select a group:</h4>
+      <select class="col-xs-8" ng-options="group.name for group in groups" ng-model="select.group" required />
+      <button class="col-xs-2 btn btn-success pull-left" type="button" ng-click="loadGroupData(select.group)">Load Group data For Game </button>
   </div>
 </div>
-<table class="table table-bordered table-hover" ng-init="init()" ng-if="hasGetGameDataPermission">
+<table class="table" ng-init="init()" ng-if="hasGetGameDataPermission">
 	<tr class="listitem">
 		<th style="width: 30%"></th>
 		<td style="width: 30%"></td>
 		<td style="width: 30%"></td>
 		<td style="width: 10%"></td>
 	</tr>
-	<tr>
+	<tr ng-if="datas.length > 0">
 		<th>Key</th>
 		<th>Evaluation Data Type</th>
 		<th>value</th>

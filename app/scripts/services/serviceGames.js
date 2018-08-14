@@ -34,13 +34,13 @@ angular.module('sgaAdminApp').service('GamesApi', [
 			},
 			'data': {
 				list: function(id) {
-					return $http.get(config.api.baseurl + '/actordata?gameId=' + id);
+					return $http.get(config.api.baseurl + '/gamedata?gameId=' + id);
 				},
 				create: function(item) {
-					return $http.post(config.api.baseurl + '/actordata', item);
+					return $http.post(config.api.baseurl + '/gamedata', item);
 				},
 				update: function(item) {
-					return $http.put(config.api.baseurl + '/actordata', item);
+					return $http.put(config.api.baseurl + '/gamedata', item);
 				}
       }
     };
