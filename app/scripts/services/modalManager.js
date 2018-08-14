@@ -12,7 +12,7 @@ angular.module('sgaAdminApp')
 .service('modalManager', [
 	'$uibModal',
 	function($uibModal) {
-		var configs, modalManager;
+    var configs, modalManager;
 		configs = {
 			'editUser': {
 				temp: 'editModal.html',
@@ -135,17 +135,18 @@ angular.module('sgaAdminApp')
 		modalManager = {
 			open: function(modaltype, data) {
 				if (configs[modaltype] != null) {
-					return $uibModal.open({
-						animation: true,
-						templateUrl: configs[modaltype].temp,
-						controller: configs[modaltype].cont,
-						size: 'lg',
-						resolve: {
-							modaldata: function() {
-								return data;
-							}
-						}
-					});
+          return $uibModal.open({
+            animation: true,
+            backdrop: 'static',
+            templateUrl: configs[modaltype].temp,
+            controller: configs[modaltype].cont,
+            size: 'lg',
+            resolve: {
+              modaldata: function() {
+                return data;
+              }
+            }
+          });
 				}
 			}
 		};

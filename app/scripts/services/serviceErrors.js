@@ -1,39 +1,40 @@
 angular.module('sgaAdminApp')
   .service("ErrorService", [ '$rootScope', '$controller', function($rootScope, $controller)
     {
-			var service = {};
+      var service = {};
+      var ErrorMessageVisible = false;
+      var controllerSet = false;
 
 			service.show = function(rejectionReason) {
-				$rootScope.$emit('Error', rejectionReason);
-			}
-			return service;
+    		if (!ErrorMessageVisible)
+        {
+          if (!controllerSet)
+          {
+            controllerSet = true;
+            var controller = $controller("myController");
+          }
+          ErrorMessageVisible = true;
 
+          $rootScope.$emit('Error', rejectionReason);
+        }
+      }
+      $rootScope.$on('ErrorClosed', function(event){
+        ErrorMessageVisible = false;
+      });
+
+      return service;
 		}
 	]
 ).controller('myController',
 	[ '$rootScope',
-	'modalManager',
+  'modalManager',
 	function($rootScope, modalManager) {
-
-	  var ErrorMessageVisible = false;
-
 	    $rootScope.$on('Error', function(event, rejectionReason) {
-    		if (!ErrorMessageVisible)
-    		{
-    			ErrorMessageVisible = true;
 	  			return modalManager.open('showError', {
-					code: rejectionReason.code,
-					message: rejectionReason.message,
-					otherInformation: rejectionReason.otherInfo
-
-
+            code: rejectionReason.code,
+            message: rejectionReason.message,
+            otherInformation: rejectionReason.otherInfo
 				});
-	  		}
-	    });
-
-
-	    $rootScope.$on('ErrorClosed', function(event){
-	    	ErrorMessageVisible = false;
 	    });
 
 	    return {}
@@ -48,8 +49,8 @@ angular.module('sgaAdminApp')
 
 		//our buttons
 		$scope.closeModal = function() {
-			$rootScope.$emit("ErrorClosed");
-			$uibModalInstance.close();
-		};
+      $uibModalInstance.close();
+      $rootScope.$emit("ErrorClosed");
+    };
 	}
 ]);

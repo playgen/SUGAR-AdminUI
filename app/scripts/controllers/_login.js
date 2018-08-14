@@ -21,7 +21,9 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
 		$scope.permissionService = permissionService;
 
 		return $scope.login = function() {
-
+      User.login($scope.user);
+      User.login($scope.user);
+      User.login($scope.user);
 			return User.login($scope.user).then(function(res) {
 				var ref, returnPath;
 				if (res.status === 200 && res.data != null) {
@@ -47,7 +49,6 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
 					$scope.loginFail = true;
 					var name = false;
 				}
-
 			});;
 		};
 	}

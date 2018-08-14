@@ -36,8 +36,8 @@ angular.module('sgaAdminApp')
 				},
 				'responseError': function(rejection) {
 					// ensure that the modal controller is activated
-          var controller = $controller("myController");
-					var error = {code: rejection.status, message: rejection.statusText, otherInfo: rejection.data};
+          // var controller = $controller("myController");
+          var error = {code: rejection.status, message: rejection.statusText, otherInfo: rejection.data};
 
           ErrorService.show(error);
 
