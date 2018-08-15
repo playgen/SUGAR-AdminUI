@@ -1,3 +1,20 @@
+<div ng-init="init()">
+    <div class="col-xs-12">
+    <h4 class="col-xs-2">Select a User:</h4>
+      <select class="col-xs-8" ng-options="user.name for user in users | orderBy: 'name'" ng-model="select.user" required />
+      <button class="col-xs-2 btn btn-success pull-left" type="button" ng-click="loadUserData(select.user)">Load User data For Game </button>
+  </div>
+  <div class="col-xs-12">
+    <h4 class="col-xs-2">Select a group:</h4>
+      <select class="col-xs-8" ng-options="group.name for group in groups | orderBy: 'name'" ng-model="select.group" required />
+      <button class="col-xs-2 btn btn-success pull-left" type="button" ng-click="loadGroupData(select.group)">Load Group data For Game </button>
+  </div>
+</div>
+<div class="col-xs-12">
+  <div class="col-xs-2 col-xs-offset-5">
+	<button class="btn btn-success" type="button" ng-click="addData()" ng-if="hasCreateGameDataPermission">Create New Game Data</button>
+  </div>
+</div>
 <form class="form-horizontal" name="myForm" ng-if="CreateNewData" background-color="#ccc">
 	<div class="form-group">
 		<h4 for="inputName" class="col-xs-2 control-label">Key:</h4>
@@ -43,25 +60,8 @@
 	<div class="col-xs-6">
 		<button class="btn btn-success pull-right" type="button" ng-click="addNewData(form)" ng-disabled="myForm.$invalid" ng-if="hasCreateGameDataPermission ">Create New Game Data</button>
 	</div>
+  <br/>
 </form>
-<br/>
-<div ng-init="init()">
-    <div class="col-xs-12">
-    <h4 class="col-xs-2">Select a User:</h4>
-      <select class="col-xs-8" ng-options="user.name for user in users | orderBy: 'name'" ng-model="select.user" required />
-      <button class="col-xs-2 btn btn-success pull-left" type="button" ng-click="loadUserData(select.user)">Load User data For Game </button>
-  </div>
-  <div class="col-xs-12">
-    <h4 class="col-xs-2">Select a group:</h4>
-      <select class="col-xs-8" ng-options="group.name for group in groups | orderBy: 'name'" ng-model="select.group" required />
-      <button class="col-xs-2 btn btn-success pull-left" type="button" ng-click="loadGroupData(select.group)">Load Group data For Game </button>
-  </div>
-</div>
-<div class="col-xs-12">
-  <div class="col-xs-2 col-xs-offset-5">
-	<button class="btn btn-success" type="button" ng-click="addData()" ng-if="hasCreateGameDataPermission">Create New Game Data</button>
-  </div>
-</div>
 <table class="table" ng-init="init()" ng-if="hasGetGameDataPermission">
 	<tr class="listitem">
 		<th style="width: 30%"></th>

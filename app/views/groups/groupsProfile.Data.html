@@ -1,3 +1,15 @@
+<div ng-init="init()">
+    <div class="col-xs-12">
+        <h4 class="col-xs-2">Select A Game:</h4>
+          <select class="col-xs-8" ng-options="game.name for game in games | orderBy: 'name'" ng-model="select.game" required />
+          <button class="col-xs-2 btn btn-success pull-left" type="button" ng-click="loadData(select.game)">Load Data For Game </button>
+      </div>
+</div>
+<div class="col-xs-12">
+  <div class="col-xs-2 col-xs-offset-5">
+    <button class="btn btn-success" type="button" ng-click="addData()" ng-if="hasCreateActorDataPermission">Create New Actor Data</button>
+  </div>
+</div>
 <form class="form-horizontal" name="myForm" ng-if="CreateNewData" background-color="#ccc">
 	<div class="form-group">
 		<h4 for="inputName" class="col-xs-2 control-label">Key:</h4>
@@ -33,21 +45,9 @@
 	</div>
 	<div class="col-xs-6">
 		<button class="btn btn-success pull-right" type="button" ng-click="addNewData(form)" ng-disabled="myForm.$invalid" ng-if="hasCreateActorDataPermission ">Create New Actor Data</button>
-	</div>
-</form>
-<br/>
-<div ng-init="init()">
-    <div class="col-xs-12">
-        <h4 class="col-xs-2">Select A Game:</h4>
-          <select class="col-xs-8" ng-options="game.name for game in games | orderBy: 'name'" ng-model="select.game" required />
-          <button class="col-xs-2" class="btn btn-success pull-left" type="button" ng-click="loadData(select.game)">Load Data For Game </button>
-      </div>
-</div>
-<div class="col-xs-12">
-  <div class="col-xs-2 col-xs-offset-5">
-    <button class="btn btn-success" type="button" ng-click="addData()" ng-if="hasCreateActorDataPermission">Create New Actor Data</button>
   </div>
-</div>
+  <br/>
+</form>
 <table class="table table-bordered table-hover" ng-if="hasGetActorDataPermission">
 	<tr class="listitem">
 		<th style="width: 30%"></th>
