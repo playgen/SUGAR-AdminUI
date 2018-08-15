@@ -1,13 +1,13 @@
 <div ng-init="init()">
   <div class="col-xs-12">
     <h4 class="col-xs-2">Select a User:</h4>
-      <select class="col-xs-8" ng-options="user.name for user in users" ng-model="select.user" required />
+      <select class="col-xs-8" ng-options="user.name for user in users | orderBy: 'name'" ng-model="select.user" required />
       <button class="col-xs-2 btn btn-success pull-left" type="button" ng-click="loadActorData(select.user)">Load User's Resources </button>
     </span>
   </div>
   <div class="col-xs-12">
     <h4 class="col-xs-2">Select a group:</h4>
-      <select class="col-xs-8" ng-options="group.name for group in groups" ng-model="select.group" required />
+      <select class="col-xs-8" ng-options="group.name for group in groups | orderBy: 'name'" ng-model="select.group" required />
       <button class="col-xs-2 btn btn-success pull-left" type="button" ng-click="loadActorData(select.group)">Load Group's Resources </button>
   </div>
 </div>
@@ -19,12 +19,19 @@
 <div>
     <table class="table" ng-if="hasGetResourcePermission">
       <tr ng-if="items.length > 0">
-          <th style="width: 25%"><b>Key</b></th>
-          <th style="width: 25%"><b>Quantity</b></th>
+          <th class="col-xs-4"><b>Key</b></th>
+          <th class="col-xs-4"><b>Quantity</b></th>
+          <th class="col-xs-4"><b ng-show="hasCreateResourcePermission">Update</b></th>
       </tr>
       <tr class="listitem" ng-repeat="item in items | orderBy: 'Name' | limitTo:pagination.perPage:((pagination.currentPage - 1) * pagination.perPage)">
         <td>{{item.key}}</td>
         <td>{{item.quantity}}</td>
+        <td>
+          <span>
+            <input style="width: 50px;" type="number" placeholder="0" ng-model="item.addAmount" ng-if="hasCreateResourcePermission">
+            <button class="btn btn-success" type="button" ng-click="addResource(item)" ng-if="hasCreateResourcePermission">Update</button>
+          </span>
+        </td>
       </tr>
     </table>
 </div>

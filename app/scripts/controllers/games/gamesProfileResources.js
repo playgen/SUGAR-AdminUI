@@ -52,11 +52,28 @@ angular.module('sgaAdminApp').controller('GamesProfileResourcesCtrl', [
 			});
     }
 
+    $scope.addResource = function(item) {
+      var resource = {};
+      resource.key = item.key;
+      resource.quantity = item.addAmount;
+      resource.gameId = item.gameId;
+      resource.actorId = item.actorId;
+
+      ResourcesApi['resources'].update(resource).then(function(res) {
+        if (res.status === 200 && res.data['response'].actorId != null)
+        {
+          item.addAmount = 0;
+          item.quantity = res.data['response'].quantity;
+        }
+      });
+    }
+
 		$scope.addNew = function() {
 			return modalManager.open('createResource', {
 				itemId: $scope.itemId
 			});
-		}
+    }
+
 		$scope.back = function() {
 			//go back to resources games list
 			$location.path("/resources/" + $scope.itemId);
