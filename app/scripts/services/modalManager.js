@@ -114,10 +114,6 @@ angular.module('sgaAdminApp')
 				temp: 'createLeaderboardModal.html',
 				cont: 'CreateLeaderboardModalCtrl'
 			},
-			'createResource': {
-				temp: 'createResourceModal.html',
-				cont: 'CreateResourceModalCtrl'
-			},
 			'createRole': {
 				temp: 'createRoleModal.html',
 				cont: 'CreateRoleModalCtrl'

@@ -16,9 +16,45 @@
     <button class="btn btn-success" type="button" ng-click="addNew()" ng-if="hasCreateResourcePermission">Add New Resource</button>
   </div>
 </div>
+<form class="form-horizontal" name="myForm" ng-if="CreateNew" background-color="#ccc">
+  <div class="form-group">
+    <h4 for="inputName" class="col-xs-2 control-label">Key:</h4>
+    <div class="col-xs-10">
+      <input type="text" placeholder="Resource Key" class="form-control" ng-model="form.key" required/>
+    </div>
+  </div>
+  <div class="form-group">
+    <h4 for="inputName"  class="col-xs-2 control-label">Actor Type:</h4>
+    <div class="col-xs-10">
+      <select class="form-control" ng-model="form.actorType" required>
+        <option value="user">User</option>
+        <option value="group">Group</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <h4 for="inputName" class="col-xs-2 control-label">Actor Name:</h4>
+    <div class="col-xs-10">
+      <input type="text" placeholder="Actor Name" class="form-control" ng-model="form.actorName" required/>
+    </div>
+  </div>
+  <div class="form-group">
+    <h4 for="inputName" class="col-xs-2 control-label">Quantity:</h4>
+    <div class="col-xs-10">
+      <input type="number" placeholder="0" class="form-control" ng-model="form.quantity" required/>
+    </div>
+  </div>
+  <div class="col-xs-6">
+    <button class="btn btn-danger pull-left" type="button" ng-click="cancel()">Cancel</button>
+  </div>
+  <div class="col-xs-6">
+    <button class="btn btn-success pull-right" type="button" ng-click="save(form)" ng-disabled="myForm.$invalid" ng-if="hasCreateResourcePermission ">Add Resource</button>
+  </div>
+  <br/>
+</form>
 <div>
-    <table class="table" ng-if="hasGetResourcePermission">
-      <tr ng-if="items.length > 0">
+    <table class="table" ng-if="hasGetResourcePermission && items.length > 0">
+      <tr>
           <th class="col-xs-4"><b>Key</b></th>
           <th class="col-xs-4"><b>Quantity</b></th>
           <th class="col-xs-4"><b ng-show="hasCreateResourcePermission">Update</b></th>
@@ -41,47 +77,3 @@
 		<uib-pagination total-items="items.length" ng-model="pagination.currentPage" max-size="pagination.perPage" class="pagination-sm" boundary-links="true"></uib-pagination>
 	</div>
 </contentFooter>
-
-<!-- Create a new resource  -->
-
-<script type="text/ng-template" id="createResourceModal.html">
-  <form name="myForm">
-	<div class="modal-header">
-		<h3 class="modal-title">Create new Resource</h3>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-xs-3"><label>Key</label></div>
-			<div class="col-xs-9">
-				<input type="text" placeholder="Resource Name" class="form-control" ng-model="item.key" required/>
-			</div>
-    </div>
-    <div class="row">
-      <div class="col-xs-3"><label>Actor Type</label></div>
-      <div class="col-xs-9">
-        <select class="form-control" ng-model="item.actorType" required>
-          <option value="user">User</option>
-          <option value="group">Group</option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-3"><label>Actor Name</label></div>
-      <div class="col-xs-9">
-        <input type="text" placeholder="Actor Name" class="form-control" ng-model="item.actorName" required/>
-      </div>
-    </div>
-		<div class="row">
-			<div class="col-xs-3"><label>Quantity</label></div>
-			<div class="col-xs-9">
-				<input type="number" placeholder="0" class="form-control" ng-model="item.quantity" required/>
-			</div>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-danger pull-left" type="button" ng-click="close()"><i class="fa fa-times"></i> Close</button>
-		<button class="btn btn-success" type="button" ng-click="save()" ng-disabled="myForm.$invalid"><i class="fa fa-save"></i> Add</button>
-	</div>
-  <br/>
-  </form>
-</script>
