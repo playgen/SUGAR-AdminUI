@@ -51,12 +51,12 @@
 <div ng-init="init()">
     <div class="col-xs-12">
     <h4 class="col-xs-2">Select a User:</h4>
-      <select class="col-xs-8" ng-options="user.name for user in users" ng-model="select.user" required />
+      <select class="col-xs-8" ng-options="user.name for user in users | orderBy: 'name'" ng-model="select.user" required />
       <button class="col-xs-2 btn btn-success pull-left" type="button" ng-click="loadUserData(select.user)">Load User data For Game </button>
   </div>
   <div class="col-xs-12">
     <h4 class="col-xs-2">Select a group:</h4>
-      <select class="col-xs-8" ng-options="group.name for group in groups" ng-model="select.group" required />
+      <select class="col-xs-8" ng-options="group.name for group in groups | orderBy: 'name'" ng-model="select.group" required />
       <button class="col-xs-2 btn btn-success pull-left" type="button" ng-click="loadGroupData(select.group)">Load Group data For Game </button>
   </div>
 </div>

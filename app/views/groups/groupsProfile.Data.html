@@ -42,7 +42,7 @@
 <div ng-init="init()">
     <h4 class="col-xs-4 control-label">Select A Game:</h4>
     <div class="col-xs-4">
-      <select ng-options="game.name for game in games" ng-model="select.game" required />
+      <select ng-options="game.name for game in games | orderBy: 'name'" ng-model="select.game" required />
     </div>
     <div class="col-xs-4">
       <button class="btn btn-success pull-left" type="button" ng-click="loadData(select.game)">Load Data For Game </button>

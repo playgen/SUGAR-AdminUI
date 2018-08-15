@@ -12,7 +12,7 @@
 	<!-- Now show the accepted friends -->
     <tr class="listitem" ng-repeat="item in items | orderBy: 'name' | limitTo:pagination.perPage:pagination.perPage * (pagination.currentPage-1)" ng-class="['', 'info'][(itemid == item[config.display.individualId])*1]">
     	<td></td>
-        <td><a ng-click="viewMemberProfile(item)"><i class="fa fa-user"/> {{item.name}}</td>
+        <td><a ng-click="viewMemberProfile(item)">{{item.name}}</td>
         <!-- TODO add all roles the player has of this group -->
 		<td ng-if="hasGetRolePermission">
 			<span>{{item.role}}</span>
