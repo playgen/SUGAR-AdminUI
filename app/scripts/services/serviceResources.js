@@ -27,7 +27,10 @@ angular.module('sgaAdminApp').service('ResourcesApi', [
 				},
 				listActorGlobalResources: function(id){
 					return $http.get(config.api.baseurl + '/resource/' + id + '/global');
-				},
+        },
+        listActors: function(id){
+          return $http.get(config.api.baseurl + '/resource/gameactors/' + id);
+        },
 				get: function(id) {
 					return $http.get(config.api.baseurl + '/game/findbyid/' + id);
 				},

@@ -5,7 +5,7 @@
 		</div>
 	</div>
 	<div class="col-xs-12" ng-if="!roleFound">
-	    <h3><span>Cannot display role, no role found with ID:- </span>{{itemId}}<span></span></h3>
+	    <h3><span>Cannot display role, no role found with ID: </span>{{itemId}}<span></span></h3>
 	</div>
 
 	<div class="col-xs-12" ng-if="roleFound">
@@ -13,7 +13,7 @@
 		<h4><span>Below are the list of roles that this role has access to</span></h4>
 	</div>
 </contentHeader>
-<contentMain>	
+<contentMain>
 	<div ng-init="init()" ng-if="roleFound" >
 		<table class="table table-bordered table-hover" ng-if="hasGetListPermission">
 			<tr class="listitem">

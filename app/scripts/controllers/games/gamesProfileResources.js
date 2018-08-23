@@ -25,16 +25,23 @@ angular.module('sgaAdminApp').controller('GamesProfileResourcesCtrl', [
 		};
     $scope.init = function()
     {
-      GroupsApi['groups'].list().then(function(res){
+      ResourcesApi['games'].listActors($scope.itemId).then(function(res){
         if (res.status === 200 && res.data['response'] != null)
         {
-          $scope.groups = res.data['response'];
-        }
-      });
-      UsersApi['users'].list().then(function(res){
-        if (res.status === 200 && res.data['response'] != null)
-        {
-          $scope.users = res.data['response'];
+          $scope.users = [];
+          $scope.groups = [];
+          var data = res.data['response'];
+          for (var i=0; i<data.length; i++)
+          {
+            if (data[i].actorType == 'User')
+            {
+              $scope.users.push(data[i]);
+            }
+            else if (data[i].actorType == 'Group')
+            {
+              $scope.groups.push(data[i]);
+            }
+          }
         }
       });
     }

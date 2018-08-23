@@ -21,7 +21,7 @@ angular.module('sgaAdminApp').service('GamesApi', [
 				},
 				getByName: function(name) {
 					return $http.get(config.api.baseurl + '/game/find/' + name);
-				},
+        },
 				create: function(item) {
 					return $http.post(config.api.baseurl + '/game', item);
         },
@@ -42,6 +42,11 @@ angular.module('sgaAdminApp').service('GamesApi', [
 				update: function(item) {
 					return $http.put(config.api.baseurl + '/gamedata', item);
 				}
+      },
+      'actors': {
+        list: function(id){
+          return $http.get(config.api.baseurl + '/gamedata/gameactors/' + id);
+        }
       }
     };
 	}

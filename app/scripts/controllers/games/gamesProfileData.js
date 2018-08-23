@@ -20,22 +20,29 @@ angular.module('sgaAdminApp').controller('GamesProfileDataCtrl', [
 			$scope.EditButtonText.push("Edit");
 			// End testing purposes
 
-      GroupsApi['groups'].list().then(function(res){
+      GamesApi['actors'].list($scope.itemId).then(function(res){
         if (res.status === 200 && res.data['response'] != null)
         {
-          $scope.groups = res.data['response'];
-        }
-      });
-      UsersApi['users'].list().then(function(res){
-        if (res.status === 200 && res.data['response'] != null)
-        {
-          $scope.users = res.data['response'];
+          $scope.users = [];
+          $scope.groups = [];
+          var data = res.data['response'];
+          for (var i=0; i<data.length; i++)
+          {
+            if (data[i].actorType == 'User')
+            {
+              $scope.users.push(data[i]);
+            }
+            else if (data[i].actorType == 'Group')
+            {
+              $scope.groups.push(data[i]);
+            }
+          }
         }
       });
     }
     $scope.loadUserData = function(user)
     {
-      GroupsApi['data'].list(user.id, $scope.itemId).then(function(res){
+      UsersApi['data'].list(user.id, $scope.itemId).then(function(res){
 				if (res.status === 200 && res.data['response'] != null)
 				{
 					$scope.datas = res.data['response'];
