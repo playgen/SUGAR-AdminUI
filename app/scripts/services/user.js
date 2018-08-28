@@ -16,7 +16,7 @@ angular.module('sgaAdminApp').factory('User', [
         return $http.post(config.api.baseurl + "/loginplatform", item);
 			},
 			register: function(item) {
-				return $http.post(config.api.baseurl + '/register', item);
+				return $http.post(config.api.baseurl + '/createandloginplatform', item);
 			}
 		};
 	}
