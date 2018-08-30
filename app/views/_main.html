@@ -13,6 +13,18 @@
 			<div class="box-body">
 				<h4>
           Welcome to the SUGAR Admin panel!
+          <br/>
+          <br/>
+          To get started, create a game below
+          <br>
+          <br>
+          <button ng-if="!newGame" type="button" class="col-xs-4 col-xs-offset-4 btn btn-success" ng-click="showNewGame()">Create New Game</button>
+          <div ng-if="newGame">
+            <form name="createForm" ng-submit="create()">
+              <input class="col-xs-9" type="text" class="form-control" placeholder="Game Name" ng-model="form.Name" required>
+            </form>
+    				<button type="button" class="btn btn-success col-xs-2 col-xs-offset-1" ng-click="create(form)" ng-disabled="createForm.$invalid">Create Game</button>
+          </div>
 				</h4>
 			</div>
 		</div>

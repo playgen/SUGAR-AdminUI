@@ -20,36 +20,39 @@ angular.module('sgaAdminApp').controller('LoginCtrl', [
     Auth.set(config.tokens.apiVersion, config.api.version);
 		$scope.permissionService = permissionService;
 
-		return $scope.login = function() {
-      User.login($scope.user);
-      User.login($scope.user);
-      User.login($scope.user);
+		$scope.login = function() {
 			return User.login($scope.user).then(function(res) {
 				var ref, returnPath;
 				if (res.status === 200 && res.data != null) {
-
-					var claims = [];
-					var id = res.data['response']['user'].id;
-
-					ipCookie("userId", id);
-					$scope.permissionService.get(id).then(function() {
-
-						// returnPath = $location.search()["return"];
-						// if (returnPath != null) {
-						// 	$location.search('return', null);
-						// 	return $location.path(returnPath);
-						// } else {
-						 	return $location.path('/');
-						// }
-					});
-					//TODO dont let players with no permissions login - error
+          $scope.loggedIn(res.data);
 				}
 			}).catch(function(res) {
-				if (res.status === -1) {
 					$scope.loginFail = true;
 					var name = false;
-				}
-			});;
-		};
+			});
+    };
+
+    $scope.register = function() {
+      return User.register($scope.user).then(function(res){
+        if (res.status === 200 && res.data != null) {
+          $scope.loggedIn(res.data);
+        }
+      }).catch(function(res){
+        $scope.loginFail = true;
+        var name = false;
+      });
+    };
+
+    $scope.loggedIn = function(data) {
+      var claims = [];
+      var id = data['response']['user'].id;
+
+      ipCookie("userId", id);
+      var roleRequest = {};
+
+      $scope.permissionService.get(id).then(function() {
+        return $location.path('/');
+      });
+    };
 	}
 ]);

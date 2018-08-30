@@ -8,6 +8,29 @@
   * # MainCtrl
   * Controller of the sgaAdminApp
  */
-angular.module('sgaAdminApp').controller('MainCtrl', ['config', 'Auth', function(config, Auth) {
+angular.module('sgaAdminApp').controller('MainCtrl', [
+  'config', 'Auth', '$scope', 'GamesApi', '$location',
+   function(config, Auth, $scope, GamesApi, $location) {
   Auth.set(config.tokens.apiVersion, config.api.version);
+
+  $scope.newGame = false;
+
+  $scope.showNewGame = function()
+  {
+    $scope.newGame = true;
+  }
+
+  $scope.create = function(data)
+  {
+    var gameData = {};
+    gameData.name = data.Name;
+    GamesApi['games'].create(gameData).then(function(res){
+      if (res.status === 200)
+      {
+        var path = "/games/" + res['data']['response'].id + "/details";
+        $location.path(path);
+      }
+      data.name = "";
+    });
+  }
 }]);
